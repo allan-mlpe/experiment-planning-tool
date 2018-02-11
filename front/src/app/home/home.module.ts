@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { BannerComponent } from './banner/banner.component';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing.module';
+import { LayoutsModule } from '../shared/layouts/layouts.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    LayoutsModule
   ],
   declarations: [BannerComponent, HomeComponent]
 })
