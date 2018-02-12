@@ -1,3 +1,25 @@
-<p>
-  create-project works!
-</p>
+<h3>New Project</h3>
+
+<div class="row">
+  <form action="">
+    <div class="row">
+      <div class="input-field col s12">
+        <input type="text" class="validate">
+        <label>Project Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea class="materialize-textarea validate"></textarea>
+        <label>Experiment Description</label>
+      </div>
+    </div>
+    <div class="row right">
+      <a class="waves-effect waves-light btn" (click)="saveProject()">
+        <i class="material-icons right">save</i>Save
+      </a>
+    </div>
+  </form>
+</div>
+
+<app-confirm-modal></app-confirm-modal>
