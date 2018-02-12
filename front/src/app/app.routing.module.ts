@@ -14,6 +14,10 @@ const appRoutes: Routes = [
   {
     path: 'workspace',
     loadChildren: 'app/workspace/workspace.module#WorkspaceModule'
+  },
+  {
+    path: 'projects',
+    loadChildren: 'app/projects/projects.module#ProjectsModule'
   }
 ]
 
