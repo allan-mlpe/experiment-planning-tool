@@ -8,8 +8,7 @@ const loginRoute: Routes = [
     { 
         path: '', component: BlankLayoutComponent, 
         children: [
-            { path: '', component: HomeComponent },
-            { path: 'home', component: HomeComponent}
+            { path: '', component: HomeComponent }
         ]
     }
 ];
