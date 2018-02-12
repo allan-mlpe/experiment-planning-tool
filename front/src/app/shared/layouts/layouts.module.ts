@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @NgModule({
   imports: [
@@ -19,14 +20,16 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
     BlankLayoutComponent,
     NavbarComponent,
     FooterComponent,
-    SidebarComponent
+    SidebarComponent,
+    ConfirmModalComponent
   ],
   exports: [
     BlankLayoutComponent,
     BasicLayoutComponent,
     NavbarComponent,
     FooterComponent,
-    SidebarComponent
+    SidebarComponent,
+    ConfirmModalComponent
   ]
 })
 export class LayoutsModule { }
