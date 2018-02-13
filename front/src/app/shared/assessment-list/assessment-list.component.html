@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col s12">
+    <form>
+      <p class="range-field" *ngFor="let property of propertyList" >
+        {{ property.name }}
+        <input type="range" name="field" [min]="minimum" [max]="maximum" [(ngModel)]="property.value">
+      </p>
+    </form>
+  </div>
+</div>

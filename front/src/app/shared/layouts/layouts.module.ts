@@ -9,6 +9,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { BasicFooterComponent } from '../basic-footer/basic-footer.component';
+import { AssessmentListComponent } from '../assessment-list/assessment-list.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { BasicFooterComponent } from '../basic-footer/basic-footer.component';
     FooterComponent,
     SidebarComponent,
     ConfirmModalComponent,
-    BasicFooterComponent
+    BasicFooterComponent,
+    AssessmentListComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -32,7 +34,8 @@ import { BasicFooterComponent } from '../basic-footer/basic-footer.component';
     FooterComponent,
     SidebarComponent,
     ConfirmModalComponent,
-    BasicFooterComponent
+    BasicFooterComponent,
+    AssessmentListComponent
   ]
 })
 export class LayoutsModule { }
