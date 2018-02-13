@@ -10,6 +10,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { BasicFooterComponent } from '../basic-footer/basic-footer.component';
 import { AssessmentListComponent } from '../assessment-list/assessment-list.component';
+import { CheckboxListComponent } from '../checkbox-list/checkbox-list.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { AssessmentListComponent } from '../assessment-list/assessment-list.comp
     SidebarComponent,
     ConfirmModalComponent,
     BasicFooterComponent,
-    AssessmentListComponent
+    AssessmentListComponent,
+    CheckboxListComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -35,7 +37,8 @@ import { AssessmentListComponent } from '../assessment-list/assessment-list.comp
     SidebarComponent,
     ConfirmModalComponent,
     BasicFooterComponent,
-    AssessmentListComponent
+    AssessmentListComponent,
+    CheckboxListComponent
   ]
 })
 export class LayoutsModule { }
