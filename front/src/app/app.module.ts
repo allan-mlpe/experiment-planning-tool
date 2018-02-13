@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
-import { AuthGuardGuard } from './guards/auth-guard.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { AuthGuardGuard } from './guards/auth-guard.guard';
     AppRoutingModule
   ],
   providers: [
-    AuthGuardGuard
+    AuthGuard,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

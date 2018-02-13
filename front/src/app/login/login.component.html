@@ -3,27 +3,29 @@
       <h3 class="header">Login</h3>
   </div>
 </div>
-  
-<div class="row">
-  <div class="input-field col s4 offset-s4">
-    <input id="usuario" type="text" class="validate" [(ngModel)]="usuario.nome">
-    <label for="usuario">Usuário</label>
-  </div>
-</div>
 
 <div class="row">
-  <div class="input-field col s4 offset-s4">
-    <input id="password" type="password" class="validate" [(ngModel)]="usuario.senha">
-    <label for="password">Senha</label>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col s4 offset-s4">
-    <button class="btn waves-effect waves-light right" 
-      type="submit" name="action" (click)="doLogin()">
-        Login
-        <i class="material-icons right">send</i>
-    </button>
-  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="input-field col s4 offset-s4">
+        <input id="usuario" type="text" class="validate" formControlName="login">
+        <label for="usuario">Usuário</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s4 offset-s4">
+        <input id="password" type="password" class="validate" formControlName="password">
+        <label for="password">Senha</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col s4 offset-s4">
+        <button type="submit" class="btn waves-effect waves-light right">
+            Login <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </form>
 </div>

@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login.routing.module';
 import { LoginComponent } from './login.component';
 import { LayoutsModule } from '../shared/layouts/layouts.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     LoginRoutingModule,
-    LayoutsModule,
-    FormsModule
+    LayoutsModule
   ],
   declarations: [
     LoginComponent
