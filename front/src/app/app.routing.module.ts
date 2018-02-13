@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardGuard } from './guards/auth-guard.guard';
 
 const appRoutes: Routes = [
   {
@@ -13,11 +14,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'workspace',
-    loadChildren: 'app/workspace/workspace.module#WorkspaceModule'
+    loadChildren: 'app/workspace/workspace.module#WorkspaceModule',
+    canActivate: [AuthGuardGuard]
   },
   {
     path: 'projects',
-    loadChildren: 'app/projects/projects.module#ProjectsModule'
+    loadChildren: 'app/projects/projects.module#ProjectsModule',
+    canActivate: [AuthGuardGuard]
   }
 ]
 
