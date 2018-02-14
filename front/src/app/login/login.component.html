@@ -1,31 +1,29 @@
-<div class="row">
-  <div class="col s4 offset-s4">
+<div class="col s12 m10 l4 offset-m1 offset-l4"> 
+  <div class="row">
       <h3 class="header">Login</h3>
   </div>
-</div>
-
-<div class="row">
+  
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row">
-      <div class="input-field col s4 offset-s4">
-        <input id="usuario" type="text" class="validate" formControlName="login">
-        <label for="usuario">Usuário</label>
+      <div class="input-field">
+        <input id="usuario" type="text" formControlName="login" [ngClass]="addClassError('login')">
+        <label for="usuario">Login</label>
+        <app-input-field-error [showError]="showError('login')" [message]="buildErrorMessage('login')"></app-input-field-error>
       </div>
     </div>
     
     <div class="row">
-      <div class="input-field col s4 offset-s4">
-        <input id="password" type="password" class="validate" formControlName="password">
-        <label for="password">Senha</label>
+      <div class="input-field">
+        <input id="password" type="password" formControlName="password" [ngClass]="addClassError('password')">
+        <label for="password">Password</label>
+        <app-input-field-error [showError]="showError('password')" [message]="buildErrorMessage('password')"></app-input-field-error>
       </div>
     </div>
     
     <div class="row">
-      <div class="col s4 offset-s4">
-        <button type="submit" class="btn waves-effect waves-light right">
-            Login <i class="material-icons right">send</i>
-        </button>
-      </div>
+      <button type="submit" class="btn waves-effect waves-light right" [disabled]="form.invalid">
+          Sign in<i class="material-icons right">send</i>
+      </button>
     </div>
   </form>
 </div>

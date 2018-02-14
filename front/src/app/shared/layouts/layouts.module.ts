@@ -11,6 +11,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 import { BasicFooterComponent } from '../basic-footer/basic-footer.component';
 import { AssessmentListComponent } from '../assessment-list/assessment-list.component';
 import { CheckboxListComponent } from '../checkbox-list/checkbox-list.component';
+import { InputFieldErrorComponent } from '../../input-field-error/input-field-error.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { CheckboxListComponent } from '../checkbox-list/checkbox-list.component'
     ConfirmModalComponent,
     BasicFooterComponent,
     AssessmentListComponent,
-    CheckboxListComponent
+    CheckboxListComponent,
+    InputFieldErrorComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -38,7 +40,8 @@ import { CheckboxListComponent } from '../checkbox-list/checkbox-list.component'
     ConfirmModalComponent,
     BasicFooterComponent,
     AssessmentListComponent,
-    CheckboxListComponent
+    CheckboxListComponent,
+    InputFieldErrorComponent
   ]
 })
 export class LayoutsModule { }
