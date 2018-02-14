@@ -11,7 +11,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 import { BasicFooterComponent } from '../basic-footer/basic-footer.component';
 import { AssessmentListComponent } from '../assessment-list/assessment-list.component';
 import { CheckboxListComponent } from '../checkbox-list/checkbox-list.component';
-import { InputFieldErrorComponent } from '../../input-field-error/input-field-error.component';
+import { InputFieldErrorComponent } from '../input-field-error/input-field-error.component';
 
 @NgModule({
   imports: [
