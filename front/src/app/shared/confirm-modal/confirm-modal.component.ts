@@ -45,7 +45,6 @@ export class ConfirmModalComponent implements OnInit {
   }
 
   sendUnconfirmEvent() {
-    console.log('a');
     this.confirm.emit(false);
   }
 }

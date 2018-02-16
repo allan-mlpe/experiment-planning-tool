@@ -38,7 +38,6 @@ export class ProjectsComponent implements OnInit {
     this.confirmModal.openModal();
     let subsc: Subscription = this.confirmModal.confirm.subscribe(
       data => {
-        console.log(data);
         if(data) {
           this.projectService.deleteProject(project);
           this.projects = this.projectService.getProjects();
