@@ -1,0 +1,7 @@
+i.action-icon {
+    cursor: pointer;
+}
+
+i.action-icon:hover {
+    color: #2bbbad;
+}

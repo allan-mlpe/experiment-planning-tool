@@ -1,4 +1,6 @@
-<h3>My Projects</h3>
+<div class="row">
+  <h3>My Projects</h3>
+</div>
 
 <div class="row">
     <a class="waves-effect waves-light btn" [routerLink]="'create'">
@@ -20,11 +22,15 @@
           <td>{{ project.name }}</td>
           <td>{{ project.lastModification }}</td>
           <td>
-            <i class="material-icons" (click)="editProject()">
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open">
+              folder_open
+            </i>
+              
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" (click)="editProject()">
               create
             </i>
             
-            <i class="material-icons" (click)="removeProject()">
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removeProject(project)">
               delete
             </i>
           </td>
@@ -32,3 +38,5 @@
       </tbody>
     </table>
 </div>
+
+<app-confirm-modal></app-confirm-modal>

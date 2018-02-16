@@ -1,25 +1,26 @@
-<h3>New Project</h3>
-
 <div class="row">
-  <form action="">
-    <div class="row">
-      <div class="input-field col s12">
-        <input type="text" class="validate">
-        <label>Project Name</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea class="materialize-textarea validate"></textarea>
-        <label>Experiment Description</label>
-      </div>
-    </div>
-    <div class="row right">
-      <a class="waves-effect waves-light btn" (click)="saveProject()">
-        <i class="material-icons right">save</i>Save
-      </a>
-    </div>
-  </form>
+  <h3>New Project</h3>
 </div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" >
+  <div class="row">
+    <div class="input-field">
+      <input type="text" class="validate" formControlName="name" [ngClass]="addClassError('name')">
+      <label>Project Name</label>
+      <app-input-field-error [showError]="showError('name')" [message]="buildErrorMessage('name')"></app-input-field-error>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field">
+      <textarea class="materialize-textarea validate" formControlName="description"></textarea>
+      <label>Experiment Description</label>
+    </div>
+  </div>
+  <div class="row right">
+    <button type="submit" class="waves-effect waves-light btn">
+      <i class="material-icons right">save</i>Save
+    </button>
+  </div>
+</form>
 
 <app-confirm-modal></app-confirm-modal>

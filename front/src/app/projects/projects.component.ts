@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ProjectService } from '../services/project.service';
+import { Project } from '../model/project';
+import { ConfirmModalComponent } from '../shared/confirm-modal/confirm-modal.component';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-projects',
@@ -7,24 +11,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectsComponent implements OnInit {
 
-  projects: Array<any> = [
-    {
-      name: "My First Project",
-      lastModification: "12/02/2018"
-    }
-  ];
+  @ViewChild(ConfirmModalComponent) confirmModal: ConfirmModalComponent;
 
-  constructor() { }
+  projects: Array<Project>;
+
+  constructor(private projectService: ProjectService) { }
 
   ngOnInit() {
+    /*this.projectService.getProjects().subscribe(
+      (data: Array<Project>) => {
+        this.projects = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );*/
+    this.projects = this.projectService.projects;
   }
 
   editProject() {
     console.log("Edit project");
   }
 
-  removeProject() {
-    console.log("Remove project");
+  removeProject(project: Project) {
+    this.confirmModal.create("Remove Project", `"${project.name}" will be deleted. Are you sure?`);
+    this.confirmModal.openModal();
+    let subsc: Subscription = this.confirmModal.confirm.subscribe(
+      data => {
+        console.log(data);
+        if(data) {
+          this.projectService.deleteProject(project);
+          this.projects = this.projectService.getProjects();
+        }
+        subsc.unsubscribe();
+      }
+    );
   }
 
 }
