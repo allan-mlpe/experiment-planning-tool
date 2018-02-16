@@ -12,12 +12,16 @@ export class ConfirmModalComponent implements OnInit {
   title: string;
   message: string;
 
+  confirm: EventEmitter<boolean> = new EventEmitter();
+
   constructor(private cdr: ChangeDetectorRef) {
     
   }
 
   ngOnInit() {
-    $('.modal').modal();
+    $('.modal').modal({
+      dismissible: false
+    });
   }
 
   create(title: string, message: string) {
@@ -31,7 +35,17 @@ export class ConfirmModalComponent implements OnInit {
   openModal() {
     $('#modal1').modal('open');
   }
+  
   closeModal() {
     $('#modal1').modal('close');
+  }
+
+  sendConfirmEvent() {
+    this.confirm.emit(true);
+  }
+
+  sendUnconfirmEvent() {
+    console.log('a');
+    this.confirm.emit(false);
   }
 }

@@ -1,9 +1,10 @@
-<div id="modal1" class="modal modal-fixed-footer">
+<div id="modal1" class="modal bottom-sheet">
   <div class="modal-content">
     <h4>{{ title }}</h4>
     <p>{{ message }}</p>
   </div>
   <div class="modal-footer">
-    <a class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="sendUnconfirmEvent()">CANCEL</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="sendConfirmEvent()">OK</a>
   </div>
 </div>
