@@ -6,6 +6,9 @@ import { Credentials } from './../model/credentials';
 @Injectable()
 export class AuthService {
 
+  token;
+  lastRequest;
+
   private userAuthenticated: boolean = false;
 
   constructor() { }
