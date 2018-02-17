@@ -26,7 +26,7 @@ export class ProjectsComponent implements OnInit {
         console.log(error);
       }
     );*/
-    this.projects = this.projectService.projects;
+    this.projects = this.projectService.getProjects();
   }
 
   editProject() {
