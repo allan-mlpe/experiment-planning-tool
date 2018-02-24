@@ -15,4 +15,8 @@ export class WorkspaceComponent implements OnInit {
     $('ul.tabs').tabs();
   }
 
+  setThreats(event) {
+    console.log(event);
+  }
+
 }
