@@ -2,9 +2,11 @@
   <div class="col s12">
     <form>
       <p *ngFor="let property of propertyList; let i= index" >
-        <input type="checkbox" class="filled-in" [id]="'property'+i" />
-        <label [for]="'property'+i">{{ property.name }}</label>
+        <input type="checkbox" class="filled-in" [id]="property.id" [checked]="isSelected(property)" (change)="updateSelectedList(property, $event.target)"/>
+        <label [for]="property.id">{{ property.name }}</label>
       </p>
+
+      <button class="btn waves-effect waves-light right" (click)="emitSelecteds()">Send</button>
     </form>
   </div>
 </div>
