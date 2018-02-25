@@ -1,0 +1,22 @@
+<div class="col s12">
+  <form #form="ngForm" (ngSubmit)="emitForm(form)">
+    <div class="row" *ngFor="let property of propertyList; let i= index">
+      <p class="col s12 m12 l12">{{ (i + 1) + '. ' + property.text }}</p>
+
+      <span class="col s12 m6 l4" *ngFor="let option of options; let q = index">
+        <input class="with-gap" type="radio" required [(ngModel)]="property.value"
+          [name]="'prop-'+property.id" [id]="'prop-'+property.id+'-op-'+option.id" 
+          [value]="option.value" (change)="updateChecked(property, option)" />
+
+        <label [for]="'prop-'+property.id+'-op-'+option.id">{{ option.text }}</label>
+      </span>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <button class="btn waves-effect waves-light right"
+          type="submit" [disabled]="form.invalid">Save</button>
+      </div>
+    </div>
+  </form>
+</div>

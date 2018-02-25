@@ -12,6 +12,8 @@ import { BasicFooterComponent } from '../basic-footer/basic-footer.component';
 import { AssessmentListComponent } from '../assessment-list/assessment-list.component';
 import { CheckboxListComponent } from '../checkbox-list/checkbox-list.component';
 import { InputFieldErrorComponent } from '../input-field-error/input-field-error.component';
+import { WizardComponent } from '../wizard/wizard.component';
+import { RadioListComponent } from '../radio-list/radio-list.component';
 
 @NgModule({
   imports: [
@@ -29,7 +31,9 @@ import { InputFieldErrorComponent } from '../input-field-error/input-field-error
     BasicFooterComponent,
     AssessmentListComponent,
     CheckboxListComponent,
-    InputFieldErrorComponent
+    InputFieldErrorComponent,
+    WizardComponent,
+    RadioListComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -41,7 +45,9 @@ import { InputFieldErrorComponent } from '../input-field-error/input-field-error
     BasicFooterComponent,
     AssessmentListComponent,
     CheckboxListComponent,
-    InputFieldErrorComponent
+    InputFieldErrorComponent,
+    WizardComponent,
+    RadioListComponent
   ]
 })
 export class LayoutsModule { }
