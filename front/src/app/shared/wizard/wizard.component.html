@@ -1,0 +1,10 @@
+<!--<ul id="tabs-swipe-demo" class="tabs tabs-fixed-width">
+  <li class="tab col s3"><a href="#test-swipe-1">Characteristics</a></li>
+  <li class="tab col s3"><a href="#test-swipe-2">Related Threats</a></li>
+  <li class="tab col s3"><a href="#test-swipe-3">Related Actions</a></li>
+</ul>-->
+<div class="col s12" *ngFor="let property of propertyList; let i = index"  [id]="'step-'+ property.id">
+  <p>{{ property.text }}</p>
+
+  <div>button</div>
+</div>
