@@ -7,12 +7,13 @@ import { ActionsComponent } from './actions/actions.component';
 import { ThreatsComponent } from './threats/threats.component';
 import { CharacteristicsComponent } from './characteristics/characteristics.component';
 import { ReportsComponent } from './reports/reports.component';
+import { ProjectResolver } from '../guards/project.resolver';
 
 const loginRoute: Routes = [
     { 
         path: '', component: BasicLayoutComponent,
         children: [
-            { path: ':id', component: WorkspaceComponent },
+            { path: ':id', component: WorkspaceComponent, resolve: { project: ProjectResolver} },
             { path: ':id/characteristics', component: CharacteristicsComponent },
             { path: ':id/threats', component: ThreatsComponent},
             { path: ':id/actions', component: ActionsComponent},

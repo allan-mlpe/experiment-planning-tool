@@ -28,6 +28,10 @@ export class ProjectService {
     return this.projects;
   }
 
+  getProjectById(id: number): Project {
+    return this.projects.find(prj => prj.id === id);
+  }
+
   saveProject(project: Project) {
     this.projects.push(project);
   }

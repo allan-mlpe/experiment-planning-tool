@@ -8,6 +8,8 @@ import { ThreatsComponent } from './threats/threats.component';
 import { ActionsComponent } from './actions/actions.component';
 import { ReportsComponent } from './reports/reports.component';
 import { CharacteristicsComponent } from './characteristics/characteristics.component';
+import { ProjectService } from '../services/project.service';
+import { ProjectResolver } from '../guards/project.resolver';
 
 @NgModule({
   imports: [
@@ -22,6 +24,10 @@ import { CharacteristicsComponent } from './characteristics/characteristics.comp
     ActionsComponent,
     ReportsComponent,
     CharacteristicsComponent
+  ],
+  providers: [
+    ProjectService,
+    ProjectResolver
   ]
 })
 export class WorkspaceModule { }

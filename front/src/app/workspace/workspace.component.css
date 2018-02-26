@@ -6,3 +6,7 @@ div.workspace-option {
 div.workspace-option:hover {
     color: #2bbbad;
 }
+
+div.chip * {
+    vertical-align: middle;
+}
