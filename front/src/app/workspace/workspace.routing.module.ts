@@ -12,11 +12,11 @@ const loginRoute: Routes = [
     { 
         path: '', component: BasicLayoutComponent,
         children: [
-            { path: '', component: WorkspaceComponent },
-            { path: 'characteristics', component: CharacteristicsComponent },
-            { path: 'threats', component: ThreatsComponent},
-            { path: 'actions', component: ActionsComponent},
-            { path: 'reports', component: ReportsComponent }
+            { path: ':id', component: WorkspaceComponent },
+            { path: ':id/characteristics', component: CharacteristicsComponent },
+            { path: ':id/threats', component: ThreatsComponent},
+            { path: ':id/actions', component: ActionsComponent},
+            { path: ':id/reports', component: ReportsComponent }
         ] 
     }
 ];

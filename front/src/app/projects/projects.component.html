@@ -22,7 +22,7 @@
           <td>{{ project.name }}</td>
           <td>{{ project.lastModification }}</td>
           <td>
-            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open">
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open" [routerLink]="['/workspace', project.id]">
               folder_open
             </i>
               
