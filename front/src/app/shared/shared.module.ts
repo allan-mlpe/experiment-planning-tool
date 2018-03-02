@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RestService } from '../services/rest.service';
 import { MaterializeModule } from 'angular2-materialize';
+import { ModalService } from '../services/modal.service';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { MaterializeModule } from 'angular2-materialize';
     ReactiveFormsModule
   ],
   providers: [
-    RestService
+    RestService,
+    ModalService
   ]
 })
 export class SharedModule { }
