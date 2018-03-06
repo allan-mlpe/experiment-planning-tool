@@ -4,6 +4,7 @@ import { Project } from '../model/project';
 import { ConfirmModalComponent } from '../shared/confirm-modal/confirm-modal.component';
 import { Subscription } from 'rxjs/Subscription';
 import { ModalService } from '../services/modal.service';
+import { ToastFactory } from '../shared/toast-factory';
 
 @Component({
   selector: 'app-projects',
@@ -39,6 +40,7 @@ export class ProjectsComponent implements OnInit {
           if(data) {
             this.projectService.deleteProject(project);
             this.projects = this.projectService.getProjects();
+            ToastFactory.successToast(`"${project.name}" deleted successfuly.`)
           }
           subsc.unsubscribe();
         }
