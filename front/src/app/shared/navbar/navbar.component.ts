@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 declare var jquery:any;
 declare var $ :any;
 
@@ -8,6 +8,9 @@ declare var $ :any;
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
+  @Input()
+  hasSideBar: boolean;
 
   constructor() { }
 
