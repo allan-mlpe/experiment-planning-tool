@@ -5,13 +5,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { BasicLayoutComponent } from '../shared/layouts/basic-layout/basic-layout.component';
 import { ProjectsComponent } from './projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
+import { CanDeactivateFormGuard } from '../guards/candeactivate-form.guard';
 
 const loginRoute: Routes = [
     { 
         path: '', component: BasicLayoutComponent,
         children: [
             { path: '', component: ProjectsComponent },
-            { path: 'create', component: CreateProjectComponent }
+            { path: 'create', component: CreateProjectComponent, canDeactivate: [CanDeactivateFormGuard] }
         ]
     }
 ];

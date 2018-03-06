@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
+import { CanDeactivateFormGuard } from './guards/candeactivate-form.guard';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AuthService } from './services/auth.service';
   ],
   providers: [
     AuthGuard,
-    AuthService
+    AuthService,
+    CanDeactivateFormGuard
   ],
   bootstrap: [AppComponent]
 })
