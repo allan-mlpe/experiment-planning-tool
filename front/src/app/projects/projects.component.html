@@ -16,20 +16,20 @@
             <th>Actions</th>
         </tr>
       </thead>
-    
+
       <tbody>
         <tr *ngFor="let project of projects" >
           <td>{{ project.name }}</td>
           <td>{{ project.lastModification }}</td>
           <td>
-            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open" [routerLink]="['/workspace', project.id]">
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open" [routerLink]="[project.id, 'workspace']">
               folder_open
             </i>
-              
+
             <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" (click)="editProject()">
               create
             </i>
-            
+
             <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removeProject(project)">
               delete
             </i>

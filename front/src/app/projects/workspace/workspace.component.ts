@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../services/project.service';
-import { Project } from '../model/project';
+import {Project} from "../../model/project";
+import {ProjectService} from "../../services/project.service";
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -18,7 +18,7 @@ export class WorkspaceComponent implements OnInit {
     private projectService: ProjectService,
     private route: ActivatedRoute) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.subscription = this.route.data.subscribe(
       (info: {project: Project}) => {
         console.log(info);
