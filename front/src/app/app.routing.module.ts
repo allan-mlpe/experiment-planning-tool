@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { BlankLayoutComponent } from './shared/layouts/blank-layout/blank-layout.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {ShowLoginGuard} from "./guards/show-login.guard";
 
 const appRoutes: Routes = [
   {
@@ -12,7 +12,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: 'app/login/login.module#LoginModule'
+    loadChildren: 'app/login/login.module#LoginModule',
+    canActivate: [ShowLoginGuard]
   },
   /*{
     path: 'workspace',

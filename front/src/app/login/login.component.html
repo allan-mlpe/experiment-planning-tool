@@ -1,8 +1,8 @@
-<div class="col s12 m10 l4 offset-m1 offset-l4"> 
+<div class="col s12 m10 l4 offset-m1 offset-l4">
   <div class="row">
       <h3 class="header">Login</h3>
   </div>
-  
+
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="input-field">
@@ -11,7 +11,7 @@
         <app-input-field-error [showError]="showError('login')" [message]="buildErrorMessage('login')"></app-input-field-error>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="input-field">
         <input id="password" type="password" formControlName="password" [ngClass]="addClassError('password')">
@@ -19,11 +19,17 @@
         <app-input-field-error [showError]="showError('password')" [message]="buildErrorMessage('password')"></app-input-field-error>
       </div>
     </div>
-    
+
     <div class="row">
       <button type="submit" class="btn waves-effect waves-light right" [disabled]="form.invalid">
           Sign in<i class="material-icons right">send</i>
       </button>
+    </div>
+
+    <div class="row">
+      <div class="right">
+        <a [routerLink]="['recovery']">Forgot my password</a>
+      </div>
     </div>
   </form>
 </div>
