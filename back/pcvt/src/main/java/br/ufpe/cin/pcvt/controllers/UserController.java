@@ -5,6 +5,7 @@ import br.ufpe.cin.pcvt.business.security.PasswordGenerator;
 import br.ufpe.cin.pcvt.data.models.user.User;
 import br.ufpe.cin.pcvt.data.repositories.IUserRepository;
 import br.ufpe.cin.pcvt.data.repositories.RepositoryFactory;
+import br.ufpe.cin.pcvt.exceptions.InvalidCredentialsException;
 import br.ufpe.cin.pcvt.exceptions.UserDeactivatedException;
 import br.ufpe.cin.pcvt.exceptions.UserNotFoundException;
 import br.ufpe.cin.pcvt.exceptions.repositories.users.EmailAlreadyInUseException;
@@ -63,19 +64,16 @@ public class UserController {
 		}
 	}
 
-	public User validateCredentials(String email, String password) throws UserDeactivatedException {
+	public User validateCredentials(String email, String password) throws UserDeactivatedException, UserNotFoundException, InvalidCredentialsException {
 		User user = null;
-		try {
-			user = getByEmail(email);
 
-			if (user.isDeactivated())
-				throw new UserDeactivatedException(email);
+		user = getByEmail(email);
 
-			if (!CryptAgent.checkPassword(password, user.getPassword()))
-				user = null;
-		} catch (UserNotFoundException e) {
-			// Do nothing
-		}
+		if (user.isDeactivated())
+			throw new UserDeactivatedException(email);
+
+		if (!CryptAgent.checkPassword(password, user.getPassword()))
+			throw new InvalidCredentialsException(email);
 
 		return user;
 	}
