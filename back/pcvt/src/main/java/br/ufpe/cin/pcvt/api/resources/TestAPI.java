@@ -1,4 +1,4 @@
-package br.ufpe.cin.pcvt.resources;
+package br.ufpe.cin.pcvt.api.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
