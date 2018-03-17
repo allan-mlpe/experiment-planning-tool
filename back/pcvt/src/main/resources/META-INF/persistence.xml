@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="co.codehaven.reviewer">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+
+		<class>br.ufpe.cin.pcvt.data.models.user.User</class>
+
+		<properties>
+			<!-- JDBC properties -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/reviewer" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="r00t" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+
+			<!-- Hibernate properties -->
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<!-- Disable second-level cache. -->  
+	        <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>  
+			<property name="hibernate.cache.use_query_cache" value="false" />
+			<property name="hibernate.cache.use_second_level_cache" value="false" />
+			
+		</properties>
+	</persistence-unit>
+</persistence>
