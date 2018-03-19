@@ -1,7 +1,8 @@
 package br.ufpe.cin.pcvt.api.models;
 
-import br.ufpe.cin.pcvt.data.models.user.User;
-
+/**
+ * @author Allan Monteiro de Lima (aml3@cin.ufpe.br)
+ */
 public class UserVO {
 
     private String name;
@@ -69,8 +70,5 @@ public class UserVO {
 
     public void setAvailable(Boolean available) {
         isAvailable = available;
-    }
-
-    public static void main(String[] args) {
     }
 }
