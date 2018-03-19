@@ -6,6 +6,7 @@ import br.ufpe.cin.pcvt.api.models.Credentials;
 import br.ufpe.cin.pcvt.api.models.UserVO;
 import br.ufpe.cin.pcvt.controllers.ControllerFactory;
 import br.ufpe.cin.pcvt.controllers.UserController;
+import br.ufpe.cin.pcvt.controllers.UserTokenController;
 import br.ufpe.cin.pcvt.data.models.user.User;
 import br.ufpe.cin.pcvt.exceptions.InvalidCredentialsException;
 import br.ufpe.cin.pcvt.exceptions.UserDeactivatedException;
@@ -13,10 +14,7 @@ import br.ufpe.cin.pcvt.exceptions.UserNotFoundException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -27,6 +25,7 @@ import javax.ws.rs.core.Response;
 public class SsoResource {
 
     private UserController userController = ControllerFactory.createUserController();
+    private UserTokenController userTokenController = ControllerFactory.createUserTokenController();
 
     private static Logger logger = LogManager.getLogger(SsoResource.class.getName());
 
@@ -54,6 +53,29 @@ public class SsoResource {
 
             throw new ApiException(Response.Status.UNAUTHORIZED,
                     message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error");
+        }
+    }
+
+    @POST
+    @Path("recovery")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response recoveryPassword(@FormParam("email") String email) throws ApiException {
+        try {
+            User user = userController.getByEmail(email);
+            userTokenController.createToken(user);
+
+            return Response.noContent().build();
+
+        } catch (UserNotFoundException e) {
+            logger.warn(String.format("USER NOT FOUND for %s", email));
+            throw  new ApiException(Response.Status.NOT_FOUND,
+                    "User not found");
 
         } catch (Exception e) {
             e.printStackTrace();
