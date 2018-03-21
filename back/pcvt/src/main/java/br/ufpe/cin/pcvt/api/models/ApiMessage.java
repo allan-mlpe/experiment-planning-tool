@@ -1,19 +1,19 @@
-package br.ufpe.cin.pcvt.api.exceptions;
+package br.ufpe.cin.pcvt.api.models;
 
 import javax.ws.rs.core.Response.Status;
 
 /**
  * @author Allan Monteiro de Lima (aml3@cin.ufpe.br)
  */
-public class ApiError {
+public class ApiMessage {
 
     private Integer statusCode;
     private String statusText;
     private String message;
 
-    public ApiError() {}
+    public ApiMessage() {}
 
-    public ApiError(Status responseStatus, String message) {
+    public ApiMessage(Status responseStatus, String message) {
         statusCode = responseStatus.getStatusCode();
         statusText = responseStatus.getReasonPhrase();
         this.message = message;
