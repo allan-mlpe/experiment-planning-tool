@@ -16,7 +16,7 @@ public class App {
         holder.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
         holder.setInitParameter(CrossOriginFilter.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*");
         holder.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,PUT,HEAD");
-        holder.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "X-Requested-With,Content-Type,Accept,Origin");
+        holder.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "X-Requested-With,Content-Type,Accept,Origin,X-AUTH-TOKEN");
         holder.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
         holder.setName("cross-origin");
         FilterMapping fm = new FilterMapping();
