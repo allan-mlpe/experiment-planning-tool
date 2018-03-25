@@ -44,18 +44,15 @@ public class SsoResource {
             return Response.ok(userVO).build();
 
         } catch (UserDeactivatedException e) {
-            logger.warn(String.format("DEACTIVATED USER for %s", credentials.getEmail()));
+            logger.warn(e.getMessage());
             throw new ApiException(Response.Status.FORBIDDEN,
-                    "Deactivated user");
+                    e.getMessage());
 
         } catch (UserNotFoundException | InvalidCredentialsException e) {
-            logger.warn(String.format("LOGIN UNSUCCESSFUL for %s", credentials.getEmail()));
-
-            String message = e instanceof UserNotFoundException ?
-                    "User not found" : "Login or password invalid";
+            logger.warn(e.getMessage());
 
             throw new ApiException(Response.Status.UNAUTHORIZED,
-                    message);
+                    e.getMessage());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,9 +73,9 @@ public class SsoResource {
             return Response.noContent().build();
 
         } catch (UserNotFoundException e) {
-            logger.warn(String.format("USER NOT FOUND for %s", email));
+            logger.warn(e.getMessage());
             throw  new ApiException(Response.Status.NOT_FOUND,
-                    "User not found");
+                    e.getMessage());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,7 +103,7 @@ public class SsoResource {
 
         } catch (UserTokenNotFoundException e) {
             throw  new ApiException(Response.Status.BAD_REQUEST,
-                    "Invalid token");
+                    e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
