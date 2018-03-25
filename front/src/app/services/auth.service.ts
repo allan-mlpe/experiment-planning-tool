@@ -24,11 +24,11 @@ export class AuthService {
     return this.userAuthenticated;
   }
 
-  recoveryPassword(formData: FormData): Observable<any> {
+  recoveryPassword(formData: FormData|any): Observable<any> {
     return this.restService.submitFormData('sso/recovery', formData);
   }
 
-  resetPassword(formData: FormData): Observable<any> {
+  resetPassword(formData: FormData|any): Observable<any> {
     return this.restService.submitFormData('sso/resetPassword', formData);
   }
 
