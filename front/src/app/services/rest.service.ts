@@ -29,13 +29,12 @@ export class RestService {
     return this.handleRequestResponse(request);
   }
 
-  public submitFormData(url: string, formData: FormData): Observable<any> {
+  public submitFormData(url: string, formData: FormData|any): Observable<any> {
     const options = this.createRequestOptions({}, this.FORM_CONTENT_TYPE);
 
-    const payload = Object.keys(formData).reduce(
-      (prevVal, key) => `${key}=${formData[key]}&`,'')
-      .replace(/&+$/, '');
-
+    const payload = Object.keys(formData).map(
+      key => `${key}=${formData[key]}`)
+      .join('&');
 
     const request = this.http.post(this.resolve(url), payload, options);
 
@@ -79,7 +78,7 @@ export class RestService {
     if(err.error && err.error.message) {
       message = <ApiMessage> err.error;
     } else {
-      message = new ApiMessage(err.status, 'Unknown error. Try again.', err.statusText);
+      message = new ApiMessage(err.status, 'Unknown error, try again.', err.statusText);
     }
 
     return message;
