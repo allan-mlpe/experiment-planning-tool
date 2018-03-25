@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { ToastFactory } from '../shared/toast-factory';
 import { FormValidateUtils } from '../shared/form-validate-utils';
 import {User} from "../model/user";
+import {ApiMessage} from "../model/pcvt-message";
 
 @Component({
   selector: 'app-login',
@@ -46,11 +47,9 @@ export class LoginComponent implements OnInit {
           this.authService.userAuthenticated = true;
           this.router.navigate(['/projects']);
         },
-        err => {
+        (err: ApiMessage) => {
           console.log(err);
-          if(err.error.message) {
-            ToastFactory.errorToast(err.error.message);
-          }
+          ToastFactory.errorToast(err.message);
         }
       );
 
