@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
 import { Credentials } from './../model/credentials';
+import {RestService} from "./rest.service";
 
 @Injectable()
 export class AuthService {
@@ -9,25 +10,26 @@ export class AuthService {
   token;
   lastRequest;
 
-  private userAuthenticated: boolean = false;
+  userAuthenticated: boolean = false;
 
-  constructor() { }
+  constructor(private restService: RestService) { }
 
-  doLogin(credentials: Credentials): Observable<any>|boolean {
-
-    if(credentials.login === 'user' && credentials.password === '123456') {
-      this.userAuthenticated = true;
-    } else {
-      this.userAuthenticated = false;
-    }
-
-    return this.userAuthenticated;
+  doLogin(credentials: Credentials): Observable<any> {
+    return this.restService.execPost('sso/login', credentials);
   }
 
   doLogout(): Observable<any>|boolean {
     this.userAuthenticated = false;
 
     return this.userAuthenticated;
+  }
+
+  recoveryPassword(formData: FormData): Observable<any> {
+    return this.restService.submitFormData('sso/recovery', formData);
+  }
+
+  resetPassword(formData: FormData): Observable<any> {
+    return this.restService.submitFormData('sso/resetPassword', formData);
   }
 
   isUserAuthenticated(): boolean {

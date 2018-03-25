@@ -5,6 +5,7 @@ import { Credentials } from '../model/credentials';
 import { AuthService } from '../services/auth.service';
 import { ToastFactory } from '../shared/toast-factory';
 import { FormValidateUtils } from '../shared/form-validate-utils';
+import {User} from "../model/user";
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,13 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-      private authService: AuthService, 
+      private authService: AuthService,
       private formBuilder: FormBuilder,
       private router: Router) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      login: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
@@ -34,15 +35,30 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if(this.form.valid) {
-      const login = this.form.get('login').value;
+      const email = this.form.get('email').value;
       const password = this.form.get('password').value;
 
-      this.credentials = new Credentials(login, password);
+      this.credentials = new Credentials(email, password);
 
+      this.authService.doLogin(this.credentials).subscribe(
+        (data: User) => {
+          console.log(data);
+          this.authService.userAuthenticated = true;
+          this.router.navigate(['/projects']);
+        },
+        err => {
+          console.log(err);
+          if(err.error.message) {
+            ToastFactory.errorToast(err.error.message);
+          }
+        }
+      );
+
+      this.router.navigate(['/projects']);
       const result = this.authService.doLogin(this.credentials);
-      
+
       if(result) {
-        this.router.navigate(['/projects']);
+
       } else {
         ToastFactory.errorToast("Login Unsuccessful. Check login and password and try again", 5000);
       }
@@ -58,7 +74,7 @@ export class LoginComponent implements OnInit {
   buildErrorMessage(field: string): string {
     return this.formValidateUtils.buildErrorMessage(field);
   }
-  
+
   addClassError(field: string) {
     let result = this.showError(field);
     return {

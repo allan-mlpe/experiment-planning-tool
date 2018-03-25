@@ -1,130 +1,95 @@
-import { Injectable } from '@angular/core';
-import { Headers, RequestOptions, URLSearchParams, Response, RequestMethod, ResponseContentType } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {catchError, map} from "rxjs/operators";
+import {ApiMessage} from '../model/pcvt-message';
 
 @Injectable()
 export class RestService {
-
-  protected serverUrl: string;
-
+  // constants
   private readonly AUTH_TOKEN_HEADER: string = "X-AUTH-TOKEN";
-  private readonly SERVER_PORT: string = "9000";
+  private readonly SERVER_URL: string = 'http://127.0.0.1:7007/api/';
+  private readonly JSON_CONTENT_TYPE: string = 'application/json';
+  private readonly FORM_CONTENT_TYPE: string = 'application/x-www-form-urlencoded';
 
-  constructor(protected http: HttpClient, private authService: AuthService, private router: Router) {
-      this.serverUrl = `${window.location.origin}/api`;
+  constructor(protected http: HttpClient, private router: Router) {}
+
+  public execGet(url: string, queryParams: any): Observable<any>{
+    const options = this.createRequestOptions(queryParams);
+    let request = this.http.get(this.resolve(url), options);
+
+    return this.handleRequestResponse(request);
   }
 
-  public set token(value: string){
-    this.authService.token = value;
+  public execPost(url: string, data: any): Observable<any> {
+    const options = this.createRequestOptions();
+    let request = this.http.post(this.resolve(url), data, options);
+
+    return this.handleRequestResponse(request);
   }
 
-  public get token(){
-    //return this.authenticationService.token;
-    return '';
+  public submitFormData(url: string, formData: FormData): Observable<any> {
+    const options = this.createRequestOptions({}, this.FORM_CONTENT_TYPE);
+
+    const payload = Object.keys(formData).reduce(
+      (prevVal, key) => `${key}=${formData[key]}&`,'')
+      .replace(/&+$/, '');
+
+
+    const request = this.http.post(this.resolve(url), payload, options);
+
+    return this.handleRequestResponse(request);
+  }
+
+  private createRequestOptions(queryParams = {}, contentType = this.JSON_CONTENT_TYPE): any {
+    const headers: HttpHeaders = new HttpHeaders()
+      .set('Content-Type', contentType)
+      .set(this.AUTH_TOKEN_HEADER, 'MY_TOKEN');
+
+    const params: HttpParams = new HttpParams({
+      fromObject: queryParams
+    });
+
+    const options = {
+      headers: headers,
+      params: params
+    };
+
+    return options;
+  }
+
+  handleRequestResponse(request): Observable<any> {
+    return request.pipe(
+      map(res => res),
+      catchError((err) => {
+        throw this.handleError(err);
+      })
+    );
+  }
+
+  handleError(err: any): any {
+    // if token is expired
+    if(err.status === 401) {
+      this.router.navigate(['/login']);
+    }
+
+    let message: ApiMessage;
+
+    if(err.error && err.error.message) {
+      message = <ApiMessage> err.error;
+    } else {
+      message = new ApiMessage(err.status, 'Unknown error. Try again.', err.statusText);
+    }
+
+    return message;
   }
 
   protected resolve(path: string): string {
-    //return this.serverUrl + '/' + path;
-    return path;
-  }
-
-  protected extract = (res: Response) => {
-      let body;
-      try {
-          body = res.json();
-      } catch(e) {
-          body = {};
-      }
-      
-      return body;
-  }
-
-  protected createRequestOptions(queryString?: any): any {
-      var options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
-
-      if(queryString){
-          options.params = this.createSearchParams(queryString);
-
-      }
-      if(this.authService.isUserAuthenticated){
-          options.headers.append(this.AUTH_TOKEN_HEADER, this.authService.token);
-      }
-      return options;
-  }
-
-  protected createSearchParams(urlParams: any): URLSearchParams{
-      let urlSearchParams = new URLSearchParams();
-
-      for (let key in urlParams) {
-          urlSearchParams.append(key, urlParams[key]);
-      }
-
-      return urlSearchParams;
-  }
-
-  getHeaders() {
-     return new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'my-auth-token'
-    })
-  }
-
-  public get(url: string, queryString?: any, data?: any): Observable<any> {
-      var options = this.createRequestOptions(queryString);
-      options.body = JSON.stringify(data || {});
-      var response = this.http.get(this.resolve(url), options);
-      this.authService.lastRequest = new Date();
-      return response;
+    return this.SERVER_URL + path;
   }
 
   /*
-  public post<TResponse>(url: string, queryString?: any, data?: any): Observable<TResponse> {
-      var options = this.createRequestOptions(queryString);
-      var response = this.http.post(this.resolve(url), JSON.stringify(data || {}) , options);
-      this.authService.lastRequest = new Date();
-      return response.map(this.extract).catch(x => {
-          if (JSON.parse(x._body).systemCode === 495) {
-              this.authService.doLogout();
-              this.router.navigate(['login']);
-          } else if (x.status === 401) {
-              this.authService.doLogout();
-              this.router.navigate(['login', 'expired']);
-          }
-          return response;
-      });
-  }
-
-  public put<TResponse>(url: string, queryString?: any, data?: any): Observable<TResponse> {
-      var options = this.createRequestOptions(queryString);
-      var response = this.http.put(this.resolve(url),JSON.stringify(data || {}), options);
-      this.authService.lastRequest = new Date();
-      return response.map(this.extract).catch(x => {
-          if(x.status === 401){
-              this.authService.doLogout();
-              this.router.navigate(['login', 'expired']);
-          }
-
-          return response;
-      });
-  }
-
-  public delete<TResponse>(url: string, queryString?: any, data?: any): Observable<TResponse> {
-      var options = this.createRequestOptions(queryString);
-      options.body = JSON.stringify(data || {});
-      var response = this.http.delete(this.resolve(url),  options);
-      this.authService.lastRequest = new Date();
-      return response.map(this.extract).catch(x => {
-          if(x.status === 401){
-              this.authService.doLogout();
-              this.router.navigate(['login', 'expired']);
-          }
-          return response;
-      });
-  }
-
   public download(url: string, type: string, queryString?: any, data?: any): Observable<any> {
       var options = this.createRequestOptions(queryString);
       options.responseType = ResponseContentType.Blob;

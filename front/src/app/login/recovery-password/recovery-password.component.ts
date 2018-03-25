@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastFactory} from "../../shared/toast-factory";
 import {FormValidateUtils} from "../../shared/form-validate-utils";
 import {AuthService} from "../../services/auth.service";
+import {ApiMessage} from '../../model/pcvt-message';
 
 @Component({
   selector: 'app-recovery-password',
@@ -31,7 +32,15 @@ export class RecoveryPasswordComponent implements OnInit {
 
   onSubmit() {
     if(this.form.valid) {
-      const email = this.form.get('email');
+     this.authService.recoveryPassword(this.form.value).subscribe(
+       data => {
+         console.log(data);
+       },
+       (err: ApiMessage) => {
+         console.log(err);
+         ToastFactory.errorToast(err.message);
+       }
+     );
 
     } else {
       this.formValidateUtils.checkAllFields(this.form);

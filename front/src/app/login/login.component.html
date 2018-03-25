@@ -6,9 +6,9 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="input-field">
-        <input id="usuario" type="text" formControlName="login" [ngClass]="addClassError('login')">
-        <label for="usuario">Login</label>
-        <app-input-field-error [showError]="showError('login')" [message]="buildErrorMessage('login')"></app-input-field-error>
+        <input id="usuario" type="email" formControlName="email" [ngClass]="addClassError('email')">
+        <label for="usuario">Email</label>
+        <app-input-field-error [showError]="showError('email')" [message]="buildErrorMessage('email')"></app-input-field-error>
       </div>
     </div>
 
