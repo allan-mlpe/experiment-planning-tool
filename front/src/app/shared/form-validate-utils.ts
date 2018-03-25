@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import {AbstractControl, FormGroup} from '@angular/forms';
 
 export class FormValidateUtils {
     private form: FormGroup;
@@ -34,10 +34,22 @@ export class FormValidateUtils {
             } else if(errors.minlength) {
                 messages.push('this field must be at least 6 characters');
             } else if(errors.email) {
-                messages.push('insert a valid email')
+                messages.push('insert a valid email');
+            } else if(errors.matchPassword) {
+                messages.push('passwords don\'t match');
             }
         }
 
         return messages.join(', ');
+    }
+
+    static matchPassword(abstractControl: AbstractControl) {
+      let password = abstractControl.get('password').value;
+      let confirmPassword = abstractControl.get('confirmPassword').value;
+      if(password != confirmPassword) {
+        abstractControl.get('confirmPassword').setErrors( {matchPassword: true} )
+      } else {
+        return null
+      }
     }
 }
