@@ -13,8 +13,7 @@ import {ApiMessage} from '../../model/pcvt-message';
 })
 export class RecoveryPasswordComponent implements OnInit {
 
-  formValidateUtils: FormValidateUtils;
-
+  private formValidateUtils: FormValidateUtils;
   form: FormGroup;
 
   constructor(
@@ -34,7 +33,8 @@ export class RecoveryPasswordComponent implements OnInit {
     if(this.form.valid) {
      this.authService.recoveryPassword(this.form.value).subscribe(
        data => {
-         console.log(data);
+         ToastFactory.successToast('Email sent! Check your inbox to reset your password');
+         this.router.navigate(['/']);
        },
        (err: ApiMessage) => {
          console.log(err);
