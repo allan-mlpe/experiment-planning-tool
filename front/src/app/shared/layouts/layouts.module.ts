@@ -14,6 +14,7 @@ import { CheckboxListComponent } from '../checkbox-list/checkbox-list.component'
 import { InputFieldErrorComponent } from '../input-field-error/input-field-error.component';
 import { WizardComponent } from '../wizard/wizard.component';
 import { RadioListComponent } from '../radio-list/radio-list.component';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { RadioListComponent } from '../radio-list/radio-list.component';
     SharedModule
   ],
   declarations: [
-    BasicLayoutComponent, 
+    BasicLayoutComponent,
     BlankLayoutComponent,
     NavbarComponent,
     FooterComponent,
@@ -33,7 +34,8 @@ import { RadioListComponent } from '../radio-list/radio-list.component';
     CheckboxListComponent,
     InputFieldErrorComponent,
     WizardComponent,
-    RadioListComponent
+    RadioListComponent,
+    SpinnerComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -47,7 +49,8 @@ import { RadioListComponent } from '../radio-list/radio-list.component';
     CheckboxListComponent,
     InputFieldErrorComponent,
     WizardComponent,
-    RadioListComponent
+    RadioListComponent,
+    SpinnerComponent
   ]
 })
 export class LayoutsModule { }
