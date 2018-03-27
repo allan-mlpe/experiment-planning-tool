@@ -8,20 +8,19 @@ export class FormValidateUtils {
 
     checkAllFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach(
-          campo => {
-            console.log(campo);
-            const controle = formGroup.get(campo);
-            controle.markAsDirty();
+          field => {
+            const control = formGroup.get(field);
+            control.markAsTouched();
 
-            if(controle instanceof FormGroup) {
-              this.checkAllFields(controle);
+            if(control instanceof FormGroup) {
+              this.checkAllFields(control);
             }
           }
         );
     }
 
     checkInvalidAndTouchedField(field: string): boolean {
-        return this.form.get(field).invalid && (this.form.get(field).touched || this.form.get(field).dirty);
+        return this.form.get(field).invalid && this.form.get(field).touched;
     }
 
     buildErrorMessage(field: string): string {
