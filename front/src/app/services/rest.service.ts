@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {catchError, map} from "rxjs/operators";
+import {catchError, map, timeout} from "rxjs/operators";
 import {ApiMessage} from '../model/pcvt-message';
+import {TimeoutError} from 'rxjs/Rx';
 
 @Injectable()
 export class RestService {
@@ -12,6 +13,7 @@ export class RestService {
   private readonly SERVER_URL: string = 'http://127.0.0.1:7007/api/';
   private readonly JSON_CONTENT_TYPE: string = 'application/json';
   private readonly FORM_CONTENT_TYPE: string = 'application/x-www-form-urlencoded';
+  private readonly REQUEST_TIMEOUT: number = 30000;
 
   constructor(protected http: HttpClient, private router: Router) {}
 
@@ -59,7 +61,9 @@ export class RestService {
   }
 
   handleRequestResponse(request): Observable<any> {
+    const self = this;
     return request.pipe(
+      timeout(self.REQUEST_TIMEOUT),
       map(res => res),
       catchError((err) => {
         throw this.handleError(err);
@@ -77,8 +81,12 @@ export class RestService {
 
     if(err.error && err.error.message) {
       message = <ApiMessage> err.error;
+    } else if(err instanceof TimeoutError) {
+      message = new ApiMessage(408,
+        'The server is taking to long to respond, please try again in sometime',
+        'Timeout');
     } else {
-      message = new ApiMessage(err.status, 'Unknown error, try again.', err.statusText);
+      message = new ApiMessage(err.status, 'Unknown error, try again', err.statusText);
     }
 
     return message;
