@@ -5,8 +5,9 @@ import { Credentials } from '../model/credentials';
 import { AuthService } from '../services/auth.service';
 import { ToastFactory } from '../shared/toast-factory';
 import { FormValidateUtils } from '../shared/form-validate-utils';
-import {User} from "../model/user";
-import {ApiMessage} from "../model/pcvt-message";
+import { User } from '../model/user';
+import { ApiMessage } from '../model/pcvt-message';
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ import {ApiMessage} from "../model/pcvt-message";
 export class LoginComponent implements OnInit {
 
   private credentials: Credentials;
+  loading: boolean = false;
   formValidateUtils: FormValidateUtils;
 
   form: FormGroup;
@@ -36,16 +38,21 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if(this.form.valid) {
+      this.loading = true;
       const email = this.form.get('email').value;
       const password = this.form.get('password').value;
 
       this.credentials = new Credentials(email, password);
 
-      this.authService.doLogin(this.credentials).subscribe(
+      this.authService.doLogin(this.credentials)
+        .finally(() => this.loading = false)
+        .subscribe(
         (data: User) => {
           console.log(data);
           this.authService.userAuthenticated = true;
           this.router.navigate(['/projects']);
+
+          // TODO set token
         },
         (err: ApiMessage) => {
           console.log(err);
@@ -53,14 +60,6 @@ export class LoginComponent implements OnInit {
         }
       );
 
-      this.router.navigate(['/projects']);
-      const result = this.authService.doLogin(this.credentials);
-
-      if(result) {
-
-      } else {
-        ToastFactory.errorToast("Login Unsuccessful. Check login and password and try again", 5000);
-      }
     } else {
       this.formValidateUtils.checkAllFields(this.form);
     }

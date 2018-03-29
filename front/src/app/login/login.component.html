@@ -21,8 +21,13 @@
     </div>
 
     <div class="row">
-      <button type="submit" class="btn waves-effect waves-light right" [disabled]="form.invalid">
-          Sign in<i class="material-icons right">send</i>
+      <button type="submit" class="btn waves-effect waves-light right" [disabled]="form.invalid || loading">
+          Sign in
+        <i class="material-icons right">
+          <span *ngIf="!loading">send</span>
+          <app-spinner *ngIf="loading" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </i>
+
       </button>
     </div>
 
