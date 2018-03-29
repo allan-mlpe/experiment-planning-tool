@@ -18,6 +18,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   private token: string;
   private subsc: Subscription;
   form: FormGroup;
+  loading: boolean = false;
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
@@ -49,6 +50,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if(this.form.valid) {
+      this.loading = true;
+
       const payload = {
         'token': this.token,
         'password': this.form.get('password').value
@@ -56,7 +59,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
       console.log(payload);
 
-      this.authService.resetPassword(payload).subscribe(
+      this.authService.resetPassword(payload)
+        .finally(() => this.loading = false)
+        .subscribe(
         (data: ApiMessage) => {
           ToastFactory.successToast(data.message);
           this.router.navigate(['/login']);
