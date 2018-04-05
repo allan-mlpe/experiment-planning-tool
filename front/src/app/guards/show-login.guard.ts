@@ -23,7 +23,7 @@ export class ShowLoginGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/projects']);
+    this.router.navigate(['/plans']);
     return false;
   }
 }

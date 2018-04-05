@@ -1,4 +1,4 @@
-export class Project {
+export class Plan {
     id: number;
     name: string;
     description: string;
@@ -11,7 +11,7 @@ export class Project {
         this.description = description;
 
         const auxDate = new Date();
-        this.lastModification = `${auxDate.getMonth()+1}/${auxDate.getDate()}/${auxDate.getFullYear()}`;    
+        this.lastModification = `${auxDate.getMonth()+1}/${auxDate.getDate()}/${auxDate.getFullYear()}`;
     }
 
     public setThreatList(threatList: Array<any>): void {

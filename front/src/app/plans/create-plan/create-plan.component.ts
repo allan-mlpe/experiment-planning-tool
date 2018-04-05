@@ -1,23 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormValidateUtils} from '../../shared/form-validate-utils';
 
-import { ConfirmModalComponent } from './../../shared/confirm-modal/confirm-modal.component';
-import { FormValidateUtils } from '../../shared/form-validate-utils';
-
-import { ProjectService } from './../../services/project.service';
-import { Project } from './../../model/project';
-import { Router } from '@angular/router';
-import { ToastFactory } from '../../shared/toast-factory';
-import { IFormCanDeactivate } from './../../guards/Iform-candeactivate';
-import { ModalService } from './../../services/modal.service';
-import { Subscription } from 'rxjs';
+import {PlanService} from '../../services/plan.service';
+import {Plan} from '../../model/plan';
+import {Router} from '@angular/router';
+import {ToastFactory} from '../../shared/toast-factory';
+import {IFormCanDeactivate} from './../../guards/Iform-candeactivate';
+import {ModalService} from './../../services/modal.service';
+import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-create-project',
-  templateUrl: './create-project.component.html',
-  styleUrls: ['./create-project.component.css']
+  selector: 'app-create-plan',
+  templateUrl: './create-plan.component.html',
+  styleUrls: ['./create-plan.component.css']
 })
-export class CreateProjectComponent implements OnInit, IFormCanDeactivate {
+export class CreatePlanComponent implements OnInit, IFormCanDeactivate {
 
   form: FormGroup;
   private formValidateUtils: FormValidateUtils;
@@ -33,12 +31,12 @@ export class CreateProjectComponent implements OnInit, IFormCanDeactivate {
   private hasChanges: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder, 
-    private projectService: ProjectService, 
+    private formBuilder: FormBuilder,
+    private planService: PlanService,
     private router: Router,
     private modalService: ModalService) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['']
@@ -60,13 +58,13 @@ export class CreateProjectComponent implements OnInit, IFormCanDeactivate {
       const name = this.form.get('name').value;
       const description = this.form.get('description').value;
 
-      const project = new Project(name, description);
+      const plan = new Plan(name, description);
 
-      this.projectService.saveProject(project);
+      this.planService.savePlan(plan);
 
-      ToastFactory.successToast("Project created!");
+      ToastFactory.successToast("Plan created!");
 
-      this.router.navigate(['/projects']);
+      this.router.navigate(['/plans']);
 
     } else {
       this.formValidateUtils.checkAllFields(this.form);
@@ -85,7 +83,7 @@ export class CreateProjectComponent implements OnInit, IFormCanDeactivate {
   buildErrorMessage(field: string): string {
     return this.formValidateUtils.buildErrorMessage(field);
   }
-  
+
   addClassError(field: string) {
     let result = this.showError(field);
     return {

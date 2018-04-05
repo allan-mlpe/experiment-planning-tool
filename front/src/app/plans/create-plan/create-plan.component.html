@@ -1,12 +1,12 @@
 <div class="row">
-  <h3>New Project</h3>
+  <h3>New Plan</h3>
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" >
   <div class="row">
     <div class="input-field">
       <input type="text" class="validate" formControlName="name" [ngClass]="addClassError('name')">
-      <label>Project Name</label>
+      <label>Plan Name</label>
       <app-input-field-error [showError]="showError('name')" [message]="buildErrorMessage('name')"></app-input-field-error>
     </div>
   </div>

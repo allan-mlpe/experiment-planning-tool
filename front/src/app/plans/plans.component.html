@@ -1,0 +1,40 @@
+<div class="row">
+  <h3>My Plans</h3>
+</div>
+
+<div class="row">
+    <a class="waves-effect waves-light btn" [routerLink]="'create'">
+      <i class="material-icons right">add</i>New Plan
+    </a>
+</div>
+<div class="row">
+    <table class="highlight">
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>Last Modification</th>
+            <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let plan of plans" >
+          <td>{{ plan.name }}</td>
+          <td>{{ plan.lastModification }}</td>
+          <td>
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open" [routerLink]="[plan.id, 'workspace']">
+              folder_open
+            </i>
+
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" (click)="editPlan()">
+              create
+            </i>
+
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan)">
+              delete
+            </i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

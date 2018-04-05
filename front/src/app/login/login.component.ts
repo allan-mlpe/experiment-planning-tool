@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
         (data: User) => {
           console.log(data);
           this.authService.userAuthenticated = true;
-          this.router.navigate(['/projects']);
+          this.router.navigate(['/plans']);
 
           // TODO set token
         },

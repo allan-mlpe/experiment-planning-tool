@@ -2,13 +2,13 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, ActivatedRoute } from "@angular/router";
 
 import { Observable } from "rxjs/Rx";
-import { Project } from "../model/project";
-import { ProjectService } from "../services/project.service";
+import { Plan } from "../model/plan";
+import { PlanService } from "../services/plan.service";
 
 @Injectable()
-export class ProjectResolver implements Resolve<Project> {
+export class PlanResolver implements Resolve<Plan> {
     constructor(
-        private projectService: ProjectService,
+        private planService: PlanService,
         private route: ActivatedRoute
     ) {}
     resolve(
@@ -17,6 +17,6 @@ export class ProjectResolver implements Resolve<Project> {
         ): Observable<any>|Promise<any>|any {
             let id: number = parseInt(route.params['id']);
 
-            return this.projectService.getProjectById(id);
+            return this.planService.getPlanById(id);
     }
 }
