@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FormValidateUtils} from '../../shared/form-validate-utils';
 
@@ -15,7 +15,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './create-plan.component.html',
   styleUrls: ['./create-plan.component.css']
 })
-export class CreatePlanComponent implements OnInit, IFormCanDeactivate {
+export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   form: FormGroup;
   private formValidateUtils: FormValidateUtils;
@@ -28,7 +28,7 @@ export class CreatePlanComponent implements OnInit, IFormCanDeactivate {
   /**
    * Flag changes in form
    */
-  private hasChanges: boolean = false;
+  private hasUnsavedChanges: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,7 +45,7 @@ export class CreatePlanComponent implements OnInit, IFormCanDeactivate {
     this.formValidateUtils = new FormValidateUtils(this.form);
     this.subsc = this.form.valueChanges.subscribe(
       (data) => {
-        this.hasChanges = true;
+        this.hasUnsavedChanges = true;
 
         // if a change already occurred, it's not necessary to keep the subscribe
         this.subsc.unsubscribe();
@@ -61,6 +61,7 @@ export class CreatePlanComponent implements OnInit, IFormCanDeactivate {
       const plan = new Plan(name, description);
 
       this.planService.savePlan(plan);
+      this.hasUnsavedChanges = false;
 
       ToastFactory.successToast("Plan created!");
 
@@ -92,10 +93,10 @@ export class CreatePlanComponent implements OnInit, IFormCanDeactivate {
   }
 
   canDeactivateForm() {
-    return !this.hasChanges || this.modalService.showUnsaveChangesModal();
+    return !this.hasUnsavedChanges || this.modalService.showUnsaveChangesModal();
   }
 
-  onDestroy() {
+  ngOnDestroy() {
     this.subsc.unsubscribe();
   }
 }
