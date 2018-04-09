@@ -26,6 +26,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'profile',
+    loadChildren: 'app/profile/profile.module#ProfileModule',
+    canActivate: [AuthGuard]
+  },
+  {
     path: '**',
     component: BlankLayoutComponent,
     children: [
