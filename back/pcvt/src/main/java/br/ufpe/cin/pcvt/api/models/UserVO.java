@@ -5,6 +5,7 @@ package br.ufpe.cin.pcvt.api.models;
  */
 public class UserVO {
 
+    private Integer id;
     private String name;
     private String email;
     private String profileLink;
@@ -15,6 +16,14 @@ public class UserVO {
     private Boolean isAvailable;
 
     public UserVO() { }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -48,7 +57,7 @@ public class UserVO {
         this.workArea = workArea;
     }
 
-    public Boolean getAdmin() {
+    public Boolean isAdmin() {
         return isAdmin;
     }
 
@@ -56,7 +65,7 @@ public class UserVO {
         isAdmin = admin;
     }
 
-    public Boolean getCollaborator() {
+    public Boolean isCollaborator() {
         return isCollaborator;
     }
 
@@ -64,7 +73,7 @@ public class UserVO {
         isCollaborator = collaborator;
     }
 
-    public Boolean getAvailable() {
+    public Boolean isAvailable() {
         return isAvailable;
     }
 

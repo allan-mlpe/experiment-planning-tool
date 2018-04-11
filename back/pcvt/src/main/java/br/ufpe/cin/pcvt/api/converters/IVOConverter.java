@@ -5,4 +5,6 @@ package br.ufpe.cin.pcvt.api.converters;
  */
 public interface IVOConverter<A, B> {
     public B convertToVO(A object);
+
+    public A convertFromVO(B object);
 }

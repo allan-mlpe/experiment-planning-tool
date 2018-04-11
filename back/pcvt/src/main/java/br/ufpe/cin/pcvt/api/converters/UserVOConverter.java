@@ -20,6 +20,7 @@ public class UserVOConverter implements IVOConverter<User, UserVO> {
     public UserVO convertToVO(User user) {
         UserVO userVO = new UserVO();
 
+        userVO.setId(user.getId());
         userVO.setName(user.getName());
         userVO.setEmail(user.getEmail());
         userVO.setProfileLink(user.getProfileLink());
@@ -29,5 +30,20 @@ public class UserVOConverter implements IVOConverter<User, UserVO> {
         userVO.setCollaborator(user.isCollaborator());
 
         return userVO;
+    }
+
+    @Override
+    public User convertFromVO(UserVO userVO) {
+        User user = new User();
+
+        user.setId(userVO.getId());
+        user.setName(userVO.getName());
+        user.setProfileLink(userVO.getProfileLink());
+        user.setWorkArea(userVO.getWorkArea());
+        user.setAdmin(userVO.isAdmin());
+        user.setAvailable(userVO.isAvailable());
+        user.setCollaborator(userVO.isCollaborator());
+
+        return user;
     }
 }
