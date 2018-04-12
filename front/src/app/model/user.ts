@@ -3,6 +3,7 @@ export class User {
   email: string;
   profileLink: string;
   workArea: string;
+  institution: string;
 
   isAdmin: boolean;
   isCollaborator: boolean;
