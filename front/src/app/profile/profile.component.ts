@@ -5,6 +5,10 @@ import {IFormCanDeactivate} from "../guards/Iform-candeactivate";
 import {ModalService} from "../services/modal.service";
 import {Subscription} from "rxjs/Rx";
 import {User} from "../model/user";
+import {UserService} from "../services/user.service";
+import {ApiMessage} from "../model/pcvt-message";
+import {ToastFactory} from "../shared/toast-factory";
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'app-profile',
@@ -14,9 +18,9 @@ import {User} from "../model/user";
 export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   loading: boolean = false;
-  formValidateUtils: FormValidateUtils;
   hasUnsavedChanges: boolean = false;
 
+  formValidateUtils: FormValidateUtils;
   form: FormGroup;
 
   /**
@@ -28,7 +32,8 @@ export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   constructor(
     private formBuilder: FormBuilder,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -58,8 +63,24 @@ export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
   }
 
   onSubmit() {
-    console.log(this.form.value);
-    console.log(this.user);
+    if(this.form.valid) {
+      this.loading = true;
+
+      this.userService.updateUser(this.user)
+        .finally(() => this.loading = false)
+        .subscribe(
+          (data: User) => {
+            ToastFactory.successToast('User successfully updated');
+          },
+          (err: ApiMessage) => {
+            console.log(err);
+            ToastFactory.errorToast(err.message);
+          }
+      );
+
+    } else {
+      this.formValidateUtils.checkAllFields(this.form);
+    }
   }
 
   canDeactivateForm() {
