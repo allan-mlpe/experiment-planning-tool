@@ -17,7 +17,7 @@ export class RestService {
 
   constructor(protected http: HttpClient, private router: Router) {}
 
-  public get(url: string, queryParams: any): Observable<any>{
+  public get(url: string, queryParams?: any): Observable<any>{
     const options = this.createRequestOptions(queryParams);
     let request = this.http.get(this.resolve(url), options);
 
@@ -34,6 +34,13 @@ export class RestService {
   public put(url: string, data: any): Observable<any> {
     const options = this.createRequestOptions();
     let request = this.http.put(this.resolve(url), data, options);
+
+    return this.handleRequestResponse(request);
+  }
+
+  public delete(url: string) {
+    const options = this.createRequestOptions();
+    let request = this.http.delete(this.resolve(url), options);
 
     return this.handleRequestResponse(request);
   }
