@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private restService: RestService) { }
 
   doLogin(credentials: Credentials): Observable<any> {
-    return this.restService.execPost('sso/login', credentials);
+    return this.restService.post('sso/login', credentials);
   }
 
   doLogout(): Observable<any>|boolean {

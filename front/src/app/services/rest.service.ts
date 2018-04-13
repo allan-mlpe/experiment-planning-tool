@@ -17,16 +17,23 @@ export class RestService {
 
   constructor(protected http: HttpClient, private router: Router) {}
 
-  public execGet(url: string, queryParams: any): Observable<any>{
+  public get(url: string, queryParams: any): Observable<any>{
     const options = this.createRequestOptions(queryParams);
     let request = this.http.get(this.resolve(url), options);
 
     return this.handleRequestResponse(request);
   }
 
-  public execPost(url: string, data: any): Observable<any> {
+  public post(url: string, data: any): Observable<any> {
     const options = this.createRequestOptions();
     let request = this.http.post(this.resolve(url), data, options);
+
+    return this.handleRequestResponse(request);
+  }
+
+  public put(url: string, data: any): Observable<any> {
+    const options = this.createRequestOptions();
+    let request = this.http.put(this.resolve(url), data, options);
 
     return this.handleRequestResponse(request);
   }
