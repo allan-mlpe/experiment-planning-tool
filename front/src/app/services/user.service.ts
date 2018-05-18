@@ -15,7 +15,7 @@ export class UserService {
     return this.restService.get(this.RESOURCE_PREFIX);
   }
 
-  getUser(userId: string): Observable<any> {
+  getUser(userId: number): Observable<any> {
     return this.restService.get(`${this.RESOURCE_PREFIX}/${userId}`);
   }
 
@@ -27,7 +27,7 @@ export class UserService {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${user.id}`, user);
   }
 
-  deleteUser(userId: string) {
+  deleteUser(userId: number) {
     return this.restService.delete(`${this.RESOURCE_PREFIX}/${userId}`);
   }
 
