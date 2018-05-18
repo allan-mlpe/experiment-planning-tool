@@ -17,10 +17,15 @@ public class HibernateUserRepository implements IUserRepository {
 	
 	@Override
 	public User insert(User user) {
-		JPAHelper.getInstance().beginTransaction();
-		user = dao.create(user);
-		JPAHelper.getInstance().commit();
-		return user;
+		try {
+			JPAHelper.getInstance().beginTransaction();
+			user = dao.create(user);
+			JPAHelper.getInstance().commit();
+			return user;
+		} catch (Exception e) {
+			JPAHelper.getInstance().rollback();
+			throw e;
+		}
 	}
 
 	@Override
@@ -30,19 +35,31 @@ public class HibernateUserRepository implements IUserRepository {
 	}
 
 	@Override
-	public void remove(Integer key) {
-		JPAHelper.getInstance().beginTransaction();
-		User user = dao.retrieve(key);
-		dao.delete(user);
-		JPAHelper.getInstance().commit();
+	public void remove(Integer key) throws UserNotFoundException {
+		try {
+			JPAHelper.getInstance().beginTransaction();
+			User user = dao.retrieve(key);
+			if(user == null)
+				throw new UserNotFoundException(key.toString());
+			dao.delete(user);
+			JPAHelper.getInstance().commit();
+		} catch (Exception e) {
+			JPAHelper.getInstance().rollback();
+			throw e;
+		}
 	}
 
 	@Override
 	public User update(User user) {
-		JPAHelper.getInstance().beginTransaction();
-		user = dao.update(user);
-		JPAHelper.getInstance().commit();
-		return user;
+		try {
+			JPAHelper.getInstance().beginTransaction();
+			user = dao.update(user);
+			JPAHelper.getInstance().commit();
+			return user;
+		} catch (Exception e) {
+			JPAHelper.getInstance().rollback();
+			throw e;
+		}
 	}
 
 	@Override

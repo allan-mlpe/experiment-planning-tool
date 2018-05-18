@@ -24,8 +24,8 @@ public abstract class JPADAO<E, K extends Serializable> implements DAO<E, K> {
 	}
 
 	public E create(E entity) {
-		this.entityManager.persist(entity);
-		return entity;
+		E mergedEntity = this.entityManager.merge(entity);
+		return mergedEntity;
 	}
 
 	public E retrieve(K key) {

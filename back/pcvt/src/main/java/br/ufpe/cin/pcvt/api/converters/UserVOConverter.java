@@ -38,6 +38,7 @@ public class UserVOConverter implements IVOConverter<User, UserVO> {
 
         user.setId(userVO.getId());
         user.setName(userVO.getName());
+        user.setEmail(userVO.getEmail());
         user.setProfileLink(userVO.getProfileLink());
         user.setWorkArea(userVO.getWorkArea());
         user.setAdmin(userVO.isAdmin());

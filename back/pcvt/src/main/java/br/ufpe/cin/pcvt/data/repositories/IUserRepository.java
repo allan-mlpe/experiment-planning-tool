@@ -10,7 +10,7 @@ public interface IUserRepository {
 	//CRUD
 	User insert(User user);
 	User get(Integer key);
-	void remove(Integer key);
+	void remove(Integer key) throws UserNotFoundException;
 	User update(User user);
 	List<User> all();
 	
