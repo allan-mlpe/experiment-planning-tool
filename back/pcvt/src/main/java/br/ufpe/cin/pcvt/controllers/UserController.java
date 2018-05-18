@@ -35,7 +35,11 @@ public class UserController {
 		return repository.get(key);
 	}
 
-	public void remove(Integer key) {
+	public void remove(Integer key) throws UserNotFoundException {
+		User user = repository.get(key);
+		if(user == null)
+			throw new UserNotFoundException(key.toString());
+
 		repository.remove(key);
 	}
 

@@ -90,7 +90,8 @@ public class UserResource {
     @Path("/{id}")
     @Consumes(APIConstants.APPLICATION_JSON)
     @Produces(APIConstants.APPLICATION_JSON)
-    public Response updateUser(UserVO userVO) throws ApiException {
+    public Response updateUser(UserVO userVO, @PathParam("id") Integer userId) throws ApiException {
+        userVO.setId(userId);
         User user = UserVOConverter.getInstance().convertFromVO(userVO);
 
         try {
@@ -117,6 +118,11 @@ public class UserResource {
             userController.remove(userId);
 
             return Response.noContent().build();
+
+        } catch (UserNotFoundException e) {
+            logger.warn(e.getMessage());
+            throw  new ApiException(Response.Status.NOT_FOUND,
+                    e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
