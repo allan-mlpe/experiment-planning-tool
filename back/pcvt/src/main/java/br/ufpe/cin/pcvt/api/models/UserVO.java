@@ -15,6 +15,8 @@ public class UserVO {
     private Boolean isCollaborator;
     private Boolean isAvailable;
 
+    private String token;
+
     public UserVO() { }
 
     public Integer getId() {
@@ -79,5 +81,13 @@ public class UserVO {
 
     public void setAvailable(Boolean available) {
         isAvailable = available;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
