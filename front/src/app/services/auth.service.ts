@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Credentials } from './../model/credentials';
 import {RestService} from "./rest.service";
+import {User} from "../model/user";
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,13 @@ export class AuthService {
   constructor(private restService: RestService) { }
 
   doLogin(credentials: Credentials): Observable<any> {
-    return this.restService.post('sso/login', credentials);
+    return this.restService.post('sso/login', credentials)
+                  .map((user : User) => {
+                      this.token = user.token;
+
+                      this.storeToken();
+                      return user;
+                  });
   }
 
   doLogout(): Observable<any>|boolean {
@@ -34,5 +41,9 @@ export class AuthService {
 
   isUserAuthenticated(): boolean {
     return this.userAuthenticated;
+  }
+
+  private storeToken() {
+    localStorage.setItem('pcvt-token', this.token);
   }
 }

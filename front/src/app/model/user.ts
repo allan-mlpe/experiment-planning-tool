@@ -9,4 +9,6 @@ export class User {
   isAdmin: boolean;
   isCollaborator: boolean;
   isAvailable: boolean;
+
+  token: string;
 }
