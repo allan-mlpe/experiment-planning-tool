@@ -60,7 +60,7 @@ export class RestService {
   private createRequestOptions(queryParams = {}, contentType = this.JSON_CONTENT_TYPE): any {
     const headers: HttpHeaders = new HttpHeaders()
       .set('Content-Type', contentType)
-      .set(this.AUTH_TOKEN_HEADER, 'MY_TOKEN');
+      .set(this.AUTH_TOKEN_HEADER, this.getToken());
 
     const params: HttpParams = new HttpParams({
       fromObject: queryParams
@@ -72,6 +72,13 @@ export class RestService {
     };
 
     return options;
+  }
+
+  private getToken(): string {
+    const TOKEN: string =
+      localStorage.getItem('pcvt-token') !== null ?
+        localStorage.getItem('pcvt-token') : '';
+    return TOKEN;
   }
 
   handleRequestResponse(request): Observable<any> {
