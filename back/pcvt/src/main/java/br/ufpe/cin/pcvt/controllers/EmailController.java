@@ -17,14 +17,14 @@ public class EmailController {
 	}
 
 	public void sendTokenEmail(UserToken token) {
-		String subject = "Reviewer - Password Recovery";
+		String subject = "PCVT - Password Recovery";
 
 		String introduction = String.format(
 				"Dear %s <br/>we received a request to reset the password for your reviewer tool account. <br/><br/>",
 				token.getUser().getName());
 		String mainText = String
-				.format("If you wish to reset your password, use the following link to confirm the request:<br/><br/>%s/recover-password.xhtml<br/><br/>"
-						+ "and use the following token: <br/><br/>%s<br/><br/>", SYSTEM_LINK, token.getToken())
+				.format("If you wish to reset your password, use the following link to confirm the request:" +
+						"<br/><br/>%s/#/login/reset-password?rt=%s<br/><br/>", SYSTEM_LINK, token.getToken())
 				+ "You should confirm the request within 24 hours from receiving this letter, otherwise it will be canceled and you will have to apply for the password reset again.<br/><br/>";
 		String instructions = "Best Regards.<br/><br/>";
 
