@@ -48,11 +48,7 @@ export class LoginComponent implements OnInit {
         .finally(() => this.loading = false)
         .subscribe(
         (data: User) => {
-          console.log(data);
-          this.authService.userAuthenticated = true;
           this.router.navigate(['/plans']);
-
-          // TODO set token
         },
         (err: ApiMessage) => {
           console.log(err);
