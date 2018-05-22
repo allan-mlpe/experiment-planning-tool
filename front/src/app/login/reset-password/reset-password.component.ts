@@ -57,8 +57,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         'password': this.form.get('password').value
       };
 
-      console.log(payload);
-
       this.authService.resetPassword(payload)
         .finally(() => this.loading = false)
         .subscribe(
