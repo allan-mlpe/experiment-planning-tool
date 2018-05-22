@@ -1,6 +1,7 @@
 package br.ufpe.cin.pcvt.api.utils;
 
 import br.ufpe.cin.pcvt.api.models.Credentials;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,7 +15,6 @@ public class JwtUtils {
 
     private static final Integer TOKEN_LIFETIME = 1;
     private static final String SECRET_PHRASE = "Hello World PCVT";
-
 
     public static String buildToken(Credentials credentials) {
 
@@ -35,5 +35,17 @@ public class JwtUtils {
             .setExpiration(expires.getTime());
 
         return builder.compact();
+    }
+
+    public static Claims validateToken(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_PHRASE))
+                    .parseClaimsJws(token).getBody();
+
+            return claims;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }
