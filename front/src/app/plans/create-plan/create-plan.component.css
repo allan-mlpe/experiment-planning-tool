@@ -1,0 +1,34 @@
+i.section-icon {
+  color: #26a69a;
+}
+
+p.question-title {
+  font-weight: bold;
+}
+
+/* https://www.w3schools.com/charsets/ref_utf_geometric.asp */
+p.question-title::before {
+  content: "\25FC";
+  color: #26a69a;
+  margin-right: 10px;
+}
+
+ul.consideration-list {
+  list-style-type: square;
+}
+
+ul.consideration-list li {
+  list-style-type: square;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+hr.question-separator {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid lightgrey;
+  margin: 1em 0;
+  margin-top: 30px;
+  padding: 0;
+}
