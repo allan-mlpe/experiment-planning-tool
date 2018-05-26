@@ -28,7 +28,7 @@
           <div class="collapsible-body">
             <div class="row" *ngFor="let question of section.questions; let i = index">
               <p class="question-title">{{ question.title }}</p>
-              <textarea></textarea>
+              <textarea [(ngModel)]="detailsObject[question.projectKey]" [ngModelOptions]="{standalone: true}"></textarea>
 
               <p>{{ question.considerations.state }}</p>
               <ul class="consideration-list">

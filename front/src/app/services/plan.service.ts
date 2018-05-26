@@ -33,7 +33,7 @@ export class PlanService {
   }
 
   savePlan(plan: Plan) {
-    this.plans.push(plan);
+    return this.restService.post('plans', plan);
   }
 
   deletePlan(plan: Plan) {

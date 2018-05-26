@@ -2,6 +2,9 @@ export class Plan {
     id: number;
     name: string;
     description: string;
+    planDetails: string;
+
+
     lastModification: string;
     threatList: Array<any> = null;
     actionList: Array<any> = null;

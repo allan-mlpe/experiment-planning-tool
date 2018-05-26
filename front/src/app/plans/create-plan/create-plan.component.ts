@@ -33,13 +33,15 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
    */
   private hasUnsavedChanges: boolean = false;
 
+  detailsObject: any = {};
+
 
   instrumentQuestions = [
     {
       section: 'Stating the goals',
       questions: [
         {
-          projectKey: '',
+          projectKey: 'sg1',
           title: 'State the aims clearly and precisely.',
           hint: 'One way to define the experiment goal is to use the GQM template. The purpose of a goal definition template is to ensure that important aspects of an experiment are defined before the planning and execution take place. By defining the goal of the experiment according to this template, the foundation is properly laid [Wohlin 2012].',
           considerations: {
@@ -52,7 +54,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'sg2',
           title: 'Define clearly the research questions linked to research goals.',
           hint: '',
           considerations: {
@@ -64,7 +66,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'sg3',
           title: 'Define ethical concerns regards to the objectives of the experiment.',
           hint: 'Experimenters should describe the relationship between themselves and participants and if that relationship has been adequately considered. The experimenters should critically examine their own role, potential bias and influence during formulation of the research questions, data collection, including sample recruitment and choice of location. Also, the experimenter should describe how they will respond to events during the study [Dyba and Dingsoyr 2008] and [CASP 2013].',
           considerations: {
@@ -87,7 +89,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       section: 'Hypotheses, Variables and Measurements',
       questions: [
         {
-          projectKey: '',
+          projectKey: 'hvm1',
           title: 'Describe clearly the hypotheses of the research. They should be related to the research goals.',
           hint: '',
           considerations: {
@@ -102,7 +104,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'hvm2',
           title: 'Define the variables or attributes to be measured.',
           hint: 'Dependent variables need to be defined and justified in terms of their relevance to the goals listed in the Research Objectives [Jedlitschka 2008].',
           considerations: {
@@ -113,7 +115,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'hvm3',
           title: 'Describe valid and clearly outcome measurements.',
           hint: '',
           considerations: {
@@ -131,7 +133,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       section: 'Participants',
       questions: [
         {
-          projectKey: '',
+          projectKey: 'p1',
           title: 'Describe appropriated recruitment strategy to the aims of the research',
           hint: 'In case of recruiting remote participants, consider whether the fact that participants may mask the results is controlled for [Ko 2015]. The identification of an appropriately general group of participants is always a challenge. Appropriate recruiting methods can help, but there are no guarantees. Despite your best efforts to find a representative population you always face the possibility that your group of participants is insufficiently representative in a way that was unanticipated. As this bias is always possible, it’s best to explicitly state what steps you have taken to account for potentially confounding variables and to be cautious when making claims about your results [Lazar2010].',
           considerations: {
@@ -145,7 +147,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'p2',
           title: 'Describe clearly the recruitment process.',
           hint: 'A description of the motivation for the participants to participate is mandatory. For instance, it should be stated whether the participants were paid and if so, how much, or whether they earned educational credits for taking part in the experiment [Jedlitschka 2008].',
           considerations: {
@@ -162,7 +164,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'p3',
           title: 'Describe the demographic questionnaire planned to collect information from participants.',
           hint: 'Surveys and interviews are common ways of collecting and measuring demographic variables. This data can be gathered before or after a task, or even as part of testing a potential participant against inclusion criteria [Ko_2013].',
           considerations: {
@@ -176,7 +178,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'p4',
           title: 'Define the population from which participants are drawn.',
           hint: '',
           considerations: {
@@ -187,7 +189,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'p5',
           title: 'Describe the sample.',
           hint: 'A more principled way to decide how many participants to recruit is to do a prospective power analysis (e.g., Dybå et al. 2006), which gives an estimate of the sample size required to detect a difference between experimental conditions. The exact calculation of this estimate depends on the specific statistical test used to compare the groups, but it generally requires three inputs: (1) the expected effect size (the difference in the outcome variable between groups), (2) the expected variation in this outcome measurement, and (3) the Type I error rate α (typically .05 in software engineering). The first two must be estimated. One source of these estimates is to use data from previous experiments on the tool or even pilot studies There are also standard approaches for estimating sample size and effect size such as Cohen’s d, odds ratio, and Abelson’s Causal Efficacy Ratio. Breaugh (2003) provides an accessible introduction to these topics [Ko 2015].',
           considerations: {
@@ -199,7 +201,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'p6',
           title: 'Define clearly the debriefing of participants.',
           hint: 'After a participant has completed the tasks, it is common practice in human subjects research to debrief the participant about the study. Debriefing can also be an opportunity to get speculative feedback from participants about how they felt about the tool. If participants did not use the experimental treatment, it may be instructive for them to try it and provide feedback. Participants should not leave a study feeling as if they “failed,” especially when tasks may have been designed to ensure that not every participant would succeed. Many ethicists feel that is a necessary part of research with human participants [Ko 2015].',
           considerations: {
@@ -220,7 +222,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       section: 'Experimental Materials and Tasks',
       questions: [
         {
-          projectKey: '',
+          projectKey: 'emt1',
           title: 'Describe clearly what instruments, materials, technology, and tools will be used and how.',
           hint: 'All experimental materials and equipment should be described. For example, if the study involves a questionnaire, questions should be described, as should any other characteristics of the questionnaire [Jedlitschka 2008].',
           considerations: {
@@ -237,7 +239,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'emt2',
           title: 'Describe in detail the tasks that will be performed by the participants.',
           hint: '',
           considerations: {
@@ -261,7 +263,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'emt3',
           title: 'Define success with respect to the experimental tasks and how success will be measured.',
           hint: '',
           considerations: {
@@ -279,7 +281,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       section: 'Experimental Design',
       questions: [
         {
-          projectKey: '',
+          projectKey: 'ed1',
           title: 'Describe the most appropriate experiment design for your experiment.',
           hint: 'The choice of design should involve consideration of sample size (number of replicates), selection of a suitable run order for the experimental trials, and determination of whether or not blocking or other randomization restrictions are involved [Montgomery 2013]. For the description of the experimental design in the experimental plan, it is important that not only the final design of the experiment is in there, but it should have also an explanation of how the design was arrived at and why experimenters have chosen that design and not a different one.',
           considerations: {
@@ -293,7 +295,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'ed2',
           title: 'Define the treatments for your experiment.',
           hint: '',
           considerations: {
@@ -309,7 +311,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'ed3',
           title: 'Define the process which you will apply the treatment to objects and subjects (e.g. randomization).',
           hint: 'Experimenters have to think through how they will assign subjects to tasks and treatments, and in what order.',
           considerations: {
@@ -323,7 +325,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'ed4',
           title: 'Describe the appropriate blinding procedure (e.g. blind allocation of materials, blind marking).',
           hint: '',
           considerations: {
@@ -343,7 +345,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       section: 'Procedure',
       questions: [
         {
-          projectKey: '',
+          projectKey: 'pcd1',
           title: 'Describe an adequate description of the context in which the experiment will be carried out.',
           hint: '',
           considerations: {
@@ -355,7 +357,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'pcd2',
           title: 'Describe the training that will be provided.',
           hint: 'The study should provide a way to teach the concepts and skills quickly and effectively and devise a way to ensure that the participants have successfully learned the material [Ko 2015].',
           considerations: {
@@ -370,7 +372,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'pcd3',
           title: 'Define the process which you will apply the treatment to objects and subjects (e.g. randomization).',
           hint: 'Experimenters have to think through how they will assign subjects to tasks and treatments, and in what order.',
           considerations: {
@@ -384,7 +386,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'pcd4',
           title: 'Describe the Pilot.',
           hint: 'Designing a study with human participants is necessarily an iterative process. Running an experiment for the first time, like testing software for the first time, will reveal a range of problems, which might include confusing study materials, bugs in the tool, confusion about the tasks, and unanticipated choices made by participants. Sandbox pilots and analytical evaluation are good options of pre-pilots because they are easy to schedule and can reveal problems with the experiment without the trouble of recruiting outsiders. Ko (2015) brings interesting tips about pilot and pre-pilots [Ko 2015]. If possible, a pilot of the experiment on a small set of people may be useful, so that you are sure that the plan is complete and the instructions understandable [Pfleeger 1995].',
           considerations: {
@@ -393,7 +395,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'pcd5',
           title: 'Describe the schedule in which the experiment will be run.',
           hint: '',
           considerations: {
@@ -414,7 +416,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       section: 'Data Collection and Data Analysis',
       questions: [
         {
-          projectKey: '',
+          projectKey: 'dcda1',
           title: 'Describe the data collection procedures.',
           hint: 'Details of the data collection method have to be described, including when the data will be collected, by whom, and with what kind of support (e.g., tool). Any type of transformation of the data (e.g., marking “true” defects in defect lists) and training provided for such should also be described [Jedlitschka 2008].',
           considerations: {
@@ -428,7 +430,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'dcda2',
           title: 'Describe clearly the analysis procedures.',
           hint: '',
           considerations: {
@@ -441,7 +443,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'dcda3',
           title: 'Describe the statistical methods.',
           hint: '',
           considerations: {
@@ -456,7 +458,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
           }
         },
         {
-          projectKey: '',
+          projectKey: 'dcda4',
           title: 'Describe precisely the estimate of the treatment effect.',
           hint: '',
           considerations: {
@@ -475,7 +477,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       section: 'Threats to Validity',
       questions: [
         {
-          projectKey: '',
+          projectKey: 'tv1',
           title: 'Identify and discuss threats to validity, study limitations, potential biases or confounders that may influence the experiment results.',
           hint: 'A fundamental question concerning results from an experiment is how valid the results are. It is important to consider the question of validity already in the planning phase in order to plan for adequate validity of the experiment results. Adequate validity refers to that the results should be valid for the population of interest. [Wohlin 2012]. [Anderlin Neto and Conte 2014] presents a tool to assist inexperienced researchers in identifying and addressing threats to validity in the planning stages of controlled experiments in software engineering',
           considerations: {
@@ -494,7 +496,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       section: 'Document',
       questions: [
         {
-          projectKey: '',
+          projectKey: 'd1',
           title: 'About the Experimental Plan.',
           hint: 'Instead of targeting a perfect study, it would be better if researchers just started running studies even if they are not perfect, or even if they are simpler. The basic problem in doing experimentation in software engineering today is because everybody sees experiments as very difficult to run, and currently, researchers who are reviewing studies want the studies to be perfect. It is important that we think less about whether the study is methodologically perfect, and more about what we have really learned by running the study even if it has limitations, and even if there are questions about external validity in terms of the generalization of the results. If researchers were able to run more studies, especially smaller ones, it would be a big step for our field because there is so much we do not know. There more studies we can run, the more opportunities we have to learn more about software engineering experiments',
           considerations: {
@@ -521,6 +523,8 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       $('.collapsible').collapsible();
     });
 
+    this.buildDetailsObject();
+
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['']
@@ -537,20 +541,36 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
     )
   }
 
+  buildDetailsObject() {
+    this.instrumentQuestions.forEach(section => {
+      section.questions.forEach(question => {
+        this.detailsObject[question.projectKey] = '';
+      })
+    });
+  }
+
   onSubmit() {
     if(this.form.valid) {
       const name = this.form.get('name').value;
       const description = this.form.get('description').value;
 
       const plan = new Plan(name, description);
+      plan.planDetails = JSON.stringify(this.detailsObject);
 
-      this.planService.savePlan(plan);
-      this.hasUnsavedChanges = false;
+      this.planService.savePlan(plan)
+        .subscribe(
+          data => {
+            console.log(data);
 
-      ToastFactory.successToast("Plan created!");
+            this.hasUnsavedChanges = false;
+            ToastFactory.successToast("Plan created!");
 
-      this.router.navigate(['/plans']);
-
+            this.router.navigate(['/plans']);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     } else {
       this.formValidateUtils.checkAllFields(this.form);
     }
