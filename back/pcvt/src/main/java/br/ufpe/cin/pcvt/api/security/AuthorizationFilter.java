@@ -1,8 +1,14 @@
 package br.ufpe.cin.pcvt.api.security;
 
+import br.ufpe.cin.pcvt.api.exceptions.ApiException;
 import br.ufpe.cin.pcvt.api.models.ApiMessage;
 import br.ufpe.cin.pcvt.api.utils.JwtUtils;
+import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
+import br.ufpe.cin.pcvt.controllers.ControllerFactory;
+import br.ufpe.cin.pcvt.data.models.user.User;
+import br.ufpe.cin.pcvt.exceptions.UserNotFoundException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.SignatureException;
 
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
@@ -26,30 +32,45 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
         try {
             if(authHeader == null || authHeader.trim().isEmpty())
-                throw new Exception("User not authenticated.");
+                throw new ApiException(Response.Status.UNAUTHORIZED,
+                        "User not authenticated.");
 
             Claims claims = JwtUtils.validateToken(authHeader);
 
             if(claims == null)
-                throw new Exception("Invalid or expired token.");
+                throw new ApiException(Response.Status.UNAUTHORIZED,
+                        "Invalid or expired token.");
 
             modifyRequestContext(containerRequestContext, claims.getId());
-        } catch(Exception e) {
-            e.printStackTrace();
 
+            RequestContextUtils.injectUser(containerRequestContext, claims.getIssuer());
 
-            ApiMessage message = new ApiMessage(Response.Status.UNAUTHORIZED,
-                    "Invalid or expired token.");
+        } catch (ApiException | SignatureException e) {
+
+            Object o = e instanceof ApiException ?
+                    e : new ApiMessage(Response.Status.UNAUTHORIZED,
+                            "Invalid or expired token");
 
             containerRequestContext.abortWith(
                     Response.status(Response.Status.UNAUTHORIZED)
+                            .entity(o)
+                            .type(MediaType.APPLICATION_JSON)
+                            .build()
+            );
+        } catch(Exception e) {
+            e.printStackTrace();
+
+            ApiMessage message = new ApiMessage(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error.");
+
+            containerRequestContext.abortWith(
+                    Response.serverError()
                             .entity(message)
                             .type(MediaType.APPLICATION_JSON)
                             .build()
             );
         }
     }
-
 
     private void modifyRequestContext(ContainerRequestContext requestContext, String login) {
         final SecurityContext currentSecurityContext = requestContext.getSecurityContext();
