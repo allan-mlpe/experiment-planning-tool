@@ -9,6 +9,7 @@ import {ToastFactory} from '../../shared/toast-factory';
 import {IFormCanDeactivate} from './../../guards/Iform-candeactivate';
 import {ModalService} from './../../services/modal.service';
 import {Subscription} from 'rxjs';
+import {ApiMessage} from "../../model/pcvt-message";
 
 declare var jquery:any;
 declare var $ :any;
@@ -567,7 +568,9 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
 
             this.router.navigate(['/plans']);
           },
-          err => {
+          (err: ApiMessage) => {
+            this.hasUnsavedChanges = false;
+            ToastFactory.errorToast(err.message);
             console.log(err);
           }
         );
