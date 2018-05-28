@@ -12,6 +12,8 @@ export class PlanService {
     {id: 3, name: "Project 3", description: "This is a project", lastModification: "1/31/2018", threatList: null, actionList: null}
   ];
 
+  private readonly RESOURCE_PREFIX: string = 'plans';
+
   constructor(private restService: RestService) {
     /*this.getProjects().subscribe(
       (data : Array<Project>) => {
@@ -24,18 +26,20 @@ export class PlanService {
   }
 
   getPlans(): Observable<any> {
-    return this.restService.get('plans');
+    return this.restService.get(this.RESOURCE_PREFIX);
   }
 
-  getPlanById(id: number): Plan {
-    return this.plans.find(pln => pln.id === id);
+  getPlanById(planId: number): Observable<any> {
+    //return this.plans.find(pln => pln.id === id);
+    return this.restService.get(`${this.RESOURCE_PREFIX}/${planId}`);
   }
 
   savePlan(plan: Plan): Observable<any> {
-    return this.restService.post('plans', plan);
+    return this.restService.post(this.RESOURCE_PREFIX, plan);
   }
 
-  deletePlan(plan: Plan) {
-    this.plans = this.plans.filter(pln => pln !== plan);
+  deletePlan(planId: number): Observable<any> {
+    //this.plans = this.plans.filter(pln => pln !== plan);
+    return this.restService.delete(`${this.RESOURCE_PREFIX}/${planId}`);
   }
 }

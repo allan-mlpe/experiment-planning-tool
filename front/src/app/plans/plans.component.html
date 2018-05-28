@@ -20,7 +20,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let plan of plans" >
+        <tr *ngFor="let plan of plans; let idx = index" >
           <td>{{ plan.name }}</td>
           <td>{{ plan.version }}</td>
           <td>{{ plan.state }}</td>
@@ -34,7 +34,7 @@
               create
             </i>
 
-            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan)">
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan, idx)">
               delete
             </i>
           </td>

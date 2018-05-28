@@ -33,14 +33,20 @@ export class PlansComponent implements OnInit {
     console.log("Edit project");
   }
 
-  removePlan(plan: Plan) {
+  removePlan(plan: Plan, index: number) {
     let subsc: Subscription = this.modalService.showModal("Remove Plan", `"${plan.name}" will be deleted. Are you sure?`)
       .subscribe(
         data => {
           if(data) {
-            this.planService.deletePlan(plan);
-            //this.plans = this.planService.getPlans();
-            ToastFactory.successToast(`"${plan.name}" deleted successfuly.`)
+            this.planService.deletePlan(plan.id).subscribe(
+              data => {
+                this.plans.splice(index, 1);
+                ToastFactory.successToast(`"${plan.name}" deleted successfuly.`);
+              },
+              (err: ApiMessage) => {
+                ToastFactory.errorToast(err.message);
+              }
+            );
           }
           subsc.unsubscribe();
         }
