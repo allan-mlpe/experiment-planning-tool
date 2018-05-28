@@ -2,7 +2,6 @@ package br.ufpe.cin.pcvt.api.resources;
 
 import br.ufpe.cin.pcvt.api.converters.ExperimentalPlanVOConverter;
 import br.ufpe.cin.pcvt.api.exceptions.ApiException;
-import br.ufpe.cin.pcvt.api.models.ApiMessage;
 import br.ufpe.cin.pcvt.api.models.ExperimentalPlanVO;
 import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
 import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
@@ -87,8 +86,25 @@ public class ExperimentalPlanResource {
     @GET
     @Path("/{id}")
     @Produces(APIConstants.APPLICATION_JSON)
-    public Response getExperimentalPlan() {
-        return null;
+    public Response getExperimentalPlan(@PathParam("id") Integer id, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            Plan plan = experimentalPlanController.get(id);
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            ExperimentalPlanVO planVO = ExperimentalPlanVOConverter.getInstance().convertToVO(plan);
+
+            return Response.ok(planVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to retrieve the plan");
+        }
     }
 
     @PUT
@@ -102,7 +118,34 @@ public class ExperimentalPlanResource {
     @DELETE
     @Path("/{id}")
     @Produces(APIConstants.APPLICATION_JSON)
-    public Response deleteExperimentalPlan() {
-        return null;
+    public Response deleteExperimentalPlan(@PathParam("id") Integer id, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            Plan plan = experimentalPlanController.get(id);
+
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            experimentalPlanController.remove(plan.getId());
+
+            return Response.noContent().build();
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to remove the plan");
+        }
+    }
+
+    private static void checkPermission(Plan plan, ContainerRequestContext req) throws ApiException {
+        User user = RequestContextUtils.extractUser(req);
+
+        if(user.compareTo(plan.getAuthor()) != 0)
+            throw new ApiException(Response.Status.FORBIDDEN,
+                    "You don't have permission to access this plan");
     }
 }
+
