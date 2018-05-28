@@ -12,7 +12,9 @@
       <thead>
         <tr>
             <th>Name</th>
-            <th>Last Modification</th>
+            <th>Version</th>
+            <th>State</th>
+            <th>Date</th>
             <th>Actions</th>
         </tr>
       </thead>
@@ -20,7 +22,9 @@
       <tbody>
         <tr *ngFor="let plan of plans" >
           <td>{{ plan.name }}</td>
-          <td>{{ plan.lastModification }}</td>
+          <td>{{ plan.version }}</td>
+          <td>{{ plan.state }}</td>
+          <td>{{ plan.date }}</td>
           <td>
             <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open" [routerLink]="[plan.id, 'workspace']">
               folder_open

@@ -1,9 +1,17 @@
+import {User} from "./user";
+
 export class Plan {
     id: number;
     name: string;
     description: string;
     planDetails: string;
-
+    version: string;
+    author: User;
+    collaborators: Array<User>;
+    state: string;
+    privacySetting: string;
+    archived: boolean;
+    date: Date;
 
     lastModification: string;
     threatList: Array<any> = null;

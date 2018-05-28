@@ -4,6 +4,7 @@ import {Plan} from '../model/plan';
 import {Subscription} from 'rxjs/Subscription';
 import {ModalService} from '../services/modal.service';
 import {ToastFactory} from '../shared/toast-factory';
+import {ApiMessage} from "../model/pcvt-message";
 
 @Component({
   selector: 'app-plans',
@@ -17,15 +18,15 @@ export class PlansComponent implements OnInit {
   constructor(private planService: PlanService, protected modalService: ModalService) { }
 
   ngOnInit() {
-    /*this.projectService.getProjects().subscribe(
-      (data: Array<Project>) => {
-        this.projects = data;
+    this.planService.getPlans().subscribe(
+      (data: Array<Plan>) => {
+        this.plans = data;
       },
-      error => {
+      (error: ApiMessage) => {
         console.log(error);
+        ToastFactory.errorToast(error.message);
       }
-    );*/
-    this.plans = this.planService.getPlans();
+    );
   }
 
   editPlan() {
@@ -38,7 +39,7 @@ export class PlansComponent implements OnInit {
         data => {
           if(data) {
             this.planService.deletePlan(plan);
-            this.plans = this.planService.getPlans();
+            //this.plans = this.planService.getPlans();
             ToastFactory.successToast(`"${plan.name}" deleted successfuly.`)
           }
           subsc.unsubscribe();

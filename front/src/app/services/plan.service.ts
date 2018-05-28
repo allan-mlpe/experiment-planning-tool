@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Plan } from '../model/plan';
 import { RestService } from './rest.service';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class PlanService {
@@ -22,17 +23,15 @@ export class PlanService {
     this.plans = this.projectsMock.filter(projectMock => projectMock);
   }
 
-  getPlans() {
-    //return this.restService.get('assets/Plans.json');
-    console.log(this.plans);
-    return this.plans;
+  getPlans(): Observable<any> {
+    return this.restService.get('plans');
   }
 
   getPlanById(id: number): Plan {
     return this.plans.find(pln => pln.id === id);
   }
 
-  savePlan(plan: Plan) {
+  savePlan(plan: Plan): Observable<any> {
     return this.restService.post('plans', plan);
   }
 
