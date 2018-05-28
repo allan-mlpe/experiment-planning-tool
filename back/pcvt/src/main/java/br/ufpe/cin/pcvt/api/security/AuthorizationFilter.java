@@ -46,14 +46,12 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             RequestContextUtils.injectUser(containerRequestContext, claims.getIssuer());
 
         } catch (ApiException | SignatureException e) {
-
-            Object o = e instanceof ApiException ?
-                    e : new ApiMessage(Response.Status.UNAUTHORIZED,
+            ApiMessage message = new ApiMessage(Response.Status.UNAUTHORIZED,
                             "Invalid or expired token");
 
             containerRequestContext.abortWith(
                     Response.status(Response.Status.UNAUTHORIZED)
-                            .entity(o)
+                            .entity(message)
                             .type(MediaType.APPLICATION_JSON)
                             .build()
             );
