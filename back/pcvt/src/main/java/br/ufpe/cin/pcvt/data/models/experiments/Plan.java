@@ -20,7 +20,7 @@ public class Plan implements Comparable<Plan> {
 	private Integer id;
 	@Column(name = "name", length = 1024)
 	private String name;
-	@Column(columnDefinition="TEXT", name = "description")
+	@Column(columnDefinition = "TEXT", name = "description")
 	private String description;
 	@Column(name = "version")
 	private Integer version;
@@ -59,6 +59,9 @@ public class Plan implements Comparable<Plan> {
 	private byte[] file;
 	@Column(name = "filename")
 	private String filename;
+	@Lob
+	@Column(name = "plandetails", columnDefinition="TEXT")
+	private String planDetails;
 
 	private static final int PLAN_SIZE = 31;
 
@@ -70,7 +73,7 @@ public class Plan implements Comparable<Plan> {
 	}
 
 	public Plan(Integer id, String name, String description, SortedSet<User> authors, Date date, EPrivacy privacySetting,
-			List<ReviewItem> reviewItems) {
+				List<ReviewItem> reviewItems) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -121,7 +124,7 @@ public class Plan implements Comparable<Plan> {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	
+
 	public User getAuthor() {
 		return author;
 	}
@@ -137,7 +140,7 @@ public class Plan implements Comparable<Plan> {
 	public void setParentPlan(Plan parentPlan) {
 		this.parentPlan = parentPlan;
 	}
-	
+
 	public Plan getChildPlan() {
 		return childPlan;
 	}
@@ -171,10 +174,10 @@ public class Plan implements Comparable<Plan> {
 	}
 
 	public EPlanState getState() {
-		
+
 		if (dateExpired() && this.state.isExpirable())
 			this.state = EPlanState.Expired;
-		
+
 		return state;
 	}
 
@@ -231,10 +234,10 @@ public class Plan implements Comparable<Plan> {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	
+
 	public boolean dateExpired() {
 		Date now = Date.from(Instant.now());
-		
+
 		if (date != null)
 			return now.after(date);
 		else
@@ -248,66 +251,66 @@ public class Plan implements Comparable<Plan> {
 	public boolean hasParent() {
 		return this.parentPlan != null;
 	}
-	
+
 	public boolean isEditable() {
 		return this.state == EPlanState.Planning;
 	}
-	
+
 	public boolean isReportable() {
 		return this.state.isReportable();
 	}
-	
+
 	public boolean isCopyable() {
-		return this.state.isCopyable() && !hasChild() && !isCustomPlan();  
+		return this.state.isCopyable() && !hasChild() && !isCustomPlan();
 	}
 
 	public boolean isArchivable() {
-		return this.state.isArchivable();  
+		return this.state.isArchivable();
 	}
-	
+
 	public boolean isDeletable() {
-		return this.state.isDeletable();  
+		return this.state.isDeletable();
 	}
 
 	@Override
 	public String toString() {
 		return "Plan [id=" + id + ", name=" + name + ", description=" + description
-		// + ", authors=" + authors != null ? authors.size()+"" : 0
-		// + ", reviewers=" + reviewers != null ? reviewers.size()+"" : 0
+				// + ", authors=" + authors != null ? authors.size()+"" : 0
+				// + ", reviewers=" + reviewers != null ? reviewers.size()+"" : 0
 				+ ", date=" + date + ", privacySetting=" + privacySetting + "]";
 	}
-	
+
 	public String getAuthorsNames() {
 		String names = String.format("%s; ", author.getName());
-		
+
 		for (User user : collaborators) {
 			names = String.format("%s%s; ", names, user.getName());
 		}
-		
+
 		return names;
 	}
 
 	@Override
 	public int compareTo(Plan o) {
-		
+
 		int comp = this.name.compareTo(o.name);
-		
+
 		if (comp == 0) {
 			comp = this.version - o.version;
 		}
-		
+
 		if (comp == 0 && this.id != null && o.id != null) {
 			comp = this.id - o.id;
 		}
-		
+
 		return comp;
 	}
 
 	public Plan createChild() throws PlanAlreadyHasChildException {
-		
+
 		if (this.childPlan != null)
 			throw new PlanAlreadyHasChildException(this);
-		
+
 		Plan child = new Plan();
 
 		child.name = this.name;
@@ -336,4 +339,11 @@ public class Plan implements Comparable<Plan> {
 		return child;
 	}
 
+	public String getPlanDetails() {
+		return planDetails;
+	}
+
+	public void setPlanDetails(String planDetails) {
+		this.planDetails = planDetails;
+	}
 }
