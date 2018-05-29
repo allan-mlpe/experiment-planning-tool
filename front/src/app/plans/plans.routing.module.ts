@@ -11,13 +11,16 @@ import {ReportsComponent} from "./reports/reports.component";
 import {ActionsComponent} from "./actions/actions.component";
 import {CharacteristicsComponent} from "./characteristics/characteristics.component";
 import {PlanResolver} from "../guards/plan.resolver";
+import {EditPlanComponent} from "./edit-plan/edit-plan.component";
+import {AuthGuard} from "../guards/auth.guard";
 
 const planRoutes: Routes = [
     {
         path: '', component: BasicLayoutComponent,
         children: [
             { path: '', component: PlansComponent },
-            { path: 'create', component: CreatePlanComponent, canDeactivate: [CanDeactivateFormGuard] },
+            { path: 'create', component: CreatePlanComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard] },
+            { path: 'edit/:id', component: EditPlanComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}},
             { path: ':id/workspace', component: WorkspaceComponent, resolve: { plan: PlanResolver} },
             { path: ':id/characteristics', component: CharacteristicsComponent },
             { path: ':id/threats', component: ThreatsComponent},

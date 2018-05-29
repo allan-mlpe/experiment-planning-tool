@@ -1,0 +1,50 @@
+<div class="row">
+  <h3>Edit Plan</h3>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="input-field">
+      <input [(ngModel)]="plan.name" type="text" class="validate" formControlName="name" [ngClass]="addClassError('name')">
+      <label [ngClass]="isActiveLabel('name')">Plan Name</label>
+      <app-input-field-error [showError]="showError('name')"
+                             [message]="buildErrorMessage('name')"></app-input-field-error>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field">
+      <textarea [(ngModel)]="plan.description" class="materialize-textarea validate" formControlName="description"></textarea>
+      <label [ngClass]="isActiveLabel('description')">Experiment Description</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <ul class="collapsible">
+        <li *ngFor="let section of instrumentQuestions">
+          <div class="collapsible-header">
+            <i class="material-icons section-icon">add_box</i> {{ section.section }}
+          </div>
+          <div class="collapsible-body">
+            <div class="row" *ngFor="let question of section.questions; let i = index">
+              <p class="question-title">{{ question.title }}</p>
+              <textarea [(ngModel)]="detailsObject[question.projectKey]" [ngModelOptions]="{standalone: true}"></textarea>
+
+              <p>{{ question.considerations.state }}</p>
+              <ul class="consideration-list">
+                <li *ngFor="let consideration of question.considerations.items">{{ consideration }}</li>
+              </ul>
+              <hr *ngIf="i !== section.questions.length - 1" class="question-separator"/>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row right">
+    <button type="submit" class="waves-effect waves-light btn">
+      <i class="material-icons right">save</i>Update
+    </button>
+  </div>
+</form>

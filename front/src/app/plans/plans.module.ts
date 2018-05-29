@@ -13,6 +13,7 @@ import {ActionsComponent} from "./actions/actions.component";
 import {CharacteristicsComponent} from "./characteristics/characteristics.component";
 import {ReportsComponent} from "./reports/reports.component";
 import {ThreatsComponent} from "./threats/threats.component";
+import { EditPlanComponent } from './edit-plan/edit-plan.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import {ThreatsComponent} from "./threats/threats.component";
     CharacteristicsComponent,
     CreatePlanComponent,
     ReportsComponent,
-    ThreatsComponent
+    ThreatsComponent,
+    EditPlanComponent
   ],
   providers: [
     PlanService,

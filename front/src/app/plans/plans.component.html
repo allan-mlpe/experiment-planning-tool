@@ -14,7 +14,6 @@
             <th>Name</th>
             <th>Version</th>
             <th>State</th>
-            <th>Date</th>
             <th>Actions</th>
         </tr>
       </thead>
@@ -24,13 +23,12 @@
           <td>{{ plan.name }}</td>
           <td>{{ plan.version }}</td>
           <td>{{ plan.state }}</td>
-          <td>{{ plan.date }}</td>
           <td>
             <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open" [routerLink]="[plan.id, 'workspace']">
               folder_open
             </i>
 
-            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" (click)="editPlan()">
+            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" [routerLink]="['edit', plan.id]">
               create
             </i>
 
