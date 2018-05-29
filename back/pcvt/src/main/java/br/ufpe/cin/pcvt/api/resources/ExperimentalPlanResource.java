@@ -5,8 +5,10 @@ import br.ufpe.cin.pcvt.api.exceptions.ApiException;
 import br.ufpe.cin.pcvt.api.models.ExperimentalPlanVO;
 import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
 import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
+import br.ufpe.cin.pcvt.business.experiments.plan.state.exception.InvalidPlanStateTransitionException;
 import br.ufpe.cin.pcvt.controllers.ControllerFactory;
 import br.ufpe.cin.pcvt.controllers.PlanController;
+import br.ufpe.cin.pcvt.data.models.experiments.EPlanState;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
 import br.ufpe.cin.pcvt.data.models.user.User;
 
@@ -111,8 +113,30 @@ public class ExperimentalPlanResource {
     @Path("/{id}")
     @Consumes(APIConstants.APPLICATION_JSON)
     @Produces(APIConstants.APPLICATION_JSON)
-    public Response updateExperimentalPlan() {
-        return null;
+    public Response updateExperimentalPlan(@PathParam("id") Integer id, @Context ContainerRequestContext req, ExperimentalPlanVO planVO) {
+        try {
+            Plan plan = experimentalPlanController.get(id);
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            plan.setName(planVO.getName());
+            plan.setDescription(planVO.getDescription());
+            plan.setPlanDetails(planVO.getPlanDetails());
+
+            experimentalPlanController.update(plan);
+
+            return Response.ok(planVO).build();
+
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the plan");
+        }
     }
 
     @DELETE
@@ -140,6 +164,46 @@ public class ExperimentalPlanResource {
         }
     }
 
+    @PUT
+    @Path("/{id}/status")
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response changeToReadyToReview(@PathParam("id") Integer planId, EPlanState state, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            Plan plan = experimentalPlanController.get(planId);
+
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            switch (state) {
+                case ReadyToReview:
+                    plan = experimentalPlanController.moveToReadyToReview(plan);
+                    break;
+                default:
+                    throw new ApiException(Response.Status.BAD_REQUEST,
+                            "Bad request. Invalid plan state");
+            }
+
+            ExperimentalPlanVO planVO = ExperimentalPlanVOConverter.getInstance()
+                    .convertToVO(plan);
+
+            return Response.ok(planVO).build();
+
+        } catch(ApiException e) {
+            throw e;
+        } catch (InvalidPlanStateTransitionException e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.BAD_REQUEST,
+                    "Bad request. Illegal plan state");
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the plan state");
+        }
+    }
+
     private static void checkPermission(Plan plan, ContainerRequestContext req) throws ApiException {
         User user = RequestContextUtils.extractUser(req);
 
@@ -148,4 +212,3 @@ public class ExperimentalPlanResource {
                     "You don't have permission to access this plan");
     }
 }
-
