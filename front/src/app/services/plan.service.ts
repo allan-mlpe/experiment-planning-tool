@@ -25,6 +25,10 @@ export class PlanService {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${plan.id}`, plan);
   }
 
+  updateStatus(plan: Plan) {
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${plan.id}/status`, plan);
+  }
+
   deletePlan(planId: number): Observable<any> {
     //this.plans = this.plans.filter(pln => pln !== plan);
     return this.restService.delete(`${this.RESOURCE_PREFIX}/${planId}`);

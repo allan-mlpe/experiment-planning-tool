@@ -86,8 +86,6 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
       this.planService.updatePlan(this.plan)
         .subscribe(
           data => {
-            console.log(data);
-
             this.hasUnsavedChanges = false;
             ToastFactory.successToast("Plan updated!");
 
@@ -102,6 +100,20 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     } else {
       this.formValidateUtils.checkAllFields(this.form);
     }
+  }
+
+  saveAndComplete() {
+    this.plan.state = 'ReadyToReview';
+    this.planService.updateStatus(this.plan).subscribe(
+      data => {
+        ToastFactory.successToast("Plan ready to review!");
+        this.onSubmit();
+      },
+      (err: ApiMessage) => {
+        this.hasUnsavedChanges = false;
+        ToastFactory.errorToast(err.message);
+        console.log(err);
+    });
   }
 
   private buildDetailsObject(): any {
