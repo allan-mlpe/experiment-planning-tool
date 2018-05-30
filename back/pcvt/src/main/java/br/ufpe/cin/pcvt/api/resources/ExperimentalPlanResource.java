@@ -167,7 +167,7 @@ public class ExperimentalPlanResource {
     @PUT
     @Path("/{id}/status")
     @Produces(APIConstants.APPLICATION_JSON)
-    public Response changeToReadyToReview(@PathParam("id") Integer planId, EPlanState state, @Context ContainerRequestContext req) throws ApiException {
+    public Response changeToReadyToReview(@PathParam("id") Integer planId, ExperimentalPlanVO planVO, @Context ContainerRequestContext req) throws ApiException {
         try {
             Plan plan = experimentalPlanController.get(planId);
 
@@ -176,18 +176,37 @@ public class ExperimentalPlanResource {
                         "Experimental plan not found");
 
             checkPermission(plan, req);
+            EPlanState state = planVO.getState();
 
             switch (state) {
                 case ReadyToReview:
-                    plan = experimentalPlanController.moveToReadyToReview(plan);
+                    experimentalPlanController.moveToReadyToReview(plan);
+                    break;
+                case WaitingReview:
+                    experimentalPlanController.moveToWaitingReview(plan);
+                    break;
+                case Reviewing:
+                    experimentalPlanController.moveToReviewing(plan);
+                    break;
+                case PartiallyCompleted:
+                    experimentalPlanController.moveToPartiallyCompleted(plan);
+                    break;
+                case Refused:
+                    experimentalPlanController.moveToRefused(plan);
+                    break;
+                case Completed:
+                    experimentalPlanController.moveToCompleted(plan);
+                    break;
+                case Canceled:
+                    experimentalPlanController.moveToCanceled(plan);
+                    break;
+                case Expired:
+                    experimentalPlanController.moveToExpired(plan);
                     break;
                 default:
                     throw new ApiException(Response.Status.BAD_REQUEST,
                             "Bad request. Invalid plan state");
             }
-
-            ExperimentalPlanVO planVO = ExperimentalPlanVOConverter.getInstance()
-                    .convertToVO(plan);
 
             return Response.ok(planVO).build();
 
@@ -196,7 +215,7 @@ public class ExperimentalPlanResource {
         } catch (InvalidPlanStateTransitionException e) {
             e.printStackTrace();
             throw new ApiException(Response.Status.BAD_REQUEST,
-                    "Bad request. Illegal plan state");
+                    "Bad request. Illegal plan state transition");
         } catch(Exception e) {
             e.printStackTrace();
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
