@@ -13,7 +13,7 @@ export class AuthService {
   doLogin(credentials: Credentials): Observable<any> {
     return this.restService.post('sso/login', credentials)
                   .map((user : User) => {
-                      this.storeToken(user.token);
+                      this.storeUserData(user);
                       return user;
                   });
   }
@@ -36,7 +36,8 @@ export class AuthService {
     return localStorage.getItem('pcvt-token') !== null;
   }
 
-  private storeToken(token: string) {
-    localStorage.setItem('pcvt-token', token);
+  private storeUserData(user: User) {
+    localStorage.setItem('pcvt-token', user.token);
+    localStorage.setItem('id', `${user.id}`);
   }
 }
