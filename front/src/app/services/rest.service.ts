@@ -95,7 +95,8 @@ export class RestService {
   handleError(err: any): any {
     // if token is expired
     if(err.status === 401) {
-      localStorage.clear();
+      //localStorage.clear();
+      localStorage.removeItem('pcvt-token');
       this.router.navigate(['/login']);
     }
 
