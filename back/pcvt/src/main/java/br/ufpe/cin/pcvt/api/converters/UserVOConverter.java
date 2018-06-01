@@ -28,6 +28,7 @@ public class UserVOConverter implements IVOConverter<User, UserVO> {
         userVO.setAdmin(user.isAdmin());
         userVO.setAvailable(user.isAvailable());
         userVO.setCollaborator(user.isCollaborator());
+        userVO.setInstitution(user.getInstitution());
 
         return userVO;
     }
@@ -39,6 +40,7 @@ public class UserVOConverter implements IVOConverter<User, UserVO> {
         user.setId(userVO.getId());
         user.setName(userVO.getName());
         user.setEmail(userVO.getEmail());
+        user.setInstitution(userVO.getInstitution());
         user.setProfileLink(userVO.getProfileLink());
         user.setWorkArea(userVO.getWorkArea());
         user.setAdmin(userVO.isAdmin());

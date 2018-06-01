@@ -11,9 +11,11 @@ public class UserVO {
     private String profileLink;
     private String workArea;
 
-    private Boolean isAdmin;
-    private Boolean isCollaborator;
-    private Boolean isAvailable;
+    private String institution;
+
+    private Boolean admin;
+    private Boolean collaborator;
+    private Boolean available;
 
     private String token;
 
@@ -60,27 +62,35 @@ public class UserVO {
     }
 
     public Boolean isAdmin() {
-        return isAdmin;
+        return admin;
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
     }
 
     public void setAdmin(Boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 
     public Boolean isCollaborator() {
-        return isCollaborator;
+        return collaborator;
     }
 
     public void setCollaborator(Boolean collaborator) {
-        isCollaborator = collaborator;
+        this.collaborator = collaborator;
     }
 
     public Boolean isAvailable() {
-        return isAvailable;
+        return available;
     }
 
     public void setAvailable(Boolean available) {
-        isAvailable = available;
+        this.available = available;
     }
 
     public String getToken() {
