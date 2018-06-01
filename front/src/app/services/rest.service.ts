@@ -10,7 +10,7 @@ import {TimeoutError} from 'rxjs/Rx';
 export class RestService {
   // constants
   private readonly AUTH_TOKEN_HEADER: string = "X-AUTH-TOKEN";
-  private readonly SERVER_URL: string = 'http://127.0.0.1:7007/api/';
+  private readonly SERVER_URL: string = '127.0.0.1:7007/api/';
   private readonly JSON_CONTENT_TYPE: string = 'application/json';
   private readonly FORM_CONTENT_TYPE: string = 'application/x-www-form-urlencoded';
   private readonly REQUEST_TIMEOUT: number = 30000;
@@ -116,7 +116,7 @@ export class RestService {
   }
 
   protected resolve(path: string): string {
-    return this.SERVER_URL + path;
+    return  `${window.location.protocol}//${this.SERVER_URL}${path}`;
   }
 
   /*
