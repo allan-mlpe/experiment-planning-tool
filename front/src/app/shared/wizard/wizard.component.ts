@@ -9,20 +9,47 @@ declare var $ :any;
 })
 export class WizardComponent implements OnInit {
 
-  //@Input()
-  propertyList: Array<any> = [
-    { id: 1, text: "Characteristic 1"},
-    { id: 2, text: "Characteristic 2"},
-    { id: 3, text: "Characteristic 3"}
-  ];;
+  @Input()
+  propertyList: Array<any> = [];
+
+  currentObject: any;
+  currentObjectIndex: number;
+
+  @Input()
+  options: Array<any> = [];
 
   @Output()
-  submitList: EventEmitter<Array<any>> = new EventEmitter<Array<any>>(); 
+  submitList: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
 
   constructor() { }
 
+  nextItem() {
+    this.currentObjectIndex+=1;
+    this.currentObject = this.propertyList[this.currentObjectIndex];
+  }
+
+  previousItem() {
+    this.currentObjectIndex-=1;
+    this.currentObject = this.propertyList[this.currentObjectIndex];
+  }
+
+  getProgress() {
+    const numerator: number = this.currentObject.value === undefined ? this.currentObjectIndex : this.currentObjectIndex+1;
+    const denominator: number = this.propertyList.length;
+    const progress: number = numerator/denominator * 100;
+
+    return {
+      'width': `${progress}%`
+    }
+  }
+
+  finish() {
+    this.submitList.emit(this.propertyList);
+  }
+
   ngOnInit() {
-    $('ul.tabs').tabs();
+    this.currentObjectIndex = 0;
+    this.currentObject = this.propertyList[this.currentObjectIndex];
   }
 
 }
