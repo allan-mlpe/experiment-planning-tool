@@ -45,7 +45,7 @@
 
   <div class="row">
     <p>
-      <input type="checkbox" [(ngModel)]="user.isCollaborator" [checked]="user.isCollaborator"
+      <input type="checkbox" [(ngModel)]="user.collaborator" [checked]="user.collaborator"
              class="filled-in" id="isCollaborator" formControlName="isCollaborator">
       <label for="isCollaborator">Collaborator</label>
     </p>
@@ -53,14 +53,15 @@
 
   <div class="row">
     <p>
-      <input type="checkbox" [(ngModel)]="user.isAvailable" [checked]="user.isAvailable"
+      <input type="checkbox" [(ngModel)]="user.available" [checked]="user.available"
              class="filled-in" id="isAvailable" formControlName="isAvailable">
       <label for="isAvailable">Available</label>
     </p>
   </div>
 
   <div class="row right">
-    <button type="submit" class="waves-effect waves-light btn" [disabled]="form.invalid || loading || !hasUnsavedChanges">
+    <button type="submit" class="waves-effect waves-light btn"
+            [disabled]="form.invalid || loading || !hasUnsavedChanges">
       <i class="material-icons right">save</i>Save
     </button>
   </div>

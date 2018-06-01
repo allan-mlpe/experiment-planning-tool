@@ -9,6 +9,7 @@ import {UserService} from "../services/user.service";
 import {ApiMessage} from "../model/pcvt-message";
 import {ToastFactory} from "../shared/toast-factory";
 import 'rxjs/add/operator/finally';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -33,7 +34,8 @@ export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
   constructor(
     private formBuilder: FormBuilder,
     private modalService: ModalService,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -54,6 +56,12 @@ export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
         // if a change already occurred, it's not necessary to keep the subscribe
         this.subsc.unsubscribe();
+      }
+    );
+
+    this.route.data.subscribe(
+      (info) => {
+        this.user = info['user'];
       }
     );
   }

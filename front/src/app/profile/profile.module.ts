@@ -5,6 +5,7 @@ import {ProfileRoutingModule} from "./profile.routing.module";
 import {LayoutsModule} from "../shared/layouts/layouts.module";
 import {SharedModule} from "../shared/shared.module";
 import {UserService} from "../services/user.service";
+import {UserResolver} from "../guards/user.resolver";
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {UserService} from "../services/user.service";
   ],
   declarations: [ProfileComponent],
   providers: [
-    UserService
+    UserService,
+    UserResolver
   ]
 })
 export class ProfileModule { }

@@ -6,9 +6,9 @@ export class User {
   workArea: string;
   institution: string;
 
-  isAdmin: boolean;
-  isCollaborator: boolean;
-  isAvailable: boolean;
+  admin: boolean;
+  collaborator: boolean;
+  available: boolean;
 
   token: string;
 }

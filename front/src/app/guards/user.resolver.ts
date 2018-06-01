@@ -4,6 +4,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, ActivatedRoute } 
 import { Observable } from "rxjs/Rx";
 import {User} from "../model/user";
 import {UserService} from "../services/user.service";
+import {AuthService} from "../services/auth.service";
 
 @Injectable()
 export class UserResolver implements Resolve<User> {
@@ -15,7 +16,12 @@ export class UserResolver implements Resolve<User> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any>|Promise<any>|any {
-    let id: number = parseInt(route.params['id']);
+    let id: number;
+    if(route.params['id'] !== undefined) {
+      id = parseInt(route.params['id']);
+    } else {
+      id = parseInt(localStorage.getItem('id'));
+    }
 
     return this.userService.getUser(id);
   }
