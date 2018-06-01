@@ -8,4 +8,4 @@ docker rm -f ${CONTAINER_NAME}
 
 docker build -t pcvt-back:${API_VERSION} .
 
-docker run --net=host --restart=always --name=${CONTAINER_NAME} pcvt-back:${API_VERSION}
+docker run -d --net=host --restart=always --name=${CONTAINER_NAME} pcvt-back:${API_VERSION}
