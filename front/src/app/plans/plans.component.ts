@@ -13,12 +13,16 @@ import {ApiMessage} from "../model/pcvt-message";
 })
 export class PlansComponent implements OnInit {
 
-  plans: Array<Plan>;
+  plans: Array<Plan> = [];
+
+  loading: boolean = true;
 
   constructor(private planService: PlanService, protected modalService: ModalService) { }
 
   ngOnInit() {
-    this.planService.getPlans().subscribe(
+    this.planService.getPlans()
+      .finally(() => this.loading = false)
+      .subscribe(
       (data: Array<Plan>) => {
         this.plans = data;
       },

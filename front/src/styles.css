@@ -7,3 +7,12 @@ body {
 main {
     flex: 1 0 auto;
 }
+
+div.loading-data {
+  text-align: center;
+  padding: 10pt;
+}
+
+tr.empty-table td {
+  text-align: center;
+}

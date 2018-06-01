@@ -18,7 +18,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody *ngIf="!loading && plans.length > 0">
         <tr *ngFor="let plan of plans; let idx = index" >
           <td>{{ plan.name }}</td>
           <td>{{ plan.version }}</td>
@@ -38,5 +38,12 @@
           </td>
         </tr>
       </tbody>
+
+      <tr class="empty-table" *ngIf="!loading && plans.length === 0">
+        <td colspan="4">Nothing to show.</td>
+      </tr>
     </table>
+    <div class="loading-data" *ngIf="loading">
+      <app-spinner></app-spinner>
+    </div>
 </div>
