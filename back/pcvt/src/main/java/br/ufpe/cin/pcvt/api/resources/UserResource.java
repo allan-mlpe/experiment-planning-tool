@@ -92,9 +92,16 @@ public class UserResource {
     @Produces(APIConstants.APPLICATION_JSON)
     public Response updateUser(UserVO userVO, @PathParam("id") Integer userId) throws ApiException {
         userVO.setId(userId);
-        User user = UserVOConverter.getInstance().convertFromVO(userVO);
 
         try {
+            User user = UserVOConverter.getInstance().convertFromVO(userVO);
+            User oldUser = userController.get(userId);
+            if(user == null) {
+                throw new UserNotFoundException(userId.toString());
+            }
+
+            user.setPassword(oldUser.getPassword());
+
             UserVO updatedUserVO = UserVOConverter.getInstance()
                     .convertToVO(userController.update(user));
 
