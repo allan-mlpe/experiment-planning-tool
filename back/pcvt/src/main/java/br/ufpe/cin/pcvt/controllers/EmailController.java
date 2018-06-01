@@ -10,14 +10,15 @@ import java.util.Date;
 public class EmailController {
 
 	private AuthMailAgent mailAgent;
-	private static final String SYSTEM_LINK = "http://reviewer.codehaven.co:8080/reviewer";
+	private static final String SYSTEM_LINK = "https://35.237.38.120";
+	private static final String APPLICATION_NAME = "PCVT";
 
 	protected EmailController() {
 		mailAgent = AuthMailAgent.getInstanceDev();
 	}
 
 	public void sendTokenEmail(UserToken token) {
-		String subject = "PCVT - Password Recovery";
+		String subject = String.format("%s - Password Recovery", APPLICATION_NAME);
 
 		String introduction = String.format(
 				"Dear %s <br/>we received a request to reset the password for your reviewer tool account. <br/><br/>",
@@ -39,7 +40,7 @@ public class EmailController {
 
 	@SuppressWarnings("deprecation")
 	public void sendReviewerNewReviewEmail(Review review) {
-		String subject = "Reviewer - New review notification";
+		String subject = String.format("%s - New review notification", APPLICATION_NAME);
 		Date date = review.getPlan().getDate();
 
 		String introduction = String.format("Dear %s <br/><br/>", review.getReviewer().getName());
@@ -65,7 +66,7 @@ public class EmailController {
 
 	@SuppressWarnings("deprecation")
 	public void sendReviewerReviewAcceptedEmail(Review review) {
-		String subject = "Reviewer - New review notification";
+		String subject = String.format("%s - New review notification", APPLICATION_NAME);
 		Date date = review.getPlan().getDate();
 
 		String introduction = String.format("Dear %s <br/><br/>", review.getReviewer().getName());
@@ -90,7 +91,7 @@ public class EmailController {
 	}
 
 	public void sendAuthorReviewAcceptedEmail(Review review) {
-		String subject = "Reviewer - Review accepted notification";
+		String subject = String.format("%s - Review accepted notification", APPLICATION_NAME);
 
 		String introduction = String.format("Dear %s <br/><br/>", review.getPlan().getAuthor().getName());
 		String mainText = String.format(
@@ -108,7 +109,7 @@ public class EmailController {
 	}
 	
 	public void sendAuthorReviewRejectedEmail(Review review) {
-		String subject = "Reviewer - Review rejected notification";
+		String subject = String.format("%s - Review rejected notification", APPLICATION_NAME);
 
 		String introduction = String.format("Dear %s <br/><br/>", review.getPlan().getAuthor().getName());
 		String mainText = String.format(
@@ -126,9 +127,9 @@ public class EmailController {
 	}
 
 	public void sendAccountCreatedEmail(User user, String plainTextPassword) {
-		String subject = "Reviewer - New user notification";
+		String subject = String.format("%s - New user notification", APPLICATION_NAME);
 
-		String introduction = String.format("Dear %s <br/>welcome to Reviewer Tool! <br/><br/>", user.getName());
+		String introduction = String.format("Dear %s <br/>welcome to PCVT Tool! <br/><br/>", user.getName());
 		String mainText = String.format(
 				String.format("Sign in at %s<br/><br/>", SYSTEM_LINK)+
 				"Here are your account details:<br/><br/>Email: %s <br/> Password: %s <br/><br/>", user.getEmail(),
