@@ -15,6 +15,10 @@ export class UserService {
     return this.restService.get(this.RESOURCE_PREFIX);
   }
 
+  getAvailable() {
+    return this.restService.get(`${this.RESOURCE_PREFIX}/available`);
+  }
+
   getUser(userId: number): Observable<any> {
     return this.restService.get(`${this.RESOURCE_PREFIX}/${userId}`);
   }
@@ -30,5 +34,4 @@ export class UserService {
   deleteUser(userId: number) {
     return this.restService.delete(`${this.RESOURCE_PREFIX}/${userId}`);
   }
-
 }

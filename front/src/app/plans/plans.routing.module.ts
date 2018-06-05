@@ -13,6 +13,8 @@ import {CharacteristicsComponent} from "./characteristics/characteristics.compon
 import {PlanResolver} from "../guards/plan.resolver";
 import {EditPlanComponent} from "./edit-plan/edit-plan.component";
 import {AuthGuard} from "../guards/auth.guard";
+import {ReadyToReviewComponent} from "./ready-to-review/ready-to-review.component";
+import {CreateReviewComponent} from "./create-review/create-review.component";
 
 const planRoutes: Routes = [
     {
@@ -21,6 +23,8 @@ const planRoutes: Routes = [
             { path: '', component: PlansComponent },
             { path: 'create', component: CreatePlanComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard] },
             { path: 'edit/:id', component: EditPlanComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}},
+            { path: 'ready-to-review', component: ReadyToReviewComponent, canActivate: [AuthGuard]},
+            { path: 'ready-to-review/create/:id', component: CreateReviewComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}},
             { path: ':id/workspace', component: WorkspaceComponent, resolve: { plan: PlanResolver} },
             { path: ':id/characteristics', component: CharacteristicsComponent },
             { path: ':id/threats', component: ThreatsComponent},
