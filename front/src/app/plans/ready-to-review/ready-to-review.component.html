@@ -25,7 +25,7 @@
       <td>{{ plan.version }}</td>
       <td>{{ plan.state }}</td>
       <td>
-        <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Create review" [routerLink]="['create']">
+        <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Create review" [routerLink]="['create', plan.id]">
           add_circle_outline
         </i>
       </td>
