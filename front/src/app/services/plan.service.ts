@@ -9,8 +9,8 @@ export class PlanService {
 
   constructor(private restService: RestService) {}
 
-  getPlans(): Observable<any> {
-    return this.restService.get(this.RESOURCE_PREFIX);
+  getPlans(params: any = {}): Observable<any> {
+    return this.restService.get(this.RESOURCE_PREFIX, params);
   }
 
   getPlanById(planId: number): Observable<any> {
