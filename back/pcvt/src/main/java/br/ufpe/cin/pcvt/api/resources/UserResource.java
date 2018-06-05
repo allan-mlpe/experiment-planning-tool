@@ -3,6 +3,8 @@ package br.ufpe.cin.pcvt.api.resources;
 import br.ufpe.cin.pcvt.api.converters.UserVOConverter;
 import br.ufpe.cin.pcvt.api.exceptions.ApiException;
 import br.ufpe.cin.pcvt.api.models.UserVO;
+import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
+import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
 import br.ufpe.cin.pcvt.controllers.ControllerFactory;
 import br.ufpe.cin.pcvt.controllers.UserController;
 import br.ufpe.cin.pcvt.data.models.user.User;
@@ -12,6 +14,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -58,6 +62,24 @@ public class UserResource {
         List<UserVO> userVOS = new ArrayList<UserVO>();
         users.forEach(user ->
             userVOS.add(UserVOConverter.getInstance().convertToVO(user))
+        );
+
+        GenericEntity<List<UserVO>> genericList = new GenericEntity<List<UserVO>>(userVOS) {};
+        return Response.ok(genericList).build();
+    }
+
+    @SecureEndpoint
+    @GET
+    @Path("available")
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response getAvailableUsers(@Context ContainerRequestContext req) {
+        User loggedUser = RequestContextUtils.extractUser(req);
+        List<User> users = userController.allAvailable();
+        users.remove(loggedUser);
+
+        List<UserVO> userVOS = new ArrayList<UserVO>();
+        users.forEach(user ->
+                userVOS.add(UserVOConverter.getInstance().convertToVO(user))
         );
 
         GenericEntity<List<UserVO>> genericList = new GenericEntity<List<UserVO>>(userVOS) {};
