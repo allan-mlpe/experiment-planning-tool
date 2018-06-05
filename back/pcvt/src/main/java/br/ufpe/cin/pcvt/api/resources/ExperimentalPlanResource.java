@@ -62,11 +62,31 @@ public class ExperimentalPlanResource {
 
     @GET
     @Produces(APIConstants.APPLICATION_JSON)
-    public Response getExperimentalPlansByAuthor(@Context ContainerRequestContext req) throws ApiException {
+    public Response getExperimentalPlansByAuthor(@Context ContainerRequestContext req, @QueryParam("state") String state) throws ApiException {
         try {
             User user = RequestContextUtils.extractUser(req);
 
             List<Plan> plans = experimentalPlanController.retrieveByAuthor(user);
+
+            if(state != null) {
+                switch (state) {
+                    case "planning":
+                        plans.removeIf(p -> p.getState() != EPlanState.Planning);
+                        break;
+                    case "ready":
+                        plans.removeIf(p -> p.getState() != EPlanState.ReadyToReview);
+                        break;
+                    case "reviewing":
+                        plans.removeIf(p -> p.getState() != EPlanState.Reviewing);
+                        break;
+                    case "completed":
+                        plans.removeIf(p -> p.getState() != EPlanState.Completed);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             List<ExperimentalPlanVO> plansVOS = new ArrayList<>();
             plans.forEach(plan -> {
                 ExperimentalPlanVO planVO =
