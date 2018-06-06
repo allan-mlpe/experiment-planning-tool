@@ -20,7 +20,16 @@ public class TableName {
 	public static final String PLAN_ITEM = "plan_item";
 	public static final String PLAN_HAS_COLLABORATOR = "plan_has_collaborator";
 	public static final String PLAN_HAS_REVIEWER = "plan_has_reviewer";
-	
+
+	// Characteristics related
+	public static final String CHARACTERISTIC = "characteristic";
+
+	// Threats related
+	public static final String THREAT = "threat";
+
+	// Control actions related
+	public static final String CONTROL_ACTION = "control_action";
+
 	
 	@SuppressWarnings("rawtypes")
 	public static String GetTableName(Class entityClass)
