@@ -21,4 +21,6 @@ public class RepositoryFactory {
 	public static IUserTokenRepository createUserTokenRepository() {
 		return new HibernateUserTokenRepository();
 	}
+
+    public static IThreatRepository createThreatRepository() { return new HibernateThreatRepository(); }
 }
