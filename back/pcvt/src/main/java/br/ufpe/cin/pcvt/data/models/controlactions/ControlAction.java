@@ -21,7 +21,10 @@ public class ControlAction {
     private String label;
 
     @ManyToMany
-
+    @JoinTable(name = "threats_for_control_actions",
+            joinColumns = {@JoinColumn(name = "control_action_id")},
+            inverseJoinColumns = {@JoinColumn(name = "threat_id")}
+    )
     private List<Threat> relatedThreats;
 
     public ControlAction() {}
@@ -48,5 +51,13 @@ public class ControlAction {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public List<Threat> getRelatedThreats() {
+        return relatedThreats;
+    }
+
+    public void setRelatedThreats(List<Threat> relatedThreats) {
+        this.relatedThreats = relatedThreats;
     }
 }

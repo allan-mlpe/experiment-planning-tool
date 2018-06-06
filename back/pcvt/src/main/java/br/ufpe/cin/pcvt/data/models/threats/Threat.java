@@ -23,7 +23,7 @@ public class Threat {
     private String label;
 
     @ManyToMany
-    @JoinTable(name = "control_action_for_threat",
+    @JoinTable(name = "control_actions_for_threats",
             joinColumns = {@JoinColumn(name = "threat_id")},
             inverseJoinColumns = {@JoinColumn(name = "control_action_id")}
     )
