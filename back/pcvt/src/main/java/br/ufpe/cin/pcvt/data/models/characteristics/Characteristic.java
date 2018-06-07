@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = TableName.CHARACTERISTIC)
-public class PlanCharacteristic {
+public class Characteristic {
 
     @Id
     @Column(name = "id")
@@ -31,7 +31,7 @@ public class PlanCharacteristic {
     )
     private List<Threat> relatedThreats;
 
-    public PlanCharacteristic() {}
+    public Characteristic() {}
 
     public Integer getId() {
         return id;

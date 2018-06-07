@@ -23,4 +23,6 @@ public class RepositoryFactory {
 	}
 
     public static IThreatRepository createThreatRepository() { return new HibernateThreatRepository(); }
+
+    public static ICharacteristicRepository createCharacteristicRepository() { return new HibernateCharacteristicRepository(); }
 }
