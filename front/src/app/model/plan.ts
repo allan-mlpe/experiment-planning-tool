@@ -5,6 +5,8 @@ export class Plan {
     name: string;
     description: string;
     planDetails: string;
+    planCharacteristics: string;
+    planThreats: string;
     version: string;
     author: User;
     collaborators: Array<User>;
@@ -17,13 +19,14 @@ export class Plan {
     threatList: Array<any> = null;
     actionList: Array<any> = null;
 
-    constructor(name: string, description: string) {
+    /*constructor(name: string, description: string) {
         this.name = name;
         this.description = description;
 
         const auxDate = new Date();
         this.lastModification = `${auxDate.getMonth()+1}/${auxDate.getDate()}/${auxDate.getFullYear()}`;
-    }
+    }*/
+    constructor() {}
 
     public setThreatList(threatList: Array<any>): void {
         this.threatList = threatList;

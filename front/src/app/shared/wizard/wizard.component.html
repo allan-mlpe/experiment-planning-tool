@@ -9,7 +9,7 @@
 
           <input class="with-gap" type="radio" [value]="option.value"
                  [name]="'prop-'+currentObject.key" [id]="'prop-'+currentObject.key+'-op-'+option.id"
-                 [(ngModel)]="currentObject.value" />
+                 [(ngModel)]="objValues[currentObject.key]" />
 
           <label [for]="'prop-'+currentObject.key+'-op-'+option.id">{{ option.text }}</label>
       </span>
@@ -25,11 +25,11 @@
             *ngIf="currentObjectIndex !== 0"
             (click)="previousItem()"><i class="material-icons left">navigate_before</i> Back</button>
 
-    <button class="btn waves-effect waves-light" type="button" [disabled]="currentObject.value === undefined"
+    <button class="btn waves-effect waves-light" type="button" [disabled]="!isObjectComplete()"
             *ngIf="currentObjectIndex !== propertyList.length-1"
             (click)="nextItem()">Next <i class="material-icons right">navigate_next</i></button>
 
-    <button class="btn waves-effect waves-light" type="button" [disabled]="currentObject.value === undefined"
+    <button class="btn waves-effect waves-light" type="button" [disabled]="!isObjectComplete()"
             *ngIf="currentObjectIndex === propertyList.length-1"
             (click)="finish()">Finish <i class="material-icons right">check</i></button>
   </div>

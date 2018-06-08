@@ -16,10 +16,13 @@ export class WizardComponent implements OnInit {
   currentObjectIndex: number;
 
   @Input()
+  objValues: any = {};
+
+  @Input()
   options: Array<any> = [];
 
   @Output()
-  submitList: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+  submitFormValues: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
@@ -34,7 +37,7 @@ export class WizardComponent implements OnInit {
   }
 
   getProgress() {
-    const numerator: number = this.currentObject.value === undefined ? this.currentObjectIndex : this.currentObjectIndex+1;
+    const numerator: number = this.isObjectComplete() ? this.currentObjectIndex+1 : this.currentObjectIndex;
     const denominator: number = this.propertyList.length;
     const progress: number = numerator/denominator * 100;
 
@@ -43,8 +46,12 @@ export class WizardComponent implements OnInit {
     }
   }
 
+  isObjectComplete(): boolean {
+    return this.objValues[this.currentObject.key] !== undefined;
+  }
+
   finish() {
-    this.submitList.emit(this.propertyList);
+    this.submitFormValues.emit(this.objValues);
   }
 
   ngOnInit() {
