@@ -21,6 +21,14 @@ export class PlanService {
     return this.restService.post(this.RESOURCE_PREFIX, plan);
   }
 
+  savePlanCharacteristics(plan: Plan): Observable<any> {
+    return this.restService.post(`${this.RESOURCE_PREFIX}/${plan.id}/characteristics`, plan);
+  }
+
+  savePlanThreats(plan: Plan): Observable<any> {
+    return this.restService.post(`${this.RESOURCE_PREFIX}/${plan.id}/threats`, plan);
+  }
+
   updatePlan(plan: Plan): Observable<any> {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${plan.id}`, plan);
   }
@@ -30,7 +38,6 @@ export class PlanService {
   }
 
   deletePlan(planId: number): Observable<any> {
-    //this.plans = this.plans.filter(pln => pln !== plan);
     return this.restService.delete(`${this.RESOURCE_PREFIX}/${planId}`);
   }
 }
