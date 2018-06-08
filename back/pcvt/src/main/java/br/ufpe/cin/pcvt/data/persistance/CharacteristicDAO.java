@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class CharacteristicDAO extends JPADAO<Characteristic, Integer> {
 
-    public Set<Threat> getThreatsByCharacteristicId(List<Integer> ids) {
+    public Set<Threat> getThreatsByCharacteristicId(List<Integer> ids) throws NoResultException {
         String jpqlString = "SELECT u FROM " + this.entityClass.getName() + " u WHERE u.id IN :ids";
         Query query = this.entityManager
                 .createQuery(jpqlString, Characteristic.class)
@@ -32,7 +32,7 @@ public class CharacteristicDAO extends JPADAO<Characteristic, Integer> {
         }
     }
 
-    public Set<Threat> getThreatsByCharacteristicKey(List<String> keys) {
+    public Set<Threat> getThreatsByCharacteristicKey(List<String> keys) throws NoResultException {
         String jpqlString = "SELECT u FROM " + this.entityClass.getName() + " u WHERE u.key IN :keys";
         Query query = this.entityManager
                 .createQuery(jpqlString, Characteristic.class)
