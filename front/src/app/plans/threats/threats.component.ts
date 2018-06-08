@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { THREAT_OPTIONS } from './../../model/threat-options';
+import {THREAT_OPTIONS} from './../../model/threat-options';
 import {Plan} from "../../model/plan";
 import {Subscription} from "rxjs/Rx";
 import {PlanService} from "../../services/plan.service";
@@ -56,7 +56,8 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   }
 
   finish() {
-    //this.submitList.emit(this.threatList);
+    ToastFactory.infoToast('Available soon');
+    this.router.navigate(['../workspace'], {relativeTo: this.route })
   }
 
   isObjectComplete(): boolean {

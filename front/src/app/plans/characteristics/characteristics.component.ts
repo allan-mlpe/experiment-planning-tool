@@ -6,6 +6,7 @@ import {PlanService} from "../../services/plan.service";
 import {Plan} from "../../model/plan";
 import {ApiMessage} from "../../model/pcvt-message";
 import {Subscription} from "rxjs/Subscription";
+import {PcvtConstants} from "../../shared/pcvt-constants";
 
 @Component({
   selector: 'app-characteristics',
@@ -18,7 +19,6 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
   characteristicsObj: any = {};
   options = SIMPLE_OPTIONS;
   characteristics: Array<any> = [];
-  private planId: string;
   private subscription: Subscription;
 
   constructor(
@@ -28,6 +28,7 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.buildCharacteristicsObject();
     this.subscription = this.route.data.subscribe(
       (info: { plan: Plan }) => {
         this.plan = info['plan'];
@@ -38,12 +39,19 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
       });
   }
 
-  saveCharacteristics(event) {
-    let plan: Plan = new Plan();
-    plan.id = parseInt(this.planId);
-    plan.planCharacteristics = JSON.stringify(event);
+  buildCharacteristicsObject() {
+    const questions: Array<any> = PcvtConstants.CHARACTERIZATION_QUESTIONS;
+    questions.forEach(category => {
+      category.questions.forEach(question => {
+        this.characteristics.push(question);
+      })
+    });
+  }
 
-    this.planService.savePlanCharacteristics(plan).subscribe(
+  saveCharacteristics(event) {
+    this.plan.planCharacteristics = JSON.stringify(event);
+
+    this.planService.savePlanCharacteristics(this.plan).subscribe(
       data => {
         console.log(data);
         ToastFactory.successToast('Characteristics of the plan defined')
