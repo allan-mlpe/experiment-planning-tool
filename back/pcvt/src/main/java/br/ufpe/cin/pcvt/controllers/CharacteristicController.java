@@ -18,6 +18,8 @@ public class CharacteristicController {
 
     public Set<Threat> getThreatsById(List<Integer> ids) { return repository.getThreatsByCharacteristicId(ids); }
 
+    public Set<Threat> getThreatsByKey(List<String> keys) { return repository.getTreatsByCharacteristicKey(keys); }
+
 //    public static void main(String[] args) {
 //        CharacteristicController characteristicController = new CharacteristicController();
 //

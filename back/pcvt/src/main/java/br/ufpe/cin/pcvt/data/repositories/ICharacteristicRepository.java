@@ -15,4 +15,6 @@ public interface ICharacteristicRepository {
     List<Characteristic> all();
 
     Set<Threat> getThreatsByCharacteristicId(List<Integer> ids);
+
+    Set<Threat> getTreatsByCharacteristicKey(List<String> keys);
 }

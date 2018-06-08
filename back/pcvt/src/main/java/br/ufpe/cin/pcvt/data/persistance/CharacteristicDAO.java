@@ -31,4 +31,24 @@ public class CharacteristicDAO extends JPADAO<Characteristic, Integer> {
             throw nre;
         }
     }
+
+    public Set<Threat> getThreatsByCharacteristicKey(List<String> keys) {
+        String jpqlString = "SELECT u FROM " + this.entityClass.getName() + " u WHERE u.key IN :keys";
+        Query query = this.entityManager
+                .createQuery(jpqlString, Characteristic.class)
+                .setParameter("keys", keys);
+
+        try {
+            List<Characteristic> characteristics = query.getResultList();
+            Set<Threat> threats = new HashSet<>();
+
+            characteristics.forEach(ch -> {
+                threats.addAll(ch.getRelatedThreats());
+            });
+
+            return threats;
+        } catch(NoResultException nre) {
+            throw nre;
+        }
+    }
 }

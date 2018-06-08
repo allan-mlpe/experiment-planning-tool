@@ -72,4 +72,9 @@ public class HibernateCharacteristicRepository implements ICharacteristicReposit
     public Set<Threat> getThreatsByCharacteristicId(List<Integer> ids) {
         return dao.getThreatsByCharacteristicId(ids);
     }
+
+    @Override
+    public Set<Threat> getTreatsByCharacteristicKey(List<String> keys) {
+        return dao.getThreatsByCharacteristicKey(keys);
+    }
 }
