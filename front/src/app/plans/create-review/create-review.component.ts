@@ -99,6 +99,7 @@ export class CreateReviewComponent implements OnInit, OnDestroy, IFormCanDeactiv
 
   onSubmit() {
     if (this.form.valid) {
+      ToastFactory.infoToast('Available soon');
 
     } else {
       this.formValidateUtils.checkAllFields(this.form);
