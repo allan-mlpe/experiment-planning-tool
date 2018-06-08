@@ -26,8 +26,8 @@ const planRoutes: Routes = [
             { path: 'ready-to-review', component: ReadyToReviewComponent, canActivate: [AuthGuard]},
             { path: 'ready-to-review/create/:id', component: CreateReviewComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}},
             { path: ':id/workspace', component: WorkspaceComponent, resolve: { plan: PlanResolver} },
-            { path: ':id/characteristics', component: CharacteristicsComponent },
-            { path: ':id/threats', component: ThreatsComponent},
+            { path: ':id/characteristics', component: CharacteristicsComponent, resolve: { plan : PlanResolver} },
+            { path: ':id/threats', component: ThreatsComponent, resolve: { plan : PlanResolver}},
             { path: ':id/actions', component: ActionsComponent},
             { path: ':id/reports', component: ReportsComponent }
         ]

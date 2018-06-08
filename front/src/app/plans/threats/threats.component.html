@@ -2,6 +2,53 @@
   <h3>Threats</h3>
 </div>
 
-<div class="row">
-  <app-radio-list [options]="options" [propertyList]="threats"></app-radio-list>
+<div class="row" *ngIf="!loading && threatList.length > 0">
+  <div class="col s12">
+    <div class="row" >
+      <p class="col s12 m12 l12">
+        {{ currentObjectIndex+1 + ') ' + currentObject.label }}.
+      </p>
+
+      <form class="col s12 m12 l12" action="">
+        <div *ngFor="let label of labels">
+          <p class="label-title">{{ label }}</p>
+          <span class="col s12 m6 l4" *ngFor="let val of values">
+
+            <input class="with-gap" type="radio" [value]="val"
+                   [name]="'prop-'+currentObject.key+'-'+label" [id]="'prop-'+currentObject.key+'-op-'+label+'-'+val"
+                   [(ngModel)]="currentObject[label.toLowerCase()]" />
+
+            <label [for]="'prop-'+currentObject.key+'-op-'+label+'-'+val">{{ val }}</label>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    <div class="progress">
+      <div class="determinate" [ngStyle]="getProgress()"></div>
+    </div>
+
+    <div class="right">
+      <button class="btn waves-effect waves-light" type="button"
+              *ngIf="currentObjectIndex !== 0"
+              (click)="previousItem()"><i class="material-icons left">navigate_before</i> Back</button>
+
+      <button class="btn waves-effect waves-light" type="button" [disabled]="!isObjectComplete()"
+              *ngIf="currentObjectIndex !== threatList.length-1"
+              (click)="nextItem()">Next <i class="material-icons right">navigate_next</i></button>
+
+      <button class="btn waves-effect waves-light" type="button" [disabled]="!isObjectComplete()"
+              *ngIf="currentObjectIndex === threatList.length-1"
+              (click)="finish()">Finish <i class="material-icons right">check</i></button>
+    </div>
+
+  </div>
+</div>
+
+<div class="row" *ngIf="!loading && threatList.length === 0">
+  <p>There is no threats related to this plan yet.</p>
+</div>
+
+<div class="loading-data" *ngIf="loading">
+  <app-spinner></app-spinner>
 </div>
