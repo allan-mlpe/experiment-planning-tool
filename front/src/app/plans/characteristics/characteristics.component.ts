@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { SIMPLE_OPTIONS } from '../../model/simple-options'
-import {PcvtConstants} from "../../shared/pcvt-constants";
+import {SIMPLE_OPTIONS} from '../../model/simple-options'
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastFactory} from "../../shared/toast-factory";
 import {PlanService} from "../../services/plan.service";
@@ -37,27 +36,6 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
           this.characteristicsObj = JSON.parse(this.plan.planCharacteristics);
         }
       });
-
-          //this.buildCharacteristicsObject();
-    this.planId = this.route.snapshot.params['id'];
-
-    const planCharacteristics = localStorage.getItem(this.planId);
-
-    if(planCharacteristics !== null) {
-      this.characteristics = JSON.parse(planCharacteristics);
-    } else {
-      this.buildCharacteristicsObject();
-    }
-  }
-
-  buildCharacteristicsObject() {
-    const questions: Array<any> = PcvtConstants.CHARACTERIZATION_QUESTIONS;
-
-    questions.forEach(category => {
-      category.questions.forEach(question => {
-        this.characteristics.push(question);
-      })
-    });
   }
 
   saveCharacteristics(event) {
@@ -76,12 +54,6 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
         ToastFactory.errorToast(err.message);
       }
     )
-  }
-
-  filterKeys(): Array<any> {
-    return this.characteristics.map(ch => {
-      return { key: ch['key'], value: ch['value'] }
-    })
   }
 
   ngOnDestroy() {
