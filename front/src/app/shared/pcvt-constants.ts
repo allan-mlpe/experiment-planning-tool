@@ -67,7 +67,7 @@ export class PcvtConstants {
           "label": "May there be lack of motivation for participants to participate in the study?"
         },
         {
-          "key": "participants18",
+          "key": "participants8",
           "label": "Is it possible that one of the participants leaves the experiment?"
         },
         {

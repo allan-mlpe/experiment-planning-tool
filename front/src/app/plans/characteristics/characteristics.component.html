@@ -3,6 +3,6 @@
 </div>
 
 <div class="row">
-  <app-wizard (submitList)="saveCharacteristics($event)"
-              [propertyList]="characteristics" [options]="options"></app-wizard>
+  <app-wizard (submitFormValues)="saveCharacteristics($event)"
+              [propertyList]="characteristics" [options]="options" [objValues]="characteristicsObj"></app-wizard>
 </div>
