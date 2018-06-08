@@ -25,6 +25,8 @@ public class ExperimentalPlanVO {
     private List<Review> reviews;
     private boolean archived;
     private String planDetails;
+    private String planCharacteristics;
+    private String planThreats;
 
     public Integer getId() {
         return id;
@@ -120,5 +122,21 @@ public class ExperimentalPlanVO {
 
     public void setPlanDetails(String planDetails) {
         this.planDetails = planDetails;
+    }
+
+    public String getPlanCharacteristics() {
+        return planCharacteristics;
+    }
+
+    public void setPlanCharacteristics(String planCharacteristics) {
+        this.planCharacteristics = planCharacteristics;
+    }
+
+    public String getPlanThreats() {
+        return planThreats;
+    }
+
+    public void setPlanThreats(String planThreats) {
+        this.planThreats = planThreats;
     }
 }

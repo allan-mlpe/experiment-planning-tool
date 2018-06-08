@@ -26,4 +26,7 @@ public class ControllerFactory {
 		return new EmailController();
 	}
 
+	public static CharacteristicController createCharacteristicController() { return new CharacteristicController(); }
+
+	public static ThreatController createThreatController() { return new ThreatController(); }
 }
