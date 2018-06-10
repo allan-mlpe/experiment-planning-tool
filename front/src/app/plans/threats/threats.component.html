@@ -16,7 +16,7 @@
 
             <input class="with-gap" type="radio" [value]="val"
                    [name]="'prop-'+currentObject.key+'-'+label" [id]="'prop-'+currentObject.key+'-op-'+label+'-'+val"
-                   [(ngModel)]="currentObject[label.toLowerCase()]" />
+                   [(ngModel)]="threatObj[currentObject.key][label.toLowerCase()]" />
 
             <label [for]="'prop-'+currentObject.key+'-op-'+label+'-'+val">{{ val }}</label>
           </span>

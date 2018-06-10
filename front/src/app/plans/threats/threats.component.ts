@@ -22,6 +22,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   currentObject: any;
   currentObjectIndex: number;
   threatList: Array<any> = [];
+  threatObj: any = {};
 
   labels = ['Impact', 'Urgency', 'Trend'];
   values = [1, 2, 3];
@@ -34,37 +35,6 @@ export class ThreatsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) { }
-
-  nextItem() {
-    this.currentObjectIndex+=1;
-    this.currentObject = this.threatList[this.currentObjectIndex];
-  }
-
-  previousItem() {
-    this.currentObjectIndex-=1;
-    this.currentObject = this.threatList[this.currentObjectIndex];
-  }
-
-  getProgress() {
-    const numerator: number = this.isObjectComplete() ? this.currentObjectIndex+1 : this.currentObjectIndex;
-    const denominator: number = this.threatList.length;
-    const progress: number = numerator/denominator * 100;
-
-    return {
-      'width': `${progress}%`
-    }
-  }
-
-  finish() {
-    ToastFactory.infoToast('Available soon');
-    this.router.navigate(['../workspace'], {relativeTo: this.route })
-  }
-
-  isObjectComplete(): boolean {
-    return this.currentObject['impact'] !== undefined
-            && this.currentObject['urgency'] !== undefined
-            && this.currentObject['trend'] !== undefined;
-  }
 
   ngOnInit() {
     this.subscription = this.route.data.subscribe(
@@ -86,6 +56,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
 
                   this.currentObjectIndex = 0;
                   this.currentObject = this.threatList[this.currentObjectIndex];
+                  this.processClassification();
                 },
                 (err: ApiMessage) => {
                   console.log(err);
@@ -99,6 +70,59 @@ export class ThreatsComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  finish() {
+    this.plan.planThreats = JSON.stringify(this.threatObj);
+
+    this.planService.savePlanThreats(this.plan).subscribe(
+      data => {
+        ToastFactory.successToast("Control actions has been defined");
+
+        this.router.navigate(['../workspace'], {relativeTo: this.route })
+      },
+      (err: ApiMessage) => {
+        console.log(err);
+        ToastFactory.errorToast(err.message);
+      }
+    );
+  }
+
+  processClassification() {
+    if(this.plan.planThreats !== undefined) {
+      this.threatObj = JSON.parse(this.plan.planThreats);
+    } else {
+      this.threatList.forEach(threat => {
+        this.threatObj[threat.key] = {};
+      });
+    }
+  }
+
+  nextItem() {
+    this.currentObjectIndex+=1;
+    this.currentObject = this.threatList[this.currentObjectIndex];
+  }
+
+  previousItem() {
+    this.currentObjectIndex-=1;
+    this.currentObject = this.threatList[this.currentObjectIndex];
+  }
+
+  getProgress() {
+    const numerator: number = this.isObjectComplete() ? this.currentObjectIndex+1 : this.currentObjectIndex;
+    const denominator: number = this.threatList.length;
+    const progress: number = numerator/denominator * 100;
+
+    return {
+      'width': `${progress}%`
+    }
+  }
+
+  isObjectComplete(): boolean {
+    const obj = this.threatObj[this.currentObject.key];
+    return obj['impact'] !== undefined
+            && obj['urgency'] !== undefined
+            && obj['trend'] !== undefined;
   }
 
   ngOnDestroy() {
