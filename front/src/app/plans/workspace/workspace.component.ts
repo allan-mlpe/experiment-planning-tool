@@ -21,7 +21,6 @@ export class WorkspaceComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.route.data.subscribe(
       (info: {plan: Plan}) => {
-        console.log(info);
         this.plan = info['plan'];
       }
     );

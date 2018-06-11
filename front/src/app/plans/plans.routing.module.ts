@@ -29,7 +29,7 @@ const planRoutes: Routes = [
             { path: ':id/characteristics', component: CharacteristicsComponent, resolve: { plan : PlanResolver} },
             { path: ':id/threats', component: ThreatsComponent, resolve: { plan : PlanResolver}},
             { path: ':id/actions', component: ActionsComponent},
-            { path: ':id/reports', component: ReportsComponent }
+            { path: ':id/reports', component: ReportsComponent, resolve: { plan: PlanResolver }}
         ]
     }
 ];

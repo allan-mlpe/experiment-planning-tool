@@ -1,3 +1,84 @@
-<p>
-  reports works!
-</p>
+<div class="row">
+  <h3>Reports</h3>
+</div>
+
+<div class="row">
+  <div class="input-field col s12">
+    <select id="report-type" (change)="changeSelectValue($event)">
+      <option value="" disabled selected>Choose a report type</option>
+      <option value="1" *ngIf="plan.planCharacteristics !== undefined">Suggested threats</option>
+      <option value="2" *ngIf="plan.planThreats !== undefined">Classified threats</option>
+      <option value="3" *ngIf="plan.actionList !== undefined">Defined control actions</option>
+    </select>
+    <label>Report type</label>
+  </div>
+</div>
+
+<div class="report-page" *ngIf="reportType !== undefined">
+<div class="row">
+  <div class="col s12">
+    <hr class="section-separator">
+    <h5>Plan Details</h5>
+
+    <div>
+      <label>Name</label>
+      <p>{{ plan.name }}</p>
+    </div>
+
+    <div>
+      <label>Description</label>
+      <p>{{ plan.description }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="row" [ngSwitch]="reportType">
+  <div class="col s12">
+    <!-- suggested threats -->
+    <div *ngSwitchCase="1">
+      <hr class="section-separator">
+      <h5>Suggested threats</h5>
+
+      <table class="highlight">
+        <thead>
+        <tr>
+          <th>Threat</th>
+          <th>Type</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let threat of threatList; let index = index">
+          <td>{{ threat.label }}</td>
+          <td>{{ threat.type }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Classified threats -->
+    <div *ngSwitchCase="2">
+      <hr class="section-separator">
+      <h5>Classified threats</h5>
+
+      <div class="threat-section" *ngFor="let threat of threatList; let i = index">
+        <label>Threat {{ i + 1 }}</label>
+        <p>{{ threat.label }}</p>
+
+        <label>Type</label>
+        <p>{{ threat.type }}</p>
+
+        <label>Classification</label>
+        <p>Impact: {{ threatValuesObj[threat.key]['impact'] }}</p>
+        <p>Urgency: {{ threatValuesObj[threat.key]['urgency'] }}</p>
+        <p>Trend: {{ threatValuesObj[threat.key]['trend'] }}</p>
+      </div>
+    </div>
+
+    <!-- Defined control actions -->
+    <div *ngSwitchCase="3">
+      Report 3
+    </div>
+  </div>
+</div>
+</div>
