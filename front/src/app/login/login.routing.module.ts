@@ -5,6 +5,7 @@ import {LoginComponent} from './login.component';
 import {BlankLayoutComponent} from '../shared/layouts/blank-layout/blank-layout.component';
 import {RecoveryPasswordComponent} from "./recovery-password/recovery-password.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {CreateAccountComponent} from "./create-account/create-account.component";
 
 const loginRoute: Routes = [
     {
@@ -12,7 +13,8 @@ const loginRoute: Routes = [
         children: [
             { path: '', component: LoginComponent },
             { path: 'recovery', component: RecoveryPasswordComponent },
-            { path: 'reset-password', component: ResetPasswordComponent}
+            { path: 'reset-password', component: ResetPasswordComponent},
+            { path: 'create-account', component: CreateAccountComponent}
         ]
     }
 ];
