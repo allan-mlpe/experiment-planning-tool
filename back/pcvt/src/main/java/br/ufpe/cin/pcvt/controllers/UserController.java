@@ -110,7 +110,7 @@ public class UserController {
 		try {
 			oldUser = repository.getByEmail(user.getEmail());
 
-			if (oldUser.getId() != user.getId()) {
+			if (!oldUser.getId().equals(user.getId())) {
 				throw new EmailAlreadyInUseException(user.getEmail());
 			}
 		} catch (UserNotFoundException e1) {
