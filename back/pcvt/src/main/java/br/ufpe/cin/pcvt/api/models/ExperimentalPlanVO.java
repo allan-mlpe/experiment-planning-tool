@@ -27,6 +27,7 @@ public class ExperimentalPlanVO {
     private String planDetails;
     private String planCharacteristics;
     private String planThreats;
+    private String planActions;
 
     public Integer getId() {
         return id;
@@ -138,5 +139,13 @@ public class ExperimentalPlanVO {
 
     public void setPlanThreats(String planThreats) {
         this.planThreats = planThreats;
+    }
+
+    public String getPlanActions() {
+        return planActions;
+    }
+
+    public void setPlanActions(String planActions) {
+        this.planActions = planActions;
     }
 }

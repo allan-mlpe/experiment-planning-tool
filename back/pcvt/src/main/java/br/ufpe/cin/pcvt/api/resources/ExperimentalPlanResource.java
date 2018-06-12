@@ -285,11 +285,35 @@ public class ExperimentalPlanResource {
             checkPermission(plan, req);
 
             plan.setPlanThreats(planVO.getPlanThreats());
-
             experimentalPlanController.update(plan);
 
             return Response.ok(planVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the plan");
+        }
+    }
 
+    @POST
+    @Path("/{id}/control-actions")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response savePlanControlActions(@PathParam("id") Integer id, @Context ContainerRequestContext req, ExperimentalPlanVO planVO) {
+        try {
+            Plan plan = experimentalPlanController.get(id);
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            plan.setPlanActions(planVO.getPlanActions());
+            experimentalPlanController.update(plan);
+
+            return Response.ok(planVO).build();
         } catch(ApiException e) {
             throw e;
         } catch (Exception e) {
