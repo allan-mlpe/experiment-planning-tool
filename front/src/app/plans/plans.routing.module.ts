@@ -28,7 +28,7 @@ const planRoutes: Routes = [
             { path: ':id/workspace', component: WorkspaceComponent, resolve: { plan: PlanResolver} },
             { path: ':id/characteristics', component: CharacteristicsComponent, resolve: { plan : PlanResolver} },
             { path: ':id/threats', component: ThreatsComponent, resolve: { plan : PlanResolver}},
-            { path: ':id/actions', component: ActionsComponent},
+            { path: ':id/actions', component: ActionsComponent, resolve: { plan : PlanResolver}},
             { path: ':id/reports', component: ReportsComponent, resolve: { plan: PlanResolver }}
         ]
     }

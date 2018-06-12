@@ -4,7 +4,8 @@
     <p>{{ message }}</p>
   </div>
   <div class="modal-footer">
-    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="sendUnconfirmEvent()">CANCEL</a>
-    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="sendConfirmEvent()">OK</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="sendUnconfirmEvent()">{{
+      dismissButton }}</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="sendConfirmEvent()">{{ confirmButton }}</a>
   </div>
 </div>

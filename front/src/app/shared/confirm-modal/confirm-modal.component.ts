@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, OnInit} from '@angular/core';
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -11,11 +12,13 @@ export class ConfirmModalComponent implements OnInit {
 
   title: string;
   message: string;
+  confirmButton: string;
+  dismissButton: string;
 
   confirm: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private cdr: ChangeDetectorRef) {
-    
+
   }
 
   ngOnInit() {
@@ -24,10 +27,12 @@ export class ConfirmModalComponent implements OnInit {
     });
   }
 
-  create(title: string, message: string) {
+  create(title: string, message: string, confirmButton: string = 'OK', dismissButton: string = 'CANCEL') {
     this.title = title;
     this.message = message;
-    
+    this.confirmButton = confirmButton;
+    this.dismissButton = dismissButton;
+
     // fix ExpressionChangedAfterItHasBeenCheckedError problem
     this.cdr.detectChanges();
   }
@@ -35,7 +40,7 @@ export class ConfirmModalComponent implements OnInit {
   openModal() {
     $('#modal1').modal('open');
   }
-  
+
   closeModal() {
     $('#modal1').modal('close');
   }
