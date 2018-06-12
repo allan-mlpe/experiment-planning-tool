@@ -2,8 +2,10 @@ package br.ufpe.cin.pcvt.data.models.controlactions;
 
 import br.ufpe.cin.pcvt.data.models.threats.Threat;
 import br.ufpe.cin.pcvt.data.persistance.constants.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 @Entity
@@ -53,6 +55,8 @@ public class ControlAction {
         this.label = label;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public List<Threat> getRelatedThreats() {
         return relatedThreats;
     }
