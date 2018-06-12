@@ -16,3 +16,11 @@ div.loading-data {
 tr.empty-table td {
   text-align: center;
 }
+
+hr.section-separator {
+  height: 3px;
+  border: 0;
+  background: lightgrey;
+  margin-top: 20pt;
+}
+

@@ -1,10 +1,3 @@
-hr.section-separator {
-  height: 3px;
-  border: 0;
-  background: lightgrey;
-  margin-top: 20pt;
-}
-
 div.report-page {
   box-shadow: 1px 1px 1px 1px lightgrey;
   padding: 10px;
