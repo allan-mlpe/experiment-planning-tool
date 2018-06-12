@@ -28,6 +28,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   values = [1, 2, 3];
 
   loading: boolean = true;
+  showInfoPanel: boolean;
 
   constructor(
     private planService: PlanService,
@@ -40,6 +41,8 @@ export class ThreatsComponent implements OnInit, OnDestroy {
     this.subscription = this.route.data.subscribe(
       (info: { plan: Plan }) => {
         this.plan = info['plan'];
+
+        this.showInfoPanel = this.plan.planThreats === undefined;
 
         if (this.plan.planCharacteristics !== undefined) {
           const characteristics: any = JSON.parse(this.plan.planCharacteristics);
@@ -123,6 +126,10 @@ export class ThreatsComponent implements OnInit, OnDestroy {
     return obj['impact'] !== undefined
             && obj['urgency'] !== undefined
             && obj['trend'] !== undefined;
+  }
+
+  startClassification() {
+    this.showInfoPanel = false;
   }
 
   ngOnDestroy() {

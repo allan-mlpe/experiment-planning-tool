@@ -2,7 +2,27 @@
   <h3>Control Actions</h3>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="showInfoPanel">
+  <div class="col s12">
+    <p>After classify the suggested threats, PCVT Tool has defined a magnitude scale for them according to their priority. Such scale is:</p>
+    <ul>
+      <li class="label-title" *ngFor="let option of filterObjList">{{ option.value }}.</li>
+    </ul>
+
+    <p>Now, you should define control actions to mitigate them. You will be asked to select each suggested control action that will be used in your experiment. Furthermore, you should classify each selected control action on an importance scale as follows:</p>
+    <ul>
+      <li class="label-title" *ngFor="let option of options">{{ option.text }}.</li>
+    </ul>
+
+    <div class="right">
+      <button class="btn waves-effect waves-light"
+              (click)="startClassification()">Define actions <i class="material-icons right">flag</i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!loading && !showInfoPanel && filteredList.length > 0">
   <div class="col s12">
     <div>
       <label>Threat magnitude</label>
@@ -16,9 +36,7 @@
     </label>
   </span>
   </div>
-</div>
 
-<div class="row" *ngIf="!loading && filteredList.length > 0">
   <div class="col s12">
     <div class="row" >
       <div class="col s12 m12 l12">
@@ -74,7 +92,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!loading && filteredList.length === 0">
+<div class="row" *ngIf="!loading && !showInfoPanel && filteredList.length === 0">
   <div class="col s12">
     <p>There is no threats.</p>
   </div>

@@ -24,3 +24,9 @@ hr.section-separator {
   margin-top: 20pt;
 }
 
+.label-title::before  {
+  content: "\25FC";
+  color: #26a69a;
+  margin-right: 10px;
+}
+

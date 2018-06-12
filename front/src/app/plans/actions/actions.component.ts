@@ -36,6 +36,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   loading: boolean = true;
+  showInfoPanel: boolean;
   options: Array<any> = ACTION_OPTIONS;
 
   constructor(
@@ -49,6 +50,8 @@ export class ActionsComponent implements OnInit, OnDestroy {
     this.subscription = this.route.data.subscribe(
       (info: { plan: Plan }) => {
         this.plan = info['plan'];
+
+        this.showInfoPanel = this.plan.planActions === undefined;
 
         if (this.plan.planThreats !== undefined) {
           const characteristics: any = JSON.parse(this.plan.planCharacteristics);
@@ -193,6 +196,10 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
   finish() {
     console.log('finish');
+  }
+
+  startClassification() {
+    this.showInfoPanel = false;
   }
 
   ngOnDestroy() {

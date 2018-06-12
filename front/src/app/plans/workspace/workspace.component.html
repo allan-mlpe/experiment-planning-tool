@@ -17,21 +17,21 @@
       </div>
   </div>
 
-  <div  class="col s12 m6 l6 workspace-option" [routerLink]="['/plans', plan.id, 'threats']">
+  <div  class="col s12 m6 l6 workspace-option" *ngIf="plan.planCharacteristics !== undefined" [routerLink]="['/plans', plan.id, 'threats']">
       <div class="center">
           <i class="large material-icons">warning</i>
           <h5>Threats</h5>
           <p class="light center">Set up threats related to your experiment</p>
       </div>
   </div>
-  <div class="col s12 m6 l6 workspace-option" [routerLink]="['/plans', plan.id, 'actions']">
+  <div class="col s12 m6 l6 workspace-option" *ngIf="plan.planThreats !== undefined" [routerLink]="['/plans', plan.id, 'actions']">
       <div class="center">
           <i class="large material-icons">build</i>
           <h5>Actions</h5>
           <p class="light center">Set up actions for controlling threats</p>
       </div>
   </div>
-  <div class="col s12 m6 l6 workspace-option" [routerLink]="['/plans', plan.id, 'reports']">
+  <div class="col s12 m6 l6 workspace-option" *ngIf="plan.planCharacteristics !== undefined" [routerLink]="['/plans', plan.id, 'reports']">
       <div class="center">
           <i class="large material-icons">description</i>
           <h5>Reports</h5>
