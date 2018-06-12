@@ -1,11 +1,13 @@
 package br.ufpe.cin.pcvt.data.repositories;
 
+import br.ufpe.cin.pcvt.data.models.controlactions.ControlAction;
 import br.ufpe.cin.pcvt.data.models.threats.Threat;
 import br.ufpe.cin.pcvt.data.models.threats.ThreatType;
 import br.ufpe.cin.pcvt.data.persistance.ThreatDAO;
 import br.ufpe.cin.pcvt.data.persistance.util.JPAHelper;
 
 import java.util.List;
+import java.util.Set;
 
 public class HibernateThreatRepository implements IThreatRepository {
 
@@ -70,5 +72,11 @@ public class HibernateThreatRepository implements IThreatRepository {
     public List<Threat> getByType(ThreatType type) {
         List<Threat> threats = dao.getByType(type);
         return threats;
+    }
+
+    @Override
+    public Set<ControlAction> getControlActionsByKeys(List<String> keys) {
+        Set<ControlAction> controlActions = dao.getControlActionsByKeys(keys);
+        return controlActions;
     }
 }

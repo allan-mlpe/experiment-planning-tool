@@ -43,9 +43,9 @@ public class UserVOConverter implements IVOConverter<User, UserVO> {
         user.setInstitution(userVO.getInstitution());
         user.setProfileLink(userVO.getProfileLink());
         user.setWorkArea(userVO.getWorkArea());
-        user.setAdmin(userVO.isAdmin());
-        user.setAvailable(userVO.isAvailable());
-        user.setCollaborator(userVO.isCollaborator());
+        user.setAdmin(userVO.isAdmin() != null ? userVO.isAdmin() : false);
+        user.setAvailable(userVO.isAvailable() != null ? userVO.isAvailable() : false);
+        user.setCollaborator(userVO.isCollaborator() != null ? userVO.isCollaborator() : false);
 
         return user;
     }

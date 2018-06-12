@@ -6,6 +6,8 @@ import {LayoutsModule} from '../shared/layouts/layouts.module';
 import {SharedModule} from '../shared/shared.module';
 import {RecoveryPasswordComponent} from './recovery-password/recovery-password.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
+import {CreateAccountComponent} from './create-account/create-account.component';
+import {UserService} from "../services/user.service";
 
 @NgModule({
   imports: [
@@ -17,7 +19,11 @@ import {ResetPasswordComponent} from './reset-password/reset-password.component'
   declarations: [
     LoginComponent,
     RecoveryPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    CreateAccountComponent
+  ],
+  providers: [
+    UserService
   ]
 })
 export class LoginModule { }

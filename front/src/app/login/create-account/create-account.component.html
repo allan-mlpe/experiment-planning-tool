@@ -1,0 +1,27 @@
+<div class="col s12 m10 l6 offset-m1 offset-l3">
+  <div class="row">
+    <h3 class="header">Create an Account</h3>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="input-field">
+        <input id="name" type="text" formControlName="name" [ngClass]="addClassError('name')" [(ngModel)]="user.name">
+        <label for="name">Name</label>
+        <app-input-field-error [showError]="showError('name')" [message]="buildErrorMessage('name')"></app-input-field-error>
+      </div>
+
+      <div class="input-field">
+        <input id="email" type="email" formControlName="email" [ngClass]="addClassError('email')" [(ngModel)]="user.email">
+        <label for="email">Email</label>
+        <app-input-field-error [showError]="showError('email')" [message]="buildErrorMessage('email')"></app-input-field-error>
+      </div>
+    </div>
+
+    <div class="row">
+      <button type="submit" class="btn waves-effect waves-light right" [disabled]="form.invalid || loading">
+        Sign up<i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+</div>

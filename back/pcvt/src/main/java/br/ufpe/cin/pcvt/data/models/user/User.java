@@ -106,12 +106,13 @@ public class User implements Comparable<User>{
 	}
 
 	public void setProfileLink(String profileLink) {
-		if (profileLink.startsWith("http://") || profileLink.startsWith("https://")) {
-			this.profileLink = profileLink;
-		} else {
-			this.profileLink = "http://"+profileLink;			
+		if(profileLink != null) {
+			if (profileLink.startsWith("http://") || profileLink.startsWith("https://")) {
+				this.profileLink = profileLink;
+			} else {
+				this.profileLink = "http://"+profileLink;
+			}
 		}
-			
 	}
 
 	public String getWorkArea() {

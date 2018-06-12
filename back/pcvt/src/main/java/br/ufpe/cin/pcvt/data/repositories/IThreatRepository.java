@@ -1,9 +1,11 @@
 package br.ufpe.cin.pcvt.data.repositories;
 
+import br.ufpe.cin.pcvt.data.models.controlactions.ControlAction;
 import br.ufpe.cin.pcvt.data.models.threats.Threat;
 import br.ufpe.cin.pcvt.data.models.threats.ThreatType;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IThreatRepository {
 
@@ -15,4 +17,6 @@ public interface IThreatRepository {
     List<Threat> all();
 
     List<Threat> getByType(ThreatType type);
+
+    Set<ControlAction> getControlActionsByKeys(List<String> keys);
 }
