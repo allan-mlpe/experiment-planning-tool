@@ -22,7 +22,9 @@ export class ActionsComponent implements OnInit, OnDestroy {
   threatList: Array<any> = [];
   filteredList: Array<any> = [];
   threatObj: any = {};
-  loading: boolean = true;
+  actionObj: any = {};
+
+  private filterKeys: Array<string> = [Magnitude.VERY_HIGH, Magnitude.HIGH, Magnitude.MODERATE, Magnitude.LOW, Magnitude.VERY_LOW];
   filterObjList: Array<any> = [
     { name: 'veryHigh', value: Magnitude.VERY_HIGH },
     { name: 'high', value: Magnitude.HIGH },
@@ -31,9 +33,10 @@ export class ActionsComponent implements OnInit, OnDestroy {
     { name: 'veryLow', value: Magnitude.VERY_LOW},
   ];
 
-  options: Array<any> = ACTION_OPTIONS;
   private subscription: Subscription;
-  private filterKeys: Array<string> = [Magnitude.VERY_HIGH, Magnitude.HIGH, Magnitude.MODERATE, Magnitude.LOW, Magnitude.VERY_LOW];
+
+  loading: boolean = true;
+  options: Array<any> = ACTION_OPTIONS;
 
   constructor(
     private planService: PlanService,
@@ -47,7 +50,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
       (info: { plan: Plan }) => {
         this.plan = info['plan'];
 
-        if (this.plan.planCharacteristics !== undefined) {
+        if (this.plan.planThreats !== undefined) {
           const characteristics: any = JSON.parse(this.plan.planCharacteristics);
 
           const characteristicsKeys: Array<string> = Object.keys(characteristics)
@@ -61,10 +64,10 @@ export class ActionsComponent implements OnInit, OnDestroy {
                   this.threatList = data;
                   this.filteredList = data;
 
-                  this.currentObjectIndex = 0;
-                  this.currentObject = this.threatList[this.currentObjectIndex];
                   this.processClassification();
                   this.processThreatMagnitude();
+
+                  this.initCurrenObject();
                 },
                 (err: ApiMessage) => {
                   console.log(err);
@@ -73,74 +76,63 @@ export class ActionsComponent implements OnInit, OnDestroy {
               )
           }
         } else {
-          ToastFactory.infoToast("You must first define the characteristics of the plan");
-          this.router.navigate(['../characteristics'], {relativeTo: this.route });
+          ToastFactory.infoToast("You must first classify the threats of the plan");
+          this.router.navigate(['../threats'], {relativeTo: this.route });
         }
       }
     );
   }
 
-  selectItem(target) {
-    const index = this.filterKeys.indexOf(target);
+  // filter functions
+  selectFilter(filter) {
+    const index = this.filterKeys.indexOf(filter);
 
     if(index === -1) {
-      this.filterKeys.push(target);
+      this.filterKeys.push(filter);
     } else {
       this.filterKeys.splice(index, 1);
     }
 
     this.filterThreatList();
-    this.currentObjectIndex = 0;
-    this.currentObject = this.filteredList[this.currentObjectIndex];
-  }
-
-  processClassification() {
-    if(this.plan.planThreats !== undefined) {
-      this.threatObj = JSON.parse(this.plan.planThreats);
-    } else {
-      this.threatList.forEach(threat => {
-        this.threatObj[threat.key] = {};
-      });
-    }
-  }
-
-  nextItem() {
-    this.currentObjectIndex+=1;
-    this.currentObject = this.filteredList[this.currentObjectIndex];
-  }
-
-  previousItem() {
-    this.currentObjectIndex-=1;
-    this.currentObject = this.filteredList[this.currentObjectIndex];
-  }
-
-  getProgress() {
-    const numerator: number = this.isObjectComplete() ? this.currentObjectIndex+1 : this.currentObjectIndex;
-    const denominator: number = this.filteredList.length;
-    const progress: number = numerator/denominator * 100;
-
-    return {
-      'width': `${progress}%`
-    }
-  }
-
-  finish() {
-    console.log('finish');
-  }
-
-  isObjectComplete(): boolean {
-    const obj = this.threatObj[this.currentObject.key];
-    return obj['impact'] !== undefined
-      && obj['urgency'] !== undefined
-      && obj['trend'] !== undefined;
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.initCurrenObject();
   }
 
   private filterThreatList() {
     this.filteredList = this.threatList.filter(threat => this.filterKeys.indexOf(threat.magnitude) != -1);
+  }
+
+
+  // select functions
+  selectAction(action) {
+    const threatKey: string = this.currentObject.key;
+    const key: string = action.key;
+
+    if(this.actionObj[threatKey][key] !== undefined) {
+      delete this.actionObj[threatKey][key];
+    } else {
+      this.actionObj[threatKey][key] = '';
+    }
+  }
+
+  classifyAction(action, value) {
+    const threatKey: string = this.currentObject.key;
+    const key: string = action.key;
+
+    this.actionObj[threatKey][key] = value;
+  }
+
+
+  // process screen objects functions
+  processClassification() {
+    this.threatObj = JSON.parse(this.plan.planThreats);
+
+    if(this.plan.planActions != undefined) {
+      this.actionObj = JSON.parse(this.plan.planActions);
+    } else {
+      this.threatList.forEach(threat => {
+        this.actionObj[threat.key] = {};
+      });
+    }
   }
 
   private processThreatMagnitude() {
@@ -153,7 +145,6 @@ export class ActionsComponent implements OnInit, OnDestroy {
       const calculatedMagnitude: Magnitude = this.calculateThreatMagnitude(impact, urgency, trend);
 
       item['magnitude'] = calculatedMagnitude;
-      // console.log(`${impact} | ${urgency} | ${trend} =======> ${calculatedMagnitude}`);
     });
   }
 
@@ -171,5 +162,40 @@ export class ActionsComponent implements OnInit, OnDestroy {
     } else {
       return Magnitude.VERY_LOW;
     }
+  }
+
+  initCurrenObject() {
+    this.currentObjectIndex = 0;
+    this.currentObject = this.filteredList[this.currentObjectIndex];
+  }
+
+
+  // wizzard funcions
+  nextItem() {
+    this.currentObjectIndex+=1;
+    this.currentObject = this.filteredList[this.currentObjectIndex];
+  }
+
+  previousItem() {
+    this.currentObjectIndex-=1;
+    this.currentObject = this.filteredList[this.currentObjectIndex];
+  }
+
+  getProgress() {
+    const numerator: number = this.currentObjectIndex+1;
+    const denominator: number = this.filteredList.length;
+    const progress: number = numerator/denominator * 100;
+
+    return {
+      'width': `${progress}%`
+    }
+  }
+
+  finish() {
+    console.log('finish');
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
