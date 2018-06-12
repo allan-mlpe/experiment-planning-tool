@@ -1,13 +1,12 @@
-import { Injectable, ViewChild } from '@angular/core';
-import { ConfirmModalComponent } from '../shared/confirm-modal/confirm-modal.component';
-import { Subscription } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {ConfirmModalComponent} from '../shared/confirm-modal/confirm-modal.component';
 
 @Injectable()
 export class ModalService {
 
   confirmModal: ConfirmModalComponent;
 
-  constructor() { 
+  constructor() {
   }
 
   setConfirmModal(confirmModal: ConfirmModalComponent) {
@@ -21,8 +20,8 @@ export class ModalService {
     return this.confirmModal.confirm;
   }
 
-  showModal(title: string, message: string) {
-    this.confirmModal.create(title, message);
+  showModal(title: string, message: string, confirmButton: string = 'OK', dismissButton: string = 'CANCEL') {
+    this.confirmModal.create(title, message, confirmButton, dismissButton);
     this.confirmModal.openModal();
 
     return this.confirmModal.confirm;
