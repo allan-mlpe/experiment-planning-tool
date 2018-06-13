@@ -19,6 +19,7 @@ import {CreateReviewComponent} from './create-review/create-review.component';
 import {UserService} from "../services/user.service";
 import {CharacteristicsService} from "../services/characteristics.service";
 import {ThreatsService} from "../services/threat.service";
+import {ControlActionService} from "../services/control-action.service";
 
 @NgModule({
   imports: [
@@ -46,7 +47,8 @@ import {ThreatsService} from "../services/threat.service";
     PlanResolver,
     UserService,
     CharacteristicsService,
-    ThreatsService
+    ThreatsService,
+    ControlActionService
   ]
 })
 export class PlansModule { }

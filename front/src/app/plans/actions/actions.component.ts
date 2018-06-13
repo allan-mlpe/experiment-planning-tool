@@ -8,6 +8,9 @@ import {CharacteristicsService} from "../../services/characteristics.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Rx";
 import {Magnitude} from "../../model/magnitude.enum";
+import {ThreatsService} from "../../services/threat.service";
+import {ControlActionService} from "../../services/control-action.service";
+import {ModalService} from "../../services/modal.service";
 
 @Component({
   selector: 'app-actions',
@@ -42,6 +45,8 @@ export class ActionsComponent implements OnInit, OnDestroy {
   constructor(
     private planService: PlanService,
     private characteristicService: CharacteristicsService,
+    private actionsService: ControlActionService,
+    private modalService: ModalService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -115,6 +120,25 @@ export class ActionsComponent implements OnInit, OnDestroy {
     } else {
       this.actionObj[threatKey][key] = '';
     }
+
+    /*this.actionsService.getThreatsByActionKey(action.key).subscribe(
+      data => {
+        const relatedThreats: Array<any> = data;
+        const auxKeyArray: Array<string> = Object.ke
+
+        const newThreatsKeys: Array<string> = relatedThreats.filter(threat => {
+
+          }
+        );
+
+        console.log(this.actionObj);
+        console.log(this.threatObj)
+      },
+      (err: ApiMessage) => {
+        console.log(err);
+        ToastFactory.errorToast(err.message);
+      }
+    );*/
   }
 
   classifyAction(action, value) {
