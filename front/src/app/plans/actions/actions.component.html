@@ -22,12 +22,11 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!loading && !showInfoPanel && filteredList.length > 0">
-  <div class="col s12">
-    <div>
-      <label>Threat magnitude</label>
-    </div>
-    <span class="col s4" *ngFor="let filterOption of filterObjList">
+<div class="col s12" *ngIf="!loading && !showInfoPanel">
+  <div>
+    <label>Threat magnitude</label>
+  </div>
+  <span class="col s4" *ngFor="let filterOption of filterObjList">
     <input type="checkbox" class="filled-in" checked
            [id]="filterOption.name" [name]="filterOption.name" [value]="filterOption.value" (change)="selectFilter(filterOption.value)" />
 
@@ -35,8 +34,9 @@
       <span>{{ filterOption.value }}</span>
     </label>
   </span>
-  </div>
+</div>
 
+<div class="row" *ngIf="!loading && !showInfoPanel && filteredList.length > 0">
   <div class="col s12">
     <div class="row" >
       <div class="col s12 m12 l12">
@@ -98,6 +98,6 @@
   </div>
 </div>
 
-<div class="loading-data" *ngIf="loading">
+<div class="loading-data" *ngIf="loading && !showInfoPanel">
   <app-spinner></app-spinner>
 </div>

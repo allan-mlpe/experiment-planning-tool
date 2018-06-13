@@ -80,7 +80,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
 
     this.planService.savePlanThreats(this.plan).subscribe(
       data => {
-        ToastFactory.successToast("Control actions has been defined");
+        ToastFactory.successToast("Threats has been defined");
 
         this.router.navigate(['../workspace'], {relativeTo: this.route })
       },

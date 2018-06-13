@@ -195,7 +195,19 @@ export class ActionsComponent implements OnInit, OnDestroy {
   }
 
   finish() {
-    console.log('finish');
+    this.plan.planActions = JSON.stringify(this.actionObj);
+
+    this.planService.savePlanActions(this.plan).subscribe(
+      data => {
+        ToastFactory.successToast("Control actions has been defined");
+
+        this.router.navigate(['../workspace'], {relativeTo: this.route })
+      },
+      (err: ApiMessage) => {
+        console.log(err);
+        ToastFactory.errorToast(err.message);
+      }
+    );
   }
 
   startClassification() {

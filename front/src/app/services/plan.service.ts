@@ -29,6 +29,10 @@ export class PlanService {
     return this.restService.post(`${this.RESOURCE_PREFIX}/${plan.id}/threats`, plan);
   }
 
+  savePlanActions(plan: Plan): Observable<any> {
+    return this.restService.post(`${this.RESOURCE_PREFIX}/${plan.id}/control-actions`, plan);
+  }
+
   updatePlan(plan: Plan): Observable<any> {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${plan.id}`, plan);
   }
