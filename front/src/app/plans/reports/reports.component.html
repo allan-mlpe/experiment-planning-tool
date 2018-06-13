@@ -8,7 +8,7 @@
       <option value="" disabled selected>Choose a report type</option>
       <option value="1" *ngIf="plan.planCharacteristics !== undefined">Suggested threats</option>
       <option value="2" *ngIf="plan.planThreats !== undefined">Classified threats</option>
-      <option value="3" *ngIf="plan.actionList !== undefined">Defined control actions</option>
+      <option value="3" *ngIf="plan.planActions !== undefined">Defined control actions</option>
     </select>
     <label>Report type</label>
   </div>
@@ -22,12 +22,12 @@
 
     <div>
       <label>Name</label>
-      <p>{{ plan.name }}</p>
+      <div>{{ plan.name }}</div>
     </div>
 
     <div>
       <label>Description</label>
-      <p>{{ plan.description }}</p>
+      <div>{{ plan.description }}</div>
     </div>
   </div>
 </div>
@@ -63,21 +63,38 @@
 
       <div class="threat-section" *ngFor="let threat of threatList; let i = index">
         <label>Threat {{ i + 1 }}</label>
-        <p>{{ threat.label }}</p>
+        <div>{{ threat.label }}</div>
 
         <label>Type</label>
-        <p>{{ threat.type }}</p>
+        <div>{{ threat.type }}</div>
 
         <label>Classification</label>
-        <p>Impact: {{ threatValuesObj[threat.key]['impact'] }}</p>
-        <p>Urgency: {{ threatValuesObj[threat.key]['urgency'] }}</p>
-        <p>Trend: {{ threatValuesObj[threat.key]['trend'] }}</p>
+        <div class="label-title">Impact: {{ threatValuesObj[threat.key]['impact'] }}</div>
+        <div class="label-title">Urgency: {{ threatValuesObj[threat.key]['urgency'] }}</div>
+        <div class="label-title">Trend: {{ threatValuesObj[threat.key]['trend'] }}</div>
       </div>
     </div>
 
     <!-- Defined control actions -->
     <div *ngSwitchCase="3">
-      Report 3
+      <hr class="section-separator">
+      <h5>Defined control actions</h5>
+
+      <div class="threat-section" *ngFor="let threat of threatList; let i = index">
+        <label>Threat {{ i + 1 }}</label>
+        <div>{{ threat.label }}</div>
+
+        <label>Defined control actions</label>
+        <div *ngIf="getControlActionList(threat).length !== 0">
+          <div *ngFor="let controlAction of getControlActionList(threat)">
+            <span class="label-title">{{ controlAction.label }}.</span>
+          </div>
+        </div>
+
+        <div *ngIf="getControlActionList(threat).length === 0">
+          No control actions defined for this threat.
+        </div>
+      </div>
     </div>
   </div>
 </div>

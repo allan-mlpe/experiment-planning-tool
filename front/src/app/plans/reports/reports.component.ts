@@ -20,6 +20,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
   threatList: Array<any> = [];
   threatValuesObj: any = {};
+  actionValuesObj: any = {};
 
   private subsc: Subscription;
 
@@ -49,6 +50,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
                 data => {
                   this.threatList = data;
                   this.threatValuesObj = this.plan.planThreats !== undefined ? JSON.parse(this.plan.planThreats) : {};
+                  this.actionValuesObj = this.plan.planActions !== undefined ? JSON.parse(this.plan.planActions) : {};
                 },
                 (err: ApiMessage) => {
                   console.log(err);
@@ -79,6 +81,16 @@ export class ReportsComponent implements OnInit, OnDestroy {
       // fix material_select bug - it wasn't triggering change event.
       $('select').material_select(self.changeSelectValue.bind(this, self));
     });
+  }
+
+  getControlActionList(threat): Array<any> {
+    let controlActionList: Array<any> = [];
+    threat.relatedControlActions.forEach(c => {
+      if(this.actionValuesObj[threat.key][c.key] !== undefined)
+        controlActionList.push(c);
+    });
+
+    return controlActionList;
   }
 
   ngOnDestroy() {
