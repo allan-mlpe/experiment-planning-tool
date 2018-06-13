@@ -1,6 +1,7 @@
 package br.ufpe.cin.pcvt.data.repositories;
 
 import br.ufpe.cin.pcvt.data.models.controlactions.ControlAction;
+import br.ufpe.cin.pcvt.data.models.threats.Threat;
 import br.ufpe.cin.pcvt.data.persistance.ControlActionDAO;
 import br.ufpe.cin.pcvt.data.persistance.util.JPAHelper;
 
@@ -62,5 +63,11 @@ public class HibernateControlActionRepository implements IControlActionRepositor
     public List<ControlAction> all() {
         List<ControlAction> controlActions = dao.retrieveAll();
         return controlActions;
+    }
+
+    @Override
+    public List<Threat> getRelatedThreatsByControlActionKey(String key) {
+        List<Threat> threats = dao.getRelatedThreatsByControlActionKey(key);
+        return threats;
     }
 }
