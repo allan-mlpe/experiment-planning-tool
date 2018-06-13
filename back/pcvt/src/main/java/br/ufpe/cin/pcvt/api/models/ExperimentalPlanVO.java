@@ -2,14 +2,11 @@ package br.ufpe.cin.pcvt.api.models;
 
 import br.ufpe.cin.pcvt.data.models.experiments.EPlanState;
 import br.ufpe.cin.pcvt.data.models.experiments.EPrivacy;
-import br.ufpe.cin.pcvt.data.models.experiments.PlanItem;
 import br.ufpe.cin.pcvt.data.models.experiments.Review;
-import br.ufpe.cin.pcvt.data.models.user.User;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.SortedSet;
 
 public class ExperimentalPlanVO {
 
@@ -28,6 +25,7 @@ public class ExperimentalPlanVO {
     private String planCharacteristics;
     private String planThreats;
     private String planActions;
+    private String planActionRelatedThreats;
 
     public Integer getId() {
         return id;
@@ -148,4 +146,8 @@ public class ExperimentalPlanVO {
     public void setPlanActions(String planActions) {
         this.planActions = planActions;
     }
+
+    public String getPlanActionRelatedThreats() { return planActionRelatedThreats; }
+
+    public void setPlanActionRelatedThreats(String planActionRelatedThreats) { this.planActionRelatedThreats = planActionRelatedThreats; }
 }

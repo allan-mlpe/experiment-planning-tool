@@ -71,6 +71,9 @@ public class Plan implements Comparable<Plan> {
 	@Lob
 	@Column(name = "plan_actions")
 	private String planActions;
+	@Lob
+	@Column(name = "plan_generated_threats")
+	private String planActionRelatedThreats;
 
 	private static final int PLAN_SIZE = 31;
 
@@ -379,4 +382,8 @@ public class Plan implements Comparable<Plan> {
 	public void setPlanActions(String planActions) {
 		this.planActions = planActions;
 	}
+
+	public String getPlanActionRelatedThreats() { return planActionRelatedThreats; }
+
+	public void setPlanActionRelatedThreats(String planActionRelatedThreats) { this.planActionRelatedThreats = planActionRelatedThreats; }
 }

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Plan } from '../model/plan';
-import { RestService } from './rest.service';
+import {Injectable} from '@angular/core';
+import {Plan} from '../model/plan';
+import {RestService} from './rest.service';
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
@@ -31,6 +31,10 @@ export class PlanService {
 
   savePlanActions(plan: Plan): Observable<any> {
     return this.restService.post(`${this.RESOURCE_PREFIX}/${plan.id}/control-actions`, plan);
+  }
+
+  savePlanGeneratedActions(plan: Plan): Observable<any> {
+    return this.restService.post(`${this.RESOURCE_PREFIX}/${plan.id}/generated-threats`, plan);
   }
 
   updatePlan(plan: Plan): Observable<any> {

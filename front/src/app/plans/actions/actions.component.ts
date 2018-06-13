@@ -8,7 +8,6 @@ import {CharacteristicsService} from "../../services/characteristics.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Rx";
 import {Magnitude} from "../../model/magnitude.enum";
-import {ThreatsService} from "../../services/threat.service";
 import {ControlActionService} from "../../services/control-action.service";
 import {ModalService} from "../../services/modal.service";
 
@@ -117,28 +116,57 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
     if(this.actionObj[threatKey][key] !== undefined) {
       delete this.actionObj[threatKey][key];
+
+      this.removeActionRelatedThreats(key);
+
     } else {
       this.actionObj[threatKey][key] = '';
-    }
 
-    /*this.actionsService.getThreatsByActionKey(action.key).subscribe(
-      data => {
-        const relatedThreats: Array<any> = data;
-        const auxKeyArray: Array<string> = Object.ke
+      this.actionsService.getThreatsByActionKey(action.key).subscribe(
+        data => {
+          const relatedThreats: Array<any> = data;
+          const auxKeyArray: Array<string> = Object.keys(this.threatObj);
+          let threatLabels: string = '';
 
-        const newThreatsKeys: Array<string> = relatedThreats.filter(threat => {
+          let newThreatsObj: any = {};
+          newThreatsObj[action.key] = {};
 
+          const newThreatsKeys: Array<string> = relatedThreats.filter(threat => {
+              if(auxKeyArray.indexOf(threat.key) === -1) {
+                threatLabels += `- ${threat.label}. <br />`;
+                newThreatsObj[action.key][threat.key] = threat.label;
+
+                return threat.key;
+              }
+            }
+          );
+
+          if(newThreatsKeys.length > 0) {
+            const newThreatsKeysLength: number = newThreatsKeys.length;
+
+            const headerStatement: string = `This action generate the following ${ newThreatsKeysLength === 1 ? 'threat' : 'threats' }: <br />`;
+            const footerStatement: string = `<br/ > Do you want add ${ newThreatsKeysLength === 1 ? 'it' : 'them' } to your experimental plan?`;
+            const htmlContent = headerStatement + threatLabels + footerStatement;
+
+            let subsc: Subscription = this.modalService.showModalHTMLContent('Warning', htmlContent, 'YES', 'NO').subscribe(
+              data => {
+                if(data) {
+                  // save newThreats
+                  this.saveGeneratedThreats(newThreatsObj);
+                } else {
+                  delete this.actionObj[threatKey][key];
+                }
+                subsc.unsubscribe();
+              }
+            );
           }
-        );
-
-        console.log(this.actionObj);
-        console.log(this.threatObj)
-      },
-      (err: ApiMessage) => {
-        console.log(err);
-        ToastFactory.errorToast(err.message);
-      }
-    );*/
+        },
+        (err: ApiMessage) => {
+          console.log(err);
+          ToastFactory.errorToast(err.message);
+        }
+      );
+    }
   }
 
   classifyAction(action, value) {
@@ -226,6 +254,46 @@ export class ActionsComponent implements OnInit, OnDestroy {
         ToastFactory.successToast("Control actions has been defined");
 
         this.router.navigate(['../workspace'], {relativeTo: this.route })
+      },
+      (err: ApiMessage) => {
+        console.log(err);
+        ToastFactory.errorToast(err.message);
+      }
+    );
+  }
+
+  private saveGeneratedThreats(newThreats: any) {
+
+    let planActionRelatedThreats = this.plan.planActionRelatedThreats !== undefined ?
+                                          JSON.parse(this.plan.planActionRelatedThreats) : {};
+
+    // merge old and new threats objects
+    Object.assign(planActionRelatedThreats, newThreats);
+
+    this.updateActionRelatedThreats(planActionRelatedThreats);
+  }
+
+  private removeActionRelatedThreats(actionKey: string) {
+
+    if(this.plan.planActionRelatedThreats !== undefined) {
+      let planActionRelatedThreats = JSON.parse(this.plan.planActionRelatedThreats);
+      if(actionKey in planActionRelatedThreats) {
+        delete planActionRelatedThreats[actionKey];
+
+        this.updateActionRelatedThreats(planActionRelatedThreats);
+      }
+    }
+  }
+
+  private updateActionRelatedThreats(planActionRelatedThreats: any) {
+    console.log('Saving...');
+    console.log(planActionRelatedThreats);
+
+    this.plan.planActionRelatedThreats = JSON.stringify(planActionRelatedThreats);
+
+    this.planService.savePlanGeneratedActions(this.plan).subscribe(
+      data => {
+        ToastFactory.successToast('Actions related threats successfully updated');
       },
       (err: ApiMessage) => {
         console.log(err);

@@ -8,6 +8,7 @@ export class Plan {
     planCharacteristics: string;
     planThreats: string;
     planActions: string;
+    planActionRelatedThreats: string;
     version: string;
     author: User;
     collaborators: Array<User>;
