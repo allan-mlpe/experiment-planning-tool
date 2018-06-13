@@ -12,6 +12,7 @@ export class ConfirmModalComponent implements OnInit {
 
   title: string;
   message: string;
+  htmlContent: string;
   confirmButton: string;
   dismissButton: string;
 
@@ -30,10 +31,21 @@ export class ConfirmModalComponent implements OnInit {
   create(title: string, message: string, confirmButton: string = 'OK', dismissButton: string = 'CANCEL') {
     this.title = title;
     this.message = message;
+    this.htmlContent = message;
     this.confirmButton = confirmButton;
     this.dismissButton = dismissButton;
 
     // fix ExpressionChangedAfterItHasBeenCheckedError problem
+    this.cdr.detectChanges();
+  }
+
+  createHTMLContent(title: string, htmlContent: string, confirmButton: string = 'OK', dismissButton: string = 'CANCEL') {
+    this.title = title;
+    this.message = '';
+    this.htmlContent = htmlContent;
+    this.confirmButton = confirmButton;
+    this.dismissButton = dismissButton;
+
     this.cdr.detectChanges();
   }
 

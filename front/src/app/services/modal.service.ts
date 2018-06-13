@@ -26,4 +26,11 @@ export class ModalService {
 
     return this.confirmModal.confirm;
   }
+
+  showModalHTMLContent(title: string, htmlContent: string, confirmButton: string = 'OK', dismissButton: string = 'CANCEL') {
+    this.confirmModal.createHTMLContent(title, htmlContent, confirmButton, dismissButton);
+    this.confirmModal.openModal();
+
+    return this.confirmModal.confirm;
+  }
 }
