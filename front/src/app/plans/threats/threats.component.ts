@@ -92,13 +92,13 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   }
 
   processClassification() {
-    if(this.plan.planThreats !== undefined) {
-      this.threatObj = JSON.parse(this.plan.planThreats);
-    } else {
-      this.threatList.forEach(threat => {
-        this.threatObj[threat.key] = {};
-      });
-    }
+    this.threatList.forEach(threat => {
+      this.threatObj[threat.key] = {};
+    });
+
+    if(this.plan.planThreats !== undefined)
+      this.threatObj = Object.assign(this.threatObj, JSON.parse(this.plan.planThreats));
+
   }
 
   nextItem() {
