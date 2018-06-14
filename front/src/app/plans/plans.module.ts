@@ -14,8 +14,6 @@ import {CharacteristicsComponent} from "./characteristics/characteristics.compon
 import {ReportsComponent} from "./reports/reports.component";
 import {ThreatsComponent} from "./threats/threats.component";
 import {EditPlanComponent} from './edit-plan/edit-plan.component';
-import {ReadyToReviewComponent} from './ready-to-review/ready-to-review.component';
-import {CreateReviewComponent} from './create-review/create-review.component';
 import {UserService} from "../services/user.service";
 import {CharacteristicsService} from "../services/characteristics.service";
 import {ThreatsService} from "../services/threat.service";
@@ -38,9 +36,7 @@ import {ControlActionService} from "../services/control-action.service";
     CreatePlanComponent,
     ReportsComponent,
     ThreatsComponent,
-    EditPlanComponent,
-    ReadyToReviewComponent,
-    CreateReviewComponent
+    EditPlanComponent
   ],
   providers: [
     PlanService,

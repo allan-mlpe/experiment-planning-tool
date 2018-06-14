@@ -13,20 +13,25 @@
     <input type="text" [value]="plan.description" readonly>
   </p>
 
-  <p>
+  <div>
     <label>Available Reviewers</label>
     <br/><br/>
     <app-input-field-error [showError]="showError('reviewers')"
                            [message]="buildErrorMessage('reviewers')"></app-input-field-error>
-  </p>
-  <p *ngFor="let user of availableReviewers; let index = index">
-    <input type="checkbox" class="filled-in" formControlName="reviewers"
-           [id]="'item-'+index" name="users" [value]="user.id" (change)="selectItem(user, index, $event.target)" />
+  </div>
+  <div *ngIf="availableReviewers.length > 0">
+    <p *ngFor="let user of availableReviewers; let index = index">
+      <input type="checkbox" class="filled-in" formControlName="reviewers"
+             [id]="'item-'+index" name="users" [value]="user.id" (change)="selectItem(user, index, $event.target)" />
 
-    <label [for]="'item-'+index">
-      <span>{{ user.name }}</span>
-    </label>
-  </p>
+      <label [for]="'item-'+index">
+        <span>{{ user.name }}</span>
+      </label>
+    </p>
+  </div>
+  <div *ngIf="availableReviewers.length === 0">
+    No reviewer available.
+  </div>
 
   <p>
     <label>Expire Date</label>

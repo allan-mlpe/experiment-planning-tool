@@ -8,7 +8,7 @@ import {PlanService} from "../../services/plan.service";
 @Component({
   selector: 'app-ready-to-review',
   templateUrl: './ready-to-review.component.html',
-  styleUrls: ['./ready-to-review.component.css', '../plans.component.css']
+  styleUrls: ['./ready-to-review.component.css', '../../plans/plans.component.css']
 })
 export class ReadyToReviewComponent implements OnInit {
 

@@ -78,6 +78,10 @@ export class CreateReviewComponent implements OnInit, OnDestroy, IFormCanDeactiv
     this.userService.getAvailable().subscribe(
       (data: Array<User>) => {
         this.availableReviewers = data;
+
+        if(this.availableReviewers.length === 0) {
+          ToastFactory.warningToast('No reviewer available. It\'s not possible to create a new review');
+        }
       },
       (err: ApiMessage) => {
         console.log(err);
@@ -86,7 +90,7 @@ export class CreateReviewComponent implements OnInit, OnDestroy, IFormCanDeactiv
     );
 
     const date = new Date();
-    this.todayDate = `${date.getFullYear()}-${date.getMonth() < 10 ? '0'+date.getMonth() : date.getMonth()}-${date.getDate() < 10 ? '0'+date.getDate() : date.getDate()}`;
+    this.todayDate = `${date.getFullYear()}-${date.getMonth() < 10 ? '0'+(date.getMonth()+1) : (date.getMonth()+1)}-${date.getDate() < 10 ? '0'+date.getDate() : date.getDate()}`;
   }
 
   selectItem(user, index, target) {
