@@ -21,6 +21,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   threatList: Array<any> = [];
   threatValuesObj: any = {};
   actionValuesObj: any = {};
+  actionRelatedThreatsObj: any = {};
 
   private subsc: Subscription;
 
@@ -48,9 +49,19 @@ export class ReportsComponent implements OnInit, OnDestroy {
             this.characteristicsService.getThreatsByCharacteristicKeys({stringList: characteristicsKeys})
               .subscribe(
                 data => {
+                  console.log(this.plan);
                   this.threatList = data;
-                  this.threatValuesObj = this.plan.planThreats !== undefined ? JSON.parse(this.plan.planThreats) : {};
-                  this.actionValuesObj = this.plan.planActions !== undefined ? JSON.parse(this.plan.planActions) : {};
+
+                  if(this.plan.planThreats !== undefined)
+                    this.threatValuesObj = Object.assign(this.threatValuesObj, JSON.parse(this.plan.planThreats));
+
+                  if(this.plan.planActions !== undefined)
+                    this.actionValuesObj = Object.assign(this.actionValuesObj, JSON.parse(this.plan.planActions));
+
+                  if(this.plan.planActionRelatedThreats !== undefined)
+                    this.actionRelatedThreatsObj = Object.assign(this.actionRelatedThreatsObj, JSON.parse(this.plan.planActionRelatedThreats));
+
+                  console.log(this.actionRelatedThreatsObj);
                 },
                 (err: ApiMessage) => {
                   console.log(err);
@@ -91,6 +102,10 @@ export class ReportsComponent implements OnInit, OnDestroy {
     });
 
     return controlActionList;
+  }
+
+  getRelatedThreatList(obj: any) {
+    return Object.keys(obj).map(threat => obj[threat]);
   }
 
   ngOnDestroy() {
