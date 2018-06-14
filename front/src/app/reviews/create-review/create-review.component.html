@@ -2,52 +2,63 @@
   <h3>New Review</h3>
 </div>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <p>
-    <label>Plan Name</label>
-    <input type="text" [value]="plan.name" readonly>
-  </p>
 
-  <p>
-    <label>Plan Description</label>
-    <input type="text" [value]="plan.description" readonly>
-  </p>
-
-  <div>
-    <label>Available Reviewers</label>
-    <br/><br/>
-    <app-input-field-error [showError]="showError('reviewers')"
-                           [message]="buildErrorMessage('reviewers')"></app-input-field-error>
-  </div>
-  <div *ngIf="availableReviewers.length > 0">
-    <p *ngFor="let user of availableReviewers; let index = index">
-      <input type="checkbox" class="filled-in" formControlName="reviewers"
-             [id]="'item-'+index" name="users" [value]="user.id" (change)="selectItem(user, index, $event.target)" />
-
-      <label [for]="'item-'+index">
-        <span>{{ user.name }}</span>
-      </label>
+<div *ngIf="!loading">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p>
+      <label>Plan Name</label>
+      <input type="text" [value]="plan.name" readonly>
     </p>
-  </div>
-  <div *ngIf="availableReviewers.length === 0">
-    No reviewer available.
-  </div>
 
-  <p>
-    <label>Expire Date</label>
-    <input type="date" [min]="todayDate" formControlName="expireDate" />
-    <app-input-field-error [showError]="showError('expireDate')"
-                           [message]="buildErrorMessage('expireDate')"></app-input-field-error>
-  </p>
+    <p>
+      <label>Plan Description</label>
+      <input type="text" [value]="plan.description" readonly>
+    </p>
 
-  <!-- buttons -->
-  <div class="row right">
-    <button type="button" class="waves-effect waves-light btn" (click)="cancel()">
-      Cancel
-    </button>
-    <button type="submit" class="waves-effect waves-light btn"
-      [disabled]="form.invalid">
-      <i class="material-icons right">save</i>Save
-    </button>
-  </div>
-</form>
+    <div>
+      <label>Available Reviewers</label>
+      <br/><br/>
+      <app-input-field-error [showError]="showError('reviewers')"
+                             [message]="buildErrorMessage('reviewers')"></app-input-field-error>
+    </div>
+    <div *ngIf="availableReviewers.length > 0">
+      <p *ngFor="let user of availableReviewers; let index = index">
+        <input type="checkbox" class="filled-in" formControlName="reviewers"
+               [id]="'item-'+index" name="users" [value]="user.id" (change)="selectItem(user, index, $event.target)" />
+
+        <label [for]="'item-'+index">
+          <span>{{ user.name }}</span>
+        </label>
+      </p>
+    </div>
+    <div *ngIf="availableReviewers.length === 0">
+      No reviewer available.
+    </div>
+
+    <p>
+      <label>Expire Date</label>
+      <input type="date" [min]="todayDate" formControlName="expireDate" />
+      <app-input-field-error [showError]="showError('expireDate')"
+                             [message]="buildErrorMessage('expireDate')"></app-input-field-error>
+    </p>
+
+    <!-- buttons -->
+    <div class="row right">
+      <button type="button" class="waves-effect waves-light btn" (click)="navigateToReadyToReviewList()">
+        Cancel
+      </button>
+      <button type="submit" class="waves-effect waves-light btn"
+        [disabled]="form.invalid || loadingButton">
+        Save
+        <i class="material-icons right">
+          <span *ngIf="!loadingButton">save</span>
+          <app-spinner *ngIf="loadingButton" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </i>
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="loading-data" *ngIf="loading">
+  <app-spinner></app-spinner>
+</div>
