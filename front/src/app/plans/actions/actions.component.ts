@@ -25,6 +25,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
   filteredList: Array<any> = [];
   threatObj: any = {};
   actionObj: any = {};
+  actionRelatedThreatsObj: any = {};
 
   private filterKeys: Array<string> = [Magnitude.VERY_HIGH, Magnitude.HIGH, Magnitude.MODERATE, Magnitude.LOW, Magnitude.VERY_LOW];
   filterObjList: Array<any> = [
@@ -74,7 +75,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
                   this.processClassification();
                   this.processThreatMagnitude();
 
-                  this.initCurrenObject();
+                  this.initCurrentObject();
                 },
                 (err: ApiMessage) => {
                   console.log(err);
@@ -89,25 +90,6 @@ export class ActionsComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-  // filter functions
-  selectFilter(filter) {
-    const index = this.filterKeys.indexOf(filter);
-
-    if(index === -1) {
-      this.filterKeys.push(filter);
-    } else {
-      this.filterKeys.splice(index, 1);
-    }
-
-    this.filterThreatList();
-    this.initCurrenObject();
-  }
-
-  private filterThreatList() {
-    this.filteredList = this.threatList.filter(threat => this.filterKeys.indexOf(threat.magnitude) != -1);
-  }
-
 
   // select functions
   selectAction(action) {
@@ -181,13 +163,16 @@ export class ActionsComponent implements OnInit, OnDestroy {
   processClassification() {
     this.threatObj = JSON.parse(this.plan.planThreats);
 
-    if(this.plan.planActions != undefined) {
-      this.actionObj = JSON.parse(this.plan.planActions);
-    } else {
-      this.threatList.forEach(threat => {
-        this.actionObj[threat.key] = {};
-      });
-    }
+    this.threatList.forEach(threat => {
+      this.actionObj[threat.key] = {};
+    });
+
+    if(this.plan.planActions !== undefined)
+      this.actionObj = Object.assign(this.actionObj, JSON.parse(this.plan.planActions));
+
+
+    if(this.plan.planActionRelatedThreats !== undefined)
+      this.actionRelatedThreatsObj = JSON.parse(this.plan.planActionRelatedThreats);
   }
 
   private processThreatMagnitude() {
@@ -219,7 +204,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
     }
   }
 
-  initCurrenObject() {
+  initCurrentObject() {
     this.currentObjectIndex = 0;
     this.currentObject = this.filteredList[this.currentObjectIndex];
   }
@@ -248,6 +233,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
   finish() {
     this.plan.planActions = JSON.stringify(this.actionObj);
+    this.plan.planActionRelatedThreats = JSON.stringify(this.actionRelatedThreatsObj);
 
     this.planService.savePlanActions(this.plan).subscribe(
       data => {
@@ -262,33 +248,28 @@ export class ActionsComponent implements OnInit, OnDestroy {
     );
   }
 
-  private saveGeneratedThreats(newThreats: any) {
+  // filter functions
+  selectFilter(filter) {
+    const index = this.filterKeys.indexOf(filter);
 
-    let planActionRelatedThreats = this.plan.planActionRelatedThreats !== undefined ?
-                                          JSON.parse(this.plan.planActionRelatedThreats) : {};
+    if(index === -1) {
+      this.filterKeys.push(filter);
+    } else {
+      this.filterKeys.splice(index, 1);
+    }
 
-    // merge old and new threats objects
-    Object.assign(planActionRelatedThreats, newThreats);
-
-    this.updateActionRelatedThreats(planActionRelatedThreats);
+    this.filterThreatList();
+    this.initCurrentObject();
   }
 
-  private removeActionRelatedThreats(actionKey: string) {
+  private saveGeneratedThreats(newThreats: any) {
+    // merge old and new threats objects
+    Object.assign(this.actionRelatedThreatsObj, newThreats);
 
-    if(this.plan.planActionRelatedThreats !== undefined) {
-      let planActionRelatedThreats = JSON.parse(this.plan.planActionRelatedThreats);
-      if(actionKey in planActionRelatedThreats) {
-        delete planActionRelatedThreats[actionKey];
-
-        this.updateActionRelatedThreats(planActionRelatedThreats);
-      }
-    }
+    //this.updateActionRelatedThreats(planActionRelatedThreats);
   }
 
   private updateActionRelatedThreats(planActionRelatedThreats: any) {
-    console.log('Saving...');
-    console.log(planActionRelatedThreats);
-
     this.plan.planActionRelatedThreats = JSON.stringify(planActionRelatedThreats);
 
     this.planService.savePlanGeneratedActions(this.plan).subscribe(
@@ -304,6 +285,21 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
   startClassification() {
     this.showInfoPanel = false;
+  }
+
+  private removeActionRelatedThreats(actionKey: string) {
+
+    if(this.plan.planActionRelatedThreats !== undefined) {
+      if(actionKey in this.actionRelatedThreatsObj) {
+        delete this.actionRelatedThreatsObj[actionKey];
+
+        //this.updateActionRelatedThreats(planActionRelatedThreats);
+      }
+    }
+  }
+
+  private filterThreatList() {
+    this.filteredList = this.threatList.filter(threat => this.filterKeys.indexOf(threat.magnitude) != -1);
   }
 
   ngOnDestroy() {

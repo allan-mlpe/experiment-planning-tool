@@ -50,15 +50,15 @@
       <div class="col s12 m12 l12">
         <hr class="section-separator">
         <h5>Control actions</h5>
+        <div *ngIf="currentObject.relatedControlActions.length > 0">
+          <div *ngFor="let action of currentObject.relatedControlActions">
+            <div>
+              <input type="checkbox" class="filled-in" [checked]="actionObj[currentObject.key][action.key] !== undefined"
+                     [id]="'input-'+action.key" (change)="selectAction(action)" />
+              <label [for]="'input-'+action.key">{{ action.label }}</label>
+            </div>
 
-        <div *ngFor="let action of currentObject.relatedControlActions">
-          <div>
-            <input type="checkbox" class="filled-in" [checked]="actionObj[currentObject.key][action.key] !== undefined"
-                   [id]="'input-'+action.key" (change)="selectAction(action)" />
-            <label [for]="'input-'+action.key">{{ action.label }}</label>
-          </div>
-
-          <div *ngIf="actionObj[currentObject.key][action.key] !== undefined">
+            <div *ngIf="actionObj[currentObject.key][action.key] !== undefined">
             <span class="col s6" *ngFor="let option of options">
               <input class="with-gap" type="radio" [value]="option.value" (change)="classifyAction(action, option.value)"
                      [name]="'prop-'+currentObject.key+'-'+action.key" [id]="'prop-'+currentObject.key+'-op-'+option.id+'-'+action.key"
@@ -66,7 +66,13 @@
 
               <label [for]="'prop-'+currentObject.key+'-op-'+option.id+'-'+action.key">{{ option.text }}</label>
             </span>
-            <div style="height: 100px;"></div>
+              <div style="height: 100px;"></div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="currentObject.relatedControlActions.length === 0">
+          <div>
+            There is no control action for this threat yet.
           </div>
         </div>
       </div>

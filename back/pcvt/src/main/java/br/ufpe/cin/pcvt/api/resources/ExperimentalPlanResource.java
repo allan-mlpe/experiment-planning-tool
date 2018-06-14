@@ -311,6 +311,7 @@ public class ExperimentalPlanResource {
             checkPermission(plan, req);
 
             plan.setPlanActions(planVO.getPlanActions());
+            plan.setPlanActionRelatedThreats(planVO.getPlanActionRelatedThreats());
             experimentalPlanController.update(plan);
 
             return Response.ok(planVO).build();
