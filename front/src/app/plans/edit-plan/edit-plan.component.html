@@ -27,14 +27,29 @@
           </div>
           <div class="collapsible-body">
             <div class="row" *ngFor="let question of section.questions; let i = index">
-              <p class="question-title">{{ question.title }}</p>
+              <p class="question-title">
+                {{ question.title }}
+                <i *ngIf="question.hint !== ''" class="tiny material-icons section-icon" materialize="tooltip" data-position="bottom" data-delay="50"
+                   [attr.data-tooltip]="question.hint">help</i>
+              </p>
               <textarea [(ngModel)]="detailsObject[question.projectKey]" [ngModelOptions]="{standalone: true}"></textarea>
 
-              <p>{{ question.considerations.state }}</p>
-              <ul class="consideration-list">
-                <li *ngFor="let consideration of question.considerations.items">{{ consideration }}</li>
-              </ul>
-              <hr *ngIf="i !== section.questions.length - 1" class="question-separator"/>
+              <div>
+                <ul class="collapsible popout">
+                  <li>
+                    <div class="collapsible-header">
+                      <i class="material-icons section-icon">add_box</i>
+                      Considerations
+                    </div>
+
+                    <div class="collapsible-body">
+                      <ul class="consideration-list">
+                        <li *ngFor="let consideration of question.considerations.items">{{ consideration }}</li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </li>
