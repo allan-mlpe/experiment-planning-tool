@@ -8,7 +8,7 @@
     <tr>
       <th>Name</th>
       <th>Author</th>
-      <!--<th>State</th>-->
+      <th>State</th>
       <th>Action</th>
     </tr>
     </thead>
@@ -18,14 +18,30 @@
       <td>{{ review.plan.name }}</td>
       <td>{{ review.plan.author.name }}</td>
       <td>{{ review.state }}</td>
-      <td>
-        <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Accept request">
-          check
-        </i>
+      <td [ngSwitch]="review.state">
 
-        <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Refuse request">
-          clear
-        </i>
+        <div *ngSwitchCase="'ReviewRequested'">
+          <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50"
+             data-tooltip="Accept request" (click)="acceptRequest(review, idx)">
+            check
+          </i>
+
+          <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50"
+             data-tooltip="Refuse request" (click)="refuseRequest(review, idx)">
+            clear
+          </i>
+        </div>
+
+        <div *ngSwitchCase="'Reviewing'">
+          <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50"
+             data-tooltip="Review plan">
+            edit
+          </i>
+        </div>
+
+        <div *ngSwitchCase="'...'">
+          <app-spinner *ngIf="true" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </div>
       </td>
     </tr>
     </tbody>

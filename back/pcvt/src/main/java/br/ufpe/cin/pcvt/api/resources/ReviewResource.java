@@ -1,10 +1,8 @@
 package br.ufpe.cin.pcvt.api.resources;
 
-import br.ufpe.cin.pcvt.api.converters.ExperimentalPlanVOConverter;
 import br.ufpe.cin.pcvt.api.converters.ReviewVOConverter;
 import br.ufpe.cin.pcvt.api.exceptions.ApiException;
 import br.ufpe.cin.pcvt.api.models.ApiMessage;
-import br.ufpe.cin.pcvt.api.models.ExperimentalPlanVO;
 import br.ufpe.cin.pcvt.api.models.ReviewVO;
 import br.ufpe.cin.pcvt.api.models.ReviewWrapper;
 import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
@@ -71,14 +69,7 @@ public class ReviewResource {
                         ReviewVOConverter.getInstance().convertToVO(review)
                     ).collect(Collectors.toList());
 
-            /*List<ExperimentalPlanVO> plans =
-                    reviews.stream().map(review ->
-                        ExperimentalPlanVOConverter.getInstance()
-                                .convertToVO(review.getPlan()
-                    )).collect(Collectors.toList());*/
-
             GenericEntity<List<ReviewVO>> genericList = new GenericEntity<List<ReviewVO>>(reviewVOS) {};
-
             return Response.ok(genericList).build();
 
         } catch(Exception e) {
@@ -86,6 +77,66 @@ public class ReviewResource {
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error.");
         }
+    }
 
+    @PUT
+    @Path("/{id}/accept")
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response acceptReviewRequest(@PathParam("id") Integer reviewId, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            Review review = reviewController.get(reviewId);
+            if(review == null)
+                throw new ApiException(Response.Status.BAD_REQUEST,
+                        String.format("Review '%d' does not exist", reviewId));
+
+            checkPermission(req, review);
+            Review updatedReview = reviewController.moveToReviewing(review);
+
+            ReviewVO reviewVO = ReviewVOConverter.getInstance()
+                    .convertToVO(updatedReview);
+
+            return Response.ok(reviewVO).build();
+
+        } catch(ApiException e) {
+            throw e;
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error.");
+        }
+    }
+
+    @PUT
+    @Path("/{id}/refuse")
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response refuseReviewRequest(@PathParam("id") Integer reviewId, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            Review review = reviewController.get(reviewId);
+            if(review == null)
+                throw new ApiException(Response.Status.BAD_REQUEST,
+                        String.format("Review '%d' does not exist", reviewId));
+
+            checkPermission(req, review);
+            Review updatedReview = reviewController.moveToRefused(review);
+
+            ReviewVO reviewVO = ReviewVOConverter.getInstance()
+                    .convertToVO(updatedReview);
+
+            return Response.ok(reviewVO).build();
+
+        } catch(ApiException e) {
+            throw e;
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error.");
+        }
+    }
+
+    private static void checkPermission(ContainerRequestContext req, Review review) {
+        User user = RequestContextUtils.extractUser(req);
+        if(!user.equals(review.getReviewer()))
+            throw  new ApiException(Response.Status.FORBIDDEN,
+                    "You do not have permission to update this review");
     }
 }

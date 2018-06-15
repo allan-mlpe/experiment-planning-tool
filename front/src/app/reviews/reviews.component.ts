@@ -23,7 +23,6 @@ export class ReviewsComponent implements OnInit {
       .finally(() => this.loading = false)
       .subscribe(
         data => {
-          console.log(data);
           this.reviews = data;
         },
         (err: ApiMessage) => {
@@ -31,6 +30,36 @@ export class ReviewsComponent implements OnInit {
           ToastFactory.errorToast(err.message);
         }
       )
+  }
+
+  acceptRequest(review: any, index: number) {
+    const oldState = review.state;
+    review.state = '';
+    this.reviewsService.acceptRequest(review.id).subscribe(
+      data => {
+        this.reviews[index] = data;
+      },
+      (err: ApiMessage) => {
+        console.log(err);
+        ToastFactory.errorToast(err.message);
+        review.state = oldState;
+      }
+    );
+  }
+
+  refuseRequest(review: any, index: number) {
+    const oldState = review.state;
+    review.state = '...';
+    this.reviewsService.refuseRequest(review.id).subscribe(
+      data => {
+        this.reviews[index] = data;
+      },
+      (err: ApiMessage) => {
+        console.log(err);
+        ToastFactory.errorToast(err.message);
+        review.state = oldState;
+      }
+    );
   }
 
 }

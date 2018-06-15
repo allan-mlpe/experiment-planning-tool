@@ -15,4 +15,13 @@ export class ReviewsService {
   getReviewsRequest(): Observable<any> {
     return this.restService.get(this.RESOURCE_PREFIX);
   }
+
+  acceptRequest(reviewId: number): Observable<any> {
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${reviewId}/accept`, {});
+  }
+
+  refuseRequest(reviewId: number): Observable<any> {
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${reviewId}/refuse`, {});
+  }
+
 }
