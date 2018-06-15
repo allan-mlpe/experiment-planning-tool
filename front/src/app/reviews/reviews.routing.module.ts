@@ -9,6 +9,8 @@ import {AuthGuard} from "../guards/auth.guard";
 import {ReadyToReviewComponent} from "./ready-to-review/ready-to-review.component";
 import {CreateReviewComponent} from "./create-review/create-review.component";
 import {ReviewsComponent} from "./reviews.component";
+import {ReviewPlanComponent} from "./review-plan/review-plan.component";
+import {ReviewResolver} from "../guards/review.resolver";
 
 const planRoutes: Routes = [
   {
@@ -16,7 +18,8 @@ const planRoutes: Routes = [
     children: [
       { path: '', component: ReviewsComponent, canActivate: [AuthGuard] },
       { path: 'ready-to-review', component: ReadyToReviewComponent, canActivate: [AuthGuard]},
-      { path: 'ready-to-review/create/:id', component: CreateReviewComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}}
+      { path: 'ready-to-review/create/:id', component: CreateReviewComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}},
+      { path: ':id', component: ReviewPlanComponent, canActivate: [AuthGuard], resolve: {review: ReviewResolver}}
     ]
   }
 ];

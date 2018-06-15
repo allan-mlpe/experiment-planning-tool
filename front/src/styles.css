@@ -38,3 +38,8 @@ i.action-icon:hover {
   color: #2bbbad;
 }
 
+textarea {
+  height: 8em;
+}
+
+

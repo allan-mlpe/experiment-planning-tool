@@ -34,7 +34,7 @@
 
         <div *ngSwitchCase="'Reviewing'">
           <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50"
-             data-tooltip="Review plan">
+             data-tooltip="Review plan" [routerLink]="review.id">
             edit
           </i>
         </div>

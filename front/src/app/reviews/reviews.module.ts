@@ -11,6 +11,8 @@ import {CreateReviewComponent} from "./create-review/create-review.component";
 import {ReadyToReviewComponent} from "./ready-to-review/ready-to-review.component";
 import {ReviewsService} from "../services/reviews.service";
 import { ReviewsComponent } from './reviews.component';
+import { ReviewPlanComponent } from './review-plan/review-plan.component';
+import {ReviewResolver} from "../guards/review.resolver";
 
 @NgModule({
   imports: [
@@ -23,13 +25,15 @@ import { ReviewsComponent } from './reviews.component';
   declarations: [
     CreateReviewComponent,
     ReadyToReviewComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    ReviewPlanComponent
   ],
   providers: [
     PlanService,
     PlanResolver,
     UserService,
-    ReviewsService
+    ReviewsService,
+    ReviewResolver
   ]
 })
 export class ReviewsModule { }

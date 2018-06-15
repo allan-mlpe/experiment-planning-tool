@@ -79,6 +79,31 @@ public class ReviewResource {
         }
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response getReviewById(@PathParam("id") Integer reviewId, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            Review review = reviewController.get(reviewId);
+            if(review == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        String.format("Review '%d' does not exist", reviewId));
+
+            checkPermission(req, review);
+
+            ReviewVO reviewVO = ReviewVOConverter.getInstance()
+                    .convertToVO(review);
+
+            return Response.ok(reviewVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error.");
+        }
+    }
+
     @PUT
     @Path("/{id}/accept")
     @Produces(APIConstants.APPLICATION_JSON)
@@ -86,7 +111,7 @@ public class ReviewResource {
         try {
             Review review = reviewController.get(reviewId);
             if(review == null)
-                throw new ApiException(Response.Status.BAD_REQUEST,
+                throw new ApiException(Response.Status.NOT_FOUND,
                         String.format("Review '%d' does not exist", reviewId));
 
             checkPermission(req, review);
@@ -113,7 +138,7 @@ public class ReviewResource {
         try {
             Review review = reviewController.get(reviewId);
             if(review == null)
-                throw new ApiException(Response.Status.BAD_REQUEST,
+                throw new ApiException(Response.Status.NOT_FOUND,
                         String.format("Review '%d' does not exist", reviewId));
 
             checkPermission(req, review);

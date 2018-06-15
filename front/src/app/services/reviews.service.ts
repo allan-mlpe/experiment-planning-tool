@@ -24,4 +24,7 @@ export class ReviewsService {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${reviewId}/refuse`, {});
   }
 
+  getReview(reviewId: number) {
+    return this.restService.get(`${this.RESOURCE_PREFIX}/${reviewId}`);
+  }
 }
