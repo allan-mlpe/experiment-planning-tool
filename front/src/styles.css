@@ -42,4 +42,8 @@ textarea {
   height: 8em;
 }
 
+.material-tooltip {
+  max-width: 400px;
+}
+
 

@@ -13,6 +13,10 @@ p.question-title::before {
   margin-right: 10px;
 }
 
+p.question-title i.section-icon {
+  vertical-align: middle;
+}
+
 ul.consideration-list {
   list-style-type: square;
 }
