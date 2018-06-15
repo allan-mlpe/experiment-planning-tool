@@ -1,0 +1,15 @@
+div.plan-detail {
+  background: lightgrey;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+textarea.plan-detail-answer {
+  resize: none;
+  outline: none;
+  border: 0;
+}
+
+p.not-defined-detail {
+  font-style: italic;
+}

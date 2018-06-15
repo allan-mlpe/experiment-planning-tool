@@ -246,7 +246,7 @@ export class PcvtConstants {
           }
         },
         {
-          projectKey: 'sg3',
+          projectKey: 'sg4',
           title: 'Based on the research goals, is controlled experiment the most appropriate research technique to use?',
           hint: 'Wohlin (2012) presents a comparison of empirical strategies in Chapter 2, Section 5 (pg.18),and Easterbrook 2008 presents an overview of the factors that should be involved in selecting an appropriate research technique for software engineering research.',
           considerations: {
@@ -260,7 +260,7 @@ export class PcvtConstants {
           }
         },
         {
-          projectKey: 'sg4',
+          projectKey: 'sg3',
           title: 'Do the objectives of the experiment satisfy ethical concerns?',
           hint: 'Experimenters should describe the relationship between themselves and participants and if that relationship has been adequately considered. The experimenters should critically examine their own role, potential bias and influence during formulation of the research questions, data collection, including sample recruitment and choice of location. Also, the experimenter should describe how they will respond to events during the study [Dyba and Dingsoyr 2008] and [CASP 2013].',
           considerations: {
@@ -309,7 +309,7 @@ export class PcvtConstants {
           }
         },
         {
-          projectKey: 'hvm3',
+          projectKey: 'hvm4',
           title: 'Do the research measures allow the questions to be answered?',
           hint: '',
           considerations: {
@@ -322,7 +322,7 @@ export class PcvtConstants {
           }
         },
         {
-          projectKey: 'hvm4',
+          projectKey: 'hvm3',
           title: 'Are the outcome measures valid and clearly described?',
           hint: 'These are indicators of valid measures [Kitchenham 2009]: (1) The measures are plausible measures of the construct they are meant to represent. (2) The measures are direct measures of well-defined concepts. (3) The measurement scales are respected (e.g. categorical measures are not treated as ordinal or interval). (4) The data collection process is defined and appropriate.',
           considerations: {

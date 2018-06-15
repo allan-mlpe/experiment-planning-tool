@@ -4,6 +4,7 @@ import {ReviewsService} from "../../services/reviews.service";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {PcvtConstants} from "../../shared/pcvt-constants";
+import {REVIEW_OPTIONS} from "../../model/review-options";
 
 declare var $ :any;
 
@@ -16,8 +17,11 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
 
   review: any = {};
   plan: Plan;
+  planDetails: any;
 
   instrumentQuestions = PcvtConstants.REVIEW_INSTRUMENT_QUESTIONS;
+
+  options = REVIEW_OPTIONS;
 
   private subsc: Subscription;
 
@@ -34,6 +38,9 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
       (info: { review: any }) => {
         this.review = info['review'];
         this.plan = this.review.plan;
+        this.planDetails = JSON.parse(this.plan.planDetails);
+
+        console.log(this.review);
       });
   }
 
