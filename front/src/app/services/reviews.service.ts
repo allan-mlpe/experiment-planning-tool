@@ -11,4 +11,8 @@ export class ReviewsService {
   createReview(reviewRequest: any): Observable<any> {
     return this.restService.post(this.RESOURCE_PREFIX, reviewRequest);
   }
+
+  getReviewsRequest(): Observable<any> {
+    return this.restService.get(this.RESOURCE_PREFIX);
+  }
 }

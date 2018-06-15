@@ -30,3 +30,11 @@ hr.section-separator {
   margin-right: 10px;
 }
 
+i.action-icon {
+  cursor: pointer;
+}
+
+i.action-icon:hover {
+  color: #2bbbad;
+}
+

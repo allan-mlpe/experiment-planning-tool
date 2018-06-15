@@ -8,12 +8,13 @@ import {PlanResolver} from "../guards/plan.resolver";
 import {AuthGuard} from "../guards/auth.guard";
 import {ReadyToReviewComponent} from "./ready-to-review/ready-to-review.component";
 import {CreateReviewComponent} from "./create-review/create-review.component";
+import {ReviewsComponent} from "./reviews.component";
 
 const planRoutes: Routes = [
   {
     path: '', component: BasicLayoutComponent,
     children: [
-      { path: '', redirectTo: 'ready-to-review', pathMatch: 'prefix' },
+      { path: '', component: ReviewsComponent, canActivate: [AuthGuard] },
       { path: 'ready-to-review', component: ReadyToReviewComponent, canActivate: [AuthGuard]},
       { path: 'ready-to-review/create/:id', component: CreateReviewComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}}
     ]

@@ -1,0 +1,40 @@
+<div class="row">
+  <h3>Reviews</h3>
+</div>
+
+<div class="row">
+  <table class="highlight">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Author</th>
+      <!--<th>State</th>-->
+      <th>Action</th>
+    </tr>
+    </thead>
+
+    <tbody *ngIf="!loading && reviews.length > 0">
+    <tr *ngFor="let review of reviews; let idx = index" >
+      <td>{{ review.plan.name }}</td>
+      <td>{{ review.plan.author.name }}</td>
+      <td>{{ review.state }}</td>
+      <td>
+        <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Accept request">
+          check
+        </i>
+
+        <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Refuse request">
+          clear
+        </i>
+      </td>
+    </tr>
+    </tbody>
+
+    <tr class="empty-table" *ngIf="!loading && reviews.length === 0">
+      <td colspan="4">Nothing to show.</td>
+    </tr>
+  </table>
+  <div class="loading-data" *ngIf="loading">
+    <app-spinner></app-spinner>
+  </div>
+</div>

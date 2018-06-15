@@ -10,6 +10,7 @@ import {MaterializeModule} from "angular2-materialize";
 import {CreateReviewComponent} from "./create-review/create-review.component";
 import {ReadyToReviewComponent} from "./ready-to-review/ready-to-review.component";
 import {ReviewsService} from "../services/reviews.service";
+import { ReviewsComponent } from './reviews.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import {ReviewsService} from "../services/reviews.service";
   ],
   declarations: [
     CreateReviewComponent,
-    ReadyToReviewComponent
+    ReadyToReviewComponent,
+    ReviewsComponent
   ],
   providers: [
     PlanService,

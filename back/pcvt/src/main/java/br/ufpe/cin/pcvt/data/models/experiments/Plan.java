@@ -4,8 +4,10 @@ import br.ufpe.cin.pcvt.converters.EPlanStateConverter;
 import br.ufpe.cin.pcvt.data.models.user.User;
 import br.ufpe.cin.pcvt.data.persistance.constants.TableName;
 import br.ufpe.cin.pcvt.exceptions.entities.experiments.plan.PlanAlreadyHasChildException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.time.Instant;
 import java.util.*;
 
@@ -205,6 +207,8 @@ public class Plan implements Comparable<Plan> {
 		this.planItems = planItems;
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public List<Review> getReviews() {
 		if (reviews == null)
 			reviews = new ArrayList<Review>();

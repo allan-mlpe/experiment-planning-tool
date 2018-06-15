@@ -1,23 +1,31 @@
 package br.ufpe.cin.pcvt.api.resources;
 
+import br.ufpe.cin.pcvt.api.converters.ExperimentalPlanVOConverter;
+import br.ufpe.cin.pcvt.api.converters.ReviewVOConverter;
 import br.ufpe.cin.pcvt.api.exceptions.ApiException;
 import br.ufpe.cin.pcvt.api.models.ApiMessage;
+import br.ufpe.cin.pcvt.api.models.ExperimentalPlanVO;
+import br.ufpe.cin.pcvt.api.models.ReviewVO;
 import br.ufpe.cin.pcvt.api.models.ReviewWrapper;
+import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
+import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
 import br.ufpe.cin.pcvt.controllers.ControllerFactory;
 import br.ufpe.cin.pcvt.controllers.PlanController;
 import br.ufpe.cin.pcvt.controllers.ReviewController;
 import br.ufpe.cin.pcvt.controllers.UserController;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
+import br.ufpe.cin.pcvt.data.models.experiments.Review;
 import br.ufpe.cin.pcvt.data.models.user.User;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SecureEndpoint
 @Path("reviews")
 public class ReviewResource {
 
@@ -49,5 +57,35 @@ public class ReviewResource {
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error");
         }
+    }
+    
+    @GET
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response loadReviews(@Context ContainerRequestContext req) throws ApiException {
+        try {
+            User user = RequestContextUtils.extractUser(req);
+            List<Review> reviews = reviewController.retrieveByReviewer(user);
+
+            List<ReviewVO> reviewVOS =
+                    reviews.stream().map(review ->
+                        ReviewVOConverter.getInstance().convertToVO(review)
+                    ).collect(Collectors.toList());
+
+            /*List<ExperimentalPlanVO> plans =
+                    reviews.stream().map(review ->
+                        ExperimentalPlanVOConverter.getInstance()
+                                .convertToVO(review.getPlan()
+                    )).collect(Collectors.toList());*/
+
+            GenericEntity<List<ReviewVO>> genericList = new GenericEntity<List<ReviewVO>>(reviewVOS) {};
+
+            return Response.ok(genericList).build();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error.");
+        }
+
     }
 }
