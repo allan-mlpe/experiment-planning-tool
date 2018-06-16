@@ -49,7 +49,6 @@ export class ReportsComponent implements OnInit, OnDestroy {
             this.characteristicsService.getThreatsByCharacteristicKeys({stringList: characteristicsKeys})
               .subscribe(
                 data => {
-                  console.log(this.plan);
                   this.threatList = data;
 
                   if(this.plan.planThreats !== undefined)
@@ -60,8 +59,6 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
                   if(this.plan.planActionRelatedThreats !== undefined)
                     this.actionRelatedThreatsObj = Object.assign(this.actionRelatedThreatsObj, JSON.parse(this.plan.planActionRelatedThreats));
-
-                  console.log(this.actionRelatedThreatsObj);
                 },
                 (err: ApiMessage) => {
                   console.log(err);

@@ -163,7 +163,7 @@ export class CreateReviewComponent implements OnInit, OnDestroy, IFormCanDeactiv
   }
 
   navigateToReadyToReviewList() {
-    this.router.navigate(['../../'], {relativeTo: this.route})
+    this.router.navigate(['/', 'plans'])
   }
 
   ngOnDestroy() {

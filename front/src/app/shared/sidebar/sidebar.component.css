@@ -1,3 +1,7 @@
+.side-nav {
+  width: 200px;
+}
+
 ul li a {
     cursor: pointer;
 }

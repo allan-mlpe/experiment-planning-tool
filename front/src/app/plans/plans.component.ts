@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {ModalService} from '../services/modal.service';
 import {ToastFactory} from '../shared/toast-factory';
 import {ApiMessage} from "../model/pcvt-message";
+import {PlanState} from "../model/plan-state.enum";
 
 @Component({
   selector: 'app-plans',
@@ -33,8 +34,8 @@ export class PlansComponent implements OnInit {
     );
   }
 
-  editPlan() {
-    console.log("Edit project");
+  getEnumValue(enumKey: PlanState): string {
+    return PlanState[enumKey];
   }
 
   removePlan(plan: Plan, index: number) {

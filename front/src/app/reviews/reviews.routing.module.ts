@@ -17,6 +17,7 @@ const planRoutes: Routes = [
     path: '', component: BasicLayoutComponent,
     children: [
       { path: '', component: ReviewsComponent, canActivate: [AuthGuard] },
+      { path: 'create/:id', component: CreateReviewComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}},
       { path: 'ready-to-review', component: ReadyToReviewComponent, canActivate: [AuthGuard]},
       { path: 'ready-to-review/create/:id', component: CreateReviewComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}},
       { path: ':id', component: ReviewPlanComponent, canActivate: [AuthGuard], resolve: {review: ReviewResolver}}

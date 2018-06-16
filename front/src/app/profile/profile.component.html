@@ -62,7 +62,12 @@
   <div class="row right">
     <button type="submit" class="waves-effect waves-light btn"
             [disabled]="form.invalid || loading || !hasUnsavedChanges">
-      <i class="material-icons right">save</i>Save
+
+      <i class="material-icons right">
+        <span *ngIf="!loading">save</span>
+        <app-spinner *ngIf="loading" [width]="'20px'" [height]="'20px'"></app-spinner>
+      </i>
+      Save
     </button>
   </div>
 </form>
