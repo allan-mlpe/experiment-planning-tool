@@ -18,6 +18,7 @@ import {UserService} from "../services/user.service";
 import {CharacteristicsService} from "../services/characteristics.service";
 import {ThreatsService} from "../services/threat.service";
 import {ControlActionService} from "../services/control-action.service";
+import { ReviewsComponent } from './reviews/reviews.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {ControlActionService} from "../services/control-action.service";
     CreatePlanComponent,
     ReportsComponent,
     ThreatsComponent,
-    EditPlanComponent
+    EditPlanComponent,
+    ReviewsComponent
   ],
   providers: [
     PlanService,

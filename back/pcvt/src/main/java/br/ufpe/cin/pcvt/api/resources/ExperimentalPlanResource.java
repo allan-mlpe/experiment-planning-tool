@@ -1,8 +1,10 @@
 package br.ufpe.cin.pcvt.api.resources;
 
 import br.ufpe.cin.pcvt.api.converters.ExperimentalPlanVOConverter;
+import br.ufpe.cin.pcvt.api.converters.ReviewVOConverter;
 import br.ufpe.cin.pcvt.api.exceptions.ApiException;
 import br.ufpe.cin.pcvt.api.models.ExperimentalPlanVO;
+import br.ufpe.cin.pcvt.api.models.ReviewVO;
 import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
 import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
 import br.ufpe.cin.pcvt.business.experiments.plan.state.exception.InvalidPlanStateTransitionException;
@@ -19,6 +21,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SecureEndpoint
 @Path("plans")
@@ -57,6 +60,30 @@ public class ExperimentalPlanResource {
             e.printStackTrace();
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error. It was not possible to save the experimental plan.");
+        }
+    }
+
+    @GET
+    @Path("/{id}/reviews")
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response getExperimentalPlansReviews(@PathParam("id") Integer planId, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            User user = RequestContextUtils.extractUser(req);
+
+            Plan plan = experimentalPlanController.get(planId);
+
+            List<ReviewVO> reviewVOS = plan.getReviews().stream()
+                    .map(review -> ReviewVOConverter.getInstance()
+                            .convertToVO(review)
+                    ).collect(Collectors.toList());
+
+            GenericEntity<List<ReviewVO>> genericList = new GenericEntity<List<ReviewVO>>(reviewVOS) {};
+            return Response.ok(genericList).build();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error.");
         }
     }
 

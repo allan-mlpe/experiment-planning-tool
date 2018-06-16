@@ -42,6 +42,12 @@ textarea {
   height: 8em;
 }
 
+textarea:read-only {
+  resize: none;
+  outline: none;
+  border: 0;
+}
+
 .material-tooltip {
   max-width: 400px;
 }

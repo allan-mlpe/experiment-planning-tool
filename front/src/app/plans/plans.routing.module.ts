@@ -13,6 +13,7 @@ import {CharacteristicsComponent} from "./characteristics/characteristics.compon
 import {PlanResolver} from "../guards/plan.resolver";
 import {EditPlanComponent} from "./edit-plan/edit-plan.component";
 import {AuthGuard} from "../guards/auth.guard";
+import {ReviewsComponent} from "./reviews/reviews.component";
 
 const planRoutes: Routes = [
     {
@@ -25,7 +26,8 @@ const planRoutes: Routes = [
             { path: ':id/characteristics', component: CharacteristicsComponent, resolve: { plan : PlanResolver} },
             { path: ':id/threats', component: ThreatsComponent, resolve: { plan : PlanResolver}},
             { path: ':id/actions', component: ActionsComponent, resolve: { plan : PlanResolver}},
-            { path: ':id/reports', component: ReportsComponent, resolve: { plan: PlanResolver }}
+            { path: ':id/reports', component: ReportsComponent, resolve: { plan: PlanResolver }},
+            { path: ':id/reviews', component: ReviewsComponent, resolve: { plan: PlanResolver }}
         ]
     }
 ];

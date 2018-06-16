@@ -17,6 +17,10 @@ export class PlanService {
     return this.restService.get(`${this.RESOURCE_PREFIX}/${planId}`);
   }
 
+  getReviews(planId: number): Observable<any> {
+    return this.restService.get(`${this.RESOURCE_PREFIX}/${planId}/reviews`);
+  }
+
   savePlan(plan: Plan): Observable<any> {
     return this.restService.post(this.RESOURCE_PREFIX, plan);
   }
