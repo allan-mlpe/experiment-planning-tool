@@ -5,6 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {PcvtConstants} from "../../shared/pcvt-constants";
 import {REVIEW_OPTIONS} from "../../model/review-options";
+import {ApiMessage} from "../../model/pcvt-message";
+import {ToastFactory} from "../../shared/toast-factory";
 
 declare var $ :any;
 
@@ -41,7 +43,21 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
         this.planDetails = JSON.parse(this.plan.planDetails);
 
         console.log(this.review);
+
+        console.log(this.review);
       });
+  }
+
+  onSubmit() {
+    this.reviewsService.updateReview(this.review).subscribe(
+      data => {
+        ToastFactory.successToast('Review successfully updated')
+      },
+      (err: ApiMessage) => {
+        console.log(err);
+        ToastFactory.errorToast(err.message);
+      }
+    );
   }
 
   ngOnDestroy() {

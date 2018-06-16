@@ -46,10 +46,9 @@
               <div class="col s12">
                 <form action="">
                 <span class="col s12 m6 l4" *ngFor="let option of options">
-
                     <input class="with-gap" type="radio" [value]="option.value"
-                           [name]="'prop-'+question.projectKey" [id]="'prop-'+question.projectKey+'-op-'+option.id"
-                    />
+                       [name]="'prop-'+question.projectKey" [id]="'prop-'+question.projectKey+'-op-'+option.id"
+                       [(ngModel)]="review.reviewItems[question.reviewItemIndex]['score']" [ngModelOptions]="{standalone: true}"/>
 
                     <label [for]="'prop-'+question.projectKey+'-op-'+option.id">{{ option.text }}</label>
                 </span>
@@ -60,7 +59,7 @@
             <div class="row">
               <div class="col s12">
                 <label>Comments</label>
-                <textarea></textarea>
+                <textarea [(ngModel)]="review.reviewItems[question.reviewItemIndex]['comments']"></textarea>
               </div>
             </div>
 
@@ -87,4 +86,14 @@
       </li>
     </ul>
   </div>
+</div>
+
+<div class="row right">
+  <button *ngIf="plan.state === 'Planning'" type="button" class="waves-effect waves-light btn" (click)="saveAndComplete()">
+    <i class="material-icons right">save</i>Save and Complete
+  </button>
+
+  <button type="button" (click)="onSubmit()" class="waves-effect waves-light btn">
+    <i class="material-icons right">save</i>Save
+  </button>
 </div>

@@ -158,6 +158,32 @@ public class ReviewResource {
         }
     }
 
+    @PUT
+    @Path("/{id}")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response updateReview(ReviewVO reviewVO, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            Review review = reviewController.get(reviewVO.getId());
+            if(review == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        String.format("Review '%d' does not exist", reviewVO.getId()));
+
+            checkPermission(req, review);
+            review.setReviewItems(reviewVO.getReviewItems());
+
+            Review updatedReview = reviewController.update(review);
+            return Response.ok(reviewVO).build();
+
+        } catch(ApiException e) {
+            throw e;
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error.");
+        }
+    }
+
     private static void checkPermission(ContainerRequestContext req, Review review) {
         User user = RequestContextUtils.extractUser(req);
         if(!user.equals(review.getReviewer()))

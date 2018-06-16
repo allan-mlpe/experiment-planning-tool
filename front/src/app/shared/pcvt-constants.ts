@@ -222,6 +222,7 @@ export class PcvtConstants {
       questions: [
         {
           projectKey: 'sg1',
+          reviewItemIndex: 0,
           title: 'Are the aims clearly and precisely stated?',
           hint: 'One way to define the experiment goal is to use the GQM template. The purpose of a goal definition template is to ensure that important aspects of an experiment are defined before the planning and execution take place. By defining the goal of the experiment according to this template, the foundation is properly laid [Wohlin 2012].',
           considerations: {
@@ -235,6 +236,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'sg2',
+          reviewItemIndex: 1,
           title: 'Are the research questions linked to research goals and clearly defined?',
           hint: '',
           considerations: {
@@ -247,6 +249,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'sg4',
+          reviewItemIndex: 2,
           title: 'Based on the research goals, is controlled experiment the most appropriate research technique to use?',
           hint: 'Wohlin (2012) presents a comparison of empirical strategies in Chapter 2, Section 5 (pg.18),and Easterbrook 2008 presents an overview of the factors that should be involved in selecting an appropriate research technique for software engineering research.',
           considerations: {
@@ -261,6 +264,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'sg3',
+          reviewItemIndex: 3,
           title: 'Do the objectives of the experiment satisfy ethical concerns?',
           hint: 'Experimenters should describe the relationship between themselves and participants and if that relationship has been adequately considered. The experimenters should critically examine their own role, potential bias and influence during formulation of the research questions, data collection, including sample recruitment and choice of location. Also, the experimenter should describe how they will respond to events during the study [Dyba and Dingsoyr 2008] and [CASP 2013].',
           considerations: {
@@ -284,6 +288,7 @@ export class PcvtConstants {
       questions: [
         {
           projectKey: 'hvm1',
+          reviewItemIndex: 4,
           title: 'Are the hypotheses of the research clearly described and are they related to the research goals?',
           hint: '',
           considerations: {
@@ -299,6 +304,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'hvm2',
+          reviewItemIndex: 5,
           title: 'Have experimenters defined the variables or attributes to be measured?',
           hint: 'Dependent variables need to be defined and justified in terms of their relevance to the goals listed in the Research Objectives [Jedlitschka 2008].',
           considerations: {
@@ -310,6 +316,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'hvm4',
+          reviewItemIndex: 6,
           title: 'Do the research measures allow the questions to be answered?',
           hint: '',
           considerations: {
@@ -323,6 +330,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'hvm3',
+          reviewItemIndex: 7,
           title: 'Are the outcome measures valid and clearly described?',
           hint: 'These are indicators of valid measures [Kitchenham 2009]: (1) The measures are plausible measures of the construct they are meant to represent. (2) The measures are direct measures of well-defined concepts. (3) The measurement scales are respected (e.g. categorical measures are not treated as ordinal or interval). (4) The data collection process is defined and appropriate.',
           considerations: {
@@ -343,6 +351,7 @@ export class PcvtConstants {
       questions: [
         {
           projectKey: 'p1',
+          reviewItemIndex: 8,
           title: 'Is the recruitment strategy appropriate to the aims of the research?',
           hint: 'In case of recruiting remote participants, consider whether the fact that participants may mask the results is controlled for [Ko 2015]. The identification of an appropriately general group of participants is always a challenge. Appropriate recruiting methods can help, but there are no guarantees. Despite your best efforts to find a representative population you always face the possibility that your group of participants is insufficiently representative in a way that was unanticipated. As this bias is always possible, it’s best to explicitly state what steps you have taken to account for potentially confounding variables and to be cautious when making claims about your results [Lazar2010].',
           considerations: {
@@ -357,6 +366,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'p2',
+          reviewItemIndex: 9,
           title: 'Is the recruitment process clearly described?',
           hint: 'A description of the motivation for the participants to participate is mandatory. For instance, it should be stated whether the participants were paid and if so, how much, or whether they earned educational credits for taking part in the experiment [Jedlitschka 2008].',
           considerations: {
@@ -374,6 +384,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'p3',
+          reviewItemIndex: 10,
           title: 'Is a demographic questionnaire planned to collect information from participants?',
           hint: 'Surveys and interviews are common ways of collecting and measuring demographic variables. This data can be gathered before or after a task, or even as part of testing a potential participant against inclusion criteria [Ko_2013].',
           considerations: {
@@ -388,6 +399,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'p4',
+          reviewItemIndex: 11,
           title: 'Does the researcher define the population from which participants are drawn?',
           hint: '',
           considerations: {
@@ -399,6 +411,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'p5',
+          reviewItemIndex: 12,
           title: 'Is the sample well described?',
           hint: 'A more principled way to decide how many participants to recruit is to do a prospective power analysis (e.g., Dybå et al. 2006), which gives an estimate of the sample size required to detect a difference between experimental conditions. The exact calculation of this estimate depends on the specific statistical test used to compare the groups, but it generally requires three inputs: (1) the expected effect size (the difference in the outcome variable between groups), (2) the expected variation in this outcome measurement, and (3) the Type I error rate α (typically .05 in software engineering). The first two must be estimated. One source of these estimates is to use data from previous experiments on the tool or even pilot studies There are also standard approaches for estimating sample size and effect size such as Cohen’s d, odds ratio, and Abelson’s Causal Efficacy Ratio. Breaugh (2003) provides an accessible introduction to these topics [Ko 2015].',
           considerations: {
@@ -411,6 +424,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'p6',
+          reviewItemIndex: 13,
           title: 'Is the debriefing of participants clearly defined?',
           hint: 'After a participant has completed the tasks, it is common practice in human subjects research to debrief the participant about the study. Debriefing can also be an opportunity to get speculative feedback from participants about how they felt about the tool. If participants did not use the experimental treatment, it may be instructive for them to try it and provide feedback. Participants should not leave a study feeling as if they “failed,” especially when tasks may have been designed to ensure that not every participant would succeed. Many ethicists feel that is a necessary part of research with human participants [Ko 2015].',
           considerations: {
@@ -432,6 +446,7 @@ export class PcvtConstants {
       questions: [
         {
           projectKey: 'emt1',
+          reviewItemIndex: 14,
           title: 'Do the experimenters clearly describe what instruments, materials, technology, and tools will be used and how?',
           hint: 'All experimental materials and equipment should be described. For example, if the study involves a questionnaire, questions should be described, as should any other characteristics of the questionnaire [Jedlitschka 2008].',
           considerations: {
@@ -449,6 +464,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'emt2',
+          reviewItemIndex: 15,
           title: 'Are the tasks that will be performed by the participants described in detail?',
           hint: '',
           considerations: {
@@ -473,6 +489,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'emt3',
+          reviewItemIndex: 16,
           title: 'Do the experimenters define success with respect to the experimental tasks and how success will be measured?',
           hint: '',
           considerations: {
@@ -491,6 +508,7 @@ export class PcvtConstants {
       questions: [
         {
           projectKey: 'ed1',
+          reviewItemIndex: 17,
           title: 'Is the Experiment Design the most appropriate?',
           hint: 'The choice of design should involve consideration of sample size (number of replicates), selection of a suitable run order for the experimental trials, and determination of whether or not blocking or other randomization restrictions are involved [Montgomery 2013]. For the description of the experimental design in the experimental plan, it is important that not only the final design of the experiment is in there, but it should have also an explanation of how the design was arrived at and why experimenters have chosen that design and not a different one.',
           considerations: {
@@ -505,6 +523,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'ed2',
+          reviewItemIndex: 18,
           title: 'Are the treatments well defined?',
           hint: '',
           considerations: {
@@ -521,6 +540,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'ed3',
+          reviewItemIndex: 19,
           title: 'Do the experimenters define the process by which they will apply the treatment to objects and subjects (e.g. randomization)?',
           hint: 'Experimenters have to think through how they will assign subjects to tasks and treatments, and in what order.',
           considerations: {
@@ -535,6 +555,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'ed4',
+          reviewItemIndex: 20,
           title: 'Is an appropriate blinding procedure used (e.g. blind allocation of materials, blind marking)?',
           hint: '',
           considerations: {
@@ -555,6 +576,7 @@ export class PcvtConstants {
       questions: [
         {
           projectKey: 'pcd1',
+          reviewItemIndex: 21,
           title: 'Is there an adequate description of the context in which the experiment will be carried out?',
           hint: '',
           considerations: {
@@ -567,6 +589,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'pcd2',
+          reviewItemIndex: 22,
           title: 'Is there a description of any training that will be provided?',
           hint: 'The study should provide a way to teach the concepts and skills quickly and effectively and devise a way to ensure that the participants have successfully learned the material [Ko 2015].',
           considerations: {
@@ -582,6 +605,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'pcd3',
+          reviewItemIndex: 23,
           title: 'Is a Pilot described?',
           hint: 'Designing a study with human participants is necessarily an iterative process. Running an experiment for the first time, like testing software for the first time, will reveal a range of problems, which might include confusing study materials, bugs in the tool, confusion about the tasks, and unanticipated choices made by participants. Sandbox pilots and analytical evaluation are good options of pre-pilots because they are easy to schedule and can reveal problems with the experiment without the trouble of recruiting outsiders. Ko (2015) brings interesting tips about pilot and pre-pilots [Ko 2015]. If possible, a pilot of the experiment on a small set of people may be useful, so that you are sure that the plan is complete and the instructions understandable [Pfleeger 1995].',
           considerations: {
@@ -591,6 +615,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'pcd4',
+          reviewItemIndex: 24,
           title: 'Do experimenters describe the schedule in which the experiment will be run?',
           hint: '',
           considerations: {
@@ -612,6 +637,7 @@ export class PcvtConstants {
       questions: [
         {
           projectKey: 'dcda1',
+          reviewItemIndex: 25,
           title: 'Are the data collection procedures well described?',
           hint: 'Details of the data collection method have to be described, including when the data will be collected, by whom, and with what kind of support (e.g., tool). Any type of transformation of the data (e.g., marking “true” defects in defect lists) and training provided for such should also be described [Jedlitschka 2008].',
           considerations: {
@@ -626,6 +652,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'dcda2',
+          reviewItemIndex: 26,
           title: 'Are the analysis procedures clearly described?',
           hint: '',
           considerations: {
@@ -639,6 +666,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'dcda3',
+          reviewItemIndex: 27,
           title: 'Are the statistical methods described?',
           hint: '',
           considerations: {
@@ -654,6 +682,7 @@ export class PcvtConstants {
         },
         {
           projectKey: 'dcda4',
+          reviewItemIndex: 28,
           title: 'How precise is the estimate of the treatment effect?',
           hint: '',
           considerations: {
@@ -673,6 +702,7 @@ export class PcvtConstants {
       questions: [
         {
           projectKey: 'tv1',
+          reviewItemIndex: 29,
           title: 'Do the experimenters identify and discuss threats to validity, study limitations, potential biases or confounders that may influence the experiment results?',
           hint: 'A fundamental question concerning results from an experiment is how valid the results are. It is important to consider the question of validity already in the planning phase in order to plan for adequate validity of the experiment results. Adequate validity refers to that the results should be valid for the population of interest. [Wohlin 2012]. [Anderlin Neto and Conte 2014] presents a tool to assist inexperienced researchers in identifying and addressing threats to validity in the planning stages of controlled experiments in software engineering',
           considerations: {
@@ -692,6 +722,7 @@ export class PcvtConstants {
       questions: [
         {
           projectKey: 'd1',
+          reviewItemIndex: 30,
           title: 'Is the experimental plan suitable for its audience, easy to read and well structured?',
           hint: 'Instead of targeting a perfect study, it would be better if researchers just started running studies even if they are not perfect, or even if they are simpler. The basic problem in doing experimentation in software engineering today is because everybody sees experiments as very difficult to run, and currently, researchers who are reviewing studies want the studies to be perfect. It is important that we think less about whether the study is methodologically perfect, and more about what we have really learned by running the study even if it has limitations, and even if there are questions about external validity in terms of the generalization of the results. If researchers were able to run more studies, especially smaller ones, it would be a big step for our field because there is so much we do not know. There more studies we can run, the more opportunities we have to learn more about software engineering experiments',
           considerations: {
