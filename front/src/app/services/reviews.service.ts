@@ -31,4 +31,8 @@ export class ReviewsService {
   updateReview(review: any): Observable<any> {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${review.id}`, review);
   }
+
+  completeReview(review: any): Observable<any> {
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${review.id}/complete`, review);
+  }
 }

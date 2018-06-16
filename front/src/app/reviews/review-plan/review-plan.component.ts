@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Plan} from "../../model/plan";
 import {ReviewsService} from "../../services/reviews.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {PcvtConstants} from "../../shared/pcvt-constants";
 import {REVIEW_OPTIONS} from "../../model/review-options";
@@ -29,7 +29,8 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
 
   constructor(
     private reviewsService: ReviewsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     $(document).ready(function(){
@@ -41,10 +42,6 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
         this.review = info['review'];
         this.plan = this.review.plan;
         this.planDetails = JSON.parse(this.plan.planDetails);
-
-        console.log(this.review);
-
-        console.log(this.review);
       });
   }
 
@@ -52,6 +49,19 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
     this.reviewsService.updateReview(this.review).subscribe(
       data => {
         ToastFactory.successToast('Review successfully updated')
+      },
+      (err: ApiMessage) => {
+        console.log(err);
+        ToastFactory.errorToast(err.message);
+      }
+    );
+  }
+
+  saveAndComplete() {
+    this.reviewsService.completeReview(this.review).subscribe(
+      data => {
+        ToastFactory.successToast('Review successfully completed');
+        this.router.navigate(['reviews']);
       },
       (err: ApiMessage) => {
         console.log(err);

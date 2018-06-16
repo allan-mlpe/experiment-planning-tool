@@ -7,6 +7,7 @@ import br.ufpe.cin.pcvt.api.models.ReviewVO;
 import br.ufpe.cin.pcvt.api.models.ReviewWrapper;
 import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
 import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
+import br.ufpe.cin.pcvt.business.experiments.review.state.exception.InvalidReviewStateTransitionException;
 import br.ufpe.cin.pcvt.controllers.ControllerFactory;
 import br.ufpe.cin.pcvt.controllers.PlanController;
 import br.ufpe.cin.pcvt.controllers.ReviewController;
@@ -173,6 +174,42 @@ public class ReviewResource {
             review.setReviewItems(reviewVO.getReviewItems());
 
             Review updatedReview = reviewController.update(review);
+            return Response.ok(reviewVO).build();
+
+        } catch(ApiException e) {
+            throw e;
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error.");
+        }
+    }
+
+    @PUT
+    @Path("/{id}/complete")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response completeReview(ReviewVO reviewVO, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            Review review = reviewController.get(reviewVO.getId());
+            if(review == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        String.format("Review '%d' does not exist", reviewVO.getId()));
+
+            checkPermission(req, review);
+            review.setReviewItems(reviewVO.getReviewItems());
+
+            // update review
+            reviewController.update(review);
+
+            // change review state
+            try {
+                reviewController.moveToCompleted(review);
+            } catch (InvalidReviewStateTransitionException e) {
+                throw new ApiException(Response.Status.BAD_REQUEST,
+                        e.getMessage());
+            }
+
             return Response.ok(reviewVO).build();
 
         } catch(ApiException e) {

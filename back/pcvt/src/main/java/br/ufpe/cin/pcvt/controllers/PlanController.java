@@ -87,7 +87,8 @@ public class PlanController {
 		return planRepository.retrieveByCollaborator(user);
 	}
 
-	public Plan refreshReviewState(Plan plan) {
+	public Plan
+	refreshReviewState(Plan plan) {
 		int refused = 0;
 		int reviewing = 0;
 		int completed = 0;
