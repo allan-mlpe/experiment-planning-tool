@@ -13,7 +13,7 @@ export class Plan {
     version: string;
     author: User;
     collaborators: Array<User>;
-    state: PlanState;
+    state: any;
     privacySetting: string;
     archived: boolean;
     date: Date;
