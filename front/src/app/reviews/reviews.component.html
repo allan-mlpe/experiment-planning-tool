@@ -17,7 +17,7 @@
     <tr *ngFor="let review of reviews; let idx = index" >
       <td>{{ review.plan.name }}</td>
       <td>{{ review.plan.author.name }}</td>
-      <td>{{ review.state }}</td>
+      <td>{{ getEnumValue(review.state) }}</td>
       <td [ngSwitch]="review.state">
 
         <div *ngSwitchCase="'ReviewRequested'">

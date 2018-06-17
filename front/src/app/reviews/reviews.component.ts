@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {Plan} from "../model/plan";
+import {Component, OnInit} from '@angular/core';
 import {PlanService} from "../services/plan.service";
 import {ReviewsService} from "../services/reviews.service";
 import {ApiMessage} from "../model/pcvt-message";
 import {ToastFactory} from "../shared/toast-factory";
+import {ReviewState} from "../model/review-state.enum";
 
 @Component({
   selector: 'app-reviews',
@@ -34,7 +34,7 @@ export class ReviewsComponent implements OnInit {
 
   acceptRequest(review: any, index: number) {
     const oldState = review.state;
-    review.state = '';
+    review.state = '...';
     this.reviewsService.acceptRequest(review.id).subscribe(
       data => {
         this.reviews[index] = data;
@@ -60,6 +60,10 @@ export class ReviewsComponent implements OnInit {
         review.state = oldState;
       }
     );
+  }
+
+  getEnumValue(enumKey: ReviewState): string {
+    return ReviewState[enumKey];
   }
 
 }
