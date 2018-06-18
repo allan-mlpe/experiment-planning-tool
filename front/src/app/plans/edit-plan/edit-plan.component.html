@@ -51,6 +51,30 @@
                 </ul>
               </div>
             </div>
+
+            <!-- characterization questions -->
+            <div *ngIf="getCharacterizationQuestionsObject(section.key) !== undefined">
+              <div class="row">
+                <h5>Characterization</h5>
+                <div class="characterization-question"
+                     *ngFor="let charQuestion of getCharacterizationQuestionsObject(section.key).questions; let i = index">
+                  <label class="col s12">{{ (i + 1) + '. ' + charQuestion.label }}</label>
+
+                  <span class="col s12 m6 l4" *ngFor="let option of options">
+
+                      <input class="with-gap" type="radio" [value]="option.value"
+                             [name]="'prop-'+charQuestion.key" [id]="'prop-'+charQuestion.key+'-op-'+option.id"
+                             [(ngModel)]="characteristicsObject[charQuestion.key]" [ngModelOptions]="{standalone: true}"/>
+
+                      <label [for]="'prop-'+charQuestion.key+'-op-'+option.id">{{ option.text }}</label>
+                  </span>
+
+                  <div style="height: 80px;"
+                       *ngIf="(i+1) !== getCharacterizationQuestionsObject(section.key).questions.length"></div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </li>
       </ul>

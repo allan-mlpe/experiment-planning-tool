@@ -10,7 +10,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Plan} from "../../model/plan";
 import {PlanService} from "../../services/plan.service";
 import {IFormCanDeactivate} from "../../guards/Iform-candeactivate";
-import {PcvtUtils} from "../../shared/pcvt-utils";
+import {SIMPLE_OPTIONS} from "../../model/simple-options";
 
 declare var $ :any;
 
@@ -41,8 +41,16 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   private hasUnsavedChanges: boolean = false;
 
   detailsObject: any = {};
+  characteristicsObject: any = {};
 
   instrumentQuestions = PcvtConstants.INSTRUMENT_QUESTIONS;
+
+  private readonly CHARACTERIZATION_QUESTIONS = PcvtConstants.CHARACTERIZATION_QUESTIONS;
+  options = SIMPLE_OPTIONS;
+
+  getCharacterizationQuestionsObject(key: string): any {
+    return this.CHARACTERIZATION_QUESTIONS.find(item => item['key'] === key);
+  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,6 +69,9 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
         this.plan = info['plan'];
         this.detailsObject = this.plan.planDetails !== undefined ?
           JSON.parse(this.plan.planDetails) : this.buildDetailsObject();
+
+        if(this.plan.planCharacteristics !== undefined)
+          this.characteristicsObject = JSON.parse(this.plan.planCharacteristics);
       }
     );
 
@@ -83,6 +94,7 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   onSubmit() {
     if(this.form.valid) {
       this.plan.planDetails = JSON.stringify(this.detailsObject);
+      this.plan.planCharacteristics = JSON.stringify(this.characteristicsObject);
 
       this.planService.updatePlan(this.plan)
         .subscribe(
@@ -101,11 +113,6 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     } else {
       this.formValidateUtils.checkAllFields(this.form);
     }
-  }
-
-  enableSaveAndCompleteButton(): boolean {
-    return PcvtUtils.isCharacterizationInstrumentComplete(this.plan.planCharacteristics)
-                && PcvtUtils.isPlanningInstrumentComplete(this.plan.planDetails);
   }
 
   saveAndComplete() {
