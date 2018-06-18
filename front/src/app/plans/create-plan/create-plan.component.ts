@@ -11,6 +11,7 @@ import {ModalService} from './../../services/modal.service';
 import {Subscription} from 'rxjs';
 import {ApiMessage} from "../../model/pcvt-message";
 import {PcvtConstants} from "../../shared/pcvt-constants";
+import {SIMPLE_OPTIONS} from "../../model/simple-options";
 
 declare var jquery:any;
 declare var $ :any;
@@ -36,9 +37,16 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
   private hasUnsavedChanges: boolean = false;
 
   detailsObject: any = {};
-
+  characteristicsObject: any = {};
 
   instrumentQuestions = PcvtConstants.INSTRUMENT_QUESTIONS;
+
+  private readonly CHARACTERIZATION_QUESTIONS = PcvtConstants.CHARACTERIZATION_QUESTIONS;
+  options = SIMPLE_OPTIONS;
+
+  getCharacterizationQuestionsObject(key: string): any {
+    return this.CHARACTERIZATION_QUESTIONS.find(item => item['key'] === key);
+  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -86,6 +94,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       plan.name = name;
       plan.description = description;
       plan.planDetails = JSON.stringify(this.detailsObject);
+      plan.planCharacteristics = JSON.stringify(this.characteristicsObject);
 
       this.planService.savePlan(plan)
         .subscribe(
@@ -106,11 +115,6 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
     } else {
       this.formValidateUtils.checkAllFields(this.form);
     }
-    //save project
-
-    //sucsess
-    /*this.confirmModal.create("", "Project created successfuly.");
-    this.confirmModal.openModal();*/
   }
 
   showError(field: string): boolean {

@@ -3,6 +3,7 @@ export class PcvtConstants {
   static readonly CHARACTERIZATION_QUESTIONS: Array<any> = [
     {
       "category": "Stating the goals",
+      "key": "sg",
       "questions": [
         {
           "key": "statingGoals1",
@@ -12,6 +13,7 @@ export class PcvtConstants {
     },
     {
       "category": "Hypotheses, variables and measurements",
+      "key": "hvm",
       "questions": [
         {
           "key": "hypotheses1",
@@ -37,6 +39,7 @@ export class PcvtConstants {
     },
     {
       "category": "Participants",
+      "key": "part",
       "questions": [
         {
           "key": "participants1",
@@ -94,6 +97,7 @@ export class PcvtConstants {
     },
     {
       "category": "Experimental materials and tasks",
+      "key": "emt",
       "questions": [
         {
           "key": "experimentalMaterials1",
@@ -123,6 +127,7 @@ export class PcvtConstants {
     },
     {
       "category": "Experimental design",
+      "key": "ed",
       "questions": [
         {
           "key": "experimentalDesign1",
@@ -140,6 +145,7 @@ export class PcvtConstants {
     },
     {
       "category": "Procedure",
+      "key": "proc",
       "questions": [
         {
           "key": "procedure1",
@@ -177,6 +183,7 @@ export class PcvtConstants {
     },
     {
       "category": "Data collection and analysis procedure",
+      "key": "dcda",
       "questions": [
         {
           "key": "dataCollection1",
@@ -202,6 +209,7 @@ export class PcvtConstants {
     },
     {
       "category": "Document",
+      "key": "doc",
       "questions": [
         {
           "key": "document1",
@@ -214,7 +222,6 @@ export class PcvtConstants {
       ]
     }
   ];
-
 
   static readonly REVIEW_INSTRUMENT_QUESTIONS: Array<any> = [
     {
@@ -740,6 +747,7 @@ export class PcvtConstants {
   static readonly INSTRUMENT_QUESTIONS: Array<any> = [
     {
       section: 'Stating the goals',
+      key: 'sg',
       questions: [
         {
           projectKey: 'sg1',
@@ -788,6 +796,7 @@ export class PcvtConstants {
     },
     {
       section: 'Hypotheses, Variables and Measurements',
+      key: 'hvm',
       questions: [
         {
           projectKey: 'hvm1',
@@ -832,6 +841,7 @@ export class PcvtConstants {
     },
     {
       section: 'Participants',
+      key: 'part',
       questions: [
         {
           projectKey: 'p1',
@@ -921,6 +931,7 @@ export class PcvtConstants {
     },
     {
       section: 'Experimental Materials and Tasks',
+      key: 'emt',
       questions: [
         {
           projectKey: 'emt1',
@@ -980,6 +991,7 @@ export class PcvtConstants {
     },
     {
       section: 'Experimental Design',
+      key: 'ed',
       questions: [
         {
           projectKey: 'ed1',
@@ -1044,6 +1056,7 @@ export class PcvtConstants {
     },
     {
       section: 'Procedure',
+      key: 'proc',
       questions: [
         {
           projectKey: 'pcd1',
@@ -1115,6 +1128,7 @@ export class PcvtConstants {
     },
     {
       section: 'Data Collection and Data Analysis',
+      key: 'dcda',
       questions: [
         {
           projectKey: 'dcda1',
@@ -1176,6 +1190,7 @@ export class PcvtConstants {
     },
     {
       section: 'Threats to Validity',
+      key: 'tv',
       questions: [
         {
           projectKey: 'tv1',
@@ -1195,6 +1210,7 @@ export class PcvtConstants {
     },
     {
       section: 'Document',
+      key: 'doc',
       questions: [
         {
           projectKey: 'd1',

@@ -40,6 +40,7 @@ public class ExperimentalPlanResource {
             plan.setName(planVO.getName());
             plan.setDescription(planVO.getDescription());
             plan.setPlanDetails(planVO.getPlanDetails());
+            plan.setPlanCharacteristics(planVO.getPlanCharacteristics());
         } catch(Exception e) {
             throw new ApiException(Response.Status.BAD_REQUEST,
                     "Bad request.");
@@ -172,6 +173,7 @@ public class ExperimentalPlanResource {
             plan.setName(planVO.getName());
             plan.setDescription(planVO.getDescription());
             plan.setPlanDetails(planVO.getPlanDetails());
+            plan.setPlanCharacteristics(planVO.getPlanCharacteristics());
 
             experimentalPlanController.update(plan);
 

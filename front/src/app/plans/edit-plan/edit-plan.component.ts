@@ -10,6 +10,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Plan} from "../../model/plan";
 import {PlanService} from "../../services/plan.service";
 import {IFormCanDeactivate} from "../../guards/Iform-candeactivate";
+import {PcvtUtils} from "../../shared/pcvt-utils";
 
 declare var $ :any;
 
@@ -100,6 +101,11 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     } else {
       this.formValidateUtils.checkAllFields(this.form);
     }
+  }
+
+  enableSaveAndCompleteButton(): boolean {
+    return PcvtUtils.isCharacterizationInstrumentComplete(this.plan.planCharacteristics)
+                && PcvtUtils.isPlanningInstrumentComplete(this.plan.planDetails);
   }
 
   saveAndComplete() {

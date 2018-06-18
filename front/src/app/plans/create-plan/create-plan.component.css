@@ -36,3 +36,7 @@ hr.question-separator {
   margin-top: 30px;
   padding: 0;
 }
+
+div.characterization-question:first-child {
+  padding-top: 40px;
+}
