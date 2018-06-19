@@ -7,14 +7,17 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./radio-list.component.css']
 })
 export class RadioListComponent implements OnInit {
-  @Output() 
+  @Output()
   onSubmitForm: EventEmitter<any> = new EventEmitter<any>();
-  
-  @Input()
-  options: Array<any>;
 
   @Input()
-  propertyList: Array<any>;
+  options: Array<any> = [];
+
+  @Input()
+  propertyList: Array<any> = [];
+
+  @Input()
+  valuesObj: any = {};
 
   constructor() { }
 
@@ -22,9 +25,7 @@ export class RadioListComponent implements OnInit {
   }
 
   emitForm(form: FormGroup) {
-    if(form.valid) {
-      this.onSubmitForm.emit(this.propertyList);
-    }
+    this.onSubmitForm.emit(this.valuesObj);
   }
 
   isChecked(property: any, option: any): boolean {
