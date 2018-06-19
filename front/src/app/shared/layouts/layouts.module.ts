@@ -15,6 +15,8 @@ import { InputFieldErrorComponent } from '../input-field-error/input-field-error
 import { WizardComponent } from '../wizard/wizard.component';
 import { RadioListComponent } from '../radio-list/radio-list.component';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { InfoTooltipComponent } from "../info-tooltip/info-tooltip.component";
+import { ChipComponent } from '../chip/chip.component';
 
 @NgModule({
   imports: [
@@ -35,7 +37,9 @@ import { SpinnerComponent } from '../spinner/spinner.component';
     InputFieldErrorComponent,
     WizardComponent,
     RadioListComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    InfoTooltipComponent,
+    ChipComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -50,7 +54,9 @@ import { SpinnerComponent } from '../spinner/spinner.component';
     InputFieldErrorComponent,
     WizardComponent,
     RadioListComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    InfoTooltipComponent,
+    ChipComponent
   ]
 })
 export class LayoutsModule { }

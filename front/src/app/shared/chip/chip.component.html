@@ -1,0 +1,6 @@
+<div class="chip">
+  <i class="material-icons">{{ materializeIcon }}</i><b>{{ label }}</b>:
+
+  <a *ngIf="arrayRoutes !== undefined" [routerLink]="arrayRoutes">{{ value }}</a>
+  <span *ngIf="arrayRoutes == undefined">{{ value }}</span>
+</div>

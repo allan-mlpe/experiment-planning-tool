@@ -3,9 +3,7 @@
 </div>
 
 <div class="row">
-    <div class="chip">
-        <i class="material-icons">dashboard</i><b>Plan</b>: {{ plan.name }}
-    </div>
+  <app-chip [label]="'Plan'" [value]="plan.name" [materializeIcon]="'dashboard'"></app-chip>
 </div>
 
 <div class="row">

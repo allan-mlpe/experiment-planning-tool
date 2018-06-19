@@ -2,6 +2,11 @@
   <h3>Threats</h3>
 </div>
 
+<div class="row">
+  <app-chip [arrayRoutes]="['../workspace']" [materializeIcon]="'dashboard'"
+            [label]="'Plan'" [value]="plan.name"></app-chip>
+</div>
+
 <div class="row" *ngIf="showInfoPanel">
   <div class="col s12">
     <p>Based on characteristics of your experiment, PCVT Tool has generated a list of threats.</p>
