@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ThreatsService} from "../../services/threat.service";
 import {ApiMessage} from "../../model/pcvt-message";
 import {ToastFactory} from "../../shared/toast-factory";
+import {PcvtUtils} from "../../shared/pcvt-utils";
 
 declare var $: any;
 
@@ -104,6 +105,26 @@ export class ReportsComponent implements OnInit, OnDestroy {
   getRelatedThreatList(obj: any) {
     return Object.keys(obj).map(threat => obj[threat]);
   }
+
+  enableSuggestedThreats(): boolean {
+    const characteristicsObj = this.plan.planCharacteristics !== undefined ?
+      JSON.parse(this.plan.planCharacteristics) : {};
+    return PcvtUtils.isCharacterizationInstrumentComplete(characteristicsObj);
+  }
+
+
+  enableClassifiedThreats() {
+    const threatsObj = this.plan.planThreats !== undefined ?
+      JSON.parse(this.plan.planThreats) : {};
+
+    return PcvtUtils.isThreatClassificationComplete(threatsObj);
+  }
+
+  enableDefinedControlActions() {
+    // TODO check control actions completeness
+    return this.plan.planActions !== undefined;
+  }
+
 
   ngOnDestroy() {
     this.subsc.unsubscribe();

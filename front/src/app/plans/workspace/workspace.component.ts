@@ -4,6 +4,7 @@ import {Plan} from "../../model/plan";
 import {PlanService} from "../../services/plan.service";
 import {Subscription} from 'rxjs';
 import {ModalService} from "../../services/modal.service";
+import {PcvtUtils} from "../../shared/pcvt-utils";
 
 @Component({
   selector: 'app-workspace',
@@ -51,5 +52,25 @@ export class WorkspaceComponent implements OnInit {
         }
       }
     );
+  }
+
+  showThreatsOption(): boolean {
+    const characteristicsObj = this.plan.planCharacteristics !== undefined ?
+            JSON.parse(this.plan.planCharacteristics) : {};
+    return PcvtUtils.isCharacterizationInstrumentComplete(characteristicsObj);
+  }
+
+
+  showActionsOption() {
+    const threatsObj = this.plan.planThreats !== undefined ?
+            JSON.parse(this.plan.planThreats) : {};
+
+    return PcvtUtils.isThreatClassificationComplete(threatsObj);
+  }
+
+  showReportOption() {
+    const characteristicsObj = this.plan.planCharacteristics !== undefined ?
+      JSON.parse(this.plan.planCharacteristics) : {};
+    return PcvtUtils.isCharacterizationInstrumentComplete(characteristicsObj);
   }
 }

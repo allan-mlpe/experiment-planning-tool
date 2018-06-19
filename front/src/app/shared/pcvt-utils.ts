@@ -1,4 +1,5 @@
 import {PcvtConstants} from "./pcvt-constants";
+import {THREAT_OPTIONS} from "../model/threat-options";
 
 export class PcvtUtils {
 
@@ -44,6 +45,20 @@ export class PcvtUtils {
     }
 
     return false;
+  }
+
+  public static isThreatClassificationComplete(threatsObject): boolean {
+    const propertiesLength: number = THREAT_OPTIONS.length;
+
+    if(threatsObject !== undefined) {
+      const values = Object.values(threatsObject);
+      for(let value of values) {
+        if(value === {} || Object.values(value).length !== propertiesLength)
+          return false;
+      }
+    }
+
+    return true;
   }
 
   public static containsEmptyNullOrUndefinedValues(obj: any): boolean {

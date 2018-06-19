@@ -58,7 +58,6 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
       .finally(() => this.saving = false)
       .subscribe(
       data => {
-        console.log(data);
         ToastFactory.successToast('Characteristics have been saved')
         this.router.navigate(['../workspace'], {relativeTo: this.route });
       },

@@ -11,9 +11,9 @@
   <div class="input-field col s12">
     <select id="report-type" (change)="changeSelectValue($event)">
       <option value="" disabled selected>Choose a report type</option>
-      <option value="1" *ngIf="plan.planCharacteristics !== undefined">Suggested threats</option>
-      <option value="2" *ngIf="plan.planThreats !== undefined">Classified threats</option>
-      <option value="3" *ngIf="plan.planActions !== undefined">Defined control actions</option>
+      <option value="1" *ngIf="enableSuggestedThreats()">Suggested threats</option>
+      <option value="2" *ngIf="enableClassifiedThreats()">Classified threats</option>
+      <option value="3" *ngIf="enableDefinedControlActions()">Defined control actions</option>
     </select>
     <label>Report type</label>
   </div>
