@@ -11,6 +11,7 @@ import {Plan} from "../../model/plan";
 import {PlanService} from "../../services/plan.service";
 import {IFormCanDeactivate} from "../../guards/Iform-candeactivate";
 import {SIMPLE_OPTIONS} from "../../model/simple-options";
+import {PcvtUtils} from "../../shared/pcvt-utils";
 
 declare var $ :any;
 
@@ -127,6 +128,13 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
         ToastFactory.errorToast(err.message);
         console.log(err);
     });
+  }
+
+  enableSaveAndComplete() {
+    const isCharacterizationComplete = PcvtUtils.isCharacterizationInstrumentComplete(this.characteristicsObject);
+    const isPlanningComplete = PcvtUtils.isPlanningInstrumentComplete(this.detailsObject);
+
+    return isCharacterizationComplete && isPlanningComplete;
   }
 
   private buildDetailsObject(): any {

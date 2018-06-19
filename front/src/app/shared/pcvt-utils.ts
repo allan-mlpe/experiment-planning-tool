@@ -17,11 +17,12 @@ export class PcvtUtils {
   }
 
   public static isCharacterizationInstrumentComplete(characteristicsObject: any): boolean {
-    const INSTRUMENT_QUESTIONS = PcvtConstants.CHARACTERIZATION_QUESTIONS;
+    const INSTRUMENT_QUESTIONS = PcvtConstants.CHARACTERIZATION_QUESTIONS
+    const TOTAL_QUESTIONS = INSTRUMENT_QUESTIONS.reduce((len, item) => len += item.questions.length, 0);
 
     if(characteristicsObject !== undefined) {
       if (Object.values(characteristicsObject).length !==
-            INSTRUMENT_QUESTIONS.length)
+            TOTAL_QUESTIONS)
         return false;
 
       return !this.containsEmptyNullOrUndefinedValues(characteristicsObject);
@@ -32,10 +33,11 @@ export class PcvtUtils {
 
   public static isPlanningInstrumentComplete(detailsObject: any): boolean {
     const PLANNING_QUESTIONS = PcvtConstants.INSTRUMENT_QUESTIONS;
+    const TOTAL_QUESTIONS = PLANNING_QUESTIONS.reduce((len, item) => len += item.questions.length, 0);
 
     if(detailsObject !== undefined) {
       if (Object.values(detailsObject).length !==
-        PLANNING_QUESTIONS.length)
+        TOTAL_QUESTIONS)
         return false;
 
       return !this.containsEmptyNullOrUndefinedValues(detailsObject);
