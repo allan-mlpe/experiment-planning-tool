@@ -24,7 +24,11 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   threatList: Array<any> = [];
   threatObj: any = {};
 
-  labels = ['Impact', 'Urgency', 'Trend'];
+  labels = [
+    {name: 'Impact', hint: 'Perspective of the intensity or impact that a threat can cause the results of the experiment'},
+    {name: 'Urgency', hint: 'Degree of urgency of the resolution'},
+    {name: 'Trend', hint: 'Trend of the identified risk situation'}
+  ];
   values = [1, 2, 3];
 
   loading: boolean = true;

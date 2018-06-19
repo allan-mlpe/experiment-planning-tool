@@ -52,4 +52,10 @@ textarea:read-only {
   max-width: 400px;
 }
 
+i.info-tooltip {
+  vertical-align: middle;
+  cursor: pointer;
+  color: #26a69a;
+}
+
 
