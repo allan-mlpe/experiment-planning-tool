@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
+declare var $: any;
+
 @Component({
   selector: 'app-info-tooltip',
   templateUrl: './info-tooltip.component.html',
@@ -13,5 +15,8 @@ export class InfoTooltipComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    $(document).ready(function(){
+      $('.tooltipped').tooltip();
+    });
   }
 }
