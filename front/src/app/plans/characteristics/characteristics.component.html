@@ -17,6 +17,6 @@
   <!-- <app-wizard (submitFormValues)="saveCharacteristics($event)"
               [propertyList]="characteristics" [options]="options" [objValues]="characteristicsObj"></app-wizard> -->
 
-  <app-radio-list [options]="options"
+  <app-radio-list [options]="options" (onSubmitForm)="saveCharacteristics($event)"
     [propertyList]="characteristics" [valuesObj]="characteristicsObj"></app-radio-list>
 </div>

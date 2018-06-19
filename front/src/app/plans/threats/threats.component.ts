@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {THREAT_OPTIONS} from './../../model/threat-options';
 import {Plan} from "../../model/plan";
 import {Subscription} from "rxjs/Rx";
 import {PlanService} from "../../services/plan.service";
@@ -17,14 +16,14 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   plan: Plan;
   private subscription: Subscription;
 
-  options: Array<any> = THREAT_OPTIONS;
+  // options: Array<any> = THREAT_OPTIONS;
 
   currentObject: any;
   currentObjectIndex: number;
   threatList: Array<any> = [];
   threatObj: any = {};
 
-  labels = [
+  options: Array<any> = [
     {name: 'Impact', hint: 'Perspective of the intensity or impact that a threat can cause the results of the experiment'},
     {name: 'Urgency', hint: 'Degree of urgency of the resolution'},
     {name: 'Trend', hint: 'Trend of the identified risk situation'}
@@ -79,7 +78,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
     );
   }
 
-  finish() {
+  savePlanThreats() {
     this.plan.planThreats = JSON.stringify(this.threatObj);
 
     this.planService.savePlanThreats(this.plan).subscribe(
@@ -103,33 +102,6 @@ export class ThreatsComponent implements OnInit, OnDestroy {
     if(this.plan.planThreats !== undefined)
       this.threatObj = Object.assign(this.threatObj, JSON.parse(this.plan.planThreats));
 
-  }
-
-  nextItem() {
-    this.currentObjectIndex+=1;
-    this.currentObject = this.threatList[this.currentObjectIndex];
-  }
-
-  previousItem() {
-    this.currentObjectIndex-=1;
-    this.currentObject = this.threatList[this.currentObjectIndex];
-  }
-
-  getProgress() {
-    const numerator: number = this.isObjectComplete() ? this.currentObjectIndex+1 : this.currentObjectIndex;
-    const denominator: number = this.threatList.length;
-    const progress: number = numerator/denominator * 100;
-
-    return {
-      'width': `${progress}%`
-    }
-  }
-
-  isObjectComplete(): boolean {
-    const obj = this.threatObj[this.currentObject.key];
-    return obj['impact'] !== undefined
-            && obj['urgency'] !== undefined
-            && obj['trend'] !== undefined;
   }
 
   startClassification() {

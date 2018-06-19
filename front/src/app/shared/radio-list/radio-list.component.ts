@@ -1,5 +1,7 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+
+declare var $: any;
 
 @Component({
   selector: 'app-radio-list',
@@ -14,7 +16,13 @@ export class RadioListComponent implements OnInit {
   options: Array<any> = [];
 
   @Input()
+  multipleOptions: boolean = false;
+
+  @Input()
   propertyList: Array<any> = [];
+
+  @Input()
+  values: Array<any> = [];
 
   @Input()
   valuesObj: any = {};
@@ -26,15 +34,6 @@ export class RadioListComponent implements OnInit {
 
   emitForm(form: FormGroup) {
     this.onSubmitForm.emit(this.valuesObj);
-  }
-
-  isChecked(property: any, option: any): boolean {
-
-    //isissoosaoks
-    return property['value'] === option['value'];
-  }
-
-  updateChecked(property, radio) {
-    property['value'] = radio['value'];
+    console.log(this.valuesObj);
   }
 }
