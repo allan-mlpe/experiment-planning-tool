@@ -18,14 +18,7 @@
         <div *ngFor="let option of options">
           <label class="label-title col s12">
             {{ option.name }}
-            <!--<i class="tooltipped tiny material-icons info-tooltip" materialize="tooltip" data-position="bottom" data-delay="50"-->
-               <!--[attr.data-tooltip]="option.hint">help</i>-->
-            <!--<a class="btn tooltipped" data-position="bottom" data-tooltip="I am a tooltip">Hover me!</a>-->
-
-
-            <!--<a materialize="tooltip" class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>-->
             <app-info-tooltip [hint]="option.hint"></app-info-tooltip>
-
 
           </label>
           <span class="col s12 m6 l4" *ngFor="let val of values">
@@ -42,9 +35,13 @@
 
     <div class="row">
       <div class="col s12">
-        <button class="btn waves-effect waves-light right"
+        <button class="btn waves-effect waves-light right" [disabled]="saving"
           type="submit">
-            <i class="material-icons right">save</i>Save
+            Save
+            <i class="material-icons right">
+              <span *ngIf="!saving">save</span>
+              <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+            </i>
         </button>
       </div>
     </div>

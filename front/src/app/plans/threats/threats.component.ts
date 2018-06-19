@@ -31,6 +31,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   values = [1, 2, 3];
 
   loading: boolean = true;
+  saving: boolean = false;
   showInfoPanel: boolean;
 
   constructor(
@@ -79,11 +80,14 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   }
 
   savePlanThreats() {
+    this.saving = true;
     this.plan.planThreats = JSON.stringify(this.threatObj);
 
-    this.planService.savePlanThreats(this.plan).subscribe(
+    this.planService.savePlanThreats(this.plan)
+      .finally(() => this.saving = false)
+      .subscribe(
       data => {
-        ToastFactory.successToast("Threats has been defined");
+        ToastFactory.successToast("Threats have been saved");
 
         this.router.navigate(['../workspace'], {relativeTo: this.route })
       },

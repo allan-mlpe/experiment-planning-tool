@@ -68,7 +68,7 @@
               <!--(click)="finish()">Finish <i class="material-icons right">check</i></button>-->
     <!--</div>-->
 
-    <app-radio-list [multipleOptions]="true" [options]="options" (onSubmitForm)="savePlanThreats()"
+    <app-radio-list [multipleOptions]="true" [options]="options" (onSubmitForm)="savePlanThreats()" [saving]="saving"
                     [propertyList]="threatList" [values]="values" [valuesObj]="threatObj"></app-radio-list>
 
   </div>

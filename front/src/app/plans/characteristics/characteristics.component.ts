@@ -21,6 +21,8 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
   characteristics: Array<any> = [];
   private subscription: Subscription;
 
+  saving: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -49,12 +51,15 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
   }
 
   saveCharacteristics(event) {
+    this.saving = true;
     this.plan.planCharacteristics = JSON.stringify(event);
 
-    this.planService.savePlanCharacteristics(this.plan).subscribe(
+    this.planService.savePlanCharacteristics(this.plan)
+      .finally(() => this.saving = false)
+      .subscribe(
       data => {
         console.log(data);
-        ToastFactory.successToast('Characteristics of the plan defined')
+        ToastFactory.successToast('Characteristics have been saved')
         this.router.navigate(['../workspace'], {relativeTo: this.route });
       },
       (err: ApiMessage) => {

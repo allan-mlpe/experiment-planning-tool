@@ -27,6 +27,9 @@ export class RadioListComponent implements OnInit {
   @Input()
   valuesObj: any = {};
 
+  @Input()
+  saving: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
@@ -34,6 +37,5 @@ export class RadioListComponent implements OnInit {
 
   emitForm(form: FormGroup) {
     this.onSubmitForm.emit(this.valuesObj);
-    console.log(this.valuesObj);
   }
 }
