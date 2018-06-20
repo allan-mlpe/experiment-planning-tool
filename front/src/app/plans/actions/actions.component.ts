@@ -39,6 +39,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   loading: boolean = true;
+  saving: boolean = false;
   showInfoPanel: boolean;
   options: Array<any> = ACTION_OPTIONS;
 
@@ -232,14 +233,17 @@ export class ActionsComponent implements OnInit, OnDestroy {
   }
 
   finish() {
+    this.saving = true;
     this.plan.planActions = JSON.stringify(this.actionObj);
     this.plan.planActionRelatedThreats = JSON.stringify(this.actionRelatedThreatsObj);
 
-    this.planService.savePlanActions(this.plan).subscribe(
+    this.planService.savePlanActions(this.plan)
+      .finally(() => this.saving = false)
+      .subscribe(
       data => {
-        ToastFactory.successToast("Control actions has been defined");
+        ToastFactory.successToast("Control actions have been saved");
 
-        this.router.navigate(['../workspace'], {relativeTo: this.route })
+        //this.router.navigate(['../workspace'], {relativeTo: this.route })
       },
       (err: ApiMessage) => {
         console.log(err);

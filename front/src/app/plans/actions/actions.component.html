@@ -96,9 +96,14 @@
               *ngIf="currentObjectIndex !== filteredList.length-1"
               (click)="nextItem()">Next <i class="material-icons right">navigate_next</i></button>
 
-      <button class="btn waves-effect waves-light" type="button"
-              *ngIf="currentObjectIndex === filteredList.length-1"
-              (click)="finish()">Finish <i class="material-icons right">check</i></button>
+      <button class="btn waves-effect waves-light" type="button" [disabled]="saving"
+              (click)="finish()">
+          Save
+        <i class="material-icons right">
+          <span *ngIf="!saving">save</span>
+          <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </i>
+      </button>
     </div>
   </div>
 </div>
