@@ -52,10 +52,15 @@ export class PcvtUtils {
 
     if(threatsObject !== undefined) {
       const values = Object.values(threatsObject);
+      if(values.length === 0)
+        return false;
+
       for(let value of values) {
         if(value === {} || Object.values(value).length !== propertiesLength)
           return false;
       }
+    } else {
+      return false;
     }
 
     return true;

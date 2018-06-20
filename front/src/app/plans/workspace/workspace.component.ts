@@ -56,14 +56,14 @@ export class WorkspaceComponent implements OnInit {
 
   showThreatsOption(): boolean {
     const characteristicsObj = this.plan.planCharacteristics !== undefined ?
-            JSON.parse(this.plan.planCharacteristics) : {};
+            JSON.parse(this.plan.planCharacteristics) : undefined;
     return PcvtUtils.isCharacterizationInstrumentComplete(characteristicsObj);
   }
 
 
   showActionsOption() {
     const threatsObj = this.plan.planThreats !== undefined ?
-            JSON.parse(this.plan.planThreats) : {};
+            JSON.parse(this.plan.planThreats) : undefined;
 
     return PcvtUtils.isThreatClassificationComplete(threatsObj);
   }
