@@ -40,6 +40,7 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
 
         if (this.plan.planCharacteristics !== undefined) {
           this.characteristicsObj = JSON.parse(this.plan.planCharacteristics);
+          this.checkCharacterizationComplete();
         }
       });
   }
@@ -72,6 +73,20 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
         ToastFactory.errorToast(err.message);
       }
     )
+  }
+
+  checkCharacterizationComplete() {
+    if(PcvtUtils.isCharacterizationInstrumentComplete(this.characteristicsObj)) {
+      let subsc: Subscription = this.modalService.showModal("Characterization completed", `Do you want to edit it?`, 'Yes', 'No')
+        .subscribe(
+          data => {
+            if(!data) {
+              this.router.navigate(['../workspace'], {relativeTo: this.route });
+            }
+            subsc.unsubscribe();
+          }
+        );
+    }
   }
 
   showCompleteModal() {

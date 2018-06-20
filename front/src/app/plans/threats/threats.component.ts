@@ -6,6 +6,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CharacteristicsService} from "../../services/characteristics.service";
 import {ApiMessage} from "../../model/pcvt-message";
 import {ToastFactory} from "../../shared/toast-factory";
+import {PcvtUtils} from "../../shared/pcvt-utils";
+import {ModalService} from "../../services/modal.service";
 
 @Component({
   selector: 'app-threats',
@@ -37,6 +39,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   constructor(
     private planService: PlanService,
     private characteristicService: CharacteristicsService,
+    private modalService: ModalService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -56,7 +59,6 @@ export class ThreatsComponent implements OnInit, OnDestroy {
 
           if(characteristicsKeys.length > 0) {
             this.characteristicService.getThreatsByCharacteristicKeys({stringList: characteristicsKeys})
-              .finally(() => this.loading = false)
               .subscribe(
                 data => {
                   this.threatList = data;
@@ -103,13 +105,31 @@ export class ThreatsComponent implements OnInit, OnDestroy {
       this.threatObj[threat.key] = {};
     });
 
-    if(this.plan.planThreats !== undefined)
+    if(this.plan.planThreats !== undefined) {
       this.threatObj = Object.assign(this.threatObj, JSON.parse(this.plan.planThreats));
 
+      this.checkClassificationComplete();
+    }
+
+    this.loading = false;
   }
 
   startClassification() {
     this.showInfoPanel = false;
+  }
+
+  checkClassificationComplete() {
+    if(PcvtUtils.isThreatClassificationComplete(this.threatObj)) {
+      let subsc: Subscription = this.modalService.showModal("Threat classification completed", `Do you want to edit it?`, 'Yes', 'No')
+        .subscribe(
+          data => {
+            if(!data) {
+              this.router.navigate(['../workspace'], {relativeTo: this.route });
+            }
+            subsc.unsubscribe();
+          }
+        );
+    }
   }
 
   ngOnDestroy() {
