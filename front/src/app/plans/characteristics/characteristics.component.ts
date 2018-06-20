@@ -7,6 +7,8 @@ import {Plan} from "../../model/plan";
 import {ApiMessage} from "../../model/pcvt-message";
 import {Subscription} from "rxjs/Subscription";
 import {PcvtConstants} from "../../shared/pcvt-constants";
+import {PcvtUtils} from "../../shared/pcvt-utils";
+import {ModalService} from "../../services/modal.service";
 
 @Component({
   selector: 'app-characteristics',
@@ -26,7 +28,8 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private planService: PlanService
+    private planService: PlanService,
+    private modalService: ModalService
   ) { }
 
   ngOnInit() {
@@ -58,14 +61,31 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
       .finally(() => this.saving = false)
       .subscribe(
       data => {
-        ToastFactory.successToast('Characteristics have been saved')
-        this.router.navigate(['../workspace'], {relativeTo: this.route });
+        ToastFactory.successToast('Characteristics have been saved');
+
+        if(PcvtUtils.isCharacterizationInstrumentComplete(event)) {
+          this.showCompleteModal();
+        }
       },
       (err: ApiMessage) => {
         console.log(err);
         ToastFactory.errorToast(err.message);
       }
     )
+  }
+
+  showCompleteModal() {
+    let subsc: Subscription = this.modalService.showModal("Characterization complete", `Do you want to classify the suggested threats for "${this.plan.name}" now?`, 'Yes', 'No')
+      .subscribe(
+        data => {
+          if(data) {
+            this.router.navigate(['../threats'], {relativeTo: this.route })
+          } else {
+            this.router.navigate(['../workspace'], {relativeTo: this.route });
+          }
+          subsc.unsubscribe();
+        }
+      );
   }
 
   ngOnDestroy() {
