@@ -7,6 +7,7 @@ import {PcvtConstants} from "../../shared/pcvt-constants";
 import {REVIEW_OPTIONS} from "../../model/review-options";
 import {ApiMessage} from "../../model/pcvt-message";
 import {ToastFactory} from "../../shared/toast-factory";
+import {ModalService} from "../../services/modal.service";
 
 declare var $ :any;
 
@@ -25,10 +26,14 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
 
   options = REVIEW_OPTIONS;
 
+  saving: boolean = false;
+  completing: boolean = true;
+
   private subsc: Subscription;
 
   constructor(
     private reviewsService: ReviewsService,
+    private modalService: ModalService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -46,9 +51,13 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.reviewsService.updateReview(this.review).subscribe(
+    this.saving = true;
+
+    this.reviewsService.updateReview(this.review)
+      .finally(() => this.saving = false)
+      .subscribe(
       data => {
-        ToastFactory.successToast('Review successfully updated')
+        ToastFactory.successToast('Review has been saved')
       },
       (err: ApiMessage) => {
         console.log(err);
@@ -58,16 +67,26 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
   }
 
   saveAndComplete() {
-    this.reviewsService.completeReview(this.review).subscribe(
-      data => {
-        ToastFactory.successToast('Review successfully completed');
-        this.router.navigate(['reviews']);
-      },
-      (err: ApiMessage) => {
-        console.log(err);
-        ToastFactory.errorToast(err.message);
-      }
-    );
+    this.completing = true;
+    let subsc: Subscription = this.modalService.showModalHTMLContent("Complete review", `Your review will be sent to experimenter and you will not be able to edit it anymore.<br/><br/> Are you sure to finish this review?`, 'Yes', 'No')
+      .finally(() => this.completing = false)
+      .subscribe(
+        data => {
+          if(data) {
+            this.reviewsService.completeReview(this.review).subscribe(
+              data => {
+                ToastFactory.successToast('Review successfully completed');
+                this.router.navigate(['reviews']);
+              },
+              (err: ApiMessage) => {
+                console.log(err);
+                ToastFactory.errorToast(err.message);
+              }
+            );
+          }
+          subsc.unsubscribe();
+        }
+      );
   }
 
   ngOnDestroy() {
