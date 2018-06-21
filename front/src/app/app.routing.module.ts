@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
-import { BlankLayoutComponent } from './shared/layouts/blank-layout/blank-layout.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from './guards/auth.guard';
+import {BlankLayoutComponent} from './shared/layouts/blank-layout/blank-layout.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {ShowLoginGuard} from "./guards/show-login.guard";
 
 const appRoutes: Routes = [
@@ -20,6 +20,11 @@ const appRoutes: Routes = [
     loadChildren: 'app/workspace/workspace.module#WorkspaceModule',
     canActivate: [AuthGuard]
   },*/
+  {
+    path: 'dashboard',
+    loadChildren: 'app/dashboard/dashboard.module#DashboardModule',
+    canActivate: [AuthGuard]
+  },
   {
     path: 'plans',
     loadChildren: 'app/plans/plans.module#PlansModule',

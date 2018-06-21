@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Credentials } from '../model/credentials';
-import { AuthService } from '../services/auth.service';
-import { ToastFactory } from '../shared/toast-factory';
-import { FormValidateUtils } from '../shared/form-validate-utils';
-import { User } from '../model/user';
-import { ApiMessage } from '../model/pcvt-message';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Credentials} from '../model/credentials';
+import {AuthService} from '../services/auth.service';
+import {ToastFactory} from '../shared/toast-factory';
+import {FormValidateUtils} from '../shared/form-validate-utils';
+import {User} from '../model/user';
+import {ApiMessage} from '../model/pcvt-message';
 import 'rxjs/add/operator/finally';
 
 @Component({
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         .finally(() => this.loading = false)
         .subscribe(
         (data: User) => {
-          this.router.navigate(['/plans']);
+          this.router.navigate(['/dashboard']);
         },
         (err: ApiMessage) => {
           console.log(err);

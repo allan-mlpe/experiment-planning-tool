@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../services/auth.service';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import {AuthService} from '../services/auth.service';
 
 @Injectable()
 export class ShowLoginGuard implements CanActivate {
@@ -23,7 +23,7 @@ export class ShowLoginGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/plans']);
+    this.router.navigate(['/dashboard']);
     return false;
   }
 }

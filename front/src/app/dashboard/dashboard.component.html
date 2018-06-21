@@ -1,0 +1,56 @@
+<div class="row">
+  <h3>Dashboard</h3>
+</div>
+
+<div class="row">
+
+  <div class="row">
+    <div class="col s12 dashboard-option" [routerLink]="['/', 'plans', 'create']">
+      <div>
+        <div class="col s2">
+          <h5>
+            <i class="large material-icons">note_add</i>
+          </h5>
+        </div>
+        <div class="col s10">
+          <h5>New Experimental Plan</h5>
+          <p class="light">Create a new experimental plan, define its characteristics, classify suggested threats and define control actions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div  class="col s12 dashboard-option" [routerLink]="['/','reviews', 'ready-to-review']">
+      <div>
+        <div class="col s2">
+          <h5>
+            <i class="large material-icons">rate_review</i>
+          </h5>
+        </div>
+        <div class="col s10">
+          <h5>Review Experimental Plan</h5>
+          <p class="light">Submit your completed experimental plans to be reviewed by a experienced experimenter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 dashboard-option" [routerLink]="['/','plans']">
+      <div>
+        <div class="">
+          <div class="col s2">
+            <h5>
+              <i class="large material-icons">build</i>
+            </h5>
+          </div>
+          <div class="col s10">
+            <h5>Identify and Prioritize Threats</h5>
+            <p class="light">Build a new experiment draft and define its characteristics, classify suggested threats and define control actions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

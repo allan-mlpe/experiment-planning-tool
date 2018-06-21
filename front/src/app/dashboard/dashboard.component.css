@@ -1,0 +1,8 @@
+div.dashboard-option {
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+div.dashboard-option:hover {
+  color: #2bbbad;
+}
