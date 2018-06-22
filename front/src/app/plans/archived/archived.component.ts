@@ -37,7 +37,7 @@ export class ArchivedComponent implements OnInit {
 
     this.planService.unarchivePlan(plan).subscribe(
       data => {
-        ToastFactory.successToast(`${plan.name} unarchive successfully`);
+        ToastFactory.successToast(`"${plan.name}" successfully unarchive`);
         this.plans.splice(index, 1);
       },
       (err: ApiMessage) => {

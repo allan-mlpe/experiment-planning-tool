@@ -64,6 +64,35 @@ public class ExperimentalPlanResource {
         }
     }
 
+    @POST
+    @Path("/{id}")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response createNewVersion(@PathParam("id") Integer id, @Context ContainerRequestContext req){
+        try {
+            Plan plan = experimentalPlanController.get(id);
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            Plan newVersion = experimentalPlanController.createChild(id);
+
+            ExperimentalPlanVO newVersionVO = ExperimentalPlanVOConverter.getInstance()
+                    .convertToVO(newVersion);
+
+            return Response.ok(newVersionVO).build();
+
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the plan");
+        }
+    }
+
     @GET
     @Path("/{id}/reviews")
     @Produces(APIConstants.APPLICATION_JSON)

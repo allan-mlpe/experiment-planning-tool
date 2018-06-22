@@ -64,7 +64,7 @@ export class PlansComponent implements OnInit {
 
     this.planService.archivePlan(plan).subscribe(
         data => {
-          ToastFactory.successToast(`${plan.name} archive successfully`);
+          ToastFactory.successToast(`"${plan.name}" successfully archived`);
           this.plans.splice(index, 1);
         },
         (err: ApiMessage) => {
@@ -73,6 +73,23 @@ export class PlansComponent implements OnInit {
           ToastFactory.errorToast(err.message);
         }
       );
+  }
+
+  createNewVersion(plan: Plan) {
+    const oldState = plan.state;
+    plan.state = '...';
+
+    this.planService.createNewVersion(plan).subscribe(
+      (data: Plan) => {
+        ToastFactory.successToast(`New version for "${plan.name}" successfully created`);
+        plan = data;
+      },
+      (err: ApiMessage) => {
+        plan.state = oldState;
+        console.log(err);
+        ToastFactory.errorToast(err.message);
+      }
+    );
   }
 
 }
