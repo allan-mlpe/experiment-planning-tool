@@ -1,10 +1,17 @@
 <ul id="slide-out" class="side-nav fixed">
-  <li><a [routerLink]="'/dashboard'">Dashboard</a></li>
-  <li><a [routerLink]="'/plans'">Experimental Plans</a></li>
-  <li><a [routerLink]="'/plans'">Experimental Drafts</a></li>
+  <li><a class="collapsible-header waves-effect waves-blue" [routerLink]="'/dashboard'">Dashboard</a></li>
+  <li><a class="collapsible-header waves-effect waves-blue" [routerLink]="'/plans'">Experimental Plans</a></li>
+  <li><a class="collapsible-header waves-effect waves-blue" [routerLink]="'/plans/archived'">Archived Plans</a></li>
+  <li><a class="collapsible-header waves-effect waves-blue" [routerLink]="'/plans'">Experimental Drafts</a></li>
   <!-- <li><a [routerLink]="'/reviews/ready-to-review'">Ready to Review</a></li>-->
-  <li><a [routerLink]="'/reviews'">Reviews</a></li>
-  <li><a [routerLink]="'/profile'">Profile</a></li>
+  <li><a class="collapsible-header waves-effect waves-blue" [routerLink]="'/reviews'">Reviews</a></li>
+  <li><a class="collapsible-header waves-effect waves-blue" [routerLink]="'/profile'">Profile</a></li>
   <li><div class="divider"></div></li>
   <li><a (click)="logout()">Logout</a></li>
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="#!">First</a></li>
+    <li><a href="#!">Second</a></li>
+    <li><a href="#!">Third</a></li>
+    <li><a href="#!">Fourth</a></li>
+  </ul>
 </ul>

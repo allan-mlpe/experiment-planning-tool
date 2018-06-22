@@ -41,6 +41,10 @@ export class PlanService {
     return this.restService.post(`${this.RESOURCE_PREFIX}/${plan.id}/generated-threats`, plan);
   }
 
+  archivePlan(plan: Plan): Observable<any> {
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${plan.id}/archive`, plan);
+  }
+
   updatePlan(plan: Plan): Observable<any> {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${plan.id}`, plan);
   }

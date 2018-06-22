@@ -58,4 +58,20 @@ export class PlansComponent implements OnInit {
       );
   }
 
+  archivePlan(plan: Plan) {
+    const oldState = plan.state;
+    plan.state = '...';
+
+    this.planService.archivePlan(plan).subscribe(
+        data => {
+          ToastFactory.successToast(`${plan.name} archive successfully`);
+        },
+        (err: ApiMessage) => {
+          plan.state = oldState;
+          console.log(err);
+          ToastFactory.errorToast(err.message);
+        }
+      );
+  }
+
 }

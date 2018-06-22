@@ -24,35 +24,45 @@
           <td>{{ plan.version }}</td>
           <td>{{ getEnumValue(plan.state) }}</td>
           <td [ngSwitch]="plan.state">
-            <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open" [routerLink]="[plan.id, 'workspace']">
-              folder_open
-            </i>
-
-            <span *ngSwitchCase="'ReadyToReview'">
-              <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Create review" [routerLink]="['/', 'reviews', 'create', plan.id]">
-                add_circle_outline
+            <div *ngIf="plan.state !== '...'">
+              <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open" [routerLink]="[plan.id, 'workspace']">
+                settings
               </i>
 
-              <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan, idx)">
-                delete
-              </i>
-            </span>
+              <span *ngSwitchCase="'ReadyToReview'">
+                <!-- <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Create review" [routerLink]="['/', 'reviews', 'create', plan.id]">
+                  add_circle_outline
+                </i> -->
 
-            <span *ngSwitchCase="'Completed'">
-              <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Show reviews" [routerLink]="[plan.id, 'reviews']">
-                comment
-              </i>
-            </span>
+                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan, idx)">
+                  delete
+                </i>
+              </span>
 
-            <span class="action-buttons" *ngSwitchCase="'Planning'">
-              <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" [routerLink]="['edit', plan.id]">
-                create
-              </i>
+                <span *ngSwitchCase="'Completed'">
+                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Show reviews" [routerLink]="[plan.id, 'reviews']">
+                  comment
+                </i>
+                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Archive plan" (click)="archivePlan(plan)">
+                  archive
+                </i>
+              </span>
 
-              <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan, idx)">
-                delete
-              </i>
-            </span>
+              <span class="action-buttons" *ngSwitchCase="'Planning'">
+                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" [routerLink]="['edit', plan.id]">
+                  create
+                </i>
+
+                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan, idx)">
+                  delete
+                </i>
+              </span>
+            </div>
+
+            <div *ngIf="plan.state === '...'">
+              <app-spinner *ngIf="true" [width]="'20px'" [height]="'20px'"></app-spinner>
+            </div>
+
           </td>
         </tr>
       </tbody>

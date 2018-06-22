@@ -117,10 +117,12 @@ public class ExperimentalPlanResource {
 
             List<ExperimentalPlanVO> plansVOS = new ArrayList<>();
             plans.forEach(plan -> {
-                ExperimentalPlanVO planVO =
-                        ExperimentalPlanVOConverter.getInstance().convertToVO(plan);
+                if(!plan.isArchived()) {
+                    ExperimentalPlanVO planVO =
+                            ExperimentalPlanVOConverter.getInstance().convertToVO(plan);
 
-                plansVOS.add(planVO);
+                    plansVOS.add(planVO);
+                }
             });
 
             GenericEntity<List<ExperimentalPlanVO>> genericList = new GenericEntity<List<ExperimentalPlanVO>>(plansVOS) {};
@@ -373,6 +375,32 @@ public class ExperimentalPlanResource {
         } catch(ApiException e) {
             throw e;
         } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the plan");
+        }
+    }
+
+    @PUT
+    @Path("/{id}/archive")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response archivePlan(@PathParam("id") Integer id, @Context ContainerRequestContext req, ExperimentalPlanVO planVO) throws ApiException {
+        try {
+            Plan plan = experimentalPlanController.get(id);
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            experimentalPlanController.archive(id);
+            planVO.setArchived(true);
+
+            return Response.ok(planVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch(Exception e) {
             e.printStackTrace();
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error. It was not possible to update the plan");
