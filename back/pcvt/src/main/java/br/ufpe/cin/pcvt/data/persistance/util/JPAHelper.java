@@ -63,6 +63,10 @@ public class JPAHelper {
 	}
 
 	public void rollback() {
-		this.transactions.pop().rollback();
+		this.entityManagers.clear();
+
+		EntityTransaction transaction = transactions.pop();
+		if(transaction.isActive())
+			this.transactions.pop().rollback();
 	}
 }
