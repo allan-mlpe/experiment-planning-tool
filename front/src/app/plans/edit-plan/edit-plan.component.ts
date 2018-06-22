@@ -49,6 +49,9 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   private readonly CHARACTERIZATION_QUESTIONS = PcvtConstants.CHARACTERIZATION_QUESTIONS;
   options = SIMPLE_OPTIONS;
 
+  saving: boolean = false;
+  completing: boolean = false;
+
   getCharacterizationQuestionsObject(key: string): any {
     return this.CHARACTERIZATION_QUESTIONS.find(item => item['key'] === key);
   }
@@ -77,13 +80,13 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     );
 
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.maxLength(1024)]],
       description: ['']
     });
 
     this.formValidateUtils = new FormValidateUtils(this.form);
     this.subsc = this.form.valueChanges.subscribe(
-      (data) => {
+      () => {
         this.hasUnsavedChanges = true;
 
         // if a change already occurred, it's not necessary to keep the subscribe
@@ -93,13 +96,15 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   }
 
   onSubmit() {
+    this.saving = true;
     if(this.form.valid) {
       this.plan.planDetails = JSON.stringify(this.detailsObject);
       this.plan.planCharacteristics = JSON.stringify(this.characteristicsObject);
 
       this.planService.updatePlan(this.plan)
+        .finally(() => this.saving = false)
         .subscribe(
-          data => {
+          () => {
             this.hasUnsavedChanges = false;
             ToastFactory.successToast("Plan updated!");
 
@@ -117,9 +122,12 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   }
 
   saveAndComplete() {
+    this.completing = true;
     this.plan.state = 'ReadyToReview';
-    this.planService.updateStatus(this.plan).subscribe(
-      data => {
+    this.planService.updateStatus(this.plan)
+      .finally(() => this.completing = false)
+      .subscribe(
+        () => {
         ToastFactory.successToast("Plan ready to review!");
         this.onSubmit();
       },

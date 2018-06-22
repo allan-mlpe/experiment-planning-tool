@@ -5,7 +5,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="input-field">
-      <input [(ngModel)]="plan.name" type="text" class="validate" formControlName="name" [ngClass]="addClassError('name')">
+      <input [(ngModel)]="plan.name" type="text" maxlength="1024" class="validate" formControlName="name" [ngClass]="addClassError('name')">
       <label [ngClass]="isActiveLabel('name')">Plan Name</label>
       <app-input-field-error [showError]="showError('name')"
                              [message]="buildErrorMessage('name')"></app-input-field-error>
@@ -83,11 +83,19 @@
 
   <div class="row right">
     <button *ngIf="enableSaveAndComplete()" type="button" class="waves-effect waves-light btn" (click)="saveAndComplete()">
-      <i class="material-icons right">save</i>Save and Complete
+      Save and Complete
+      <i class="material-icons right">
+        <span *ngIf="!completing">save</span>
+        <app-spinner *ngIf="completing" [width]="'20px'" [height]="'20px'"></app-spinner>
+      </i>
     </button>
 
     <button type="submit" class="waves-effect waves-light btn">
-      <i class="material-icons right">save</i>Save
+      Save
+      <i class="material-icons right">
+        <span *ngIf="!saving">save</span>
+        <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+      </i>
     </button>
   </div>
 </form>

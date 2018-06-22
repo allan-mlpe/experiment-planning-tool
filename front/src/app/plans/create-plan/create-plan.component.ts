@@ -13,7 +13,6 @@ import {ApiMessage} from "../../model/pcvt-message";
 import {PcvtConstants} from "../../shared/pcvt-constants";
 import {SIMPLE_OPTIONS} from "../../model/simple-options";
 
-declare var jquery:any;
 declare var $ :any;
 
 @Component({
@@ -44,6 +43,8 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
   private readonly CHARACTERIZATION_QUESTIONS = PcvtConstants.CHARACTERIZATION_QUESTIONS;
   options = SIMPLE_OPTIONS;
 
+  saving: boolean = false;
+
   getCharacterizationQuestionsObject(key: string): any {
     return this.CHARACTERIZATION_QUESTIONS.find(item => item['key'] === key);
   }
@@ -62,13 +63,13 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
     this.buildDetailsObject();
 
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.maxLength(1024)]],
       description: ['']
     });
 
     this.formValidateUtils = new FormValidateUtils(this.form);
     this.subsc = this.form.valueChanges.subscribe(
-      (data) => {
+      () => {
         this.hasUnsavedChanges = true;
 
         // if a change already occurred, it's not necessary to keep the subscribe
@@ -86,6 +87,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
   }
 
   onSubmit() {
+    this.saving = true;
     if(this.form.valid) {
       const name = this.form.get('name').value;
       const description = this.form.get('description').value;
@@ -97,6 +99,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       plan.planCharacteristics = JSON.stringify(this.characteristicsObject);
 
       this.planService.savePlan(plan)
+        .finally(() => this.saving = false)
         .subscribe(
           data => {
             console.log(data);

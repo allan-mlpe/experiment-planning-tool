@@ -30,6 +30,8 @@ export class FormValidateUtils {
         if(errors !== null) {
             if(errors.required) {
                 messages.push('this field is required');
+            } else if(errors.maxlength) {
+                messages.push(`this field maximum length must be ${errors.maxlength.requiredLength}`);
             } else if(errors.minlength) {
                 messages.push('this field must be at least 6 characters');
             } else if(errors.email) {
