@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PlanService} from "../../services/plan.service";
 import {Plan} from "../../model/plan";
 import {ToastFactory} from "../../shared/toast-factory";
@@ -37,7 +37,7 @@ export class ArchivedComponent implements OnInit {
 
     this.planService.unarchivePlan(plan).subscribe(
       data => {
-        ToastFactory.successToast(`"${plan.name}" successfully unarchive`);
+        ToastFactory.successToast(`"${plan.name}" unarchived successfully`);
         this.plans.splice(index, 1);
       },
       (err: ApiMessage) => {
