@@ -40,7 +40,7 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
 
         if (this.plan.planCharacteristics !== undefined) {
           this.characteristicsObj = JSON.parse(this.plan.planCharacteristics);
-          this.checkCharacterizationComplete();
+          //this.checkCharacterizationComplete();
         }
       });
   }

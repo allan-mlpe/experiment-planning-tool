@@ -7,7 +7,7 @@
 </div>
 
 <div class="row">
-  <div class="col s12 m6 l6 workspace-option" [routerLink]="['/plans', plan.id, 'characteristics']">
+  <div class="col s12 m6 l6 workspace-option" (click)="openCharacterization()">
       <div class="center">
           <i class="large material-icons">info</i>
           <h5>Characteristics</h5>
@@ -15,7 +15,7 @@
       </div>
   </div>
 
-  <div  class="col s12 m6 l6 workspace-option" *ngIf="showThreatsOption()" [routerLink]="['/plans', plan.id, 'threats']">
+  <div  class="col s12 m6 l6 workspace-option" *ngIf="showThreatsOption()" (click)="openThreatsClassification()">
       <div class="center">
           <i class="large material-icons">warning</i>
           <h5>Threats</h5>

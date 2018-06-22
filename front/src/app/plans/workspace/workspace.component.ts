@@ -16,6 +16,9 @@ export class WorkspaceComponent implements OnInit {
   plan: Plan;
   private subscription: Subscription;
 
+  characterizationComplete: boolean;
+  threatsClassificationComplete: boolean;
+
   constructor(
     private planService: PlanService,
     private route: ActivatedRoute,
@@ -30,18 +33,18 @@ export class WorkspaceComponent implements OnInit {
     );
   }
 
-  openFeature(feature: string) {
+  private openFeature(feature: string) {
     let modalTitle: string = '';
-    let modalText: string = 'Do you want to update or define new ones?';
+    let modalText: string = 'Do you want edit them?';
     switch (feature) {
       case 'characteristics':
-        modalTitle = 'Characteristics already defined';
+        modalTitle = 'Characteristics have already been defined';
         break;
       case 'threats':
-        modalTitle = 'Threats already defined';
+        modalTitle = 'Threats have already been defined';
         break;
       case 'actions':
-        modalTitle = 'Control actions already defined';
+        modalTitle = 'Control actions have already been defined';
         break;
     }
 
@@ -54,23 +57,57 @@ export class WorkspaceComponent implements OnInit {
     );
   }
 
+  openCharacterization() {
+    const path: string = 'characteristics';
+    if(this.isCharacterizationCompleted()) {
+      this.openFeature(path);
+    } else {
+      this.router.navigate([`../${path}`], {relativeTo: this.route })
+    }
+  }
+
+  openThreatsClassification() {
+    const path: string = 'threats';
+    if(this.isThreatsClassificationCompleted()) {
+      this.openFeature(path);
+    } else {
+      this.router.navigate([`../${path}`], {relativeTo: this.route })
+    }
+  }
+
   showThreatsOption(): boolean {
-    const characteristicsObj = this.plan.planCharacteristics !== undefined ?
-            JSON.parse(this.plan.planCharacteristics) : undefined;
-    return PcvtUtils.isCharacterizationInstrumentComplete(characteristicsObj);
+    return this.isCharacterizationCompleted();
   }
 
 
   showActionsOption() {
-    const threatsObj = this.plan.planThreats !== undefined ?
-            JSON.parse(this.plan.planThreats) : undefined;
-
-    return PcvtUtils.isThreatClassificationComplete(threatsObj);
+    return this.isThreatsClassificationCompleted();
   }
 
   showReportOption() {
-    const characteristicsObj = this.plan.planCharacteristics !== undefined ?
-      JSON.parse(this.plan.planCharacteristics) : {};
-    return PcvtUtils.isCharacterizationInstrumentComplete(characteristicsObj);
+    return this.isCharacterizationCompleted();
+  }
+
+  private isThreatsClassificationCompleted(): boolean {
+    if(this.threatsClassificationComplete === undefined) {
+
+      const threatsObj = this.plan.planThreats !== undefined ?
+        JSON.parse(this.plan.planThreats) : undefined;
+
+      this.threatsClassificationComplete = PcvtUtils.isThreatClassificationComplete(threatsObj);
+    }
+
+    return this.threatsClassificationComplete;
+  }
+
+  private isCharacterizationCompleted(): boolean {
+    if(this.characterizationComplete === undefined) {
+      const characteristicsObj = this.plan.planCharacteristics !== undefined ?
+        JSON.parse(this.plan.planCharacteristics) : undefined;
+
+      this.characterizationComplete = PcvtUtils.isCharacterizationInstrumentComplete(characteristicsObj);
+    }
+
+    return this.characterizationComplete;
   }
 }

@@ -108,7 +108,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
     if(this.plan.planThreats !== undefined) {
       this.threatObj = Object.assign(this.threatObj, JSON.parse(this.plan.planThreats));
 
-      this.checkClassificationComplete();
+      //this.checkClassificationComplete();
     }
 
     this.loading = false;
