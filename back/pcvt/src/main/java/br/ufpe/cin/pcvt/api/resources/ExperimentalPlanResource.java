@@ -13,6 +13,7 @@ import br.ufpe.cin.pcvt.controllers.PlanController;
 import br.ufpe.cin.pcvt.data.models.experiments.EPlanState;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
 import br.ufpe.cin.pcvt.data.models.user.User;
+import br.ufpe.cin.pcvt.exceptions.entities.experiments.plan.PlanAlreadyHasChildException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -83,6 +84,9 @@ public class ExperimentalPlanResource {
                     .convertToVO(newVersion);
 
             return Response.ok(newVersionVO).build();
+
+        } catch(PlanAlreadyHasChildException e) {
+            throw new ApiException(Response.Status.BAD_REQUEST, e.getMessage());
 
         } catch(ApiException e) {
             throw e;

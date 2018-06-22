@@ -331,12 +331,20 @@ public class Plan implements Comparable<Plan> {
 
 		child.name = this.name;
 		child.description = this.description;
+		child.planDetails = this.planDetails;
 		child.version = this.version + 1;
 		child.date = this.date;
 		child.privacySetting = this.privacySetting;
 		child.customPlan = this.customPlan;
 		child.file = this.file;
 		child.filename = this.filename;
+
+		child.author = this.author;
+
+//		child.planCharacteristics = this.planCharacteristics;
+//		child.planThreats = this.planThreats;
+//		child.planActions = this.planActions;
+//		child.planActionRelatedThreats = this.planActionRelatedThreats;
 
 		for (User user : this.collaborators) {
 			child.collaborators.add(user);

@@ -43,7 +43,7 @@
                 <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Show reviews" [routerLink]="[plan.id, 'reviews']">
                   comment
                 </i>
-                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="New version" (click)="createNewVersion(plan)">
+                <i *ngIf="!plan.hasChild" class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="New version" (click)="createNewVersion(plan)">
                   content_copy
                 </i>
                 <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Archive plan" (click)="archivePlan(plan, idx)">

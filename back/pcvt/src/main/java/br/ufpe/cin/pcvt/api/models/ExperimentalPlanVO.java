@@ -26,6 +26,7 @@ public class ExperimentalPlanVO {
     private String planThreats;
     private String planActions;
     private String planActionRelatedThreats;
+    private Boolean hasChild;
 
     public Integer getId() {
         return id;
@@ -150,4 +151,12 @@ public class ExperimentalPlanVO {
     public String getPlanActionRelatedThreats() { return planActionRelatedThreats; }
 
     public void setPlanActionRelatedThreats(String planActionRelatedThreats) { this.planActionRelatedThreats = planActionRelatedThreats; }
+
+    public Boolean getHasChild() {
+        return hasChild;
+    }
+
+    public void setHasChild(Boolean hasChild) {
+        this.hasChild = hasChild;
+    }
 }

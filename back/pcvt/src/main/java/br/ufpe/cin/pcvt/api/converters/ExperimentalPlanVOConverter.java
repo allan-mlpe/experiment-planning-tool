@@ -42,6 +42,7 @@ public class ExperimentalPlanVOConverter implements IVOConverter<Plan, Experimen
         //planVO.setReviews(plan.getReviews());
         planVO.setDate(plan.getDate());
         planVO.setPrivacySetting(plan.getPrivacySetting());
+        planVO.setHasChild(plan.hasChild());
 
         Collection<UserVO> userVOS = convertListUserToListUserVO(plan.getCollaborators());
         planVO.setCollaborators(userVOS);

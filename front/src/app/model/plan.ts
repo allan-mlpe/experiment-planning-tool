@@ -1,5 +1,4 @@
 import {User} from "./user";
-import {PlanState} from "./plan-state.enum";
 
 export class Plan {
     id: number;
@@ -12,6 +11,7 @@ export class Plan {
     planActionRelatedThreats: string;
     version: string;
     author: User;
+    hasChild: boolean;
     collaborators: Array<User>;
     state: any;
     privacySetting: string;

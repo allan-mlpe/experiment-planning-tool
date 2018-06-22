@@ -79,13 +79,15 @@ export class PlansComponent implements OnInit {
     const oldState = plan.state;
     plan.state = '...';
 
-    this.planService.createNewVersion(plan).subscribe(
+    this.planService.createNewVersion(plan)
+      .finally(() => plan.state = oldState)
+      .subscribe(
       (data: Plan) => {
         ToastFactory.successToast(`New version for "${plan.name}" successfully created`);
-        plan = data;
+        plan.hasChild = true;
+        this.plans.push(data);
       },
       (err: ApiMessage) => {
-        plan.state = oldState;
         console.log(err);
         ToastFactory.errorToast(err.message);
       }
