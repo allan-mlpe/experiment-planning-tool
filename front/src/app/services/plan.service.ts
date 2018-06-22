@@ -45,6 +45,10 @@ export class PlanService {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${plan.id}/archive`, plan);
   }
 
+  unarchivePlan(plan: Plan): Observable<any> {
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${plan.id}/unarchive`, plan);
+  }
+
   updatePlan(plan: Plan): Observable<any> {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${plan.id}`, plan);
   }

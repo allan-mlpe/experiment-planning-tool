@@ -14,6 +14,7 @@ import {PlanResolver} from "../guards/plan.resolver";
 import {EditPlanComponent} from "./edit-plan/edit-plan.component";
 import {AuthGuard} from "../guards/auth.guard";
 import {ReviewsComponent} from "./reviews/reviews.component";
+import {ArchivedComponent} from "./archived/archived.component";
 
 const planRoutes: Routes = [
     {
@@ -21,6 +22,7 @@ const planRoutes: Routes = [
         children: [
             { path: '', component: PlansComponent },
             { path: 'create', component: CreatePlanComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard] },
+            { path: 'archived', component: ArchivedComponent, canActivate: [AuthGuard] },
             { path: 'edit/:id', component: EditPlanComponent, canDeactivate: [CanDeactivateFormGuard], canActivate: [AuthGuard], resolve: { plan : PlanResolver}},
             { path: ':id/workspace', component: WorkspaceComponent, resolve: { plan: PlanResolver} },
             { path: ':id/characteristics', component: CharacteristicsComponent, resolve: { plan : PlanResolver} },

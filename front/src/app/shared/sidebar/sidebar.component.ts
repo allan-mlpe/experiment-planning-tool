@@ -13,15 +13,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
-    $(document).ready(function(){
-      $(".button-collapse").sideNav();
-      $('.parallax').parallax();
-      $(".dropdown-button").dropdown({
-        hover: false
-      });
-    });
-  }
+  ngOnInit() {}
 
   logout() {
     this.authService.doLogout();

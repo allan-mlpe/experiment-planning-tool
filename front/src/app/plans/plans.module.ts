@@ -19,6 +19,7 @@ import {CharacteristicsService} from "../services/characteristics.service";
 import {ThreatsService} from "../services/threat.service";
 import {ControlActionService} from "../services/control-action.service";
 import { ReviewsComponent } from './reviews/reviews.component';
+import { ArchivedComponent } from './archived/archived.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
     ReportsComponent,
     ThreatsComponent,
     EditPlanComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    ArchivedComponent
   ],
   providers: [
     PlanService,

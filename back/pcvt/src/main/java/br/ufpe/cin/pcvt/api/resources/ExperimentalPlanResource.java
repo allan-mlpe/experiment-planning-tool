@@ -110,19 +110,22 @@ public class ExperimentalPlanResource {
                     case "completed":
                         plans.removeIf(p -> p.getState() != EPlanState.Completed);
                         break;
+                    case "archived":
+                        plans.removeIf(p -> !p.isArchived());
+                        break;
                     default:
+                        plans.removeIf(p -> p.isArchived());
                         break;
                 }
             }
 
             List<ExperimentalPlanVO> plansVOS = new ArrayList<>();
             plans.forEach(plan -> {
-                if(!plan.isArchived()) {
-                    ExperimentalPlanVO planVO =
-                            ExperimentalPlanVOConverter.getInstance().convertToVO(plan);
+                ExperimentalPlanVO planVO =
+                        ExperimentalPlanVOConverter.getInstance().convertToVO(plan);
 
-                    plansVOS.add(planVO);
-                }
+                plansVOS.add(planVO);
+
             });
 
             GenericEntity<List<ExperimentalPlanVO>> genericList = new GenericEntity<List<ExperimentalPlanVO>>(plansVOS) {};
@@ -396,6 +399,32 @@ public class ExperimentalPlanResource {
 
             experimentalPlanController.archive(id);
             planVO.setArchived(true);
+
+            return Response.ok(planVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the plan");
+        }
+    }
+
+    @PUT
+    @Path("/{id}/unarchive")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response unarchivePlan(@PathParam("id") Integer id, @Context ContainerRequestContext req, ExperimentalPlanVO planVO) throws ApiException {
+        try {
+            Plan plan = experimentalPlanController.get(id);
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            experimentalPlanController.unarchive(id);
+            planVO.setArchived(false);
 
             return Response.ok(planVO).build();
         } catch(ApiException e) {
