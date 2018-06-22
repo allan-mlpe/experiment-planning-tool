@@ -10,7 +10,7 @@
 		<properties>
 			<!-- JDBC properties -->
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/reviewer" />
-			<property name="javax.persistence.jdbc.user" value="pcvtadmin" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="r00t" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 
@@ -19,12 +19,12 @@
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-
-			<!-- Disable second-level cache. -->
-	        <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+			
+			<!-- Disable second-level cache. -->  
+	        <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>  
 			<property name="hibernate.cache.use_query_cache" value="false" />
 			<property name="hibernate.cache.use_second_level_cache" value="false" />
-
+			
 		</properties>
 	</persistence-unit>
 </persistence>
