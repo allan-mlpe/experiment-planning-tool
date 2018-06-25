@@ -1,49 +1,20 @@
-package br.ufpe.cin.pcvt.data.models.experiments;
+package br.ufpe.cin.pcvt.api.models;
 
-import br.ufpe.cin.pcvt.data.models.user.User;
-import br.ufpe.cin.pcvt.data.persistance.constants.TableName;
+import br.ufpe.cin.pcvt.data.models.experiments.EDraftType;
 
-import javax.persistence.*;
+public class ExperimentalDraftVO {
 
-@Entity
-@Table(name = TableName.DRAFT)
-public class Draft {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Integer id;
-
-    @Column(name = "name")
     private String name;
-
-    @Lob
-    @Column(name = "description")
     private String description;
-
-    @Column(name = "draft_type")
     private EDraftType draftType;
-
-    @Column(name = "author")
-    private User author;
-
-    @Lob
-    @Column(name = "characteristics")
+    private UserVO author;
     private String characteristics;
-
-    @Lob
-    @Column(name = "threats")
     private String threats;
-
-    @Lob
-    @Column(name = "actions")
     private String actions;
-
-    @Lob
-    @Column(name = "related_threats")
     private String actionRelatedThreats;
 
-    public Draft() {}
+    public ExperimentalDraftVO() {}
 
     public Integer getId() {
         return id;
@@ -77,11 +48,11 @@ public class Draft {
         this.draftType = draftType;
     }
 
-    public User getAuthor() {
+    public UserVO getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(UserVO author) {
         this.author = author;
     }
 

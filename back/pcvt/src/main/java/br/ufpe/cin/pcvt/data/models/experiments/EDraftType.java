@@ -1,7 +1,7 @@
 package br.ufpe.cin.pcvt.data.models.experiments;
 
 public enum EDraftType {
-    CHARACTERIZATION("Characterization"),
+    SIMPLE("Simple"),
     FULL("Full");
 
     private String label;
