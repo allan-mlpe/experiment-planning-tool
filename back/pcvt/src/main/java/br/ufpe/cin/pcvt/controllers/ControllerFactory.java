@@ -31,4 +31,6 @@ public class ControllerFactory {
 	public static ThreatController createThreatController() { return new ThreatController(); }
 
     public static ControlActionController createControlActionController() { return new ControlActionController(); }
+
+    public static DraftController createDraftController() { return new DraftController(); }
 }

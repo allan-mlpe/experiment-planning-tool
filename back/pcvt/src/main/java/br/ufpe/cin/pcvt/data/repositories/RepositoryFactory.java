@@ -27,4 +27,6 @@ public class RepositoryFactory {
     public static ICharacteristicRepository createCharacteristicRepository() { return new HibernateCharacteristicRepository(); }
 
     public static IControlActionRepository createControlActionRepository() { return new HibernateControlActionRepository(); }
+
+    public static IDraftRepository createDraftRepository() { return new HibernateDraftRepository(); }
 }
