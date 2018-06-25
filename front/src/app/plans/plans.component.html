@@ -25,7 +25,7 @@
           <td>{{ getEnumValue(plan.state) }}</td>
           <td [ngSwitch]="plan.state">
             <div *ngIf="plan.state !== '...'">
-              <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Open" [routerLink]="[plan.id, 'workspace']">
+              <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Threats and control actions" [routerLink]="[plan.id, 'workspace']">
                 settings
               </i>
 

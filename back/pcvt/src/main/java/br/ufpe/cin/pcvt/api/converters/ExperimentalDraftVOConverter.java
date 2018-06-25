@@ -22,6 +22,7 @@ public class ExperimentalDraftVOConverter implements IVOConverter<Draft, Experim
     public ExperimentalDraftVO convertToVO(Draft draft) {
         ExperimentalDraftVO draftVO = new ExperimentalDraftVO();
 
+        draftVO.setId(draft.getId());
         draftVO.setName(draft.getName());
         draftVO.setDescription(draft.getDescription());
         draftVO.setAuthor(UserVOConverter.getInstance().convertToVO(draft.getAuthor()));

@@ -31,6 +31,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'drafts',
+    loadChildren: 'app/drafts/drafts.module#DraftsModule',
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'reviews',
     loadChildren: 'app/reviews/reviews.module#ReviewsModule',
     canActivate: [AuthGuard]

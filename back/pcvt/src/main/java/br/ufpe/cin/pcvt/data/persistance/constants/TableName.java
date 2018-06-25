@@ -20,7 +20,7 @@ public class TableName {
 	public static final String PLAN_ITEM = "plan_item";
 	public static final String PLAN_HAS_COLLABORATOR = "plan_has_collaborator";
 	public static final String PLAN_HAS_REVIEWER = "plan_has_reviewer";
-	public static final String DRAFT = "experimental_draft";
+	public static final String DRAFT = "draft";
 
 	// Characteristics related
 	public static final String CHARACTERISTIC = "characteristic";

@@ -1,0 +1,49 @@
+<div class="row">
+  <h3>My Drafts</h3>
+</div>
+
+<div class="row">
+  <a class="waves-effect waves-light btn" [routerLink]="'create'">
+    <i class="material-icons right">add</i>New Draft
+  </a>
+</div>
+<div class="row">
+  <table class="highlight">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody *ngIf="!loading && drafts.length > 0">
+    <tr *ngFor="let draft of drafts; let idx = index" >
+      <td>{{ draft.name }}</td>
+      <td>{{ draft.draftType }}</td>
+      <td>
+        <div>
+          <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Threats and control actions" [routerLink]="[draft.id, 'workspace']">
+            settings
+          </i>
+
+          <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removeDraft(draft, idx)">
+            delete
+          </i>
+
+          <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" [routerLink]="['edit', draft.id]">
+            create
+          </i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tr class="empty-table" *ngIf="!loading && drafts.length === 0">
+      <td colspan="4">Nothing to show.</td>
+    </tr>
+  </table>
+  <div class="loading-data" *ngIf="loading">
+    <app-spinner></app-spinner>
+  </div>
+</div>

@@ -46,7 +46,7 @@ export class PlansComponent implements OnInit {
             this.planService.deletePlan(plan.id).subscribe(
               data => {
                 this.plans.splice(index, 1);
-                ToastFactory.successToast(`"${plan.name}" deleted successfuly.`);
+                ToastFactory.successToast(`"${plan.name}" deleted successfully.`);
               },
               (err: ApiMessage) => {
                 ToastFactory.errorToast(err.message);

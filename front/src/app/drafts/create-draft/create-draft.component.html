@@ -1,0 +1,31 @@
+<div class="row">
+  <h3>New Draft</h3>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="input-field">
+      <input type="text" maxlength="1024" class="validate" formControlName="name" [ngClass]="addClassError('name')">
+      <label>Draft Name</label>
+      <app-input-field-error [showError]="showError('name')"
+                             [message]="buildErrorMessage('name')"></app-input-field-error>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field">
+      <textarea class="materialize-textarea validate" formControlName="description"></textarea>
+      <label>Experiment Description</label>
+    </div>
+  </div>
+
+
+  <div class="row right">
+    <button type="submit" class="waves-effect waves-light btn" [disabled]="form.invalid || saving">
+      Save
+      <i class="material-icons right">
+        <span *ngIf="!saving">save</span>
+        <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+      </i>
+    </button>
+  </div>
+</form>
