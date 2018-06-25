@@ -24,7 +24,8 @@ public class Draft {
     @Column(name = "draft_type")
     private EDraftType draftType;
 
-    @Column(name = "author")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author")
     private User author;
 
     @Lob
