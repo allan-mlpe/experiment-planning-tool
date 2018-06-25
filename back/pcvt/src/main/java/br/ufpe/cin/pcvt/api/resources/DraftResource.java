@@ -8,6 +8,7 @@ import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
 import br.ufpe.cin.pcvt.controllers.ControllerFactory;
 import br.ufpe.cin.pcvt.controllers.DraftController;
 import br.ufpe.cin.pcvt.data.models.experiments.Draft;
+import br.ufpe.cin.pcvt.data.models.experiments.EDraftType;
 import br.ufpe.cin.pcvt.data.models.user.User;
 
 import javax.ws.rs.*;
@@ -177,6 +178,130 @@ public class DraftResource {
             e.printStackTrace();
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error. It was not possible to delete the draft");
+        }
+    }
+
+    @PUT
+    @Path("/{id}/characteristics")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response saveDraftCharacteristics(@PathParam("id") Integer id, @Context ContainerRequestContext req, ExperimentalDraftVO draftVO) {
+        try {
+            Draft draft = controller.get(id);
+
+            if(draft == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental draft not found");
+
+            checkPermission(draft, req);
+
+            draft.setCharacteristics(draftVO.getCharacteristics());
+
+            controller.update(draft);
+
+            return Response.ok(draftVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the draft");
+        }
+    }
+
+    @PUT
+    @Path("/{id}/threats")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response saveDraftThreats(@PathParam("id") Integer id, @Context ContainerRequestContext req, ExperimentalDraftVO draftVO) {
+        try {
+            Draft draft = controller.get(id);
+
+            if(draft == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental draft not found");
+
+            if(draft.getDraftType() == EDraftType.SIMPLE)
+                throw new ApiException(Response.Status.BAD_REQUEST,
+                        "It is not possible to set threats for a simple draft");
+
+            checkPermission(draft, req);
+
+            draft.setThreats(draftVO.getThreats());
+
+            controller.update(draft);
+
+            return Response.ok(draftVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the draft");
+        }
+    }
+
+    @PUT
+    @Path("/{id}/control-actions")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response saveDraftActions(@PathParam("id") Integer id, @Context ContainerRequestContext req, ExperimentalDraftVO draftVO) {
+        try {
+            Draft draft = controller.get(id);
+
+            if(draft == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental draft not found");
+
+            if(draft.getDraftType() == EDraftType.SIMPLE)
+                throw new ApiException(Response.Status.BAD_REQUEST,
+                        "It is not possible to set control actions for a simple draft");
+
+            checkPermission(draft, req);
+
+            draft.setActions(draftVO.getActions());
+
+            controller.update(draft);
+
+            return Response.ok(draftVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the draft");
+        }
+    }
+
+    @PUT
+    @Path("/{id}/generated-threats")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response saveDraftGeneratedThreats(@PathParam("id") Integer id, @Context ContainerRequestContext req, ExperimentalDraftVO draftVO) {
+        try {
+            Draft draft = controller.get(id);
+
+            if(draft == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental draft not found");
+
+            if(draft.getDraftType() == EDraftType.SIMPLE)
+                throw new ApiException(Response.Status.BAD_REQUEST,
+                        "It is not possible to set action related threats for a simple draft");
+
+            checkPermission(draft, req);
+
+            draft.setActionRelatedThreats(draftVO.getActionRelatedThreats());
+
+            controller.update(draft);
+
+            return Response.ok(draftVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the draft");
         }
     }
 
