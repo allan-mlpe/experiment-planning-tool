@@ -1,7 +1,11 @@
 <div class="col s12">
   <form #form="ngForm" (ngSubmit)="emitForm(form)">
     <div class="row" *ngFor="let property of propertyList; let i= index">
-      <label class="col s12 m12 l12">{{ (i + 1) + '. ' + property.label }}</label>
+      <label class="col s12 m12 l12">
+        {{ (i + 1) + '. ' + property.label }}
+
+        <app-info-tooltip *ngIf="property.description" [hint]="property.description"></app-info-tooltip>
+      </label>
 
 
       <div *ngIf="!multipleOptions">
