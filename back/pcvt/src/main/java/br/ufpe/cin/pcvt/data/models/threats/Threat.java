@@ -2,6 +2,7 @@ package br.ufpe.cin.pcvt.data.models.threats;
 
 import br.ufpe.cin.pcvt.data.models.controlactions.ControlAction;
 import br.ufpe.cin.pcvt.data.persistance.constants.TableName;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Threat {
     private String label;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "description")
     private String description;
 
