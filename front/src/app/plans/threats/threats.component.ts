@@ -91,7 +91,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
       data => {
         ToastFactory.successToast("Threats have been saved");
 
-        this.router.navigate(['../workspace'], {relativeTo: this.route })
+        //this.router.navigate(['../workspace'], {relativeTo: this.route })
       },
       (err: ApiMessage) => {
         console.log(err);

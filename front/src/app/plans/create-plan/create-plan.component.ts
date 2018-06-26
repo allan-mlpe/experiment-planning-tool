@@ -102,8 +102,6 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
         .finally(() => this.saving = false)
         .subscribe(
           data => {
-            console.log(data);
-
             this.hasUnsavedChanges = false;
             ToastFactory.successToast("Plan created!");
 
