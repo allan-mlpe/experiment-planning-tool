@@ -7,6 +7,7 @@ import {CharacteristicsService} from "../../services/characteristics.service";
 import {ToastFactory} from "../../shared/toast-factory";
 import {Draft} from "../../model/draft";
 import {ApiMessage} from "../../model/pcvt-message";
+import {PcvtUtils} from "../../shared/pcvt-utils";
 
 @Component({
   selector: 'app-threats',
@@ -98,10 +99,28 @@ export class ThreatsComponent implements OnInit {
           ToastFactory.successToast("Threats have been saved");
 
           this.router.navigate(['../workspace'], {relativeTo: this.route })
+
+          if(this.draft.draftType === 'FULL' && PcvtUtils.isThreatClassificationComplete(this.threatObj)) {
+            this.showCompleteModal();
+          }
         },
         (err: ApiMessage) => {
           console.log(err);
           ToastFactory.errorToast(err.message);
+        }
+      );
+  }
+
+  showCompleteModal() {
+    let subsc: Subscription = this.modalService.showModal("Threats classification complete", `Do you want to define the control actions for "${this.draft.name}" now?`, 'Yes', 'No')
+      .subscribe(
+        data => {
+          if(data) {
+            this.router.navigate(['../actions'], {relativeTo: this.route })
+          } else {
+            this.router.navigate(['../workspace'], {relativeTo: this.route });
+          }
+          subsc.unsubscribe();
         }
       );
   }

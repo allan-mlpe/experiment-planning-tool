@@ -75,6 +75,15 @@ export class WorkspaceComponent implements OnInit {
     }
   }
 
+  openActionsClassification() {
+    const path: string = 'actions';
+    if(this.plan.planActions !== undefined) {
+      this.openFeature(path);
+    } else {
+      this.router.navigate([`../${path}`], {relativeTo: this.route })
+    }
+  }
+
   showThreatsOption(): boolean {
     return this.isCharacterizationCompleted();
   }

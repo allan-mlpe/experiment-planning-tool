@@ -249,7 +249,7 @@ export class ActionsComponent implements OnInit {
         data => {
           ToastFactory.successToast("Control actions have been saved");
 
-          //this.router.navigate(['../workspace'], {relativeTo: this.route })
+          this.router.navigate(['../workspace'], {relativeTo: this.route })
         },
         (err: ApiMessage) => {
           console.log(err);

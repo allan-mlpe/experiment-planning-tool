@@ -22,7 +22,7 @@
       <p class="light center">Set up threats related to your experiment</p>
     </div>
   </div>
-  <div class="col s12 m6 l6 workspace-option" *ngIf="showActionsOption()" [routerLink]="['/drafts', draft.id, 'actions']">
+  <div class="col s12 m6 l6 workspace-option" *ngIf="showActionsOption()" (click)="openActionsClassification()">
     <div class="center">
       <i class="large material-icons">build</i>
       <h5>Actions</h5>

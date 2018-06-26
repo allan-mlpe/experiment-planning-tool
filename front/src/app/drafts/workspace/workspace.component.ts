@@ -75,6 +75,15 @@ export class WorkspaceComponent implements OnInit {
     }
   }
 
+  openActionsClassification() {
+    const path: string = 'actions';
+    if(this.draft.actions !== undefined) {
+      this.openFeature(path);
+    } else {
+      this.router.navigate([`../${path}`], {relativeTo: this.route })
+    }
+  }
+
   showThreatsOption(): boolean {
     return this.draft.draftType === 'FULL' && this.isCharacterizationCompleted();
   }
@@ -110,5 +119,4 @@ export class WorkspaceComponent implements OnInit {
 
     return this.characterizationComplete;
   }
-
 }
