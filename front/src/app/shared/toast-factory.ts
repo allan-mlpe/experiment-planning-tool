@@ -7,7 +7,7 @@ export class ToastFactory {
     }
 
     public static warningToast(message: string, duration = 4000) {
-        toast(message, duration, 'yellow');
+        toast(message, duration, 'orange');
     }
 
     public static successToast(message: string, duration = 4000) {

@@ -6,14 +6,12 @@ import { AppRoutingModule } from './app.routing.module';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
 import { CanDeactivateFormGuard } from './guards/candeactivate-form.guard';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LayoutsModule } from './shared/layouts/layouts.module';
 import { ShowLoginGuard } from "./guards/show-login.guard";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PageNotFoundComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

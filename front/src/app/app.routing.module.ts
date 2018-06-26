@@ -2,8 +2,9 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './guards/auth.guard';
 import {BlankLayoutComponent} from './shared/layouts/blank-layout/blank-layout.component';
-import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {PageNotFoundComponent} from './shared/page-not-found/page-not-found.component';
 import {ShowLoginGuard} from "./guards/show-login.guard";
+import {ForbiddenComponent} from "./shared/forbidden/forbidden.component";
 
 const appRoutes: Routes = [
   {
@@ -44,6 +45,13 @@ const appRoutes: Routes = [
     path: 'profile',
     loadChildren: 'app/profile/profile.module#ProfileModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'forbidden',
+    component: BlankLayoutComponent,
+    children: [
+      { path: '**', component: ForbiddenComponent }
+    ]
   },
   {
     path: '**',

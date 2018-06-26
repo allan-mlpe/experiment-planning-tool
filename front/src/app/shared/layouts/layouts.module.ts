@@ -17,6 +17,8 @@ import { RadioListComponent } from '../radio-list/radio-list.component';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { InfoTooltipComponent } from "../info-tooltip/info-tooltip.component";
 import { ChipComponent } from '../chip/chip.component';
+import { ForbiddenComponent } from '../forbidden/forbidden.component';
+import {PageNotFoundComponent} from "../page-not-found/page-not-found.component";
 
 @NgModule({
   imports: [
@@ -39,7 +41,9 @@ import { ChipComponent } from '../chip/chip.component';
     RadioListComponent,
     SpinnerComponent,
     InfoTooltipComponent,
-    ChipComponent
+    ChipComponent,
+    PageNotFoundComponent,
+    ForbiddenComponent
   ],
   exports: [
     BlankLayoutComponent,
