@@ -1,3 +1,119 @@
-<p>
-  actions works!
-</p>
+<div class="row">
+  <h3>Control Actions</h3>
+</div>
+
+<div class="row">
+  <app-chip [arrayRoutes]="['../workspace']" [materializeIcon]="'dashboard'"
+            [label]="'Draft'" [value]="draft.name"></app-chip>
+</div>
+
+<div class="row" *ngIf="showInfoPanel">
+  <div class="col s12">
+    <p>After classify the suggested threats, PCVT Tool has defined a magnitude scale for them according to their priority. Such scale is:</p>
+    <ul>
+      <li class="label-title" *ngFor="let option of filterObjList">{{ option.value }}.</li>
+    </ul>
+
+    <p>Now, you should define control actions to mitigate them. You will be asked to select each suggested control action that will be used in your experiment. Furthermore, you should classify each selected control action on an importance scale as follows:</p>
+    <ul>
+      <li class="label-title" *ngFor="let option of options">{{ option.text }}.</li>
+    </ul>
+
+    <div class="right">
+      <button class="btn waves-effect waves-light"
+              (click)="startClassification()">Define actions <i class="material-icons right">flag</i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="col s12" *ngIf="!loading && !showInfoPanel">
+  <div>
+    <label>Filter by threat magnitude</label>
+  </div>
+  <span class="col s4" *ngFor="let filterOption of filterObjList">
+    <input type="checkbox" class="filled-in" checked
+           [id]="filterOption.name" [name]="filterOption.name" [value]="filterOption.value" (change)="selectFilter(filterOption.value)" />
+
+    <label [for]="filterOption.name">
+      <span>{{ filterOption.value }}</span>
+    </label>
+  </span>
+</div>
+
+<div class="row" *ngIf="!loading && !showInfoPanel && filteredList.length > 0">
+  <div class="col s12">
+    <div class="row" >
+      <div class="col s12 m12 l12">
+        <hr class="section-separator">
+        <h5>Threat</h5>
+        <p >
+          {{currentObject.label }}.
+        </p>
+      </div>
+
+      <div class="col s12 m12 l12">
+        <hr class="section-separator">
+        <h5>Control actions</h5>
+        <div *ngIf="currentObject.relatedControlActions.length > 0">
+          <div *ngFor="let action of currentObject.relatedControlActions">
+            <div>
+              <input type="checkbox" class="filled-in" [checked]="actionObj[currentObject.key][action.key] !== undefined"
+                     [id]="'input-'+action.key" (change)="selectAction(action)" />
+              <label [for]="'input-'+action.key">{{ action.label }}</label>
+            </div>
+
+            <div *ngIf="actionObj[currentObject.key][action.key] !== undefined">
+            <span class="col s6" *ngFor="let option of options">
+              <input class="with-gap" type="radio" [value]="option.value" (change)="classifyAction(action, option.value)"
+                     [name]="'prop-'+currentObject.key+'-'+action.key" [id]="'prop-'+currentObject.key+'-op-'+option.id+'-'+action.key"
+                     [(ngModel)]="actionObj[currentObject.key][action.key]" />
+
+              <label [for]="'prop-'+currentObject.key+'-op-'+option.id+'-'+action.key">{{ option.text }}</label>
+            </span>
+              <div style="height: 100px;"></div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="currentObject.relatedControlActions.length === 0">
+          <div>
+            There is no control action for this threat yet.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress">
+      <div class="determinate" [ngStyle]="getProgress()"></div>
+    </div>
+
+    <div class="right">
+      <button class="btn waves-effect waves-light" type="button"
+              *ngIf="currentObjectIndex !== 0"
+              (click)="previousItem()"><i class="material-icons left">navigate_before</i> Back</button>
+
+      <button class="btn waves-effect waves-light" type="button"
+              *ngIf="currentObjectIndex !== filteredList.length-1"
+              (click)="nextItem()">Next <i class="material-icons right">navigate_next</i></button>
+
+      <button class="btn waves-effect waves-light" type="button" [disabled]="saving"
+              (click)="finish()">
+        Save
+        <i class="material-icons right">
+          <span *ngIf="!saving">save</span>
+          <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!loading && !showInfoPanel && filteredList.length === 0">
+  <div class="col s12">
+    <p>There is no threats.</p>
+  </div>
+</div>
+
+<div class="loading-data" *ngIf="loading && !showInfoPanel">
+  <app-spinner></app-spinner>
+</div>

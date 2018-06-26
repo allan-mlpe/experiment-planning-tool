@@ -1,3 +1,39 @@
-<p>
-  workspace works!
-</p>
+<div class="row">
+  <h3>Workspace</h3>
+</div>
+
+<div class="row">
+  <app-chip [label]="'Draft'" [value]="draft.name" [materializeIcon]="'dashboard'"></app-chip>
+</div>
+
+<div class="row">
+  <div class="col s12 m6 l6 workspace-option" (click)="openCharacterization()">
+    <div class="center">
+      <i class="large material-icons">info</i>
+      <h5>Characteristics</h5>
+      <p class="light center">Experiment characteristics</p>
+    </div>
+  </div>
+
+  <div  class="col s12 m6 l6 workspace-option" *ngIf="showThreatsOption()" (click)="openThreatsClassification()">
+    <div class="center">
+      <i class="large material-icons">warning</i>
+      <h5>Threats</h5>
+      <p class="light center">Set up threats related to your experiment</p>
+    </div>
+  </div>
+  <div class="col s12 m6 l6 workspace-option" *ngIf="showActionsOption()" [routerLink]="['/drafts', draft.id, 'actions']">
+    <div class="center">
+      <i class="large material-icons">build</i>
+      <h5>Actions</h5>
+      <p class="light center">Set up actions for controlling threats</p>
+    </div>
+  </div>
+  <div class="col s12 m6 l6 workspace-option" *ngIf="showReportOption()" [routerLink]="['/drafts', draft.id, 'reports']">
+    <div class="center">
+      <i class="large material-icons">description</i>
+      <h5>Reports</h5>
+      <p class="light center">Experiment Reports</p>
+    </div>
+  </div>
+</div>

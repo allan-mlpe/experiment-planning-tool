@@ -7,8 +7,9 @@ import {ModalService} from "../../services/modal.service";
 import {ApiMessage} from "../../model/pcvt-message";
 import {ToastFactory} from "../../shared/toast-factory";
 import {Subscription} from "rxjs/Rx";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {IFormCanDeactivate} from "../../guards/Iform-candeactivate";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-create-draft',
@@ -29,13 +30,18 @@ export class CreateDraftComponent implements OnInit, IFormCanDeactivate {
    */
   private hasUnsavedChanges: boolean = false;
 
+  private type: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private draftService: DraftService,
     private router: Router,
+    private route: ActivatedRoute,
     private modalService: ModalService) { }
 
   ngOnInit() {
+    this.type = this.route.snapshot.queryParams.type;
+    console.log(this.type);
 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(1024)]],
@@ -63,12 +69,13 @@ export class CreateDraftComponent implements OnInit, IFormCanDeactivate {
       draft.name = name;
       draft.description = description;
 
-      this.draftService.saveSimpleDraft(draft)
+      const observable: Observable<any> = this.type === 'full' ?
+          this.draftService.saveFullDraft(draft) : this.draftService.saveSimpleDraft(draft);
+
+      observable
         .finally(() => this.saving = false)
         .subscribe(
           data => {
-            console.log(data);
-
             this.hasUnsavedChanges = false;
             ToastFactory.successToast("Draft created!");
 

@@ -1,3 +1,83 @@
-<p>
-  threats works!
-</p>
+<div class="row">
+  <h3>Threats</h3>
+</div>
+
+<div class="row">
+  <app-chip [arrayRoutes]="['../workspace']" [materializeIcon]="'dashboard'"
+            [label]="'Draft'" [value]="draft.name"></app-chip>
+</div>
+
+<div class="row" *ngIf="showInfoPanel">
+  <div class="col s12">
+    <p>Based on characteristics of your experiment, PCVT Tool has generated a list of threats.</p>
+    <p>You will be asked to classify each suggested threat on a scale 1-3, considering the following criteria:</p>
+    <ul>
+      <li class="label-title" *ngFor="let label of options">{{ label.name + ': ' + label.hint }}.</li>
+    </ul>
+    <div class="right">
+      <button class="btn waves-effect waves-light"
+              (click)="startClassification()">Classify threats <i class="material-icons right">flag</i>
+
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!loading && !showInfoPanel && threatList.length > 0">
+  <div class="col s12">
+    <!--<div class="row" >-->
+    <!--<p class="col s12 m12 l12">-->
+    <!--{{ currentObjectIndex+1 + ') ' + currentObject.label }}.-->
+    <!--</p>-->
+
+    <!--<form class="col s12 m12 l12" action="">-->
+    <!--<div *ngFor="let label of options">-->
+    <!--<p class="label-title">-->
+    <!--{{ label.name }}-->
+    <!--<i class="tiny material-icons info-tooltip" materialize="tooltip" data-position="bottom" data-delay="50"-->
+    <!--[attr.data-tooltip]="label.hint">help</i>-->
+
+    <!--</p>-->
+    <!--<span class="col s12 m6 l4" *ngFor="let val of values">-->
+
+    <!--<input class="with-gap" type="radio" [value]="val"-->
+    <!--[name]="'prop-'+currentObject.key+'-'+label" [id]="'prop-'+currentObject.key+'-op-'+label+'-'+val"-->
+    <!--[(ngModel)]="threatObj[currentObject.key][label.name.toLowerCase()]" />-->
+
+    <!--<label [for]="'prop-'+currentObject.key+'-op-'+label+'-'+val">{{ val }}</label>-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--</form>-->
+    <!--</div>-->
+
+    <!--<div class="progress">-->
+    <!--<div class="determinate" [ngStyle]="getProgress()"></div>-->
+    <!--</div>-->
+
+    <!--<div class="right">-->
+    <!--<button class="btn waves-effect waves-light" type="button"-->
+    <!--*ngIf="currentObjectIndex !== 0"-->
+    <!--(click)="previousItem()"><i class="material-icons left">navigate_before</i> Back</button>-->
+
+    <!--<button class="btn waves-effect waves-light" type="button" [disabled]="!isObjectComplete()"-->
+    <!--*ngIf="currentObjectIndex !== threatList.length-1"-->
+    <!--(click)="nextItem()">Next <i class="material-icons right">navigate_next</i></button>-->
+
+    <!--<button class="btn waves-effect waves-light" type="button" [disabled]="!isObjectComplete()"-->
+    <!--*ngIf="currentObjectIndex === threatList.length-1"-->
+    <!--(click)="finish()">Finish <i class="material-icons right">check</i></button>-->
+    <!--</div>-->
+
+    <app-radio-list [multipleOptions]="true" [options]="options" (onSubmitForm)="saveDraftThreats()" [saving]="saving"
+                    [propertyList]="threatList" [values]="values" [valuesObj]="threatObj"></app-radio-list>
+
+  </div>
+</div>
+
+<div class="row" *ngIf="!loading && !showInfoPanel && threatList.length === 0">
+  <p>There is no threats related to this draft yet.</p>
+</div>
+
+<div class="loading-data" *ngIf="loading">
+  <app-spinner></app-spinner>
+</div>

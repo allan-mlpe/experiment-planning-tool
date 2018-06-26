@@ -14,6 +14,10 @@ import {DraftsRoutingModule} from "./drafts.routing.module";
 import {DraftService} from "../services/draft.service";
 import {DraftResolver} from "../guards/draft.resolver";
 import {MaterializeModule} from "angular2-materialize";
+import {CharacteristicsService} from "../services/characteristics.service";
+import {ThreatsService} from "../services/threat.service";
+import {UserService} from "../services/user.service";
+import {ControlActionService} from "../services/control-action.service";
 
 @NgModule({
   imports: [
@@ -35,7 +39,11 @@ import {MaterializeModule} from "angular2-materialize";
   ],
   providers: [
     DraftService,
-    DraftResolver
+    DraftResolver,
+    UserService,
+    CharacteristicsService,
+    ThreatsService,
+    ControlActionService
   ]
 })
 export class DraftsModule { }

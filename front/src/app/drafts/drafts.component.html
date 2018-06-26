@@ -3,8 +3,12 @@
 </div>
 
 <div class="row">
-  <a class="waves-effect waves-light btn" [routerLink]="'create'">
-    <i class="material-icons right">add</i>New Draft
+  <a class="waves-effect waves-light btn" [routerLink]="['create']" [queryParams]="{type: 'simple'}">
+    <i class="material-icons right">add</i>Simple Draft
+  </a>
+
+  <a class="waves-effect waves-light btn" [routerLink]="['create']" [queryParams]="{type: 'full'}">
+    <i class="material-icons right">add</i>Full Draft
   </a>
 </div>
 <div class="row">
@@ -27,12 +31,12 @@
             settings
           </i>
 
-          <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removeDraft(draft, idx)">
-            delete
-          </i>
-
           <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" [routerLink]="['edit', draft.id]">
             create
+          </i>
+
+          <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removeDraft(draft, idx)">
+            delete
           </i>
         </div>
       </td>

@@ -1,3 +1,19 @@
-<p>
-  characteristics works!
-</p>
+<div class="row">
+  <h3>Experiment Characteristics</h3>
+</div>
+
+<div class="row">
+  <app-chip [arrayRoutes]="['../workspace']" [materializeIcon]="'dashboard'"
+            [label]="'Draft'" [value]="draft.name"></app-chip>
+</div>
+
+<div class="row" *ngIf="draft.characteristics === undefined">
+  <div class="col s12">
+    <p>Answer the following questionnaire to generate a list of suggested threats for your experiment.</p>
+  </div>
+</div>
+
+<div class="row">
+  <app-radio-list [options]="options" (onSubmitForm)="saveCharacteristics($event)" [saving]="saving"
+                  [propertyList]="characteristics" [valuesObj]="characteristicsObj"></app-radio-list>
+</div>

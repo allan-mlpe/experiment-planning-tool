@@ -22,23 +22,23 @@ export class DraftService {
   }
 
   saveFullDraft(draft: Draft): Observable<any> {
-    return this.restService.post(`${this.RESOURCE_PREFIX}/${draft.id}/full`, draft);
+    return this.restService.post(`${this.RESOURCE_PREFIX}/full`, draft);
   }
 
   saveDraftCharacteristics(draft: Draft): Observable<any> {
-    return this.restService.post(`${this.RESOURCE_PREFIX}/${draft.id}/characteristics`, draft);
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${draft.id}/characteristics`, draft);
   }
 
   saveDraftThreats(draft: Draft): Observable<any> {
-    return this.restService.post(`${this.RESOURCE_PREFIX}/${draft.id}/threats`, draft);
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${draft.id}/threats`, draft);
   }
 
   saveDraftActions(draft: Draft): Observable<any> {
-    return this.restService.post(`${this.RESOURCE_PREFIX}/${draft.id}/control-actions`, draft);
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${draft.id}/control-actions`, draft);
   }
 
   saveDraftGeneratedActions(draft: Draft): Observable<any> {
-    return this.restService.post(`${this.RESOURCE_PREFIX}/${draft.id}/generated-threats`, draft);
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${draft.id}/generated-threats`, draft);
   }
 
   updateDraft(draft: Draft): Observable<any> {

@@ -6,6 +6,8 @@ import {ToastFactory} from "../shared/toast-factory";
 import {Subscription} from "rxjs/Subscription";
 import {DraftService} from "../services/draft.service";
 
+declare var $: any;
+
 @Component({
   selector: 'app-drafts',
   templateUrl: './drafts.component.html',
@@ -20,6 +22,8 @@ export class DraftsComponent implements OnInit {
   constructor(private draftService: DraftService, protected modalService: ModalService) { }
 
   ngOnInit() {
+    $('.dropdown-trigger').dropdown();
+
     this.draftService.getDrafts()
       .finally(() => this.loading = false)
       .subscribe(
