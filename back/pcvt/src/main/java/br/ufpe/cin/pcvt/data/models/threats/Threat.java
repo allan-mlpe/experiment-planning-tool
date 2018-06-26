@@ -22,6 +22,10 @@ public class Threat {
     @Column(name = "label")
     private String label;
 
+    @Lob
+    @Column(name = "description")
+    private String description;
+
     @ManyToMany
     @JoinTable(name = "control_actions_for_threats",
             joinColumns = {@JoinColumn(name = "threat_id")},
@@ -56,6 +60,14 @@ public class Threat {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<ControlAction> getRelatedControlActions() {
