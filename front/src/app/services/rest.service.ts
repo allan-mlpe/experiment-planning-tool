@@ -87,14 +87,8 @@ export class RestService {
       timeout(self.REQUEST_TIMEOUT),
       map(res => res),
       catchError((err) => {
-        // if token is expired
-        if(err.status === 401) {
-          localStorage.clear();
-          this.router.navigate(['/login']);
-          return []; // Fix -> Error: Uncaught (in promise): Object:...
-        }
         // if resource is forbidden
-        else if(err.status === 403) {
+        if(err.status === 403) {
           this.router.navigate(['/forbidden']);
           return []; // Fix -> Error: Uncaught (in promise): Object:...
         }
@@ -109,6 +103,12 @@ export class RestService {
 
   handleError(err: any): any {
     let message: ApiMessage;
+
+    // if token is expired
+    if(err.status === 401) {
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    }
 
     if(err.error && err.error.message) {
       message = <ApiMessage> err.error;
