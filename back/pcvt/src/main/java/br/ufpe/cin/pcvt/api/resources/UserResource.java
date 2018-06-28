@@ -70,13 +70,29 @@ public class UserResource {
         return Response.ok(genericList).build();
     }
 
-    @SecureEndpoint
     @GET
     @Path("available")
     @Produces(APIConstants.APPLICATION_JSON)
     public Response getAvailableUsers(@Context ContainerRequestContext req) {
         User loggedUser = RequestContextUtils.extractUser(req);
         List<User> users = userController.allAvailable();
+        users.remove(loggedUser);
+
+        List<UserVO> userVOS = new ArrayList<UserVO>();
+        users.forEach(user ->
+                userVOS.add(UserVOConverter.getInstance().convertToVO(user))
+        );
+
+        GenericEntity<List<UserVO>> genericList = new GenericEntity<List<UserVO>>(userVOS) {};
+        return Response.ok(genericList).build();
+    }
+
+    @GET
+    @Path("collaborators")
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response getCollaboratorsUsers(@Context ContainerRequestContext req) {
+        User loggedUser = RequestContextUtils.extractUser(req);
+        List<User> users = userController.allCollaborators();
         users.remove(loggedUser);
 
         List<UserVO> userVOS = new ArrayList<UserVO>();

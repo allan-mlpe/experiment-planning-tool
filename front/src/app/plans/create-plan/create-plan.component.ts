@@ -12,6 +12,8 @@ import {Subscription} from 'rxjs';
 import {ApiMessage} from "../../model/pcvt-message";
 import {PcvtConstants} from "../../shared/pcvt-constants";
 import {SIMPLE_OPTIONS} from "../../model/simple-options";
+import {User} from "../../model/user";
+import {UserService} from "../../services/user.service";
 
 declare var $ :any;
 
@@ -40,10 +42,14 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
 
   instrumentQuestions = PcvtConstants.INSTRUMENT_QUESTIONS;
 
+  availableCollaborators: Array<User> = [];
+  selectedCollaborators: Array<User> = [];
+
   private readonly CHARACTERIZATION_QUESTIONS = PcvtConstants.CHARACTERIZATION_QUESTIONS;
   options = SIMPLE_OPTIONS;
 
   saving: boolean = false;
+  loading: boolean = false;
 
   getCharacterizationQuestionsObject(key: string): any {
     return this.CHARACTERIZATION_QUESTIONS.find(item => item['key'] === key);
@@ -52,6 +58,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
   constructor(
     private formBuilder: FormBuilder,
     private planService: PlanService,
+    private userService: UserService,
     private router: Router,
     private modalService: ModalService) { }
 
@@ -64,7 +71,8 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(1024)]],
-      description: ['']
+      description: [''],
+      collaborators: ['']
     });
 
     this.formValidateUtils = new FormValidateUtils(this.form);
@@ -75,7 +83,31 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
         // if a change already occurred, it's not necessary to keep the subscribe
         this.subsc.unsubscribe();
       }
-    )
+    );
+
+    this.userService.getCollaborators()
+      .finally(() => this.loading = false)
+      .subscribe(
+        (data: Array<User>) => {
+          this.availableCollaborators = data;
+        },
+        (err: ApiMessage) => {
+          console.log(err);
+          ToastFactory.errorToast(err.message);
+        });
+  }
+
+  selectItem(user, target) {
+    const index: number = this.selectedCollaborators.indexOf(user);
+    if(index !== -1) {
+      this.selectedCollaborators.splice(index, 1);
+    } else {
+      this.selectedCollaborators.push(user);
+    }
+
+    if(this.selectedCollaborators.length === 0) {
+      this.form.get('reviewers').setErrors({required: true});
+    }
   }
 
   buildDetailsObject() {
@@ -97,6 +129,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       plan.description = description;
       plan.planDetails = JSON.stringify(this.detailsObject);
       plan.planCharacteristics = JSON.stringify(this.characteristicsObject);
+      plan.collaborators = this.selectedCollaborators;
 
       this.planService.savePlan(plan)
         .finally(() => this.saving = false)

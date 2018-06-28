@@ -10,6 +10,7 @@ import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
 import br.ufpe.cin.pcvt.business.experiments.plan.state.exception.InvalidPlanStateTransitionException;
 import br.ufpe.cin.pcvt.controllers.ControllerFactory;
 import br.ufpe.cin.pcvt.controllers.PlanController;
+import br.ufpe.cin.pcvt.controllers.UserController;
 import br.ufpe.cin.pcvt.data.models.experiments.EPlanState;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
 import br.ufpe.cin.pcvt.data.models.user.User;
@@ -22,6 +23,8 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @SecureEndpoint
@@ -30,6 +33,9 @@ public class ExperimentalPlanResource {
 
     private PlanController experimentalPlanController =
             ControllerFactory.createPlanController();
+
+    private UserController userController =
+            ControllerFactory.createUserController();
 
     @POST
     @Consumes(APIConstants.APPLICATION_JSON)
@@ -42,6 +48,14 @@ public class ExperimentalPlanResource {
             plan.setDescription(planVO.getDescription());
             plan.setPlanDetails(planVO.getPlanDetails());
             plan.setPlanCharacteristics(planVO.getPlanCharacteristics());
+
+
+            Set<User> userSet = planVO.getCollaborators().stream()
+                    .map(userVO -> userController.get(userVO.getId()))
+                    .collect(Collectors.toSet());
+
+            plan.setCollaborators(new TreeSet<User>(userSet));
+
         } catch(Exception e) {
             throw new ApiException(Response.Status.BAD_REQUEST,
                     "Bad request.");

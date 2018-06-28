@@ -1,5 +1,5 @@
 import {Observable} from "rxjs/Observable";
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {RestService} from "./rest.service";
 import {User} from "../model/user";
@@ -18,6 +18,10 @@ export class UserService {
 
   getAvailable() {
     return this.restService.get(`${this.RESOURCE_PREFIX}/available`);
+  }
+
+  getCollaborators() {
+    return this.restService.get(`${this.RESOURCE_PREFIX}/collaborators`);
   }
 
   getUser(userId: number): Observable<any> {

@@ -19,6 +19,28 @@
   </div>
 
   <div class="row">
+    <div>
+      <label>Collaborators</label>
+      <br/><br/>
+      <app-input-field-error [showError]="showError('collaborators')"
+                             [message]="buildErrorMessage('collaborators')"></app-input-field-error>
+    </div>
+    <div *ngIf="availableCollaborators.length > 0">
+      <p *ngFor="let user of availableCollaborators; let index = index">
+        <input type="checkbox" class="filled-in" formControlName="reviewers"
+               [id]="'item-'+index" name="users" [value]="user.id" (change)="selectItem(user, index, $event.target)" />
+
+        <label [for]="'item-'+index">
+          <span>{{ user.name }}</span>
+        </label>
+      </p>
+    </div>
+    <div *ngIf="availableCollaborators.length === 0">
+      No collaborator available.
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col s12">
       <ul class="collapsible">
         <li *ngFor="let section of instrumentQuestions">
