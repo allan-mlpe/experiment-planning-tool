@@ -27,7 +27,7 @@
     </div>
     <div *ngIf="availableCollaborators.length > 0">
       <p *ngFor="let user of availableCollaborators; let index = index">
-        <input type="checkbox" class="filled-in" formControlName="reviewers"
+        <input type="checkbox" class="filled-in" formControlName="collaborators"
                [id]="'item-'+index" name="users" [value]="user.id" (change)="selectItem(user, index, $event.target)" />
 
         <label [for]="'item-'+index">
