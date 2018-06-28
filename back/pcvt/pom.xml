@@ -83,6 +83,18 @@
             <artifactId>jersey-media-moxy</artifactId>
             <version>2.24</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>2.24</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jvnet.mimepull</groupId>
+            <artifactId>mimepull</artifactId>
+            <version>1.9.6</version>
+        </dependency>
         <!-- END Jersey and Jetty dependencies -->
 
         <!-- JWT dependencies -->
@@ -133,7 +145,7 @@
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
-                                        <Main-Class>br.ufpe.cin.pcvt.app.App</Main-Class>
+                                        <Main-Class>br.ufpe.cin.pcvt.app.APIServer</Main-Class>
                                     </manifestEntries>
                                 </transformer>
                             </transformers>
