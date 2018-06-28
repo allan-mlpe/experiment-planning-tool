@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import {RestService} from "./rest.service";
 import {User} from "../model/user";
+import {Credentials} from "../model/credentials";
 
 @Injectable()
 export class UserService {
@@ -29,6 +30,10 @@ export class UserService {
 
   updateUser(user: User): Observable<any> {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${user.id}`, user);
+  }
+
+  updateUserPassword(userId: number, credentials: Credentials): Observable<any> {
+    return this.restService.put(`${this.RESOURCE_PREFIX}/${userId}/password`, credentials);
   }
 
   deleteUser(userId: number) {

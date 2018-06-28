@@ -10,6 +10,9 @@ import {ApiMessage} from "../model/pcvt-message";
 import {ToastFactory} from "../shared/toast-factory";
 import 'rxjs/add/operator/finally';
 import {ActivatedRoute} from "@angular/router";
+import {Credentials} from "../model/credentials";
+
+declare var $: any;
 
 @Component({
   selector: 'app-profile',
@@ -19,10 +22,13 @@ import {ActivatedRoute} from "@angular/router";
 export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   loading: boolean = false;
+  reseting: boolean = false;
   hasUnsavedChanges: boolean = false;
 
   formValidateUtils: FormValidateUtils;
+  passFormValidateUtils: FormValidateUtils;
   form: FormGroup;
+  passForm: FormGroup;
 
   /**
    * Subscription to listen changes in form
@@ -39,6 +45,12 @@ export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
   ) { }
 
   ngOnInit() {
+    $(document).ready(function(){
+      $('.tabs').tabs({
+        //swipeable: true
+      });
+    });
+
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       institution: [''],
@@ -59,6 +71,16 @@ export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
       }
     );
 
+    this.passForm = this.formBuilder.group({
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+      },
+      {
+        validator: FormValidateUtils.matchPassword
+      });
+
+    this.passFormValidateUtils = new FormValidateUtils(this.passForm);
+
     this.route.data.subscribe(
       (info) => {
         this.user = info['user'];
@@ -70,7 +92,7 @@ export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
     this.subsc.unsubscribe();
   }
 
-  onSubmit() {
+  updateUser() {
     if(this.form.valid) {
       this.loading = true;
 
@@ -91,20 +113,45 @@ export class ProfileComponent implements OnInit, OnDestroy, IFormCanDeactivate {
     }
   }
 
+  changePassword() {
+    this.reseting = true;
+
+    if(this.passForm.valid) {
+      const password = this.passForm.get('password').value;
+      const credentials = new Credentials(this.user.email, password);
+
+      this.userService.updateUserPassword(this.user.id, credentials)
+        .finally(() => this.reseting = false)
+        .subscribe(
+          data => {
+            console.log(data);
+            ToastFactory.successToast('Password successfully updated');
+            this.passForm.reset();
+          },
+          (err: ApiMessage) => {
+            console.log(err);
+            ToastFactory.errorToast(err.message);
+          }
+        );
+    } else {
+      this.passFormValidateUtils.checkAllFields(this.passForm);
+    }
+  }
+
   canDeactivateForm() {
     return !this.hasUnsavedChanges || this.modalService.showUnsaveChangesModal();
   }
 
-  showError(field: string): boolean {
-    return this.formValidateUtils.checkInvalidAndTouchedField(field);
+  showError(field: string, formValidateUtils: FormValidateUtils): boolean {
+    return formValidateUtils.checkInvalidAndTouchedField(field);
   }
 
-  buildErrorMessage(field: string): string {
-    return this.formValidateUtils.buildErrorMessage(field);
+  buildErrorMessage(field: string, formValidateUtils: FormValidateUtils): string {
+    return formValidateUtils.buildErrorMessage(field);
   }
 
-  addClassError(field: string) {
-    let result = this.showError(field);
+  addClassError(field: string, formValidateUtils: FormValidateUtils) {
+    let result = this.showError(field, formValidateUtils);
     return {
       invalid: result
     }

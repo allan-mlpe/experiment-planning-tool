@@ -2,72 +2,115 @@
   <h3>My Profile</h3>
 </div>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()" >
-  <div class="row">
-    <div class="input-field">
-      <input type="text" class="validate" [(ngModel)]="user.name"
-             formControlName="name" [ngClass]="addClassError('name')">
-      <label [ngClass]="autoFill('name')">Name</label>
-      <app-input-field-error [showError]="showError('name')" [message]="buildErrorMessage('name')"></app-input-field-error>
-    </div>
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s6"><a class="active" href="#personal-info">Personal info</a></li>
+      <li class="tab col s6"><a href="#change-password">Change password</a></li>
+    </ul>
   </div>
-  <div class="row">
-    <div class="input-field">
-      <input type="text" class="validate" [(ngModel)]="user.institution"
-             formControlName="institution" [ngClass]="addClassError('institution')">
-      <label [ngClass]="autoFill('institution')">Institution</label>
-      <app-input-field-error [showError]="showError('institution')" [message]="buildErrorMessage('institution')"></app-input-field-error>
-    </div>
-  </div>
-  <div class="row">
-    <div class="input-field">
-      <input type="email" class="validate" [(ngModel)]="user.email"
-             formControlName="email" [ngClass]="addClassError('email')">
-      <label [ngClass]="autoFill('email')">Email</label>
-      <app-input-field-error [showError]="showError('email')" [message]="buildErrorMessage('email')"></app-input-field-error>
-    </div>
-  </div>
-  <div class="row">
-    <div class="input-field">
-      <input type="text" class="validate" [(ngModel)]="user.profileLink"
-             formControlName="profileLink" [ngClass]="addClassError('profileLink')">
-      <label [ngClass]="autoFill('profileLink')">Profile Link</label>
-      <app-input-field-error [showError]="showError('profileLink')" [message]="buildErrorMessage('profileLink')"></app-input-field-error>
-    </div>
-  </div>
-  <div class="row">
-    <div class="input-field">
-      <input type="text" class="validate" [(ngModel)]="user.workArea"
-             formControlName="workArea">
-      <label [ngClass]="autoFill('workArea')">Work Area</label>
-    </div>
-  </div>
+</div>
 
-  <div class="row">
-    <p>
-      <input type="checkbox" [(ngModel)]="user.collaborator" [checked]="user.collaborator"
-             class="filled-in" id="isCollaborator" formControlName="isCollaborator">
-      <label for="isCollaborator">Collaborator</label>
-    </p>
-  </div>
+<div id="personal-info" class="col s12">
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="input-field">
+        <input type="text" class="validate" [(ngModel)]="user.name"
+               formControlName="name" [ngClass]="addClassError('name', formValidateUtils)">
+        <label [ngClass]="autoFill('name')">Name</label>
+        <app-input-field-error [showError]="showError('name', formValidateUtils)" [message]="buildErrorMessage('name', formValidateUtils)"></app-input-field-error>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <input type="text" class="validate" [(ngModel)]="user.institution"
+               formControlName="institution" [ngClass]="addClassError('institution', formValidateUtils)">
+        <label [ngClass]="autoFill('institution')">Institution</label>
+        <app-input-field-error [showError]="showError('institution', formValidateUtils)" [message]="buildErrorMessage('institution', formValidateUtils)"></app-input-field-error>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <input type="email" class="validate" [(ngModel)]="user.email"
+               formControlName="email" [ngClass]="addClassError('email', formValidateUtils)">
+        <label [ngClass]="autoFill('email')">Email</label>
+        <app-input-field-error [showError]="showError('email', formValidateUtils)" [message]="buildErrorMessage('email', formValidateUtils)"></app-input-field-error>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <input type="text" class="validate" [(ngModel)]="user.profileLink"
+               formControlName="profileLink" [ngClass]="addClassError('profileLink', formValidateUtils)">
+        <label [ngClass]="autoFill('profileLink')">Profile Link</label>
+        <app-input-field-error [showError]="showError('profileLink', formValidateUtils)" [message]="buildErrorMessage('profileLink', formValidateUtils)"></app-input-field-error>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <input type="text" class="validate" [(ngModel)]="user.workArea"
+               formControlName="workArea">
+        <label [ngClass]="autoFill('workArea')">Work Area</label>
+      </div>
+    </div>
 
-  <div class="row">
-    <p>
-      <input type="checkbox" [(ngModel)]="user.available" [checked]="user.available"
-             class="filled-in" id="isAvailable" formControlName="isAvailable">
-      <label for="isAvailable">Available</label>
-    </p>
-  </div>
+    <div class="row">
+      <p>
+        <input type="checkbox" [(ngModel)]="user.collaborator" [checked]="user.collaborator"
+               class="filled-in" id="isCollaborator" formControlName="isCollaborator">
+        <label for="isCollaborator">Collaborator</label>
+      </p>
+    </div>
 
-  <div class="row right">
-    <button type="submit" class="waves-effect waves-light btn"
-            [disabled]="form.invalid || loading || !hasUnsavedChanges">
+    <div class="row">
+      <p>
+        <input type="checkbox" [(ngModel)]="user.available" [checked]="user.available"
+               class="filled-in" id="isAvailable" formControlName="isAvailable">
+        <label for="isAvailable">Available</label>
+      </p>
+    </div>
 
-      <i class="material-icons right">
-        <span *ngIf="!loading">save</span>
-        <app-spinner *ngIf="loading" [width]="'20px'" [height]="'20px'"></app-spinner>
-      </i>
-      Save
-    </button>
-  </div>
-</form>
+    <div class="row right">
+      <button type="button" class="waves-effect waves-light btn"
+              [disabled]="form.invalid || loading || !hasUnsavedChanges"
+              (click)="updateUser()">
+
+        <i class="material-icons right">
+          <span *ngIf="!loading">save</span>
+          <app-spinner *ngIf="loading" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </i>
+        Save
+      </button>
+    </div>
+  </form>
+</div>
+
+<div id="change-password" class="col s12">
+  <form [formGroup]="passForm" enctype="application/x-www-form-urlencoded">
+    <div class="row">
+      <div class="input-field">
+        <input id="password" type="password" formControlName="password" [ngClass]="addClassError('password', passFormValidateUtils)">
+        <label for="password">New password</label>
+        <app-input-field-error [showError]="showError('password', passFormValidateUtils)" [message]="buildErrorMessage('password', passFormValidateUtils)"></app-input-field-error>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field">
+        <input id="confirm-password" type="password" formControlName="confirmPassword" [ngClass]="addClassError('confirmPassword', passFormValidateUtils)">
+        <label for="confirm-password">Confirm password</label>
+        <app-input-field-error [showError]="showError('confirmPassword', passFormValidateUtils)" [message]="buildErrorMessage('confirmPassword', passFormValidateUtils)"></app-input-field-error>
+      </div>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn waves-effect waves-light right"
+              (click)="changePassword()" [disabled]="passForm.invalid || reseting">
+        Reset
+        <i class="material-icons right">
+          <span *ngIf="!reseting">send</span>
+          <app-spinner *ngIf="reseting" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </i>
+      </button>
+    </div>
+  </form>
+</div>

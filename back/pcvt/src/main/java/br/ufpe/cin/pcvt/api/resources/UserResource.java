@@ -2,6 +2,7 @@ package br.ufpe.cin.pcvt.api.resources;
 
 import br.ufpe.cin.pcvt.api.converters.UserVOConverter;
 import br.ufpe.cin.pcvt.api.exceptions.ApiException;
+import br.ufpe.cin.pcvt.api.models.Credentials;
 import br.ufpe.cin.pcvt.api.models.UserVO;
 import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
 import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
@@ -21,6 +22,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
+@SecureEndpoint
 @Path("users")
 public class UserResource {
 
@@ -98,6 +100,8 @@ public class UserResource {
 
             return Response.ok(insertedUserVO).build();
 
+        } catch(ApiException e) {
+            throw e;
         } catch (EmailAlreadyInUseException e) {
             throw new ApiException(Response.Status.BAD_REQUEST,
                     e.getMessage());
@@ -112,7 +116,7 @@ public class UserResource {
     @Path("/{id}")
     @Consumes(APIConstants.APPLICATION_JSON)
     @Produces(APIConstants.APPLICATION_JSON)
-    public Response updateUser(UserVO userVO, @PathParam("id") Integer userId) throws ApiException {
+    public Response updateUser(UserVO userVO, @PathParam("id") Integer userId, @Context ContainerRequestContext req) throws ApiException {
         userVO.setId(userId);
 
         try {
@@ -128,6 +132,8 @@ public class UserResource {
                     .convertToVO(userController.update(user));
 
             return Response.ok(updatedUserVO).build();
+        } catch(ApiException e) {
+            throw e;
         } catch (EmailAlreadyInUseException e) {
             throw new ApiException(Response.Status.BAD_REQUEST,
                     e.getMessage());
@@ -138,16 +144,44 @@ public class UserResource {
         }
     }
 
+    @PUT
+    @Path("/{id}/password")
+    @Consumes(APIConstants.APPLICATION_JSON)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response updatePassword(@PathParam("id") Integer userId, Credentials credentials, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            checkUser(userId, req);
+
+            User user = userController
+                    .updatePassword(userId, credentials.getPassword());
+
+            UserVO userVO = UserVOConverter.getInstance()
+                    .convertToVO(user);
+
+            return Response.ok(userVO).build();
+
+        } catch (ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update user password");
+        }
+    }
+
     @DELETE
     @Path("/{id}")
     @Consumes(APIConstants.APPLICATION_JSON)
     @Produces(APIConstants.APPLICATION_JSON)
-    public Response deleteUser(@PathParam("id") Integer userId) throws ApiException {
+    public Response deleteUser(@PathParam("id") Integer userId, @Context ContainerRequestContext req) throws ApiException {
         try {
+            checkUser(userId, req);
             userController.remove(userId);
 
             return Response.noContent().build();
 
+        } catch(ApiException e) {
+            throw e;
         } catch (UserNotFoundException e) {
             logger.warn(e.getMessage());
             throw  new ApiException(Response.Status.NOT_FOUND,
@@ -157,5 +191,12 @@ public class UserResource {
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error");
         }
+    }
+
+    private static void checkUser(Integer userId, ContainerRequestContext req) throws ApiException {
+        User user = RequestContextUtils.extractUser(req);
+        if(!user.getId().equals(userId))
+            throw new ApiException(Response.Status.BAD_REQUEST,
+                    "User ID it is not the same as the logged user");
     }
 }
