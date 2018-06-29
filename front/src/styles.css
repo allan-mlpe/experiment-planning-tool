@@ -68,7 +68,21 @@ div.workspace-option {
 }
 
 div.workspace-option:hover {
-  color: #2bbbad;
+  color: #26a69a;
+}
+
+div.download-link * {
+  cursor: pointer;
+  color: black !important;
+}
+
+div.download-link:hover * {
+  color: #26a69a !important;
+}
+
+div.download-link:hover a {
+  text-decoration: underline;
+
 }
 
 

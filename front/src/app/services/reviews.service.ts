@@ -35,4 +35,8 @@ export class ReviewsService {
   completeReview(review: any): Observable<any> {
     return this.restService.put(`${this.RESOURCE_PREFIX}/${review.id}/complete`, review);
   }
+
+  downloadPlan(planId: number, fileName: string) {
+    return this.restService.download(`plans/${planId}/file`, fileName, 'application/octet-stream');
+  }
 }

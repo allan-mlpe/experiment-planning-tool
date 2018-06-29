@@ -26,8 +26,9 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
 
   options = REVIEW_OPTIONS;
 
+  loading: boolean = false;
   saving: boolean = false;
-  completing: boolean = true;
+  completing: boolean = false;
 
   private subsc: Subscription;
 
@@ -46,8 +47,14 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
       (info: { review: any }) => {
         this.review = info['review'];
         this.plan = this.review.plan;
-        this.planDetails = JSON.parse(this.plan.planDetails);
+        if(!this.plan.custom)
+          this.planDetails = JSON.parse(this.plan.planDetails);
       });
+  }
+
+  downloadPlan() {
+    if(this.plan.custom)
+      this.reviewsService.downloadPlan(this.plan.id, this.plan.fileName);
   }
 
   onSubmit() {

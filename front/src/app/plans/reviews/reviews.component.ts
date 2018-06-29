@@ -55,6 +55,11 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     )
   }
 
+  downloadPlan() {
+    if(this.plan.custom)
+      this.planService.downloadPlan(this.plan.id, this.plan.fileName);
+  }
+
   ngOnDestroy() {
     this.subsc.unsubscribe();
   }

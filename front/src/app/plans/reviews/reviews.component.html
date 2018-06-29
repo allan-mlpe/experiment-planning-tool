@@ -18,6 +18,18 @@
   </div>
 </div>
 
+<div class="row" *ngIf="plan.custom">
+  <div class="col s12">
+    <label>Experimental plan file</label>
+    <div class="download-link" (click)="downloadPlan()">
+      <i class="medium material-icons">file_download</i>
+      <div>
+        <a>{{ plan.fileName }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col s12">
     <ul class="collapsible">
