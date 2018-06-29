@@ -21,7 +21,7 @@ export class PlansComponent implements OnInit {
   constructor(private planService: PlanService, protected modalService: ModalService) { }
 
   ngOnInit() {
-    this.planService.getPlans()
+    this.planService.getPlans({state: 'active'})
       .finally(() => this.loading = false)
       .subscribe(
       (data: Array<Plan>) => {

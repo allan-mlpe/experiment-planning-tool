@@ -19,7 +19,7 @@ export class ReadyToReviewComponent implements OnInit {
   constructor(private planService: PlanService, protected modalService: ModalService) { }
 
   ngOnInit() {
-    this.planService.getPlans({state: 'ready'})
+    this.planService.getPlans({state: 'review'})
       .finally(() => this.loading = false)
       .subscribe(
         (data: Array<Plan>) => {
