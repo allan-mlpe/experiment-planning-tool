@@ -20,6 +20,7 @@ import {ThreatsService} from "../services/threat.service";
 import {ControlActionService} from "../services/control-action.service";
 import { ReviewsComponent } from './reviews/reviews.component';
 import { ArchivedComponent } from './archived/archived.component';
+import { CreateCustomPlanComponent } from './create-custom-plan/create-custom-plan.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { ArchivedComponent } from './archived/archived.component';
     ThreatsComponent,
     EditPlanComponent,
     ReviewsComponent,
-    ArchivedComponent
+    ArchivedComponent,
+    CreateCustomPlanComponent
   ],
   providers: [
     PlanService,

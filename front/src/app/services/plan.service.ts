@@ -25,6 +25,10 @@ export class PlanService {
     return this.restService.post(this.RESOURCE_PREFIX, plan);
   }
 
+  saveCustomPlan(formData: FormData): Observable<any> {
+    return this.restService.submitMultipartFormData(`${this.RESOURCE_PREFIX}/custom`, formData);
+  }
+
   savePlanCharacteristics(plan: Plan): Observable<any> {
     return this.restService.post(`${this.RESOURCE_PREFIX}/${plan.id}/characteristics`, plan);
   }

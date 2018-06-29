@@ -63,14 +63,15 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
     private modalService: ModalService) { }
 
   ngOnInit() {
-    $(document).ready(function(){
+    $(document).ready(function() {
       $('.collapsible').collapsible();
+      $('.tabs').tabs();
     });
 
     this.buildDetailsObject();
 
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(1024)]],
+      name: ['', [Validators.required, Validators.maxLength(144)]],
       description: [''],
       collaborators: ['']
     });

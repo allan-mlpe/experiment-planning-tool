@@ -15,12 +15,18 @@ import br.ufpe.cin.pcvt.data.models.experiments.EPlanState;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
 import br.ufpe.cin.pcvt.data.models.user.User;
 import br.ufpe.cin.pcvt.exceptions.entities.experiments.plan.PlanAlreadyHasChildException;
+import org.apache.commons.io.IOUtils;
+import org.glassfish.jersey.media.multipart.ContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +36,8 @@ import java.util.stream.Collectors;
 @SecureEndpoint
 @Path("plans")
 public class ExperimentalPlanResource {
+
+    private static final Long MAX_FILE_SIZE = 5120000L;
 
     private PlanController experimentalPlanController =
             ControllerFactory.createPlanController();
@@ -73,6 +81,51 @@ public class ExperimentalPlanResource {
             return Response.ok(convertedPlan).build();
 
         } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to save the experimental plan.");
+        }
+    }
+
+    @POST
+    @Path("custom")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response createCustomPlan(@FormDataParam("file") InputStream file,
+                                     @FormDataParam("file") FormDataContentDisposition fileDetails,
+                                     @FormDataParam("name") String name,
+                                     @FormDataParam("description") String description,
+                                     @FormDataParam("details") String details,
+                                     @Context ContainerRequestContext req) throws ApiException {
+
+        try {
+            byte[] bytes = IOUtils.toByteArray(file);
+
+            if(bytes.length > MAX_FILE_SIZE)
+                throw new ApiException(Response.Status.BAD_REQUEST,
+                        "Too large file");
+
+            Plan plan = new Plan();
+            plan.setName(name);
+            plan.setDescription(description);
+            plan.setFile(bytes);
+            plan.setFilename(fileDetails.getFileName());
+
+            User user = RequestContextUtils.extractUser(req);
+
+            Plan insertedPlan = experimentalPlanController.insert(plan, user.getId());
+            experimentalPlanController.moveToReadyToReview(insertedPlan);
+
+            ExperimentalPlanVO planVO = ExperimentalPlanVOConverter
+                    .getInstance().convertToVO(insertedPlan);
+
+            return Response.ok(planVO).build();
+        } catch (InvalidPlanStateTransitionException e) {
+            throw new ApiException(Response.Status.BAD_REQUEST,
+                    e.getMessage());
+        } catch (ApiException e) {
+            throw e;
+        } catch (Exception e) {
             e.printStackTrace();
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error. It was not possible to save the experimental plan.");
@@ -160,6 +213,21 @@ public class ExperimentalPlanResource {
                     case "archived":
                         plans.removeIf(p -> !p.isArchived());
                         break;
+                    case "active":
+                        plans.removeIf(p ->
+                                p.isArchived()
+                                || p.getState() == EPlanState.Reviewing
+                                || p.getState() == EPlanState.ReadyToReview
+                                || p.getState() == EPlanState.WaitingReview
+                                || p.getState() == EPlanState.PartiallyCompleted);
+                        break;
+                    case "review":
+                        plans.removeIf(p->
+                            p.getState() != EPlanState.Reviewing
+                            && p.getState() != EPlanState.ReadyToReview
+                            && p.getState() != EPlanState.WaitingReview
+                            && p.getState() != EPlanState.PartiallyCompleted
+                        );
                     default:
                         plans.removeIf(p -> p.isArchived());
                         break;

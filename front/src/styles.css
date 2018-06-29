@@ -48,6 +48,10 @@ textarea:read-only {
   border: 0;
 }
 
+ul.tabs {
+  overflow: hidden;
+}
+
 .material-tooltip {
   max-width: 400px;
 }

@@ -2,87 +2,97 @@
   <h3>New Plan</h3>
 </div>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="row">
-    <div class="input-field">
-      <input type="text" maxlength="1024" class="validate" formControlName="name" [ngClass]="addClassError('name')">
-      <label>Plan Name</label>
-      <app-input-field-error [showError]="showError('name')"
-                             [message]="buildErrorMessage('name')"></app-input-field-error>
-    </div>
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s6"><a class="active" href="#default-plan">Default plan</a></li>
+      <li class="tab col s6"><a href="#upload-plan">Upload plan</a></li>
+    </ul>
   </div>
-  <div class="row">
-    <div class="input-field">
-      <textarea class="materialize-textarea validate" formControlName="description"></textarea>
-      <label>Experiment Description</label>
+</div>
+
+<div id="default-plan" class="col s12">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="input-field">
+        <input type="text" maxlength="144" class="validate" formControlName="name" [ngClass]="addClassError('name')">
+        <label>Plan Name</label>
+        <app-input-field-error [showError]="showError('name')"
+                               [message]="buildErrorMessage('name')"></app-input-field-error>
+      </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div>
-      <label>Collaborators</label>
-      <br/><br/>
-      <app-input-field-error [showError]="showError('collaborators')"
-                             [message]="buildErrorMessage('collaborators')"></app-input-field-error>
+    <div class="row">
+      <div class="input-field">
+        <textarea class="materialize-textarea validate" formControlName="description"></textarea>
+        <label>Experiment Description</label>
+      </div>
     </div>
-    <div *ngIf="availableCollaborators.length > 0">
-      <p *ngFor="let user of availableCollaborators; let index = index">
-        <input type="checkbox" class="filled-in" formControlName="collaborators"
-               [id]="'item-'+index" name="users" [value]="user.id" (change)="selectItem(user, index, $event.target)" />
 
-        <label [for]="'item-'+index">
-          <span>{{ user.name }}</span>
-        </label>
-      </p>
+    <div class="row">
+      <div>
+        <label>Collaborators</label>
+        <br/><br/>
+        <app-input-field-error [showError]="showError('collaborators')"
+                               [message]="buildErrorMessage('collaborators')"></app-input-field-error>
+      </div>
+      <div *ngIf="availableCollaborators.length > 0">
+        <p *ngFor="let user of availableCollaborators; let index = index">
+          <input type="checkbox" class="filled-in" formControlName="collaborators"
+                 [id]="'item-'+index" name="users" [value]="user.id" (change)="selectItem(user, index, $event.target)" />
+
+          <label [for]="'item-'+index">
+            <span>{{ user.name }}</span>
+          </label>
+        </p>
+      </div>
+      <div *ngIf="availableCollaborators.length === 0">
+        No collaborator available.
+      </div>
     </div>
-    <div *ngIf="availableCollaborators.length === 0">
-      No collaborator available.
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col s12">
-      <ul class="collapsible">
-        <li *ngFor="let section of instrumentQuestions">
-          <div class="collapsible-header">
-            <i class="material-icons section-icon">add_box</i> {{ section.section }}
-          </div>
-          <div class="collapsible-body">
-            <div class="row" *ngFor="let question of section.questions">
-              <p class="question-title">
-                {{ question.title }}
-                <i *ngIf="question.hint !== ''" class="tiny material-icons section-icon" materialize="tooltip" data-position="bottom" data-delay="50"
-                   [attr.data-tooltip]="question.hint">help</i>
-              </p>
-              <textarea [(ngModel)]="detailsObject[question.projectKey]" [ngModelOptions]="{standalone: true}"></textarea>
-
-              <div>
-                <ul class="collapsible popout">
-                  <li>
-                    <div class="collapsible-header">
-                      <i class="material-icons section-icon">add_box</i>
-                      Considerations
-                    </div>
-
-                    <div class="collapsible-body">
-                      <ul class="consideration-list">
-                        <li *ngFor="let consideration of question.considerations.items">{{ consideration }}</li>
-                      </ul>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+    <div class="row">
+      <div class="col s12">
+        <ul class="collapsible">
+          <li *ngFor="let section of instrumentQuestions">
+            <div class="collapsible-header">
+              <i class="material-icons section-icon">add_box</i> {{ section.section }}
             </div>
+            <div class="collapsible-body">
+              <div class="row" *ngFor="let question of section.questions">
+                <p class="question-title">
+                  {{ question.title }}
+                  <i *ngIf="question.hint !== ''" class="tiny material-icons section-icon" materialize="tooltip" data-position="bottom" data-delay="50"
+                     [attr.data-tooltip]="question.hint">help</i>
+                </p>
+                <textarea [(ngModel)]="detailsObject[question.projectKey]" [ngModelOptions]="{standalone: true}"></textarea>
 
-            <!-- characterization questions -->
-            <div *ngIf="getCharacterizationQuestionsObject(section.key) !== undefined">
-              <div class="row">
-                <h5>Characterization</h5>
-                <div class="characterization-question"
-                  *ngFor="let charQuestion of getCharacterizationQuestionsObject(section.key).questions; let i = index">
-                  <label class="col s12">{{ (i + 1) + '. ' + charQuestion.label }}</label>
+                <div>
+                  <ul class="collapsible popout">
+                    <li>
+                      <div class="collapsible-header">
+                        <i class="material-icons section-icon">add_box</i>
+                        Considerations
+                      </div>
 
-                  <span class="col s12 m6 l4" *ngFor="let option of options">
+                      <div class="collapsible-body">
+                        <ul class="consideration-list">
+                          <li *ngFor="let consideration of question.considerations.items">{{ consideration }}</li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- characterization questions -->
+              <div *ngIf="getCharacterizationQuestionsObject(section.key) !== undefined">
+                <div class="row">
+                  <h5>Characterization</h5>
+                  <div class="characterization-question"
+                       *ngFor="let charQuestion of getCharacterizationQuestionsObject(section.key).questions; let i = index">
+                    <label class="col s12">{{ (i + 1) + '. ' + charQuestion.label }}</label>
+
+                    <span class="col s12 m6 l4" *ngFor="let option of options">
 
                       <input class="with-gap" type="radio" [value]="option.value"
                              [name]="'prop-'+charQuestion.key" [id]="'prop-'+charQuestion.key+'-op-'+option.id"
@@ -91,26 +101,31 @@
                       <label [for]="'prop-'+charQuestion.key+'-op-'+option.id">{{ option.text }}</label>
                   </span>
 
-                  <div style="height: 80px;"
-                    *ngIf="(i+1) !== getCharacterizationQuestionsObject(section.key).questions.length"></div>
+                    <div style="height: 80px;"
+                         *ngIf="(i+1) !== getCharacterizationQuestionsObject(section.key).questions.length"></div>
+                  </div>
                 </div>
               </div>
+
             </div>
-
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
 
 
-  <div class="row right">
-    <button type="submit" class="waves-effect waves-light btn" [disabled]="form.invalid || saving">
-      Save
-      <i class="material-icons right">
-        <span *ngIf="!saving">save</span>
-        <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
-      </i>
-    </button>
-  </div>
-</form>
+    <div class="row right">
+      <button type="submit" class="waves-effect waves-light btn" [disabled]="form.invalid || saving">
+        Save
+        <i class="material-icons right">
+          <span *ngIf="!saving">save</span>
+          <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </i>
+      </button>
+    </div>
+  </form>
+</div>
+
+<div id="upload-plan" class="col s12">
+  <app-create-custom-plan></app-create-custom-plan>
+</div>
