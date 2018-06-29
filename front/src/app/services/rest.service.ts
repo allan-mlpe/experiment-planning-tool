@@ -5,7 +5,8 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {catchError, map, timeout} from "rxjs/operators";
 import {ApiMessage} from '../model/pcvt-message';
 import {TimeoutError} from 'rxjs/Rx';
-import {ResponseType} from "@angular/http";
+import * as FileSaver from 'file-saver';
+import {ToastFactory} from "../shared/toast-factory";
 
 @Injectable()
 export class RestService {
@@ -14,7 +15,6 @@ export class RestService {
   private readonly SERVER_URL: string = '127.0.0.1:7007/api/';
   private readonly JSON_CONTENT_TYPE: string = 'application/json';
   private readonly FORM_CONTENT_TYPE: string = 'application/x-www-form-urlencoded';
-  private readonly MULTI_PART_TYPE = 'multipart/form-data';
   private readonly REQUEST_TIMEOUT: number = 30000;
 
   constructor(protected http: HttpClient, private router: Router) {}
@@ -139,19 +139,22 @@ export class RestService {
     return  `${window.location.protocol}//${this.SERVER_URL}${path}`;
   }
 
-  public download(url: string, type: string) {
+  public download(url: string, fileName: string, type: string) {
     const options = this.createRequestOptions();
+    options.responseType = 'arraybuffer';
+    //options.observe = 'response'; // allow inspect headers
 
-    let request = this.http.get(this.resolve(url), options);
+    let request = this.http.get<any>(this.resolve(url), options);
 
     request.subscribe(
       data => {
-        var blob: any = new Blob([data], { type: "application/octet-stream" });
-        var url = window.URL.createObjectURL(blob);
-        window.open(blob);
+        var blob: any = new Blob([data], { type: type });
+
+        FileSaver.saveAs(blob, fileName);
       },
       (err: ApiMessage) => {
         console.log(err);
+        ToastFactory.errorToast(err.message);
       }
     );
   }

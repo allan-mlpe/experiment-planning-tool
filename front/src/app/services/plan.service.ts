@@ -68,4 +68,8 @@ export class PlanService {
   deletePlan(planId: number): Observable<any> {
     return this.restService.delete(`${this.RESOURCE_PREFIX}/${planId}`);
   }
+
+  downloadPlan(planId: number, fileName: string) {
+    return this.restService.download(`${this.RESOURCE_PREFIX}/${planId}/file`, fileName, 'application/octet-stream');
+  }
 }

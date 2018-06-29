@@ -15,16 +15,17 @@ import br.ufpe.cin.pcvt.data.models.experiments.EPlanState;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
 import br.ufpe.cin.pcvt.data.models.user.User;
 import br.ufpe.cin.pcvt.exceptions.entities.experiments.plan.PlanAlreadyHasChildException;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.glassfish.jersey.media.multipart.ContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.*;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -108,6 +109,7 @@ public class ExperimentalPlanResource {
             plan.setDescription(description);
             plan.setFile(bytes);
             plan.setFilename(fileDetails.getFileName());
+            plan.setCustomPlan(true);
 
             User user = RequestContextUtils.extractUser(req);
 

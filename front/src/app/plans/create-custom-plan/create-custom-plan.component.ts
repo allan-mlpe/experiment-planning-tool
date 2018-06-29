@@ -75,9 +75,9 @@ export class CreateCustomPlanComponent implements OnInit, IFormCanDeactivate {
         .subscribe(
           data => {
             this.hasUnsavedChanges = false;
-            ToastFactory.successToast("Plan created!");
+            ToastFactory.successToast("Plan created and ready to review!");
 
-            this.router.navigate(['/plans']);
+            this.router.navigate(['/reviews/ready-to-review']);
           },
           (err: ApiMessage) => {
             this.hasUnsavedChanges = false;
