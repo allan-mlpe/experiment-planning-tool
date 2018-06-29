@@ -5,7 +5,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="input-field">
-      <input type="text" maxlength="1024" class="validate" formControlName="name" [(ngModel)]="draft.name" [ngClass]="addClassError('name')">
+      <input type="text" maxlength="144" class="validate" formControlName="name" [(ngModel)]="draft.name" [ngClass]="addClassError('name')">
       <label [ngClass]="isActiveLabel('name')">Draft Name</label>
       <app-input-field-error [showError]="showError('name')"
                              [message]="buildErrorMessage('name')"></app-input-field-error>

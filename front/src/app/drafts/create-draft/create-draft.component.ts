@@ -44,7 +44,7 @@ export class CreateDraftComponent implements OnInit, IFormCanDeactivate {
     console.log(this.type);
 
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(1024)]],
+      name: ['', [Validators.required, Validators.maxLength(144)]],
       description: ['']
     });
 

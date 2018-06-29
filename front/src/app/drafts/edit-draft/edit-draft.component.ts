@@ -51,7 +51,7 @@ export class EditDraftComponent implements OnInit, IFormCanDeactivate {
     );
 
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(1024)]],
+      name: ['', [Validators.required, Validators.maxLength(144)]],
       description: ['']
     });
 
