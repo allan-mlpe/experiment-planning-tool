@@ -13,6 +13,7 @@ export class RestService {
   private readonly SERVER_URL: string = '127.0.0.1:7007/api/';
   private readonly JSON_CONTENT_TYPE: string = 'application/json';
   private readonly FORM_CONTENT_TYPE: string = 'application/x-www-form-urlencoded';
+  private readonly MULTI_PART_TYPE = 'multipart/form-data';
   private readonly REQUEST_TIMEOUT: number = 30000;
 
   constructor(protected http: HttpClient, private router: Router) {}
@@ -53,6 +54,16 @@ export class RestService {
       .join('&');
 
     const request = this.http.post(this.resolve(url), payload, options);
+
+    return this.handleRequestResponse(request);
+  }
+
+  public submitMultipartFormData(url: string, formData: FormData|any): Observable<any> {
+    const headers: HttpHeaders = new HttpHeaders()
+      .set(this.AUTH_TOKEN_HEADER, this.getToken());
+    const options = {headers: headers};
+
+    const request = this.http.post(this.resolve(url), formData, options);
 
     return this.handleRequestResponse(request);
   }
