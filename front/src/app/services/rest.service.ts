@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {catchError, map, timeout} from "rxjs/operators";
 import {ApiMessage} from '../model/pcvt-message';
 import {TimeoutError} from 'rxjs/Rx';
+import {ResponseType} from "@angular/http";
 
 @Injectable()
 export class RestService {
@@ -136,6 +137,23 @@ export class RestService {
 
   protected resolve(path: string): string {
     return  `${window.location.protocol}//${this.SERVER_URL}${path}`;
+  }
+
+  public download(url: string, type: string) {
+    const options = this.createRequestOptions();
+
+    let request = this.http.get(this.resolve(url), options);
+
+    request.subscribe(
+      data => {
+        var blob: any = new Blob([data], { type: "application/octet-stream" });
+        var url = window.URL.createObjectURL(blob);
+        window.open(blob);
+      },
+      (err: ApiMessage) => {
+        console.log(err);
+      }
+    );
   }
 
   /*

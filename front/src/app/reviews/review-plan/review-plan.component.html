@@ -33,13 +33,15 @@
                  [attr.data-tooltip]="question.hint">help</i>
             </p>
 
-            <div class="plan-detail" *ngIf="planDetails[question.projectKey] !== undefined">
-              <textarea class="plan-detail-answer" [value]="planDetails[question.projectKey]" readonly
-                    *ngIf="planDetails[question.projectKey] !== ''"></textarea>
+            <div *ngIf="!plan.isCustom">
+              <div class="plan-detail" *ngIf="planDetails[question.projectKey] !== undefined">
+                <textarea class="plan-detail-answer" [value]="planDetails[question.projectKey]" readonly
+                      *ngIf="planDetails[question.projectKey] !== ''"></textarea>
 
-              <p class="not-defined-detail" *ngIf="planDetails[question.projectKey] === ''">
-                Not informed by the author.
-              </p>
+                <p class="not-defined-detail" *ngIf="planDetails[question.projectKey] === ''">
+                  Not informed by the author.
+                </p>
+              </div>
             </div>
 
             <div class="row">

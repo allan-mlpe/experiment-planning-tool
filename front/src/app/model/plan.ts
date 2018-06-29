@@ -17,6 +17,8 @@ export class Plan {
     privacySetting: string;
     archived: boolean;
     date: Date;
+    isCustom: boolean;
+    fileName: string;
 
     constructor() {}
 }

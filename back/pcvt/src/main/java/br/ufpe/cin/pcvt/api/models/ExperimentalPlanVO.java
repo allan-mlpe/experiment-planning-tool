@@ -27,6 +27,8 @@ public class ExperimentalPlanVO {
     private String planActions;
     private String planActionRelatedThreats;
     private Boolean hasChild;
+    private Boolean isCustom;
+    private String fileName;
 
     public Integer getId() {
         return id;
@@ -158,5 +160,21 @@ public class ExperimentalPlanVO {
 
     public void setHasChild(Boolean hasChild) {
         this.hasChild = hasChild;
+    }
+
+    public Boolean getCustom() {
+        return isCustom;
+    }
+
+    public void setCustom(Boolean custom) {
+        isCustom = custom;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

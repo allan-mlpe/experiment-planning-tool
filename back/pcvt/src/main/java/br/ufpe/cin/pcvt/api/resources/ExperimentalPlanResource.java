@@ -15,6 +15,7 @@ import br.ufpe.cin.pcvt.data.models.experiments.EPlanState;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
 import br.ufpe.cin.pcvt.data.models.user.User;
 import br.ufpe.cin.pcvt.exceptions.entities.experiments.plan.PlanAlreadyHasChildException;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.glassfish.jersey.media.multipart.ContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
@@ -22,11 +23,8 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.io.InputStream;
+import javax.ws.rs.core.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -185,6 +183,52 @@ public class ExperimentalPlanResource {
             e.printStackTrace();
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error.");
+        }
+    }
+
+    @GET
+    @Path("{id}/file")
+    @Produces({APIConstants.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM})
+    public Response getPlanFile(@PathParam("id") Integer planId, @Context ContainerRequestContext req) throws ApiException{
+        try {
+            Plan plan = experimentalPlanController.get(planId);
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            if(!plan.isCustomPlan())
+                throw new ApiException(Response.Status.BAD_REQUEST,
+                        "This plan have no an associated file");
+
+            //File f = new File(String.format("%s/%s/%s", plan.getAuthor().getName(), plan.getName(), plan.getFilename()));
+            //FileUtils.writeByteArrayToFile(f, plan.getFile());
+
+            //Response.ResponseBuilder rb = Response.ok(f);
+            //rb.header("Content-Disposition", "attachment; filename=\"" + plan.getFilename() + "\"");
+
+            //return rb.build();
+            InputStream responseStream = new ByteArrayInputStream(plan.getFile());
+
+            StreamingOutput output = new StreamingOutput() {
+                @Override
+                public void write(OutputStream out) throws IOException, WebApplicationException {
+                    int length;
+                    byte[] buffer = new byte[1024];
+                    while((length = responseStream.read(buffer)) != -1) {
+                        out.write(buffer, 0, length);
+                    }
+                    out.flush();
+                    responseStream.close();
+                }
+            };
+            return Response.ok(output, MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition", "attachment; filename=" + plan.getFilename()).build();
+
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to get the file");
         }
     }
 
