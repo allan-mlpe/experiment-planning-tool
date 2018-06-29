@@ -1,0 +1,42 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+  <div class="row">
+    <div class="input-field">
+      <input type="text" maxlength="144" class="validate" formControlName="name" [ngClass]="addClassError('name')">
+      <label>Plan Name</label>
+      <app-input-field-error [showError]="showError('name')"
+                             [message]="buildErrorMessage('name')"></app-input-field-error>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field">
+      <textarea class="materialize-textarea validate" formControlName="description"></textarea>
+      <label>Experiment Description</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>
+          File <i class="material-icons right">attach_file</i>
+        </span>
+        <input type="file" accept="application/pdf" formControlName="file" (change)="handleSelectedFile($event.target.files)">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Select a PDF file up to 5MB">
+      </div>
+    </div>
+    <app-input-field-error [showError]="showError('file')"
+                           [message]="buildErrorMessage('file')"></app-input-field-error>
+  </div>
+
+  <div class="row right">
+    <button type="submit" class="waves-effect waves-light btn" [disabled]="form.invalid || saving">
+      Save
+      <i class="material-icons right">
+        <span *ngIf="!saving">save</span>
+        <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+      </i>
+    </button>
+  </div>
+</form>
