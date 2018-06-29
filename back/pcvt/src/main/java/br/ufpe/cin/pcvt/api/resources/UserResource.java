@@ -22,7 +22,6 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@SecureEndpoint
 @Path("users")
 public class UserResource {
 
@@ -30,6 +29,7 @@ public class UserResource {
 
     private static Logger logger = LogManager.getLogger(UserResource.class.getName());
 
+    @SecureEndpoint
     @GET
     @Path("/{id}")
     @Produces(APIConstants.APPLICATION_JSON)
@@ -54,6 +54,7 @@ public class UserResource {
         }
     }
 
+    @SecureEndpoint
     @GET
     @Produces(APIConstants.APPLICATION_JSON)
     public Response listUsers() throws ApiException {
@@ -70,6 +71,7 @@ public class UserResource {
         return Response.ok(genericList).build();
     }
 
+    @SecureEndpoint
     @GET
     @Path("available")
     @Produces(APIConstants.APPLICATION_JSON)
@@ -87,6 +89,7 @@ public class UserResource {
         return Response.ok(genericList).build();
     }
 
+    @SecureEndpoint
     @GET
     @Path("collaborators")
     @Produces(APIConstants.APPLICATION_JSON)
@@ -128,6 +131,7 @@ public class UserResource {
         }
     }
 
+    @SecureEndpoint
     @PUT
     @Path("/{id}")
     @Consumes(APIConstants.APPLICATION_JSON)
@@ -160,6 +164,7 @@ public class UserResource {
         }
     }
 
+    @SecureEndpoint
     @PUT
     @Path("/{id}/password")
     @Consumes(APIConstants.APPLICATION_JSON)
@@ -185,6 +190,7 @@ public class UserResource {
         }
     }
 
+    @SecureEndpoint
     @DELETE
     @Path("/{id}")
     @Consumes(APIConstants.APPLICATION_JSON)
