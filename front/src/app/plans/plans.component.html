@@ -23,26 +23,25 @@
           <td>{{ plan.name }}</td>
           <td>{{ plan.version }}</td>
           <td>{{ getEnumValue(plan.state) }}</td>
-          <td [ngSwitch]="plan.state">
+          <td>
             <div *ngIf="plan.state !== '...'">
               <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Threats and control actions" [routerLink]="[plan.id, 'workspace']">
                 settings
               </i>
 
-              <span *ngSwitchCase="'ReadyToReview'">
-                <!-- <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Create review" [routerLink]="['/', 'reviews', 'create', plan.id]">
-                  add_circle_outline
-                </i> -->
-
-                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan, idx)">
-                  delete
+              <span class="action-buttons" *ngIf="plan.state === 'Planning'">
+                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" [routerLink]="['edit', plan.id]">
+                  create
                 </i>
               </span>
 
-                <span *ngSwitchCase="'Completed'">
+              <span *ngIf="plan.state === 'Completed'">
                 <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Show reviews" [routerLink]="[plan.id, 'reviews']">
                   comment
                 </i>
+              </span>
+
+              <span *ngIf="plan.state === 'Completed' || plan.state === 'Refused' || plan.state === 'Expired'">
                 <i *ngIf="!plan.hasChild" class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="New version" (click)="createNewVersion(plan)">
                   content_copy
                 </i>
@@ -51,11 +50,7 @@
                 </i>
               </span>
 
-              <span class="action-buttons" *ngSwitchCase="'Planning'">
-                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" [routerLink]="['edit', plan.id]">
-                  create
-                </i>
-
+              <span *ngIf="plan.state === 'ReadyToReview' || plan.state === 'Planning'">
                 <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan, idx)">
                   delete
                 </i>
