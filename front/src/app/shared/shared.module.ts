@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { RestService } from '../services/rest.service';
-import { MaterializeModule } from 'angular2-materialize';
-import { ModalService } from '../services/modal.service';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {RestService} from '../services/rest.service';
+import {MaterializeModule} from 'angular2-materialize';
+import {ModalService} from '../services/modal.service';
+import {PlanStatusPipe} from "../pipes/plan-status.pipe";
+import {TruncateTextPipe} from "../pipes/truncate-text.pipe";
 
 @NgModule({
   imports: [
@@ -19,11 +19,14 @@ import { ModalService } from '../services/modal.service';
     MaterializeModule
   ],
   declarations: [
-    
+    PlanStatusPipe,
+    TruncateTextPipe
   ],
   exports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PlanStatusPipe,
+    TruncateTextPipe
   ],
   providers: [
     RestService,

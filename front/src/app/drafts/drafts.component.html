@@ -24,7 +24,7 @@
 
     <tbody *ngIf="!loading && drafts.length > 0">
     <tr *ngFor="let draft of drafts; let idx = index" >
-      <td>{{ draft.name }}</td>
+      <td>{{ draft.name | truncateText }}</td>
       <td>{{ draft.draftType }}</td>
       <td>
         <div>

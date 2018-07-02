@@ -15,9 +15,9 @@
 
     <tbody *ngIf="!loading && plans.length > 0">
     <tr *ngFor="let plan of plans; let idx = index" >
-      <td>{{ plan.name }}</td>
+      <td>{{ plan.name | truncateText }}</td>
       <td>{{ plan.version }}</td>
-      <td>{{ plan.state }}</td>
+      <td>{{ plan.state | planStatus}}</td>
       <td>
         <i *ngIf="plan.state === 'ReadyToReview'" class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Create review" [routerLink]="['create', plan.id]">
           add_circle_outline
