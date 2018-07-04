@@ -79,7 +79,7 @@ export class CreateDraftComponent implements OnInit, IFormCanDeactivate {
             this.hasUnsavedChanges = false;
             ToastFactory.successToast("Draft created!");
 
-            this.router.navigate(['/drafts']);
+            this.router.navigate(['../characteristics'], {relativeTo: this.route })
           },
           (err: ApiMessage) => {
             this.hasUnsavedChanges = false;

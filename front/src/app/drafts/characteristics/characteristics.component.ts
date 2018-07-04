@@ -64,8 +64,12 @@ export class CharacteristicsComponent implements OnInit {
         data => {
           ToastFactory.successToast('Characteristics have been saved');
 
-          if(this.draft.draftType === 'FULL' && PcvtUtils.isCharacterizationInstrumentComplete(event)) {
-            this.showCompleteModal();
+          if(PcvtUtils.isCharacterizationInstrumentComplete(event)) {
+            if(this.draft.draftType === 'FULL') {
+              this.showCompleteModal();
+            } else {
+              this.router.navigate(['../reports'], {relativeTo: this.route });
+            }
           }
         },
         (err: ApiMessage) => {
