@@ -72,6 +72,8 @@ export class ThreatsComponent implements OnInit, OnDestroy {
                   ToastFactory.errorToast(err.message);
                 }
               )
+          } else {
+            this.loading = false;
           }
         } else {
           ToastFactory.infoToast("You must first define the characteristics of the plan");
