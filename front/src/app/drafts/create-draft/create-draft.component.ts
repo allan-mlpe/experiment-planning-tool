@@ -41,7 +41,6 @@ export class CreateDraftComponent implements OnInit, IFormCanDeactivate {
 
   ngOnInit() {
     this.type = this.route.snapshot.queryParams.type;
-    console.log(this.type);
 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(144)]],
@@ -79,7 +78,7 @@ export class CreateDraftComponent implements OnInit, IFormCanDeactivate {
             this.hasUnsavedChanges = false;
             ToastFactory.successToast("Draft created!");
 
-            this.router.navigate(['../characteristics'], {relativeTo: this.route })
+            this.router.navigate([`../${data.id}/characteristics`], {relativeTo: this.route });
           },
           (err: ApiMessage) => {
             this.hasUnsavedChanges = false;

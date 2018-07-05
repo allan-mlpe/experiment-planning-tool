@@ -108,7 +108,11 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
             this.hasUnsavedChanges = false;
             ToastFactory.successToast("Plan updated!");
 
-            this.router.navigate(['/plans']);
+            if(PcvtUtils.isCharacterizationInstrumentComplete(this.characteristicsObject)) {
+              this.showCompleteModal();
+            } else {
+              this.router.navigate(['/plans']);
+            }
           },
           (err: ApiMessage) => {
             this.hasUnsavedChanges = false;
@@ -136,6 +140,20 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
         ToastFactory.errorToast(err.message);
         console.log(err);
     });
+  }
+
+  showCompleteModal() {
+    let subsc: Subscription = this.modalService.showModal("Characterization complete", `Do you want to classify the suggested threats for "${this.plan.name}" now?`, 'Yes', 'No')
+      .subscribe(
+        data => {
+          if(data) {
+            this.router.navigate([`/plans/${this.plan.id}/threats`]);
+          } else {
+            this.router.navigate(['/plans']);
+          }
+          subsc.unsubscribe();
+        }
+      );
   }
 
   enableSaveAndComplete() {

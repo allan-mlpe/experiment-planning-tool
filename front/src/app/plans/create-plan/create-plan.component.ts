@@ -4,7 +4,7 @@ import {FormValidateUtils} from '../../shared/form-validate-utils';
 
 import {PlanService} from '../../services/plan.service';
 import {Plan} from '../../model/plan';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ToastFactory} from '../../shared/toast-factory';
 import {IFormCanDeactivate} from './../../guards/Iform-candeactivate';
 import {ModalService} from './../../services/modal.service';
@@ -14,6 +14,7 @@ import {PcvtConstants} from "../../shared/pcvt-constants";
 import {SIMPLE_OPTIONS} from "../../model/simple-options";
 import {User} from "../../model/user";
 import {UserService} from "../../services/user.service";
+import {PcvtUtils} from "../../shared/pcvt-utils";
 
 declare var $ :any;
 
@@ -60,6 +61,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
     private planService: PlanService,
     private userService: UserService,
     private router: Router,
+    private route: ActivatedRoute,
     private modalService: ModalService) { }
 
   ngOnInit() {
@@ -139,7 +141,11 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
             this.hasUnsavedChanges = false;
             ToastFactory.successToast("Plan created!");
 
-            this.router.navigate(['/plans']);
+            if(PcvtUtils.isCharacterizationInstrumentComplete(this.characteristicsObject)) {
+              this.showCompleteModal(data.id, data.name);
+            } else {
+              this.router.navigate(['/plans']);
+            }
           },
           (err: ApiMessage) => {
             this.hasUnsavedChanges = false;
@@ -150,6 +156,20 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
     } else {
       this.formValidateUtils.checkAllFields(this.form);
     }
+  }
+
+  showCompleteModal(planId: number, planName) {
+    let subsc: Subscription = this.modalService.showModal("Characterization complete", `Do you want to classify the suggested threats for "${planName}" now?`, 'Yes', 'No')
+      .subscribe(
+        data => {
+          if(data) {
+            this.router.navigate([`/plans/${planId}/threats`]);
+          } else {
+            this.router.navigate(['/plans']);
+          }
+          subsc.unsubscribe();
+        }
+      );
   }
 
   showError(field: string): boolean {
