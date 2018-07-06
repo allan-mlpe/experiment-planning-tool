@@ -5,6 +5,8 @@ import {BlankLayoutComponent} from './shared/layouts/blank-layout/blank-layout.c
 import {PageNotFoundComponent} from './shared/page-not-found/page-not-found.component';
 import {ShowLoginGuard} from "./guards/show-login.guard";
 import {ForbiddenComponent} from "./shared/forbidden/forbidden.component";
+import {BasicLayoutComponent} from "./shared/layouts/basic-layout/basic-layout.component";
+import {ReferencesComponent} from "./references/references.component";
 
 const appRoutes: Routes = [
   {
@@ -45,6 +47,13 @@ const appRoutes: Routes = [
     path: 'profile',
     loadChildren: 'app/profile/profile.module#ProfileModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'references',
+    component: BasicLayoutComponent,
+    children: [
+      { path: '**', component: ReferencesComponent }
+    ]
   },
   {
     path: 'forbidden',

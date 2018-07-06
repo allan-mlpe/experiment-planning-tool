@@ -8,10 +8,12 @@ import { AuthService } from './services/auth.service';
 import { CanDeactivateFormGuard } from './guards/candeactivate-form.guard';
 import { LayoutsModule } from './shared/layouts/layouts.module';
 import { ShowLoginGuard } from "./guards/show-login.guard";
+import { ReferencesComponent } from './references/references.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ReferencesComponent
   ],
   imports: [
     BrowserModule,
