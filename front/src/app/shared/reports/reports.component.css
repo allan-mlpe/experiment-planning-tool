@@ -1,0 +1,21 @@
+div.report-page {
+  box-shadow: 1px 1px 1px 1px lightgrey;
+  padding: 10px;
+}
+
+div.threat-section {
+  margin-bottom: 30pt;
+}
+
+div.related-threats {
+  margin-left: 17pt;
+}
+
+span.related-threat {
+  display: block;
+  font-size: 13px;
+}
+
+div.inline-info {
+  padding: 0;
+}

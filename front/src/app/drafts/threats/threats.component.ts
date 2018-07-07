@@ -100,8 +100,6 @@ export class ThreatsComponent implements OnInit {
         data => {
           ToastFactory.successToast("Threats have been saved");
 
-          this.router.navigate(['../workspace'], {relativeTo: this.route })
-
           if(this.draft.draftType === 'FULL' && PcvtUtils.isThreatClassificationComplete(this.threatObj)) {
             this.showCompleteModal();
           }
