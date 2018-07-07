@@ -67,7 +67,7 @@ div.workspace-option {
   margin-top: 30px;
 }
 
-div.workspace-option:hover {
+div.workspace-option:hover, .section-icon {
   color: #26a69a;
 }
 

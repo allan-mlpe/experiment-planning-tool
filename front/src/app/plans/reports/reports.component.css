@@ -15,3 +15,7 @@ span.related-threat {
   display: block;
   font-size: 13px;
 }
+
+div.inline-info {
+  padding: 0;
+}

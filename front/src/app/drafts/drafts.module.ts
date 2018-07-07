@@ -13,7 +13,6 @@ import {EditDraftComponent} from './edit-draft/edit-draft.component';
 import {DraftsRoutingModule} from "./drafts.routing.module";
 import {DraftService} from "../services/draft.service";
 import {DraftResolver} from "../guards/draft.resolver";
-import {MaterializeModule} from "angular2-materialize";
 import {CharacteristicsService} from "../services/characteristics.service";
 import {ThreatsService} from "../services/threat.service";
 import {UserService} from "../services/user.service";
@@ -24,8 +23,7 @@ import {ControlActionService} from "../services/control-action.service";
     DraftsRoutingModule,
     CommonModule,
     SharedModule,
-    LayoutsModule,
-    MaterializeModule
+    LayoutsModule
   ],
   declarations: [
     DraftsComponent,
