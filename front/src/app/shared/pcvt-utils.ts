@@ -1,5 +1,6 @@
 import {PcvtConstants} from "./pcvt-constants";
 import {THREAT_OPTIONS} from "../model/threat-options";
+import {Magnitude} from "../model/magnitude.enum";
 
 export class PcvtUtils {
 
@@ -64,6 +65,22 @@ export class PcvtUtils {
     }
 
     return true;
+  }
+
+  public static calculateThreatMagnitude(impact: number, urgency: number, trend: number): Magnitude {
+    const value: number = impact * 1000 + urgency * 100 + trend * 10;
+
+    if(value >= 3210) {
+      return Magnitude.VERY_HIGH;
+    } else if(value >= 2310) {
+      return Magnitude.HIGH;
+    } else if(value >= 2110) {
+      return Magnitude.MODERATE;
+    } else if(value >= 1210) {
+      return Magnitude.LOW;
+    } else {
+      return Magnitude.VERY_LOW;
+    }
   }
 
   public static containsEmptyNullOrUndefinedValues(obj: any): boolean {

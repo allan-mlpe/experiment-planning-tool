@@ -10,6 +10,7 @@ import {Subscription} from "rxjs/Rx";
 import {Magnitude} from "../../model/magnitude.enum";
 import {ControlActionService} from "../../services/control-action.service";
 import {ModalService} from "../../services/modal.service";
+import {PcvtUtils} from "../../shared/pcvt-utils";
 
 @Component({
   selector: 'app-actions',
@@ -183,26 +184,10 @@ export class ActionsComponent implements OnInit, OnDestroy {
       const urgency: number = classificationObj['urgency'];
       const trend: number = classificationObj['trend'];
 
-      const calculatedMagnitude: Magnitude = this.calculateThreatMagnitude(impact, urgency, trend);
+      const calculatedMagnitude: Magnitude = PcvtUtils.calculateThreatMagnitude(impact, urgency, trend);
 
       item['magnitude'] = calculatedMagnitude;
     });
-  }
-
-  private calculateThreatMagnitude(impact: number, urgency: number, trend: number): Magnitude {
-    const value: number = impact * 1000 + urgency * 100 + trend * 10;
-
-    if(value >= 3210) {
-      return Magnitude.VERY_HIGH;
-    } else if(value >= 2310) {
-      return Magnitude.HIGH;
-    } else if(value >= 2110) {
-      return Magnitude.MODERATE;
-    } else if(value >= 1210) {
-      return Magnitude.LOW;
-    } else {
-      return Magnitude.VERY_LOW;
-    }
   }
 
   initCurrentObject() {

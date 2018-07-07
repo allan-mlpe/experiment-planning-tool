@@ -25,6 +25,7 @@ import {TruncateTextPipe} from "../pipes/truncate-text.pipe";
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    MaterializeModule,
     PlanStatusPipe,
     TruncateTextPipe
   ],

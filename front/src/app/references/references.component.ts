@@ -17,7 +17,6 @@ export class ReferencesComponent implements OnInit {
   ngOnInit() {
     $(document).ready(function() {
       $('.collapsible').collapsible();
-      $('.tabs').tabs();
     });
   }
 

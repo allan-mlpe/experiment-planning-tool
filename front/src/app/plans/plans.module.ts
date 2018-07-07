@@ -6,7 +6,6 @@ import {LayoutsModule} from '../shared/layouts/layouts.module';
 import {PlansRoutingModule} from './plans.routing.module';
 import {SharedModule} from '../shared/shared.module';
 import {PlanService} from '../services/plan.service';
-import {MaterializeModule} from 'angular2-materialize';
 import {WorkspaceComponent} from "./workspace/workspace.component";
 import {PlanResolver} from "../guards/plan.resolver";
 import {ActionsComponent} from "./actions/actions.component";
@@ -18,17 +17,16 @@ import {UserService} from "../services/user.service";
 import {CharacteristicsService} from "../services/characteristics.service";
 import {ThreatsService} from "../services/threat.service";
 import {ControlActionService} from "../services/control-action.service";
-import { ReviewsComponent } from './reviews/reviews.component';
-import { ArchivedComponent } from './archived/archived.component';
-import { CreateCustomPlanComponent } from './create-custom-plan/create-custom-plan.component';
+import {ReviewsComponent} from './reviews/reviews.component';
+import {ArchivedComponent} from './archived/archived.component';
+import {CreateCustomPlanComponent} from './create-custom-plan/create-custom-plan.component';
 
 @NgModule({
   imports: [
     CommonModule,
     PlansRoutingModule,
     SharedModule,
-    LayoutsModule,
-    MaterializeModule
+    LayoutsModule
   ],
   declarations: [
     PlansComponent,
