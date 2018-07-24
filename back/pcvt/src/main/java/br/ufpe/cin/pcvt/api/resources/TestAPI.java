@@ -11,6 +11,6 @@ public class TestAPI {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "PCVT tool is working!";
+        return "ValidEPlan tool is working!";
     }
 }

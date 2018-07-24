@@ -11,7 +11,7 @@ public class EmailController {
 
 	private AuthMailAgent mailAgent;
 	private static final String SYSTEM_LINK = "https://35.237.38.120";
-	private static final String APPLICATION_NAME = "PCVT";
+	private static final String APPLICATION_NAME = "ValidEPlan";
 
 	protected EmailController() {
 		mailAgent = AuthMailAgent.getInstanceDev();
@@ -129,7 +129,7 @@ public class EmailController {
 	public void sendAccountCreatedEmail(User user, String plainTextPassword) {
 		String subject = String.format("%s - New user notification", APPLICATION_NAME);
 
-		String introduction = String.format("Dear %s <br/>welcome to PCVT Tool! <br/><br/>", user.getName());
+		String introduction = String.format("Dear %s <br/>welcome to ValiEPlan Tool! <br/><br/>", user.getName());
 		String mainText = String.format(
 				String.format("Sign in at %s<br/><br/>", SYSTEM_LINK)+
 				"Here are your account details:<br/><br/>Email: %s <br/> Password: %s <br/><br/>", user.getEmail(),
