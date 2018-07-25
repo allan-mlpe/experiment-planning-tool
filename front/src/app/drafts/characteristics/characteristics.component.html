@@ -14,6 +14,6 @@
 </div>
 
 <div class="row">
-  <app-radio-list [options]="options" (onSubmitForm)="saveCharacteristics($event)" [saving]="saving"
-                  [propertyList]="characteristics" [valuesObj]="characteristicsObj"></app-radio-list>
+  <app-characterization (onSubmitForm)="saveCharacteristics($event)" [saving]="saving"
+        [characteristicsObj]="characteristicsObj"></app-characterization>
 </div>

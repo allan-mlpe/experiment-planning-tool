@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="col s12">
+        <p>Answer the following questions considering the options:</p>
+        <ul>
+          <li class="label-title" *ngFor="let option of options">{{ option.text }}: {{ option.hint }}.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <ul class="collapsible" materialize="collapsible" data-collapsible="accordion">
+    <li *ngFor="let section of instrumentQuestions">
+      <div class="collapsible-header">
+        <i class="material-icons section-icon">add_box</i> {{ section.section }}
+      </div>
+      <div class="collapsible-body">
+
+        <div class="section-description">
+          {{ section.description }}
+        </div>
+
+        <!-- characterization questions -->
+        <div *ngIf="getCharacterizationQuestionsObject(section.key) !== undefined">
+          <div class="row">
+            <div class="characterization-question"
+                 *ngFor="let charQuestion of getCharacterizationQuestionsObject(section.key).questions; let i = index">
+              <label class="col s12">{{ (i + 1) + '. ' + charQuestion.label }}</label>
+
+              <span class="col s12 m6 l4" *ngFor="let option of options">
+
+                      <input class="with-gap" type="radio" [value]="option.value"
+                             [name]="'prop-'+charQuestion.key" [id]="'prop-'+charQuestion.key+'-op-'+option.id"
+                             [(ngModel)]="characteristicsObj[charQuestion.key]" [ngModelOptions]="{standalone: true}"/>
+
+                      <label [for]="'prop-'+charQuestion.key+'-op-'+option.id">
+                        {{ option.text }}
+                      </label>
+                  </span>
+
+              <div style="height: 80px;"
+                   *ngIf="(i+1) !== getCharacterizationQuestionsObject(section.key).questions.length"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <button class="btn waves-effect waves-light right" [disabled]="saving"
+            (click)="submitCharacteristicsObj()">
+      Save
+      <i class="material-icons right">
+        <span *ngIf="!saving">save</span>
+        <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+      </i>
+    </button>
+  </div>
+
+</div>

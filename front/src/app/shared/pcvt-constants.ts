@@ -748,6 +748,7 @@ export class PcvtConstants {
     {
       section: 'Stating the goals',
       key: 'sg',
+      description: "This category allows researchers to review their experimental plan regarding the study goals, the research questions, the choose of the controlled experiment as the most appropriate research technique to be used, and concerns about ethical aspects.",
       questions: [
         {
           projectKey: 'sg1',
@@ -796,6 +797,7 @@ export class PcvtConstants {
     },
     {
       section: 'Hypotheses, Variables and Measurements',
+      description: "This group of items revises the relationship between the hypotheses, variables and measurements and the research goals.",
       key: 'hvm',
       questions: [
         {
@@ -841,6 +843,7 @@ export class PcvtConstants {
     },
     {
       section: 'Participants',
+      description: "This section involves concerns about the human subjects since recruitment strategy, the process described, remind to collect important information from the participants, concerns about the population which participants are drawn, simple size, until the way in how to deal with them.",
       key: 'part',
       questions: [
         {
@@ -931,6 +934,7 @@ export class PcvtConstants {
     },
     {
       section: 'Experimental Materials and Tasks',
+      description: "This set of items is focused on materials and tasks which should be used in the controlled experiment.",
       key: 'emt',
       questions: [
         {
@@ -991,6 +995,7 @@ export class PcvtConstants {
     },
     {
       section: 'Experimental Design',
+      description: "It makes the researchers check if the experiment design chosen is the most appropriate, if the treatments are well defined, if the randomization is well described, and if an appropriate blinding procedure should be applied to reduce bias.",
       key: 'ed',
       questions: [
         {
@@ -1056,6 +1061,7 @@ export class PcvtConstants {
     },
     {
       section: 'Procedure',
+      description: "This section allows to review the procedure section including an adequate description of the controlled experiment context, training, pilot, and timeline of the experiment.",
       key: 'proc',
       questions: [
         {
@@ -1128,6 +1134,7 @@ export class PcvtConstants {
     },
     {
       section: 'Data Collection and Data Analysis',
+      description: "This category includes items regarding the data collection and analysis procedures. Also, this section presents concerns about the statistical methods.",
       key: 'dcda',
       questions: [
         {
@@ -1190,6 +1197,7 @@ export class PcvtConstants {
     },
     {
       section: 'Threats to Validity',
+      description: "This section helps researchers to check if the experimental plan describes threats to validity, study limitations, potential biases or confounders that may influence the experiment results.",
       key: 'tv',
       questions: [
         {
@@ -1210,6 +1218,7 @@ export class PcvtConstants {
     },
     {
       section: 'Document',
+      description: "This category is focused on the general writing of the experimental plan regarding its audience suitability, and its facility to read.",
       key: 'doc',
       questions: [
         {
@@ -1227,7 +1236,7 @@ export class PcvtConstants {
         }
       ]
     }
-  ]
+  ];
 
   static readonly REFERENCES: Array<any> = [
     { citation: "Wohlin 2012", work: "C. Wohlin, P. Runeson, M. Höst, M. C. Ohlsson, B. Regnell, and A. Wesslén. Experimentation in Software Engineering. Springer, 2012." },

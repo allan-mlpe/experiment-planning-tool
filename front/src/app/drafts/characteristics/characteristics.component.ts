@@ -23,6 +23,9 @@ export class CharacteristicsComponent implements OnInit {
   characteristics: Array<any> = [];
   private subscription: Subscription;
 
+  instrumentQuestions = PcvtConstants.INSTRUMENT_QUESTIONS;
+  private readonly CHARACTERIZATION_QUESTIONS = PcvtConstants.CHARACTERIZATION_QUESTIONS;
+
   saving: boolean = false;
 
   constructor(
@@ -105,6 +108,10 @@ export class CharacteristicsComponent implements OnInit {
           subsc.unsubscribe();
         }
       );
+  }
+
+  getCharacterizationQuestionsObject(key: string): any {
+    return this.CHARACTERIZATION_QUESTIONS.find(item => item['key'] === key);
   }
 
   ngOnDestroy() {

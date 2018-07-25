@@ -20,7 +20,8 @@ import {ChipComponent} from '../chip/chip.component';
 import {ForbiddenComponent} from '../forbidden/forbidden.component';
 import {PageNotFoundComponent} from "../page-not-found/page-not-found.component";
 import {ReportsComponent} from "../reports/reports.component";
-import { CharacteristicsAssessmentComponent } from '../characteristics-assessment/characteristics-assessment.component';
+import {CharacteristicsAssessmentComponent} from '../characteristics-assessment/characteristics-assessment.component';
+import {CharacterizationComponent} from '../characterization/characterization.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { CharacteristicsAssessmentComponent } from '../characteristics-assessmen
     PageNotFoundComponent,
     ForbiddenComponent,
     ReportsComponent,
-    CharacteristicsAssessmentComponent
+    CharacteristicsAssessmentComponent,
+    CharacterizationComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -66,7 +68,8 @@ import { CharacteristicsAssessmentComponent } from '../characteristics-assessmen
     InfoTooltipComponent,
     ChipComponent,
     ReportsComponent,
-    CharacteristicsAssessmentComponent
+    CharacteristicsAssessmentComponent,
+    CharacterizationComponent
   ]
 })
 export class LayoutsModule { }
