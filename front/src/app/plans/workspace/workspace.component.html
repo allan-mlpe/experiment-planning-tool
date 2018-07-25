@@ -18,15 +18,15 @@
   <div  class="col s12 m6 l6 workspace-option" *ngIf="showThreatsOption()" (click)="openThreatsClassification()">
       <div class="center">
           <i class="large material-icons">warning</i>
-          <h5>Classify Threats</h5>
-          <p class="light center">Set up threats related to your experiment</p>
+          <h5>Threats</h5>
+          <p class="light center">Classify the suggested threats to your experiment</p>
       </div>
   </div>
   <div class="col s12 m6 l6 workspace-option" *ngIf="showActionsOption()" (click)="openActionsClassification()">
       <div class="center">
           <i class="large material-icons">build</i>
           <h5>Actions</h5>
-          <p class="light center">Set up actions for controlling threats</p>
+          <p class="light center">Set up actions to control the threats to validity</p>
       </div>
   </div>
   <div class="col s12 m6 l6 workspace-option" *ngIf="showReportOption()" [routerLink]="['/plans', plan.id, 'reports']">

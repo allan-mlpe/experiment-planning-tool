@@ -29,7 +29,10 @@
 
 <div class="col s12" *ngIf="!loading && !showInfoPanel">
   <div>
-    <label>Filter by threat magnitude</label>
+    <label>
+      Filter by threat magnitude
+      <app-info-tooltip [hint]="'Group the classified threats by specific magnitudes'"></app-info-tooltip>
+    </label>
   </div>
   <span class="col s4" *ngFor="let filterOption of filterObjList">
     <input type="checkbox" class="filled-in" checked
