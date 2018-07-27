@@ -6,6 +6,7 @@ import br.ufpe.cin.pcvt.api.exceptions.ApiException;
 import br.ufpe.cin.pcvt.api.models.ExperimentalPlanVO;
 import br.ufpe.cin.pcvt.api.models.ReviewVO;
 import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
+import br.ufpe.cin.pcvt.api.utils.PdfGenerator;
 import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
 import br.ufpe.cin.pcvt.business.experiments.plan.state.exception.InvalidPlanStateTransitionException;
 import br.ufpe.cin.pcvt.controllers.ControllerFactory;
@@ -22,14 +23,8 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.*;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.io.*;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @SecureEndpoint
@@ -594,6 +589,40 @@ public class ExperimentalPlanResource {
             e.printStackTrace();
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error. It was not possible to update the plan");
+        }
+    }
+
+    @GET
+    @Path("download-report/{id}")
+    @Produces({APIConstants.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM})
+    public Response generateReport(@PathParam("id") Integer id, @Context ContainerRequestContext req) throws ApiException {
+        try {
+            Plan plan = experimentalPlanController.get(id);
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            ByteArrayOutputStream byteArrayOutputStream = PdfGenerator.generatePlanReport(plan);
+
+
+            StreamingOutput output = new StreamingOutput() {
+                @Override
+                public void write(OutputStream out) throws IOException, WebApplicationException {
+                    byteArrayOutputStream.writeTo(out);
+                    out.flush();
+                    byteArrayOutputStream.close();
+                }
+            };
+            return Response.ok(output, MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition", "attachment; filename=" + String.format(plan.getName()+".pdf")).build();
+
+        } catch(ApiException e) {
+            throw e;
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to download this plan");
         }
     }
 

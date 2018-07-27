@@ -49,20 +49,4 @@ public class InstrumentSection {
     public void setQuestions(List<InstrumentQuestion> questions) {
         this.questions = questions;
     }
-
-    public static void main(String[] args) throws IOException {
-        ClassLoader classLoader = InstrumentSection.class.getClassLoader();
-        InputStream resourceAsStream1 = classLoader.getResourceAsStream("json-resources/instrument_questions.json");
-        StringWriter stringWriter = new StringWriter();
-        IOUtils.copy(resourceAsStream1, stringWriter, Charset.defaultCharset());
-
-        System.out.println(stringWriter.toString());
-
-        Gson gson = new Gson();
-
-        List<InstrumentSection> sections = gson.fromJson(stringWriter.toString(), new TypeToken<List<InstrumentSection>>() {
-        }.getType());
-
-        System.out.println(sections.size());
-    }
 }
