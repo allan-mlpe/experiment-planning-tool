@@ -6,6 +6,7 @@ import {ModalService} from '../services/modal.service';
 import {ToastFactory} from '../shared/toast-factory';
 import {ApiMessage} from "../model/pcvt-message";
 import {PlanState} from "../model/plan-state.enum";
+import {PcvtUtils} from "../shared/pcvt-utils";
 
 @Component({
   selector: 'app-plans',
@@ -92,6 +93,19 @@ export class PlansComponent implements OnInit {
         ToastFactory.errorToast(err.message);
       }
     );
+  }
+
+  showExportButton(plan: Plan): boolean {
+    return PcvtUtils.isPlanningInstrumentComplete(JSON.parse(plan.planDetails));
+  }
+
+  downloadReport(plan: Plan) {
+    if(PcvtUtils.isPlanningInstrumentComplete(JSON.parse(plan.planDetails))) {
+      const filename: string = plan.name + '.pdf';
+      this.planService.downloadReport(plan.id,  filename);
+    } else {
+      ToastFactory.errorToast('The planning was not finished yet');
+    }
   }
 
 }

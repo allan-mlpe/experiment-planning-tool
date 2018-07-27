@@ -72,4 +72,8 @@ export class PlanService {
   downloadPlan(planId: number, fileName: string) {
     return this.restService.download(`${this.RESOURCE_PREFIX}/${planId}/file`, fileName, 'application/octet-stream');
   }
+
+  downloadReport(planId: number, fileName: string) {
+    return this.restService.download(`${this.RESOURCE_PREFIX}/download-report/${planId}`, fileName, 'application/octet-stream');
+  }
 }

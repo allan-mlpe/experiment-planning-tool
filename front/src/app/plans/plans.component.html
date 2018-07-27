@@ -50,6 +50,12 @@
                 </i>
               </span>
 
+              <span *ngIf="showExportButton(plan)">
+                <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Export PDF" (click)="downloadReport(plan)">
+                  picture_as_pdf
+                </i>
+              </span>
+
               <span *ngIf="plan.state === 'ReadyToReview' || plan.state === 'Planning'">
                 <i class="material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="removePlan(plan, idx)">
                   delete
