@@ -62,7 +62,7 @@ export class ThreatsComponent implements OnInit {
           const characteristics: any = JSON.parse(this.draft.characteristics);
 
           const characteristicsKeys: Array<string> = Object.keys(characteristics)
-            .filter(key => characteristics[key] === 'YES');
+            .filter(key => characteristics[key] === 'YES' || characteristics[key] === 'PARTIALLY');
 
           if(characteristicsKeys.length > 0) {
             this.characteristicService.getThreatsByCharacteristicKeys({stringList: characteristicsKeys})
