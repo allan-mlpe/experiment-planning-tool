@@ -7,7 +7,7 @@ export class PcvtConstants {
       "questions": [
         {
           "key": "statingGoals1",
-          "label": "Do you plan to interact with the participants during the experiment?"
+          "label": "Will you interact with participants during the experiment execution?"
         }
       ]
     },
@@ -17,23 +17,23 @@ export class PcvtConstants {
       "questions": [
         {
           "key": "hypotheses1",
-          "label": "Is it possible for participants to have prior knowledge of the experiment's hypotheses?"
+          "label": "Will participants have prior knowledge of the experiment&#39;s hypotheses?"
         },
         {
           "key": "hypotheses2",
-          "label": "Was there a definition of a guide, method or protocol for data measurement?"
+          "label": "Is there a guide, method, or protocol for data measurement?"
         },
         {
           "key": "hypotheses3",
-          "label": "Is it possible that the defined metric(s) does not represent the real effect?"
+          "label": "Do the defined metric(s) not represent what they intend to measure?"
         },
         {
           "key": "hypotheses4",
-          "label": "Will only one metric be used to answer survey questions?"
+          "label": "Will only one metric be used to answer the research questions?"
         },
         {
           "key": "hypotheses5",
-          "label": "The confidence interval used may not be appropriate to draw conclusions?"
+          "label": "Is the confidence interval not used to draw conclusions?"
         }
       ]
     },
@@ -43,55 +43,55 @@ export class PcvtConstants {
       "questions": [
         {
           "key": "participants1",
-          "label": "Will there be participants with different levels of experience or abilities in any task to be performed during the experiment?"
+          "label": "Will there be participants with different levels of experience, or skills performing in any tasks during the experiment?"
         },
         {
           "key": "participants2",
-          "label": "Will there be participants with different gender, personality or other characteristics?"
+          "label": "Will there be participants with different gender, personality, or any other characteristics?"
         },
         {
           "key": "participants3",
-          "label": "Is the language of the participants different from the language of the experimental material?"
+          "label": "Is the participants native language different from the experimental material language?"
         },
         {
           "key": "participants4",
-          "label": "Will participants handle more than one treatment?"
+          "label": "Will any participant handle more than one treatment?"
         },
         {
           "key": "participants5",
-          "label": "Will participants receive any kind of reward for participating in the experiment?"
+          "label": "Will the participants receive any kind of reward for performing the experiment?"
         },
         {
           "key": "participants6",
-          "label": "Is it possible that the participants who will be selected have participated in similar studies previously?"
+          "label": "Had the participants been involved in similar studies in the past?"
         },
         {
           "key": "participants7",
-          "label": "May there be lack of motivation for participants to participate in the study?"
+          "label": "Could there be any lack of motivation for participants to perform the study?"
         },
         {
           "key": "participants8",
-          "label": "Is it possible that one of the participants leaves the experiment?"
+          "label": "Will the participants have the option to leave the experiment at any stage of its execution?"
         },
         {
           "key": "participants9",
-          "label": "May there be communication between the participants during the experiment?"
+          "label": "Will there be communication between participants during the experiment?"
         },
         {
           "key": "participants10",
-          "label": "Will collect data from participants via characterization and/or demographic questionnaire?"
+          "label": "Will there be data collection from participants via characterization and/or demographic questionnaire?"
         },
         {
           "key": "participants11",
-          "label": "May the participants not represent the target population?"
+          "label": "Could the participants not represent the target population?"
         },
         {
           "key": "participants12",
-          "label": "Can the size of the selected sample be considered small?"
+          "label": "Is the selected sample size small?"
         },
         {
           "key": "participants13",
-          "label": "May events occur in the experimental environment that can influence the performance of the participants?"
+          "label": "Could events that influence participants&#39; performance occur in the experimental environment?"
         }
       ]
     },
@@ -101,27 +101,27 @@ export class PcvtConstants {
       "questions": [
         {
           "key": "experimentalMaterials1",
-          "label": "The experimental devices and procedures (tools, materials, technologies, tools, tasks, etc.) may not represent those used in the actual context?"
+          "label": "Could the experimental artifacts and procedures (instruments, materials, technologies, tools, tasks, etc.) not represent those used in the real context?"
         },
         {
           "key": "experimentalMaterials2",
-          "label": "The experimental procedures (tools, materials, technologies, tools, etc.) are different for a group of participants?"
+          "label": "Are the experimental procedures (instruments, materials, technologies, tools, etc.) different for any group of participants?"
         },
         {
           "key": "experimentalMaterials3",
-          "label": "Among the experimental artifacts of the experiment is there the use of a requirements document?"
+          "label": "Is there a requirements document among the experimental artifacts of the experiment?"
         },
         {
           "key": "experimentalMaterials4",
-          "label": "If its context is for inspection, will it be necessary to insert defects in the artifacts?"
+          "label": "If the experiment context is inspection, will it be necessary to insert defects in the artifacts?"
         },
         {
           "key": "experimentalMaterials5",
-          "label": "The tasks to be performed by the groups are different?"
+          "label": "Are the tasks that will be performed by the groups distinct?"
         },
         {
           "key": "experimentalMaterials6",
-          "label": "The tasks to be performed will be developed by the researchers?"
+          "label": "Will the tasks be carried out by researchers?"
         }
       ]
     },
@@ -131,15 +131,15 @@ export class PcvtConstants {
       "questions": [
         {
           "key": "experimentalDesign1",
-          "label": "The treatments used in the experiment may not represent those normally used in the real context?"
+          "label": "Could the treatments not represent the treatments used in the real context?"
         },
         {
           "key": "experimentalDesign2",
-          "label": "Is there the possibility of using a treatment influence other treatments?"
+          "label": "Could the use of a treatment influence other treatments used in the experiment?"
         },
         {
           "key": "experimentalDesign3",
-          "label": "Will each group use only an experimental artifact, or task, or treatment?"
+          "label": "Will each group use only one experimental artifact, or task, or treatment?"
         }
       ]
     },
@@ -149,35 +149,35 @@ export class PcvtConstants {
       "questions": [
         {
           "key": "procedure1",
-          "label": "The environment in which the experiment will be conducted can not represent the actual context of the study?"
+          "label": "Could the environment in which the experiment will be conducted not represent the actual context of the study?"
         },
         {
           "key": "procedure2",
-          "label": "Is the experiment conducted in different experimental environments?"
+          "label": "Will the experiment be performed in different experimental environments?"
         },
         {
           "key": "procedure3",
-          "label": "It will be allowed interval between runs of the experiment?"
+          "label": "There will be breaks between experiments sections?"
         },
         {
           "key": "procedure4",
-          "label": "The training given to the participants and/or groups will be taught by different people?"
+          "label": "Will the training given to the participants and/or groups be given by different people in different moments?"
         },
         {
           "key": "procedure5",
-          "label": "Is there a risk that some of the participants do not understand or are not sufficiently familiar with the experimental material?"
+          "label": "Could any of the participants not understand or do not have sufficient knowledge of the experimental material?"
         },
         {
           "key": "procedure6",
-          "label": "Is it possible that the pilot study is not sufficient to reveal possible problems with the execution of the experiment?"
+          "label": "Could the pilot study not be sufficient to point out possible problems with the execution of the experiment?"
         },
         {
           "key": "procedure7",
-          "label": "Will a time limit be determined for the execution of the experiment activities?"
+          "label": "Do the experiment activities have a time constraint for their execution?"
         },
         {
           "key": "procedure8",
-          "label": "Will there be a description of the events and an order of presentation of the experimental material for the participants?"
+          "label": "Are the events and the presentation order of the experimental material for the participants described?"
         }
       ]
     },
@@ -187,23 +187,23 @@ export class PcvtConstants {
       "questions": [
         {
           "key": "dataCollection1",
-          "label": "Is there the possibility of the data that will be collected are not complete, accurate and/or reliable?"
+          "label": "Could the data collected be incomplete, accurate, and/or reliable?"
         },
         {
           "key": "dataCollection2",
-          "label": "Do you plan to include observant researchers during the experiment?"
+          "label": "Do you plan to include observing researchers during the experiment?"
         },
         {
           "key": "dataCollection3",
-          "label": "Will any set of procedures, protocol or method be used for data analysis?"
+          "label": "Will any set of procedures, protocols, or methods be used for data analysis?"
         },
         {
           "key": "dataCollection4",
-          "label": "Will any procedure be used to resolve possible disagreements in data analysis?"
+          "label": "Will any procedure be used to resolve possible data analysis disagreements?"
         },
         {
           "key": "dataCollection5",
-          "label": "Do you describe/reference the procedures and criteria that support the statistical rigor of the study?"
+          "label": "Are the procedures and criteria that support the statistical rigor of the study described or referenced?"
         }
       ]
     },
@@ -213,11 +213,11 @@ export class PcvtConstants {
       "questions": [
         {
           "key": "document1",
-          "label": "If your experiment is a replication, will there be a change in the experimental package from the original study?"
+          "label": "If the experiment is a replication, is the experimental package modified from the original study?"
         },
         {
           "key": "document2",
-          "label": "Do you plan to submit or indicate where the raw data from your experiment will be available?"
+          "label": "Do you plan to present or indicate where the raw data from your experiment will be available?"
         }
       ]
     }
