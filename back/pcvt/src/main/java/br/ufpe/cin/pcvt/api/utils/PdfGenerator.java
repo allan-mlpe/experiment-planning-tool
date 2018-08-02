@@ -4,6 +4,7 @@ import br.ufpe.cin.pcvt.api.models.instrument.InstrumentQuestion;
 import br.ufpe.cin.pcvt.api.models.instrument.InstrumentSection;
 import br.ufpe.cin.pcvt.api.resources.APIConstants;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
+import br.ufpe.cin.pcvt.data.models.threats.Threat;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -12,8 +13,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PdfGenerator {
+
+    public static final String THREATS_SECTION_KEY = "tv";
 
     private static Font getBoldFormat(Integer size) {
         return new Font(Font.FontFamily.HELVETICA, size, Font.BOLD);
@@ -59,12 +63,14 @@ public class PdfGenerator {
         return p1;
     }
 
-    public static ByteArrayOutputStream generatePlanReport(Plan experimentalPlan) {
+    public static ByteArrayOutputStream generatePlanReport(Plan experimentalPlan,
+                                                           Map<String, List<Threat>> groupedThreats) {
         Document document = new Document();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
             Map<String, String> detailsMap = JsonUtils.parseToSimpleMap(experimentalPlan.getPlanDetails());
+
             List<InstrumentSection> instrumentQuestions = APIConstants.INSTRUMENT_SECTIONS;
             int questionNumber = 1;
             PdfWriter.getInstance(document, baos);
@@ -91,6 +97,10 @@ public class PdfGenerator {
                     document.add(getSingleParagraph(detailsMap.get(question.getProjectKey())));
                     document.add(Chunk.NEWLINE);
 
+                    if(section.getKey().equals(THREATS_SECTION_KEY)) {
+                        buildSuggestedThreats(document, groupedThreats);
+                    }
+
                     questionNumber++;
                 }
 
@@ -104,5 +114,26 @@ public class PdfGenerator {
         document.close();
 
         return baos;
+    }
+
+    private static void buildSuggestedThreats(Document document, Map<String, List<Threat>> groupedThreats) throws DocumentException {
+
+        Set<String> types = groupedThreats.keySet();
+        for(String type : types) {
+            Paragraph threatType = getItalicParagraph(String.format("# %s #", type), 12);
+            document.add(threatType);
+
+            document.add(Chunk.NEWLINE);
+
+            List<Threat> threats = groupedThreats.get(type);
+            for(Threat t : threats) {
+                Paragraph threatDescription =
+                        getSingleParagraph(String.format("- %s: %s", t.getLabel(), t.getDescription()));
+
+                document.add(threatDescription);
+            }
+
+            document.add(Chunk.NEWLINE);
+        }
     }
 }

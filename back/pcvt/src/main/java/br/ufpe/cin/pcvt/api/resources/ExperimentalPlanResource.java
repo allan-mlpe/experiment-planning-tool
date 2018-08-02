@@ -6,14 +6,17 @@ import br.ufpe.cin.pcvt.api.exceptions.ApiException;
 import br.ufpe.cin.pcvt.api.models.ExperimentalPlanVO;
 import br.ufpe.cin.pcvt.api.models.ReviewVO;
 import br.ufpe.cin.pcvt.api.security.SecureEndpoint;
+import br.ufpe.cin.pcvt.api.utils.JsonUtils;
 import br.ufpe.cin.pcvt.api.utils.PdfGenerator;
 import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
 import br.ufpe.cin.pcvt.business.experiments.plan.state.exception.InvalidPlanStateTransitionException;
+import br.ufpe.cin.pcvt.controllers.CharacteristicController;
 import br.ufpe.cin.pcvt.controllers.ControllerFactory;
 import br.ufpe.cin.pcvt.controllers.PlanController;
 import br.ufpe.cin.pcvt.controllers.UserController;
 import br.ufpe.cin.pcvt.data.models.experiments.EPlanState;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
+import br.ufpe.cin.pcvt.data.models.threats.Threat;
 import br.ufpe.cin.pcvt.data.models.user.User;
 import br.ufpe.cin.pcvt.exceptions.entities.experiments.plan.PlanAlreadyHasChildException;
 import org.apache.commons.io.IOUtils;
@@ -35,6 +38,9 @@ public class ExperimentalPlanResource {
 
     private PlanController experimentalPlanController =
             ControllerFactory.createPlanController();
+
+    private CharacteristicController characteristicController =
+            ControllerFactory.createCharacteristicController();
 
     private UserController userController =
             ControllerFactory.createUserController();
@@ -604,7 +610,9 @@ public class ExperimentalPlanResource {
 
             checkPermission(plan, req);
 
-            ByteArrayOutputStream byteArrayOutputStream = PdfGenerator.generatePlanReport(plan);
+            Map<String, List<Threat>> groupedThreats = groupThreatsByType(plan);
+
+            ByteArrayOutputStream byteArrayOutputStream = PdfGenerator.generatePlanReport(plan, groupedThreats);
 
 
             StreamingOutput output = new StreamingOutput() {
@@ -624,6 +632,49 @@ public class ExperimentalPlanResource {
             throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
                     "Internal server error. It was not possible to download this plan");
         }
+    }
+
+    private Collection<Threat> getSuggestedThreats(String characteristics) throws ApiException{
+
+        try {
+            Map<String, String> characteristicsMap = JsonUtils.parseToSimpleMap(characteristics);
+            List<String> positiveCharacteristicsKeys = characteristicsMap.keySet().stream()
+                    .filter(key ->
+                            characteristicsMap.get(key).equals("YES")
+                                    || characteristicsMap.get(key).equals("PARTIALLY")
+                    )
+                    .collect(Collectors.toList());
+
+            Set<Threat> threatsByKey = characteristicController.getThreatsByKey(positiveCharacteristicsKeys);
+            return threatsByKey;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Error generating the threats list of this report");
+        }
+    }
+
+    private Map<String, List<Threat>> groupThreatsByType(Plan plan) {
+        Collection<Threat> threats = getSuggestedThreats(plan.getPlanCharacteristics());
+
+        Map<String, List<Threat>> groupedThreats =
+                new HashMap<>();
+
+        for(Threat threat : threats) {
+            String threatType = threat.getType().getName();
+            if(groupedThreats.containsKey(threatType)) {
+                List<Threat> threatsArrayList = groupedThreats.get(threatType);
+                threatsArrayList.add(threat);
+
+            } else {
+               ArrayList<Threat> threatArrayList = new ArrayList<>();
+               threatArrayList.add(threat);
+
+               groupedThreats.put(threatType, threatArrayList);
+            }
+        }
+
+        return groupedThreats;
     }
 
     private static void checkPermission(Plan plan, ContainerRequestContext req) throws ApiException {

@@ -96,8 +96,9 @@ export class PlansComponent implements OnInit {
   }
 
   showExportButton(plan: Plan): boolean {
-    if(plan.planDetails !== undefined) {
-      return PcvtUtils.isPlanningInstrumentComplete(JSON.parse(plan.planDetails));
+    if(plan.planDetails !== undefined && plan.planCharacteristics !== undefined) {
+      return PcvtUtils.isPlanningInstrumentComplete(JSON.parse(plan.planDetails))
+          && PcvtUtils.isCharacterizationInstrumentComplete(JSON.parse(plan.planCharacteristics));
     } else {
       return false;
     }
