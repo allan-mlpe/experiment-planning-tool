@@ -17,7 +17,7 @@ export class PcvtConstants {
       "questions": [
         {
           "key": "hypotheses1",
-          "label": "Will participants have prior knowledge of the experiment&#39;s hypotheses?"
+          "label": "Will participants have prior knowledge of the experiment's hypotheses?"
         },
         {
           "key": "hypotheses2",
@@ -91,7 +91,7 @@ export class PcvtConstants {
         },
         {
           "key": "participants13",
-          "label": "Could events that influence participants&#39; performance occur in the experimental environment?"
+          "label": "Could events that influence participants' performance occur in the experimental environment?"
         }
       ]
     },
