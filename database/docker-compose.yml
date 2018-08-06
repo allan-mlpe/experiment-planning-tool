@@ -1,0 +1,13 @@
+postgres:
+  image: postgres:9.6-alpine
+  restart: always
+  environment:
+    POSTGRES_USER: pcvt-admin
+    POSTGRES_PASSWORD: pcvt-password
+    POSTGRES_DB: reviewer
+    PGDATA: /var/lib/postgresql/data/pgdata
+  ports:
+    - "3000:5432"
+  volumes:
+    - ./docker-entrypoint-initdb.d/init.sql:/docker-entrypoint-initdb.d/init.sql
+    - ./userdata-bkp:/var/lib/postgresql/data/pgdata
