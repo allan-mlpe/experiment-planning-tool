@@ -92,7 +92,7 @@ public class AuthMailAgent {
 		SimpleAuth auth = new SimpleAuth(this.login, this.password);
 
 		mailSession = Session.getInstance(props, auth);
-		mailSession.setDebug(false);
+		mailSession.setDebug(true);
 		transport = mailSession.getTransport("smtp");
 
 		transport.connect();
@@ -115,12 +115,25 @@ public class AuthMailAgent {
 	}
 
 	public void sendEmail(String to, String subject, String message) throws Exception {
-		try {
-			String from = this.alias;
-			sendEmail(from, to, subject, message);
-		} catch (Exception e) {
-			throw e;
-		}
+		int attempts = 0;
+		do {
+			try {
+				String from = this.alias;
+				sendEmail(from, to, subject, message);
+
+				break;
+			} catch (Exception e) {
+				logger.info(String.format("Reattempt to send '%s' mail to '%s'", subject, to));
+
+				// force reconnect
+				transport = null;
+
+				attempts++;
+				if(attempts == 3) {
+					throw e;
+				}
+			}
+		} while (attempts < 3);
 	}
 
 	public void sendEmailAsync(String to, String subject, String message) throws Exception {
