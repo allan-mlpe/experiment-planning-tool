@@ -1,0 +1,13 @@
+<div class="fixed-action-btn horizontal" (click)="showDiscovery()">
+  <a id="menu" class="waves-effect waves-light btn btn-floating">
+    <i class="material-icons">lightbulb_outline</i>
+  </a>
+</div>
+
+
+<div class="tap-target" data-activates="menu" materialize [materializeActions]="tapTargetActions">
+  <div class="tap-target-content">
+    <h5>{{ title }}</h5>
+    <p [innerHTML]="text"></p>
+  </div>
+</div>

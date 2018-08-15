@@ -22,6 +22,7 @@ import {PageNotFoundComponent} from "../page-not-found/page-not-found.component"
 import {ReportsComponent} from "../reports/reports.component";
 import {CharacteristicsAssessmentComponent} from '../characteristics-assessment/characteristics-assessment.component';
 import {CharacterizationComponent} from '../characterization/characterization.component';
+import {DiscoveryComponent} from '../discovery/discovery.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import {CharacterizationComponent} from '../characterization/characterization.co
     ForbiddenComponent,
     ReportsComponent,
     CharacteristicsAssessmentComponent,
-    CharacterizationComponent
+    CharacterizationComponent,
+    DiscoveryComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -69,7 +71,8 @@ import {CharacterizationComponent} from '../characterization/characterization.co
     ChipComponent,
     ReportsComponent,
     CharacteristicsAssessmentComponent,
-    CharacterizationComponent
+    CharacterizationComponent,
+    DiscoveryComponent
   ]
 })
 export class LayoutsModule { }
