@@ -38,8 +38,8 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
       (info: { plan: Plan }) => {
         this.plan = info['plan'];
 
-        if (this.plan.planCharacteristics !== undefined) {
-          this.characteristicsObj = JSON.parse(this.plan.planCharacteristics);
+        if (this.plan.characteristics !== undefined) {
+          this.characteristicsObj = JSON.parse(this.plan.characteristics);
           //this.checkCharacterizationComplete();
         }
       });
@@ -56,7 +56,7 @@ export class CharacteristicsComponent implements OnInit, OnDestroy {
 
   saveCharacteristics(event) {
     this.saving = true;
-    this.plan.planCharacteristics = JSON.stringify(event);
+    this.plan.characteristics = JSON.stringify(event);
 
     this.planService.savePlanCharacteristics(this.plan)
       .finally(() => this.saving = false)

@@ -77,7 +77,7 @@ export class WorkspaceComponent implements OnInit {
 
   openActionsClassification() {
     const path: string = 'actions';
-    if(this.plan.planActions !== undefined) {
+    if(this.plan.actions !== undefined) {
       this.openFeature(path);
     } else {
       this.router.navigate([`../${path}`], {relativeTo: this.route })
@@ -100,8 +100,8 @@ export class WorkspaceComponent implements OnInit {
   private isThreatsClassificationCompleted(): boolean {
     if(this.threatsClassificationComplete === undefined) {
 
-      const threatsObj = this.plan.planThreats !== undefined ?
-        JSON.parse(this.plan.planThreats) : undefined;
+      const threatsObj = this.plan.threats !== undefined ?
+        JSON.parse(this.plan.threats) : undefined;
 
       this.threatsClassificationComplete = PcvtUtils.isThreatClassificationComplete(threatsObj);
     }
@@ -111,8 +111,8 @@ export class WorkspaceComponent implements OnInit {
 
   private isCharacterizationCompleted(): boolean {
     if(this.characterizationComplete === undefined) {
-      const characteristicsObj = this.plan.planCharacteristics !== undefined ?
-        JSON.parse(this.plan.planCharacteristics) : undefined;
+      const characteristicsObj = this.plan.characteristics !== undefined ?
+        JSON.parse(this.plan.characteristics) : undefined;
 
       this.characterizationComplete = PcvtUtils.isCharacterizationInstrumentComplete(characteristicsObj);
     }

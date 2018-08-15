@@ -72,6 +72,7 @@
                     [propertyList]="threatList" [values]="values" [valuesObj]="threatObj"></app-radio-list>
 
   </div>
+  <app-discovery [title]="'About the scale...'" [text]="getScaleTips()"></app-discovery>
 </div>
 
 <div class="row" *ngIf="!loading && !showInfoPanel && threatList.length === 0">

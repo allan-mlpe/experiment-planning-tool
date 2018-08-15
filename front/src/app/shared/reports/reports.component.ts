@@ -49,8 +49,8 @@ export class ReportsComponent implements OnInit {
   ngOnInit() {
     this.buildScreen();
 
-    if(this.plan.planCharacteristics !== undefined) {
-      const characteristics: any = JSON.parse(this.plan.planCharacteristics);
+    if(this.plan.characteristics !== undefined) {
+      const characteristics: any = JSON.parse(this.plan.characteristics);
 
       const characteristicsKeys: Array<string> = Object.keys(characteristics)
         .filter(key => characteristics[key] === 'YES');
@@ -62,14 +62,14 @@ export class ReportsComponent implements OnInit {
               this.threatList = data;
               this.filteredList = data;
 
-              if(this.plan.planThreats !== undefined)
-                this.threatValuesObj = Object.assign(this.threatValuesObj, JSON.parse(this.plan.planThreats));
+              if(this.plan.threats !== undefined)
+                this.threatValuesObj = Object.assign(this.threatValuesObj, JSON.parse(this.plan.threats));
 
-              if(this.plan.planActions !== undefined)
-                this.actionValuesObj = Object.assign(this.actionValuesObj, JSON.parse(this.plan.planActions));
+              if(this.plan.actions !== undefined)
+                this.actionValuesObj = Object.assign(this.actionValuesObj, JSON.parse(this.plan.actions));
 
-              if(this.plan.planActionRelatedThreats !== undefined)
-                this.actionRelatedThreatsObj = Object.assign(this.actionRelatedThreatsObj, JSON.parse(this.plan.planActionRelatedThreats));
+              if(this.plan.actionRelatedThreats !== undefined)
+                this.actionRelatedThreatsObj = Object.assign(this.actionRelatedThreatsObj, JSON.parse(this.plan.actionRelatedThreats));
 
               this.processThreatMagnitude();
             },
@@ -115,21 +115,21 @@ export class ReportsComponent implements OnInit {
   }
 
   enableSuggestedThreats(): boolean {
-    const characteristicsObj = this.plan.planCharacteristics !== undefined ?
-      JSON.parse(this.plan.planCharacteristics) : {};
+    const characteristicsObj = this.plan.characteristics !== undefined ?
+      JSON.parse(this.plan.characteristics) : {};
     return PcvtUtils.isCharacterizationInstrumentComplete(characteristicsObj);
   }
 
   enableClassifiedThreats() {
-    const threatsObj = this.plan.planThreats !== undefined ?
-      JSON.parse(this.plan.planThreats) : {};
+    const threatsObj = this.plan.threats !== undefined ?
+      JSON.parse(this.plan.threats) : {};
 
     return PcvtUtils.isThreatClassificationComplete(threatsObj);
   }
 
   enableDefinedControlActions() {
     // TODO check control actions completeness
-    return this.plan.planActions !== undefined;
+    return this.plan.actions !== undefined;
   }
 
   // filter functions

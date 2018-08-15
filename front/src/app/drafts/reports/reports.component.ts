@@ -37,10 +37,10 @@ export class ReportsComponent implements OnInit {
     plan.name = draft.name;
     plan.description = draft.description;
     plan.author = draft.author;
-    plan.planCharacteristics = draft.characteristics;
-    plan.planThreats = draft.threats;
-    plan.planActions = draft.actions;
-    plan.planActionRelatedThreats = draft.actionRelatedThreats;
+    plan.characteristics = draft.characteristics;
+    plan.threats = draft.threats;
+    plan.actions = draft.actions;
+    plan.actionRelatedThreats = draft.actionRelatedThreats;
 
     return plan;
   }

@@ -58,10 +58,10 @@ export class ActionsComponent implements OnInit, OnDestroy {
       (info: { plan: Plan }) => {
         this.plan = info['plan'];
 
-        this.showInfoPanel = this.plan.planActions === undefined;
+        this.showInfoPanel = this.plan.actions === undefined;
 
-        if (this.plan.planThreats !== undefined) {
-          const characteristics: any = JSON.parse(this.plan.planCharacteristics);
+        if (this.plan.threats !== undefined) {
+          const characteristics: any = JSON.parse(this.plan.characteristics);
 
           const characteristicsKeys: Array<string> = Object.keys(characteristics)
             .filter(key => characteristics[key] === 'YES');
@@ -163,18 +163,18 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
   // process screen objects functions
   processClassification() {
-    this.threatObj = JSON.parse(this.plan.planThreats);
+    this.threatObj = JSON.parse(this.plan.threats);
 
     this.threatList.forEach(threat => {
       this.actionObj[threat.key] = {};
     });
 
-    if(this.plan.planActions !== undefined)
-      this.actionObj = Object.assign(this.actionObj, JSON.parse(this.plan.planActions));
+    if(this.plan.actions !== undefined)
+      this.actionObj = Object.assign(this.actionObj, JSON.parse(this.plan.actions));
 
 
-    if(this.plan.planActionRelatedThreats !== undefined)
-      this.actionRelatedThreatsObj = JSON.parse(this.plan.planActionRelatedThreats);
+    if(this.plan.actionRelatedThreats !== undefined)
+      this.actionRelatedThreatsObj = JSON.parse(this.plan.actionRelatedThreats);
   }
 
   private processThreatMagnitude() {
@@ -219,8 +219,8 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
   finish() {
     this.saving = true;
-    this.plan.planActions = JSON.stringify(this.actionObj);
-    this.plan.planActionRelatedThreats = JSON.stringify(this.actionRelatedThreatsObj);
+    this.plan.actions = JSON.stringify(this.actionObj);
+    this.plan.actionRelatedThreats = JSON.stringify(this.actionRelatedThreatsObj);
 
     this.planService.savePlanActions(this.plan)
       .finally(() => this.saving = false)
@@ -255,11 +255,11 @@ export class ActionsComponent implements OnInit, OnDestroy {
     // merge old and new threats objects
     Object.assign(this.actionRelatedThreatsObj, newThreats);
 
-    //this.updateActionRelatedThreats(planActionRelatedThreats);
+    //this.updateActionRelatedThreats(actionRelatedThreats);
   }
 
   private updateActionRelatedThreats(planActionRelatedThreats: any) {
-    this.plan.planActionRelatedThreats = JSON.stringify(planActionRelatedThreats);
+    this.plan.actionRelatedThreats = JSON.stringify(planActionRelatedThreats);
 
     this.planService.savePlanGeneratedActions(this.plan).subscribe(
       data => {
@@ -278,11 +278,11 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
   private removeActionRelatedThreats(actionKey: string) {
 
-    if(this.plan.planActionRelatedThreats !== undefined) {
+    if(this.plan.actionRelatedThreats !== undefined) {
       if(actionKey in this.actionRelatedThreatsObj) {
         delete this.actionRelatedThreatsObj[actionKey];
 
-        //this.updateActionRelatedThreats(planActionRelatedThreats);
+        //this.updateActionRelatedThreats(actionRelatedThreats);
       }
     }
   }

@@ -49,10 +49,10 @@ export class ThreatsComponent implements OnInit, OnDestroy {
       (info: { plan: Plan }) => {
         this.plan = info['plan'];
 
-        this.showInfoPanel = this.plan.planThreats === undefined;
+        this.showInfoPanel = this.plan.threats === undefined;
 
-        if (this.plan.planCharacteristics !== undefined) {
-          const characteristics: any = JSON.parse(this.plan.planCharacteristics);
+        if (this.plan.characteristics !== undefined) {
+          const characteristics: any = JSON.parse(this.plan.characteristics);
 
           const characteristicsKeys: Array<string> = Object.keys(characteristics)
             .filter(key => characteristics[key] === 'YES' || characteristics[key] === 'PARTIALLY');
@@ -85,7 +85,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
 
   savePlanThreats() {
     this.saving = true;
-    this.plan.planThreats = JSON.stringify(this.threatObj);
+    this.plan.threats = JSON.stringify(this.threatObj);
 
     this.planService.savePlanThreats(this.plan)
       .finally(() => this.saving = false)
@@ -123,8 +123,8 @@ export class ThreatsComponent implements OnInit, OnDestroy {
       this.threatObj[threat.key] = {};
     });
 
-    if(this.plan.planThreats !== undefined) {
-      this.threatObj = Object.assign(this.threatObj, JSON.parse(this.plan.planThreats));
+    if(this.plan.threats !== undefined) {
+      this.threatObj = Object.assign(this.threatObj, JSON.parse(this.plan.threats));
 
       //this.checkClassificationComplete();
     }
@@ -152,5 +152,9 @@ export class ThreatsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  getScaleTips() {
+    return PcvtUtils.getHTMLListAsString(this.options);
   }
 }

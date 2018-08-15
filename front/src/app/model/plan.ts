@@ -4,11 +4,11 @@ export class Plan {
     id: number;
     name: string;
     description: string;
-    planDetails: string;
-    planCharacteristics: string;
-    planThreats: string;
-    planActions: string;
-    planActionRelatedThreats: string;
+    details: string;
+    characteristics: string;
+    threats: string;
+    actions: string;
+    actionRelatedThreats: string;
     version: string;
     author: User;
     hasChild: boolean;

@@ -34,11 +34,11 @@ public class ExperimentalPlanVOConverter implements IVOConverter<Plan, Experimen
         planVO.setId(plan.getId());
         planVO.setState(plan.getState());
         planVO.setVersion(plan.getVersion());
-        planVO.setPlanDetails(plan.getPlanDetails());
-        planVO.setPlanCharacteristics(plan.getPlanCharacteristics());
-        planVO.setPlanThreats(plan.getPlanThreats());
-        planVO.setPlanActions(plan.getPlanActions());
-        planVO.setPlanActionRelatedThreats(plan.getPlanActionRelatedThreats());
+        planVO.setDetails(plan.getDetails());
+        planVO.setCharacteristics(plan.getCharacteristics());
+        planVO.setThreats(plan.getThreats());
+        planVO.setActions(plan.getActions());
+        planVO.setActionRelatedThreats(plan.getActionRelatedThreats());
         //planVO.setReviews(plan.getReviews());
         planVO.setDate(plan.getDate());
         planVO.setPrivacySetting(plan.getPrivacySetting());

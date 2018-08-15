@@ -54,8 +54,8 @@ public class ExperimentalPlanResource {
             plan = new Plan();
             plan.setName(planVO.getName());
             plan.setDescription(planVO.getDescription());
-            plan.setPlanDetails(planVO.getPlanDetails());
-            plan.setPlanCharacteristics(planVO.getPlanCharacteristics());
+            plan.setDetails(planVO.getDetails());
+            plan.setCharacteristics(planVO.getCharacteristics());
 
 
             Set<User> userSet = planVO.getCollaborators().stream()
@@ -339,8 +339,8 @@ public class ExperimentalPlanResource {
 
             plan.setName(planVO.getName());
             plan.setDescription(planVO.getDescription());
-            plan.setPlanDetails(planVO.getPlanDetails());
-            plan.setPlanCharacteristics(planVO.getPlanCharacteristics());
+            plan.setDetails(planVO.getDetails());
+            plan.setCharacteristics(planVO.getCharacteristics());
 
             experimentalPlanController.update(plan);
 
@@ -452,7 +452,7 @@ public class ExperimentalPlanResource {
 
             checkPermission(plan, req);
 
-            plan.setPlanCharacteristics(planVO.getPlanCharacteristics());
+            plan.setCharacteristics(planVO.getCharacteristics());
 
             experimentalPlanController.update(plan);
 
@@ -480,7 +480,7 @@ public class ExperimentalPlanResource {
 
             checkPermission(plan, req);
 
-            plan.setPlanThreats(planVO.getPlanThreats());
+            plan.setThreats(planVO.getThreats());
             experimentalPlanController.update(plan);
 
             return Response.ok(planVO).build();
@@ -506,8 +506,8 @@ public class ExperimentalPlanResource {
 
             checkPermission(plan, req);
 
-            plan.setPlanActions(planVO.getPlanActions());
-            plan.setPlanActionRelatedThreats(planVO.getPlanActionRelatedThreats());
+            plan.setActions(planVO.getActions());
+            plan.setActionRelatedThreats(planVO.getActionRelatedThreats());
             experimentalPlanController.update(plan);
 
             return Response.ok(planVO).build();
@@ -533,7 +533,7 @@ public class ExperimentalPlanResource {
 
             checkPermission(plan, req);
 
-            plan.setPlanActionRelatedThreats(planVO.getPlanActionRelatedThreats());
+            plan.setActionRelatedThreats(planVO.getActionRelatedThreats());
             experimentalPlanController.update(plan);
 
             return Response.ok(planVO).build();
@@ -655,7 +655,7 @@ public class ExperimentalPlanResource {
     }
 
     private Map<String, List<Threat>> groupThreatsByType(Plan plan) {
-        Collection<Threat> threats = getSuggestedThreats(plan.getPlanCharacteristics());
+        Collection<Threat> threats = getSuggestedThreats(plan.getCharacteristics());
 
         Map<String, List<Threat>> groupedThreats =
                 new HashMap<>();

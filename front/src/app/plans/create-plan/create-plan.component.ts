@@ -130,8 +130,8 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       const plan = new Plan();
       plan.name = name;
       plan.description = description;
-      plan.planDetails = JSON.stringify(this.detailsObject);
-      plan.planCharacteristics = JSON.stringify(this.characteristicsObject);
+      plan.details = JSON.stringify(this.detailsObject);
+      plan.characteristics = JSON.stringify(this.characteristicsObject);
       plan.collaborators = this.selectedCollaborators;
 
       this.planService.savePlan(plan)

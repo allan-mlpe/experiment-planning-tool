@@ -146,4 +146,8 @@ export class ThreatsComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+  getScaleTips() {
+    return PcvtUtils.getHTMLListAsString(this.options);
+  }
 }

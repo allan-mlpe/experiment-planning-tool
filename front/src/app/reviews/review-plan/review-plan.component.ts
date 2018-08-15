@@ -48,7 +48,7 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
         this.review = info['review'];
         this.plan = this.review.plan;
         if(!this.plan.custom)
-          this.planDetails = JSON.parse(this.plan.planDetails);
+          this.planDetails = JSON.parse(this.plan.details);
       });
   }
 

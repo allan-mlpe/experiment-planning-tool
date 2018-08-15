@@ -71,11 +71,11 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     this.subsc2 = this.route.data.subscribe(
       (info: {plan: Plan}) => {
         this.plan = info['plan'];
-        this.detailsObject = this.plan.planDetails !== undefined ?
-          JSON.parse(this.plan.planDetails) : this.buildDetailsObject();
+        this.detailsObject = this.plan.details !== undefined ?
+          JSON.parse(this.plan.details) : this.buildDetailsObject();
 
-        if(this.plan.planCharacteristics !== undefined)
-          this.characteristicsObject = JSON.parse(this.plan.planCharacteristics);
+        if(this.plan.characteristics !== undefined)
+          this.characteristicsObject = JSON.parse(this.plan.characteristics);
       }
     );
 
@@ -98,8 +98,8 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   onSubmit() {
     this.saving = true;
     if(this.form.valid) {
-      this.plan.planDetails = JSON.stringify(this.detailsObject);
-      this.plan.planCharacteristics = JSON.stringify(this.characteristicsObject);
+      this.plan.details = JSON.stringify(this.detailsObject);
+      this.plan.characteristics = JSON.stringify(this.characteristicsObject);
 
       this.planService.updatePlan(this.plan)
         .finally(() => this.saving = false)

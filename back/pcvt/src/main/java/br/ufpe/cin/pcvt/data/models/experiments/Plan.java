@@ -63,19 +63,19 @@ public class Plan implements Comparable<Plan> {
 	private String filename;
 	@Lob
 	@Column(name = "plandetails", columnDefinition="TEXT")
-	private String planDetails;
+	private String details;
 	@Lob
 	@Column(name = "plan_characteristics")
-	private String planCharacteristics;
+	private String characteristics;
 	@Lob
 	@Column(name = "plan_threats")
-	private String planThreats;
+	private String threats;
 	@Lob
 	@Column(name = "plan_actions")
-	private String planActions;
+	private String actions;
 	@Lob
 	@Column(name = "plan_generated_threats")
-	private String planActionRelatedThreats;
+	private String actionRelatedThreats;
 
 	private static final int PLAN_SIZE = 31;
 
@@ -331,7 +331,7 @@ public class Plan implements Comparable<Plan> {
 
 		child.name = this.name;
 		child.description = this.description;
-		child.planDetails = this.planDetails;
+		child.details = this.details;
 		child.version = this.version + 1;
 		child.date = this.date;
 		child.privacySetting = this.privacySetting;
@@ -341,10 +341,10 @@ public class Plan implements Comparable<Plan> {
 
 		child.author = this.author;
 
-//		child.planCharacteristics = this.planCharacteristics;
-//		child.planThreats = this.planThreats;
-//		child.planActions = this.planActions;
-//		child.planActionRelatedThreats = this.planActionRelatedThreats;
+//		child.characteristics = this.characteristics;
+//		child.threats = this.threats;
+//		child.actions = this.actions;
+//		child.actionRelatedThreats = this.actionRelatedThreats;
 
 		for (User user : this.collaborators) {
 			child.collaborators.add(user);
@@ -363,39 +363,39 @@ public class Plan implements Comparable<Plan> {
 		return child;
 	}
 
-	public String getPlanDetails() {
-		return planDetails;
+	public String getDetails() {
+		return details;
 	}
 
-	public void setPlanDetails(String planDetails) {
-		this.planDetails = planDetails;
+	public void setDetails(String details) {
+		this.details = details;
 	}
 
-	public String getPlanCharacteristics() {
-		return planCharacteristics;
+	public String getCharacteristics() {
+		return characteristics;
 	}
 
-	public void setPlanCharacteristics(String planCharacteristics) {
-		this.planCharacteristics = planCharacteristics;
+	public void setCharacteristics(String characteristics) {
+		this.characteristics = characteristics;
 	}
 
-	public String getPlanThreats() {
-		return planThreats;
+	public String getThreats() {
+		return threats;
 	}
 
-	public void setPlanThreats(String planThreats) {
-		this.planThreats = planThreats;
+	public void setThreats(String threats) {
+		this.threats = threats;
 	}
 
-	public String getPlanActions() {
-		return planActions;
+	public String getActions() {
+		return actions;
 	}
 
-	public void setPlanActions(String planActions) {
-		this.planActions = planActions;
+	public void setActions(String actions) {
+		this.actions = actions;
 	}
 
-	public String getPlanActionRelatedThreats() { return planActionRelatedThreats; }
+	public String getActionRelatedThreats() { return actionRelatedThreats; }
 
-	public void setPlanActionRelatedThreats(String planActionRelatedThreats) { this.planActionRelatedThreats = planActionRelatedThreats; }
+	public void setActionRelatedThreats(String actionRelatedThreats) { this.actionRelatedThreats = actionRelatedThreats; }
 }

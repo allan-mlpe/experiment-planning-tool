@@ -96,16 +96,16 @@ export class PlansComponent implements OnInit {
   }
 
   showExportButton(plan: Plan): boolean {
-    if(plan.planDetails !== undefined && plan.planCharacteristics !== undefined) {
-      return PcvtUtils.isPlanningInstrumentComplete(JSON.parse(plan.planDetails))
-          && PcvtUtils.isCharacterizationInstrumentComplete(JSON.parse(plan.planCharacteristics));
+    if(plan.details !== undefined && plan.characteristics !== undefined) {
+      return PcvtUtils.isPlanningInstrumentComplete(JSON.parse(plan.details))
+          && PcvtUtils.isCharacterizationInstrumentComplete(JSON.parse(plan.characteristics));
     } else {
       return false;
     }
   }
 
   downloadReport(plan: Plan) {
-    if(PcvtUtils.isPlanningInstrumentComplete(JSON.parse(plan.planDetails))) {
+    if(PcvtUtils.isPlanningInstrumentComplete(JSON.parse(plan.details))) {
       const filename: string = plan.name + '.pdf';
       this.planService.downloadReport(plan.id,  filename);
     } else {

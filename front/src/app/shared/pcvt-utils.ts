@@ -95,4 +95,14 @@ export class PcvtUtils {
     }
     return false;
   }
+
+  public static getHTMLListAsString(values: Array<any>) {
+    let list: string = '<ul>';
+    for(let value of values) {
+      list +=  `<li>${value.name}: ${value.hint}.</li>`;
+    }
+    list += '</ul>';
+
+    return list;
+  }
 }

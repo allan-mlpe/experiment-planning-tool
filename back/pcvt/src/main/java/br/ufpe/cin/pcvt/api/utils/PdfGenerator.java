@@ -69,7 +69,7 @@ public class PdfGenerator {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
-            Map<String, String> detailsMap = JsonUtils.parseToSimpleMap(experimentalPlan.getPlanDetails());
+            Map<String, String> detailsMap = JsonUtils.parseToSimpleMap(experimentalPlan.getDetails());
 
             List<InstrumentSection> instrumentQuestions = APIConstants.INSTRUMENT_SECTIONS;
             int questionNumber = 1;

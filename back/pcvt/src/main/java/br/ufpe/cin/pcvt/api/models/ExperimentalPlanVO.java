@@ -21,11 +21,11 @@ public class ExperimentalPlanVO {
     private EPlanState state;
     private List<Review> reviews;
     private boolean archived;
-    private String planDetails;
-    private String planCharacteristics;
-    private String planThreats;
-    private String planActions;
-    private String planActionRelatedThreats;
+    private String details;
+    private String characteristics;
+    private String threats;
+    private String actions;
+    private String actionRelatedThreats;
     private Boolean hasChild;
     private Boolean isCustom;
     private String fileName;
@@ -118,41 +118,41 @@ public class ExperimentalPlanVO {
         this.archived = archived;
     }
 
-    public String getPlanDetails() {
-        return planDetails;
+    public String getDetails() {
+        return details;
     }
 
-    public void setPlanDetails(String planDetails) {
-        this.planDetails = planDetails;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
-    public String getPlanCharacteristics() {
-        return planCharacteristics;
+    public String getCharacteristics() {
+        return characteristics;
     }
 
-    public void setPlanCharacteristics(String planCharacteristics) {
-        this.planCharacteristics = planCharacteristics;
+    public void setCharacteristics(String characteristics) {
+        this.characteristics = characteristics;
     }
 
-    public String getPlanThreats() {
-        return planThreats;
+    public String getThreats() {
+        return threats;
     }
 
-    public void setPlanThreats(String planThreats) {
-        this.planThreats = planThreats;
+    public void setThreats(String threats) {
+        this.threats = threats;
     }
 
-    public String getPlanActions() {
-        return planActions;
+    public String getActions() {
+        return actions;
     }
 
-    public void setPlanActions(String planActions) {
-        this.planActions = planActions;
+    public void setActions(String actions) {
+        this.actions = actions;
     }
 
-    public String getPlanActionRelatedThreats() { return planActionRelatedThreats; }
+    public String getActionRelatedThreats() { return actionRelatedThreats; }
 
-    public void setPlanActionRelatedThreats(String planActionRelatedThreats) { this.planActionRelatedThreats = planActionRelatedThreats; }
+    public void setActionRelatedThreats(String actionRelatedThreats) { this.actionRelatedThreats = actionRelatedThreats; }
 
     public Boolean getHasChild() {
         return hasChild;
