@@ -1,0 +1,31 @@
+<div class="row" *ngIf="showInfoPanel">
+  <div class="col s12">
+    <p>Based on characteristics of your experiment, ValidEPlan Tool has generated a list of threats.</p>
+    <p>You will be asked to classify each suggested threat on a scale 1-3, considering the following criteria:</p>
+    <ul>
+      <li class="label-title" *ngFor="let label of options">{{ label.name + ': ' + label.hint }}.</li>
+    </ul>
+    <div class="right">
+      <button class="btn waves-effect waves-light"
+              (click)="startClassification()">Classify threats <i class="material-icons right">flag</i>
+
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!loading && !showInfoPanel && threatList.length > 0">
+  <app-radio-list [multipleOptions]="true" [options]="options" (onSubmitForm)="submitThreatObj()" [saving]="saving"
+                  [propertyList]="threatList" [values]="values" [valuesObj]="threatObj"></app-radio-list>
+
+  <app-discovery [title]="'About the scale...'" [text]="getScaleTips()"></app-discovery>
+</div>
+
+<div class="row" *ngIf="!loading && !showInfoPanel && threatList.length === 0">
+  <p>There is no threats related to this plan yet.</p>
+</div>
+
+<div class="loading-data" *ngIf="loading && !showInfoPanel">
+  <app-spinner></app-spinner>
+</div>
+

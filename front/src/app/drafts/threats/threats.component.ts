@@ -19,19 +19,10 @@ export class ThreatsComponent implements OnInit {
   draft: Draft;
   private subscription: Subscription;
 
-  // options: Array<any> = THREAT_OPTIONS;
-
   currentObject: any;
   currentObjectIndex: number;
   threatList: Array<any> = [];
   threatObj: any = {};
-
-  options: Array<any> = [
-    {name: 'Impact', hint: 'Perspective of the intensity or impact that a threat can cause the results of the experiment'},
-    {name: 'Urgency', hint: 'Degree of urgency of the resolution'},
-    {name: 'Trend', hint: 'Trend of the identified risk situation'}
-  ];
-  values = [1, 2, 3];
 
   loading: boolean = true;
   saving: boolean = false;
@@ -139,15 +130,7 @@ export class ThreatsComponent implements OnInit {
     this.loading = false;
   }
 
-  startClassification() {
-    this.showInfoPanel = false;
-  }
-
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  getScaleTips() {
-    return PcvtUtils.getHTMLListAsString(this.options);
   }
 }

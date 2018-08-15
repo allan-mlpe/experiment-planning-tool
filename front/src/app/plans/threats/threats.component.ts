@@ -18,19 +18,10 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   plan: Plan;
   private subscription: Subscription;
 
-  // options: Array<any> = THREAT_OPTIONS;
-
   currentObject: any;
   currentObjectIndex: number;
   threatList: Array<any> = [];
   threatObj: any = {};
-
-  options: Array<any> = [
-    {name: 'Impact', hint: 'Perspective of the intensity or impact that a threat can cause the results of the experiment'},
-    {name: 'Urgency', hint: 'Degree of urgency of the resolution'},
-    {name: 'Trend', hint: 'Trend of the identified risk situation'}
-  ];
-  values = [1, 2, 3];
 
   loading: boolean = true;
   saving: boolean = false;
@@ -132,10 +123,6 @@ export class ThreatsComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
-  startClassification() {
-    this.showInfoPanel = false;
-  }
-
   checkClassificationComplete() {
     if(PcvtUtils.isThreatClassificationComplete(this.threatObj)) {
       let subsc: Subscription = this.modalService.showModal("Threat classification completed", `Do you want to edit it?`, 'Yes', 'No')
@@ -152,9 +139,5 @@ export class ThreatsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  getScaleTips() {
-    return PcvtUtils.getHTMLListAsString(this.options);
   }
 }
