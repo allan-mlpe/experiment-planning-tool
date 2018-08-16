@@ -63,8 +63,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
         if (this.plan.threats !== undefined) {
           const characteristics: any = JSON.parse(this.plan.characteristics);
 
-          const characteristicsKeys: Array<string> = Object.keys(characteristics)
-            .filter(key => characteristics[key] === 'YES');
+          const characteristicsKeys: Array<string> = PcvtUtils.getExperimentCharacteristicsKeys(characteristics);
 
           if(characteristicsKeys.length > 0) {
             this.characteristicService.getThreatsByCharacteristicKeys({stringList: characteristicsKeys})
@@ -84,6 +83,8 @@ export class ActionsComponent implements OnInit, OnDestroy {
                   ToastFactory.errorToast(err.message);
                 }
               )
+          } else {
+            this.loading = false;
           }
         } else {
           ToastFactory.infoToast("You must first classify the threats of the plan");

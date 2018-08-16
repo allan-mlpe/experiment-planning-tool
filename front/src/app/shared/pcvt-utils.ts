@@ -105,4 +105,9 @@ export class PcvtUtils {
 
     return list;
   }
+
+  public static getExperimentCharacteristicsKeys(characteristics: any) {
+    return Object.keys(characteristics)
+      .filter(key => characteristics[key] === 'YES' || characteristics[key] === 'PARTIALLY');
+  }
 }

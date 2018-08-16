@@ -10,6 +10,7 @@ import {ToastFactory} from "../../shared/toast-factory";
 import {ControlActionService} from "../../services/control-action.service";
 import {Draft} from "../../model/draft";
 import {ApiMessage} from "../../model/pcvt-message";
+import {PcvtUtils} from "../../shared/pcvt-utils";
 
 @Component({
   selector: 'app-actions',
@@ -68,8 +69,7 @@ export class ActionsComponent implements OnInit {
         if (this.draft.threats !== undefined) {
           const characteristics: any = JSON.parse(this.draft.characteristics);
 
-          const characteristicsKeys: Array<string> = Object.keys(characteristics)
-            .filter(key => characteristics[key] === 'YES');
+          const characteristicsKeys: Array<string> = PcvtUtils.getExperimentCharacteristicsKeys(characteristics);
 
           if(characteristicsKeys.length > 0) {
             this.characteristicService.getThreatsByCharacteristicKeys({stringList: characteristicsKeys})
@@ -89,6 +89,8 @@ export class ActionsComponent implements OnInit {
                   ToastFactory.errorToast(err.message);
                 }
               )
+          } else {
+            this.loading = false;
           }
         } else {
           ToastFactory.infoToast("You must first classify the threats of the draft");

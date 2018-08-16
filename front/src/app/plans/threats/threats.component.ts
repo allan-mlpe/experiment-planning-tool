@@ -45,8 +45,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
         if (this.plan.characteristics !== undefined) {
           const characteristics: any = JSON.parse(this.plan.characteristics);
 
-          const characteristicsKeys: Array<string> = Object.keys(characteristics)
-            .filter(key => characteristics[key] === 'YES' || characteristics[key] === 'PARTIALLY');
+          const characteristicsKeys: Array<string> = PcvtUtils.getExperimentCharacteristicsKeys(characteristics);
 
           if(characteristicsKeys.length > 0) {
             this.characteristicService.getThreatsByCharacteristicKeys({stringList: characteristicsKeys})

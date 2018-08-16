@@ -52,8 +52,7 @@ export class ReportsComponent implements OnInit {
     if(this.plan.characteristics !== undefined) {
       const characteristics: any = JSON.parse(this.plan.characteristics);
 
-      const characteristicsKeys: Array<string> = Object.keys(characteristics)
-        .filter(key => characteristics[key] === 'YES');
+      const characteristicsKeys: Array<string> = PcvtUtils.getExperimentCharacteristicsKeys(characteristics);
 
       if(characteristicsKeys.length > 0) {
         this.characteristicsService.getThreatsByCharacteristicKeys({stringList: characteristicsKeys})
