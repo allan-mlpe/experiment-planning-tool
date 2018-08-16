@@ -13,7 +13,7 @@
 
 <div class="row">
   <ul class="collapsible" materialize="collapsible" data-collapsible="accordion">
-    <li *ngFor="let section of instrumentQuestions">
+    <li *ngFor="let section of characterizationInstrument">
       <div class="collapsible-header">
         <i class="material-icons section-icon">add_box</i> {{ section.section }}
       </div>
@@ -24,10 +24,10 @@
         </div>
 
         <!-- characterization questions -->
-        <div *ngIf="getCharacterizationQuestionsObject(section.key) !== undefined">
+        <div>
           <div class="row">
             <div class="characterization-question"
-                 *ngFor="let charQuestion of getCharacterizationQuestionsObject(section.key).questions; let i = index">
+                 *ngFor="let charQuestion of section.questions; let i = index">
               <label class="col s12">{{ (i + 1) + '. ' + charQuestion.label }}</label>
 
               <span class="col s12 m6 l4" *ngFor="let option of options">
@@ -42,7 +42,7 @@
                   </span>
 
               <div style="height: 80px;"
-                   *ngIf="(i+1) !== getCharacterizationQuestionsObject(section.key).questions.length"></div>
+                   *ngIf="(i+1) !== section.questions.length"></div>
             </div>
           </div>
         </div>

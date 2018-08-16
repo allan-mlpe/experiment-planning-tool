@@ -19,19 +19,37 @@ export class CharacterizationComponent implements OnInit {
   onSubmitForm: EventEmitter<any> = new EventEmitter<any>();
 
   options = SIMPLE_OPTIONS;
-  instrumentQuestions = PcvtConstants.INSTRUMENT_QUESTIONS;
+
+  characterizationInstrument = [];
   private readonly CHARACTERIZATION_QUESTIONS = PcvtConstants.CHARACTERIZATION_QUESTIONS;
+  private readonly INSTRUMENT_QUESTIONS  = PcvtConstants.INSTRUMENT_QUESTIONS;
 
   constructor() { }
 
   ngOnInit() {
+    this.characterizationInstrument = this.processInstrumentQuestionView();
   }
 
-  getCharacterizationQuestionsObject(key: string): any {
+  private getCharacterizationQuestionsObject(key: string): any {
     return this.CHARACTERIZATION_QUESTIONS.find(item => item['key'] === key);
   }
 
   submitCharacteristicsObj() {
     this.onSubmitForm.emit(this.characteristicsObj);
+  }
+
+  private processInstrumentQuestionView() {
+    let questions = [];
+    try {
+      questions = this.INSTRUMENT_QUESTIONS.filter(question => {
+        const characterizationQuestions: Array<any> = this.getCharacterizationQuestionsObject(question.key);
+        if(characterizationQuestions !== undefined && characterizationQuestions['questions'].length > 0) {
+          question['questions'] = characterizationQuestions['questions'];
+          return question;
+        }
+      });
+    } catch (e) {}
+
+    return questions;
   }
 }
