@@ -1,4 +1,6 @@
-<div class="row">
+<p class="report-header">ValidEPlan - Validity-Driven Software Engineering Experiments Planning Tool</p>
+
+<div class="row" class="remove-on-print">
   <hr class="section-separator">
   <div class="input-field col s12">
     <select id="report-type" (change)="changeSelectValue($event)">
@@ -13,7 +15,7 @@
 
 <div *ngIf="reportType !== undefined">
 
-  <div *ngIf="reportType != 1">
+  <div *ngIf="reportType != 1" class="remove-on-print">
     <div>
       <label>Filter by threat magnitude</label>
     </div>
@@ -30,6 +32,14 @@
 
   <div class="row" [ngSwitch]="reportType">
     <div class="col s12">
+
+      <div class="fixed-action-btn horizontal print-icon" (click)="printReport()">
+        <a id="print" class="waves-effect waves-light btn btn-floating tooltipped info-tooltip"
+           materialize="tooltip" data-position="left" data-delay="50" data-tooltip="Print report">
+          <i class="material-icons">print</i>
+        </a>
+      </div>
+
       <!-- suggested threats -->
       <div *ngSwitchCase="1">
         <hr class="section-separator">

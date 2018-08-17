@@ -1,4 +1,16 @@
+import {Magnitude} from "../model/magnitude.enum";
+
 export class PcvtConstants {
+
+  static readonly FILTER_OBJECT_LIST: Array<any> = [
+    { name: 'veryHigh', value: Magnitude.VERY_HIGH },
+    { name: 'high', value: Magnitude.HIGH },
+    { name: 'moderate', value: Magnitude.MODERATE },
+    { name: 'low', value: Magnitude.LOW },
+    { name: 'veryLow', value: Magnitude.VERY_LOW},
+  ];
+
+  static readonly FILTER_KEYS: Array<string> = [Magnitude.VERY_HIGH, Magnitude.HIGH, Magnitude.MODERATE, Magnitude.LOW, Magnitude.VERY_LOW];
 
   static readonly CHARACTERIZATION_QUESTIONS: Array<any> = [
     {

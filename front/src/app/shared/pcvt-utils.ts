@@ -110,4 +110,12 @@ export class PcvtUtils {
     return Object.keys(characteristics)
       .filter(key => characteristics[key] === 'YES' || characteristics[key] === 'PARTIALLY');
   }
+
+  public static getFilterList(): Array<any> {
+    return Object.assign([], PcvtConstants.FILTER_OBJECT_LIST);
+  }
+
+  public static getFilterKeys(): Array<string> {
+    return Object.assign([], PcvtConstants.FILTER_KEYS);
+  }
 }

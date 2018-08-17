@@ -19,3 +19,30 @@ span.related-threat {
 div.inline-info {
   padding: 0;
 }
+
+p.report-header {
+  display: none;
+}
+
+@media print {
+  .collapsible {
+    border: 0 !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .collapsible-bodym, p.report-header {
+    display: block !important;
+  }
+
+  p.report-header {
+    position: absolute;
+    top: 0;
+    color: darkgray;
+  }
+
+  .remove-on-print, .print-icon {
+    display: none;
+  }
+}

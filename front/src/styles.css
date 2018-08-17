@@ -85,4 +85,25 @@ div.download-link:hover a {
 
 }
 
+@media print {
+  nav, footer, #slide-out, .chip, div.row h3 {
+    display: none !important;
+  }
+
+  header, main, footer {
+    padding-left: 0 !important;
+  }
+
+  .collapsible {
+    border: 0 !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .collapsible-body {
+    display: block !important;
+  }
+}
+
 

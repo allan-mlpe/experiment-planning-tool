@@ -30,14 +30,8 @@ export class ReportsComponent implements OnInit {
   threatValuesObj: any = {};
   actionValuesObj: any = {};
   actionRelatedThreatsObj: any = {};
-  filterObjList: Array<any> = [
-    { name: 'veryHigh', value: Magnitude.VERY_HIGH },
-    { name: 'high', value: Magnitude.HIGH },
-    { name: 'moderate', value: Magnitude.MODERATE },
-    { name: 'low', value: Magnitude.LOW },
-    { name: 'veryLow', value: Magnitude.VERY_LOW},
-  ];
-  private filterKeys: Array<string> = [Magnitude.VERY_HIGH, Magnitude.HIGH, Magnitude.MODERATE, Magnitude.LOW, Magnitude.VERY_LOW];
+  filterObjList: Array<any> = PcvtUtils.getFilterList();
+  private filterKeys: Array<string> = PcvtUtils.getFilterKeys();
 
   constructor(
     private characteristicsService: CharacteristicsService,
@@ -88,7 +82,7 @@ export class ReportsComponent implements OnInit {
     // reset filtered list
     if(this.reportType == 1) {
       this.filteredList = this.threatList;
-      this.filterKeys = [Magnitude.VERY_HIGH, Magnitude.HIGH, Magnitude.MODERATE, Magnitude.LOW, Magnitude.VERY_LOW]
+      this.filterKeys = PcvtUtils.getFilterKeys();
     }
 
     this.reportType = value;
@@ -173,4 +167,7 @@ export class ReportsComponent implements OnInit {
     });
   }
 
+  printReport() {
+    window.print();
+  }
 }
