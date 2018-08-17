@@ -85,6 +85,10 @@ div.download-link:hover a {
 
 }
 
+.fixed-action-btn {
+  bottom: 60px;
+}
+
 @media print {
   nav, footer, #slide-out, .chip, div.row h3 {
     display: none !important;

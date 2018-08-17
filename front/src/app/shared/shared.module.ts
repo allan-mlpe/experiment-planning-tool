@@ -8,6 +8,7 @@ import {MaterializeModule} from 'angular2-materialize';
 import {ModalService} from '../services/modal.service';
 import {PlanStatusPipe} from "../pipes/plan-status.pipe";
 import {TruncateTextPipe} from "../pipes/truncate-text.pipe";
+import {ControlActionClassificationPipe} from "../pipes/control-action-classification.pipe";
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import {TruncateTextPipe} from "../pipes/truncate-text.pipe";
   ],
   declarations: [
     PlanStatusPipe,
+    ControlActionClassificationPipe,
     TruncateTextPipe
   ],
   exports: [
@@ -27,6 +29,7 @@ import {TruncateTextPipe} from "../pipes/truncate-text.pipe";
     ReactiveFormsModule,
     MaterializeModule,
     PlanStatusPipe,
+    ControlActionClassificationPipe,
     TruncateTextPipe
   ],
   providers: [

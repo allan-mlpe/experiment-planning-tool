@@ -64,7 +64,7 @@ export class ReportsComponent implements OnInit {
               if(this.plan.actionRelatedThreats !== undefined)
                 this.actionRelatedThreatsObj = Object.assign(this.actionRelatedThreatsObj, JSON.parse(this.plan.actionRelatedThreats));
 
-              this.processThreatMagnitude();
+              this.processScreenObject();
             },
             (err: ApiMessage) => {
               console.log(err);
@@ -91,20 +91,6 @@ export class ReportsComponent implements OnInit {
   changeSelectValue(component) {
     const selectValue = document.getElementById('report-type')['value'];
     component.setShowReport(selectValue);
-  }
-
-  getControlActionList(threat): Array<any> {
-    let controlActionList: Array<any> = [];
-    threat.relatedControlActions.forEach(c => {
-      if(this.actionValuesObj[threat.key][c.key] !== undefined)
-        controlActionList.push(c);
-    });
-
-    return controlActionList;
-  }
-
-  getRelatedThreatList(obj: any) {
-    return Object.keys(obj).map(threat => obj[threat]);
   }
 
   enableSuggestedThreats(): boolean {
@@ -151,18 +137,48 @@ export class ReportsComponent implements OnInit {
     this.filteredList = this.threatList.filter(threat => this.filterKeys.indexOf(threat.magnitude) != -1);
   }
 
+  private getControlActionList(threat): Array<any> {
+    let controlActionList: Array<any> = [];
+    threat.relatedControlActions.forEach(c => {
+      const actionClassification = this.actionValuesObj[threat.key][c.key];
+      if(actionClassification !== undefined) {
+        c['value'] = actionClassification;
+        controlActionList.push(c);
 
-  private processThreatMagnitude() {
+        const relatedThreatsList = this.actionRelatedThreatsObj[c.key];
+        let relatedThreats: Array<string> = [];
+        if(relatedThreatsList != undefined) {
+          relatedThreats = this.getRelatedThreatList(relatedThreatsList);
+        }
+        c['relatedThreats'] = relatedThreats
+      }
+    });
+
+    return controlActionList;
+  }
+
+  private getRelatedThreatList(obj: any) {
+    return Object.values(obj);
+  }
+
+  private getThreatMagnitude(classificationObj): Magnitude {
+    const impact: number = classificationObj['impact'];
+    const urgency: number = classificationObj['urgency'];
+    const trend: number = classificationObj['trend'];
+
+    return PcvtUtils.calculateThreatMagnitude(impact, urgency, trend);
+  }
+
+  private processScreenObject() {
     this.threatList.forEach(item => {
       const classificationObj = this.threatValuesObj[item.key];
       if(classificationObj !== undefined) {
-        const impact: number = classificationObj['impact'];
-        const urgency: number = classificationObj['urgency'];
-        const trend: number = classificationObj['trend'];
 
-        const calculatedMagnitude: Magnitude = PcvtUtils.calculateThreatMagnitude(impact, urgency, trend);
+        const calculatedMagnitude: Magnitude = this.getThreatMagnitude(classificationObj);
+        const controlActionList: Array<any> = this.getControlActionList(item);
 
         item['magnitude'] = calculatedMagnitude;
+        item['actions'] = controlActionList;
       }
     });
   }

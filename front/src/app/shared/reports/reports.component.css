@@ -7,8 +7,9 @@ div.threat-section {
   margin-bottom: 30pt;
 }
 
-div.related-threats {
+div.control-action-details {
   margin-left: 17pt;
+  font-size: 13px;
 }
 
 span.related-threat {
