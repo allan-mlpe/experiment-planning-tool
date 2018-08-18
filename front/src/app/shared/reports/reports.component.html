@@ -18,6 +18,7 @@
   <div *ngIf="reportType != 1" class="remove-on-print">
     <div>
       <label>Filter by threat magnitude</label>
+      <app-info-tooltip [hint]="'Use this filter to show threats with specific magnitudes. E.g. keeping checked only the \'high\' option will only show threats with this magnitude.'"></app-info-tooltip>
     </div>
     <span class="col s4" *ngFor="let filterOption of filterObjList">
           <input type="checkbox" class="filled-in" checked
