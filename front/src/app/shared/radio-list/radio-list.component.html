@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <!--<div class="row">
       <div class="col s12">
         <button class="btn waves-effect waves-light right" [disabled]="saving"
           type="submit">
@@ -48,6 +48,19 @@
             </i>
         </button>
       </div>
+    </div>-->
+
+    <div class="fixed-action-btn horizontal save-icon">
+      <button type="submit" id="save-button" class="waves-effect waves-light btn btn-floating tooltipped info-tooltip"
+              materialize="tooltip" data-position="top" data-delay="50" data-tooltip="Save"
+              [disabled]="saving">
+
+        <i class="material-icons right">
+          <span *ngIf="!saving">save</span>
+          <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </i>
+      </button>
     </div>
+
   </form>
 </div>

@@ -48,7 +48,11 @@
   <div class="col s12">
     <div class="row" >
       <div class="col s12 m12 l12">
-        <hr class="section-separator">
+        <br>
+        <div class="progress">
+          <div class="determinate" [ngStyle]="getProgress()"></div>
+        </div>
+
         <h5>Threat</h5>
         <p >
           {{currentObject.label }}.
@@ -87,11 +91,7 @@
       </div>
     </div>
 
-    <div class="progress">
-      <div class="determinate" [ngStyle]="getProgress()"></div>
-    </div>
-
-    <div class="right">
+    <!--<div class="right">
       <button class="btn waves-effect waves-light" type="button"
               *ngIf="currentObjectIndex !== 0"
               (click)="previousItem()"><i class="material-icons left">navigate_before</i> Back</button>
@@ -103,6 +103,30 @@
       <button class="btn waves-effect waves-light" type="button" [disabled]="saving"
               (click)="finish()">
           Save
+        <i class="material-icons right">
+          <span *ngIf="!saving">save</span>
+          <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+        </i>
+      </button>
+    </div> -->
+
+    <div class="fixed-action-btn horizontal">
+      <button type="button" id="back-button" class="waves-effect waves-light btn btn-floating tooltipped info-tooltip"
+         materialize="tooltip" data-position="top" data-delay="50" data-tooltip="Back"
+         [disabled]="currentObjectIndex === 0" (click)="previousItem()">
+        <i class="material-icons">navigate_before</i>
+      </button>
+
+      <button type="button" id="next-button" class="waves-effect waves-light btn btn-floating tooltipped info-tooltip"
+         materialize="tooltip" data-position="top" data-delay="50" data-tooltip="Next"
+         [disabled]="currentObjectIndex === filteredList.length-1" (click)="nextItem()">
+        <i class="material-icons">navigate_next</i>
+      </button>
+
+      <button type="button" id="save-button" class="waves-effect waves-light btn btn-floating tooltipped info-tooltip"
+         materialize="tooltip" data-position="top" data-delay="50" data-tooltip="Save"
+         (click)="finish()" [disabled]="saving">
+
         <i class="material-icons right">
           <span *ngIf="!saving">save</span>
           <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>

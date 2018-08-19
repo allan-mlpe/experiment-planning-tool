@@ -221,13 +221,17 @@ export class ActionsComponent implements OnInit {
 
   // wizzard funcions
   nextItem() {
-    this.currentObjectIndex+=1;
-    this.currentObject = this.filteredList[this.currentObjectIndex];
+    if(this.currentObjectIndex !== this.filteredList.length-1) {
+      this.currentObjectIndex+=1;
+      this.currentObject = this.filteredList[this.currentObjectIndex];
+    }
   }
 
   previousItem() {
-    this.currentObjectIndex-=1;
-    this.currentObject = this.filteredList[this.currentObjectIndex];
+    if(this.currentObjectIndex !== 0) {
+      this.currentObjectIndex-=1;
+      this.currentObject = this.filteredList[this.currentObjectIndex];
+    }
   }
 
   getProgress() {
