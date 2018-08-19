@@ -33,6 +33,8 @@ export class ReportsComponent implements OnInit {
   filterObjList: Array<any> = PcvtUtils.getFilterList();
   private filterKeys: Array<string> = PcvtUtils.getFilterKeys();
 
+  private showSuggestThreatsReport;
+
   constructor(
     private characteristicsService: CharacteristicsService,
     private threatsService: ThreatsService,
@@ -100,15 +102,19 @@ export class ReportsComponent implements OnInit {
   }
 
   enableClassifiedThreats() {
-    const threatsObj = this.plan.threats !== undefined ?
-      JSON.parse(this.plan.threats) : {};
+    if(this.showSuggestThreatsReport === undefined) {
+      const threatsObj = this.plan.threats !== undefined ?
+        JSON.parse(this.plan.threats) : {};
 
-    return PcvtUtils.isThreatClassificationComplete(threatsObj);
+      this.showSuggestThreatsReport =
+        PcvtUtils.isThreatClassificationComplete(threatsObj);
+    }
+
+    return this.showSuggestThreatsReport;
   }
 
   enableDefinedControlActions() {
-    // TODO check control actions completeness
-    return this.plan.actions !== undefined;
+    return this.enableClassifiedThreats() && this.plan.actions !== undefined;
   }
 
   // filter functions
@@ -140,7 +146,8 @@ export class ReportsComponent implements OnInit {
   private getControlActionList(threat): Array<any> {
     let controlActionList: Array<any> = [];
     threat.relatedControlActions.forEach(c => {
-      const actionClassification = this.actionValuesObj[threat.key][c.key];
+      const actionClassification = this.actionValuesObj[threat.key] !== undefined ?
+        this.actionValuesObj[threat.key][c.key]: undefined;
       if(actionClassification !== undefined) {
         c['value'] = actionClassification;
         controlActionList.push(c);
