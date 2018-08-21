@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PcvtUtils} from "../pcvt-utils";
+import {ModalService} from "../../services/modal.service";
+import {Subscription} from "rxjs/Rx";
 
 @Component({
   selector: 'app-threat-classification',
@@ -35,13 +37,33 @@ export class ThreatClassificationComponent implements OnInit {
   @Input()
   showInfoPanel: boolean;
 
-  constructor() { }
+  showNotClassifiedItems: boolean = false;
+
+  constructor(private modalService: ModalService) { }
 
   ngOnInit() {
   }
 
   submitThreatObj() {
-    this.submitThreatObject.emit(this.threatObj);
+
+    if(!PcvtUtils.isThreatClassificationComplete(this.threatObj)) {
+      let subsc: Subscription = this.modalService.showModal(
+        'Classification is incomplete',
+        'Finishing the threat classification is mandatory to be able to define control actions to your experiment.<br><br>Do you want to save and continue later? ',
+        'YES', 'NO'
+      ).subscribe((save: boolean) => {
+        if(save) {
+          this.submitThreatObject.emit(this.threatObj);
+        } else {
+          this.showNotClassifiedItems = true;
+        }
+
+        subsc.unsubscribe();
+      });
+
+    } else {
+      this.submitThreatObject.emit(this.threatObj);
+    }
   }
 
   startClassification() {

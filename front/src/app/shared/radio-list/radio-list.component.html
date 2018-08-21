@@ -20,7 +20,7 @@
 
       <div *ngIf="multipleOptions">
         <div *ngFor="let option of options">
-          <label class="label-title col s12">
+          <label class="label-title col s12" [ngClass]="getItemClass(valuesObj[property.key][option.name.toLowerCase()])">
             {{ option.name }}
             <!--<app-info-tooltip [hint]="option.hint"></app-info-tooltip>-->
 

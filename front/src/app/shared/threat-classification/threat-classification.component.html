@@ -16,7 +16,8 @@
 
 <div class="row" *ngIf="!loading && !showInfoPanel && threatList.length > 0">
   <app-radio-list [multipleOptions]="true" [options]="options" (onSubmitForm)="submitThreatObj()" [saving]="saving"
-                  [propertyList]="threatList" [values]="values" [valuesObj]="threatObj"></app-radio-list>
+                  [propertyList]="threatList" [values]="values" [valuesObj]="threatObj"
+                  [showNotClassifiedItems]="showNotClassifiedItems"></app-radio-list>
 
   <app-discovery [title]="'About the scale...'" [text]="getScaleTips()"></app-discovery>
 </div>

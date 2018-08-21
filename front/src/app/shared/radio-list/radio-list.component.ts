@@ -30,6 +30,9 @@ export class RadioListComponent implements OnInit {
   @Input()
   saving: boolean = false;
 
+  @Input()
+  showNotClassifiedItems: boolean
+
   constructor() { }
 
   ngOnInit() {
@@ -37,5 +40,11 @@ export class RadioListComponent implements OnInit {
 
   emitForm(form: FormGroup) {
     this.onSubmitForm.emit(this.valuesObj);
+  }
+
+  getItemClass(value) {
+    return {
+      'not-checked': this.showNotClassifiedItems && value === undefined
+    }
   }
 }
