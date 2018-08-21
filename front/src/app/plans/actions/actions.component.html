@@ -57,10 +57,10 @@
         </div>
 
         <h5>Threat</h5>
-        <p >
-          {{currentObject.label }}.
-          <app-info-tooltip [hint]="currentObject.description"></app-info-tooltip>
-        </p>
+        <p>{{currentObject.label }}.</p>
+
+        <label>Description</label>
+        <div>{{ currentObject.description }}</div>
       </div>
 
       <div class="col s12 m12 l12">
