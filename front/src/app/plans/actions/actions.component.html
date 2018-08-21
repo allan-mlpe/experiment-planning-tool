@@ -49,8 +49,11 @@
     <div class="row" >
       <div class="col s12 m12 l12">
         <br>
-        <div class="progress">
-          <div class="determinate" [ngStyle]="getProgress()"></div>
+        <div>
+          <div class="progress">
+            <div class="determinate" [ngStyle]="getProgress()"></div>
+          </div>
+          <span class="progress-label">{{ currentObjectIndex+1 }}/{{ filteredList.length }}</span>
         </div>
 
         <h5>Threat</h5>
