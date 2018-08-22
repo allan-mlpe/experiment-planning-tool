@@ -44,6 +44,10 @@ public class Draft {
     @Column(name = "related_threats")
     private String actionRelatedThreats;
 
+    @Lob
+    @Column(name = "suggested_threats")
+    private String suggestedThreats;
+
     public Draft() {}
 
     public Integer getId() {
@@ -116,5 +120,13 @@ public class Draft {
 
     public void setActionRelatedThreats(String actionRelatedThreats) {
         this.actionRelatedThreats = actionRelatedThreats;
+    }
+
+    public String getSuggestedThreats() {
+        return suggestedThreats;
+    }
+
+    public void setSuggestedThreats(String suggestedThreats) {
+        this.suggestedThreats = suggestedThreats;
     }
 }

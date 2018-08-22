@@ -26,6 +26,7 @@ public class ExperimentalPlanVO {
     private String threats;
     private String actions;
     private String actionRelatedThreats;
+    private String suggestedThreats;
     private Boolean hasChild;
     private Boolean isCustom;
     private String fileName;
@@ -176,5 +177,13 @@ public class ExperimentalPlanVO {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String getSuggestedThreats() {
+        return suggestedThreats;
+    }
+
+    public void setSuggestedThreats(String suggestedThreats) {
+        this.suggestedThreats = suggestedThreats;
     }
 }

@@ -28,6 +28,7 @@ public class ExperimentalDraftVOConverter implements IVOConverter<Draft, Experim
         draftVO.setAuthor(UserVOConverter.getInstance().convertToVO(draft.getAuthor()));
         draftVO.setDraftType(draft.getDraftType());
         draftVO.setCharacteristics(draft.getCharacteristics());
+        draftVO.setSuggestedThreats(draft.getSuggestedThreats());
 
         if(draft.getDraftType() == EDraftType.FULL) {
             draftVO.setThreats(draft.getThreats());

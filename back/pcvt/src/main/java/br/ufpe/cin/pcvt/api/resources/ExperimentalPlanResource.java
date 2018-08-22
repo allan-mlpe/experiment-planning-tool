@@ -546,6 +546,34 @@ public class ExperimentalPlanResource {
         }
     }
 
+    @POST
+    @Path("/{id}/custom-threat")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(APIConstants.APPLICATION_JSON)
+    public Response saveCustomThreat(@PathParam("id") Integer id, @Context ContainerRequestContext req, @FormParam("customThreats") String customThreats) {
+        try {
+            Plan plan = experimentalPlanController.get(id);
+            if(plan == null)
+                throw new ApiException(Response.Status.NOT_FOUND,
+                        "Experimental plan not found");
+
+            checkPermission(plan, req);
+
+            plan.setSuggestedThreats(customThreats);
+            experimentalPlanController.update(plan);
+
+            ExperimentalPlanVO planVO = ExperimentalPlanVOConverter.getInstance().convertToVO(plan);
+
+            return Response.ok(planVO).build();
+        } catch(ApiException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
+                    "Internal server error. It was not possible to update the plan");
+        }
+    }
+
     @PUT
     @Path("/{id}/archive")
     @Consumes(APIConstants.APPLICATION_JSON)
