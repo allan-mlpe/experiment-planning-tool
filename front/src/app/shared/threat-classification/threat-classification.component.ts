@@ -4,6 +4,8 @@ import {ModalService} from "../../services/modal.service";
 import {Subscription} from "rxjs/Rx";
 import {CustomThreatModalComponent} from "../custom-threat-modal/custom-threat-modal.component";
 
+declare var $: any;
+
 @Component({
   selector: 'app-threat-classification',
   templateUrl: './threat-classification.component.html',
@@ -23,11 +25,16 @@ export class ThreatClassificationComponent implements OnInit {
   threatList: Array<any> = [];
 
   @Input()
+  customThreatList: Array<any> = [];
+
+  @Input()
   threatObj: any = {};
+
+  @Input()
+  customThreatObj: any = {};
 
   @Output()
   submitThreatObject: EventEmitter<any> = new EventEmitter<any>();
-
 
   @Input()
   saving: boolean = false;
@@ -48,8 +55,7 @@ export class ThreatClassificationComponent implements OnInit {
 
   constructor(private modalService: ModalService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   submitThreatObj() {
 
@@ -79,5 +85,17 @@ export class ThreatClassificationComponent implements OnInit {
 
   getScaleTips() {
     return PcvtUtils.getHTMLListAsString(this.options);
+  }
+
+  onNewThreatEvent(newThreat: any) {
+    newThreat['key'] = 'pop';
+    this.customThreatList.push(newThreat);
+    this.customThreatObj[newThreat['key']] = {};
+  }
+
+  getItemClass(value) {
+    return {
+      'not-checked': this.showNotClassifiedItems && value === undefined
+    }
   }
 }

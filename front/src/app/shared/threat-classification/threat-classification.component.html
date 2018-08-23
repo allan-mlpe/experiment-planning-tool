@@ -15,9 +15,71 @@
 </div>
 
 <div class="row" *ngIf="!loading && !showInfoPanel && threatList.length > 0">
-  <app-radio-list [multipleOptions]="true" [options]="options" (onSubmitForm)="submitThreatObj()" [saving]="saving"
-                  [propertyList]="threatList" [values]="values" [valuesObj]="threatObj"
-                  [showNotClassifiedItems]="showNotClassifiedItems"></app-radio-list>
+
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs" materialize="tabs">
+        <li class="tab col s6"><a class="active" href="#default-threats">Default Threats</a></li>
+        <li class="tab col s6"><a href="#custom-threats">Custom Threats</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="default-threats" class="col s12">
+    <app-radio-list [multipleOptions]="true" [options]="options" (onSubmitForm)="submitThreatObj()" [saving]="saving"
+                    [propertyList]="threatList" [values]="values" [valuesObj]="threatObj"
+                    [showNotClassifiedItems]="showNotClassifiedItems"></app-radio-list>
+  </div>
+
+  <div id="custom-threats" class="col s12">
+
+    <button type="button" (click)="openNewThreatModal()">ADD NEW THREAT</button>
+
+
+    <div class="col s12">
+      <form #form="ngForm" (ngSubmit)="submitThreatObj()">
+        <div class="row" *ngFor="let property of customThreatList; let i= index">
+          <label class="col s12 m12 l12">
+            {{ (i + 1) + '. ' + property.label }}
+
+            <app-info-tooltip *ngIf="property.description" [hint]="property.description"></app-info-tooltip>
+          </label>
+
+          <div>
+            <div *ngFor="let option of options">
+              <label class="label-title col s12" [ngClass]="getItemClass(customThreatObj[property.key][option.name.toLowerCase()])">
+                {{ option.name }}
+                <!--<app-info-tooltip [hint]="option.hint"></app-info-tooltip>-->
+
+              </label>
+              <span class="col s12 m6 l4" *ngFor="let val of values">
+            <input class="with-gap" type="radio" [value]="val"
+                   [name]="'prop-'+property.key+'-'+option.name.toLowerCase()" [id]="'prop-'+property.key+'-op-'+option.name.toLowerCase()+'-'+val"
+                   [(ngModel)]="customThreatObj[property.key][option.name.toLowerCase()]" />
+
+            <label [for]="'prop-'+property.key+'-op-'+option.name.toLowerCase()+'-'+val">{{ val }}</label>
+          </span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="fixed-action-btn horizontal save-icon">
+          <button type="submit" id="save-button" class="waves-effect waves-light btn btn-floating tooltipped info-tooltip"
+                  materialize="tooltip" data-position="top" data-delay="50" data-tooltip="Save"
+                  [disabled]="saving">
+
+            <i class="material-icons right">
+              <span *ngIf="!saving">save</span>
+              <app-spinner *ngIf="saving" [width]="'20px'" [height]="'20px'"></app-spinner>
+            </i>
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
 
   <app-discovery [title]="'About the scale...'" [text]="getScaleTips()"></app-discovery>
 </div>
@@ -30,5 +92,5 @@
   <app-spinner></app-spinner>
 </div>
 
-<app-custom-threat-modal></app-custom-threat-modal>
+<app-custom-threat-modal (newThreatEvent)="onNewThreatEvent($event)"></app-custom-threat-modal>
 

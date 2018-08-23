@@ -118,4 +118,9 @@ export class PcvtUtils {
   public static getFilterKeys(): Array<string> {
     return Object.assign([], PcvtConstants.FILTER_KEYS);
   }
+
+  public static randomHashGenerator() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+  }
 }

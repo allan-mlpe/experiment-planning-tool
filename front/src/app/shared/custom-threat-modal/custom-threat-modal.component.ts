@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormValidateUtils} from "../form-validate-utils";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {PcvtUtils} from "../pcvt-utils";
 
 declare var $ :any;
 
@@ -40,6 +41,7 @@ export class CustomThreatModalComponent implements OnInit {
 
       const actions = this.form.get('relatedControlActions').value;
       if(actions !== null) {
+        this.newThreat['key'] = `CUS-${PcvtUtils.randomHashGenerator()}`;
         this.newThreat['relatedControlActions'] = [];
 
         const actionsArr: Array<string> = actions.split(',');
