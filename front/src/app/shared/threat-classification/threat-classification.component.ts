@@ -88,7 +88,6 @@ export class ThreatClassificationComponent implements OnInit {
   }
 
   onNewThreatEvent(newThreat: any) {
-    newThreat['key'] = 'pop';
     this.customThreatList.push(newThreat);
     this.customThreatObj[newThreat['key']] = {};
   }
