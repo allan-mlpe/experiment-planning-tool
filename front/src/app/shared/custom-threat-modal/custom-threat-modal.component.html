@@ -1,0 +1,43 @@
+<div id="new-threat-modal" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>New Threat</h4>
+
+    <div class="col s12">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="input-field">
+            <input id="label" type="text" placeholder="A short statement about your threat"
+                   formControlName="label" [(ngModel)]="newThreat.label" [ngClass]="addClassError('label')">
+            <label for="label">Label</label>
+
+            <app-input-field-error [showError]="showError('label')" [message]="buildErrorMessage('label')"></app-input-field-error>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field">
+            <input id="description" type="text" placeholder="Full description about your threat"
+                   formControlName="description" [(ngModel)]="newThreat.description" [ngClass]="addClassError('description')">
+            <label for="description">Description</label>
+
+            <app-input-field-error [showError]="showError('description')" [message]="buildErrorMessage('description')"></app-input-field-error>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field">
+            <input type="text" placeholder="Control action 1, control action 2..."
+                   formControlName="relatedControlActions">
+            <label>Control Actions</label>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a (click)="closeModal()" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+    <a (click)="submitNewThreat()" class="modal-close waves-effect waves-green btn-flat">Save</a>
+  </div>
+</div>

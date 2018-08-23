@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {PcvtUtils} from "../pcvt-utils";
 import {ModalService} from "../../services/modal.service";
 import {Subscription} from "rxjs/Rx";
+import {CustomThreatModalComponent} from "../custom-threat-modal/custom-threat-modal.component";
 
 @Component({
   selector: 'app-threat-classification',
@@ -38,6 +39,12 @@ export class ThreatClassificationComponent implements OnInit {
   showInfoPanel: boolean;
 
   showNotClassifiedItems: boolean = false;
+
+  @ViewChild(CustomThreatModalComponent) newThreatModal: CustomThreatModalComponent;
+
+  openNewThreatModal() {
+    this.newThreatModal.openModal();
+  }
 
   constructor(private modalService: ModalService) { }
 

@@ -23,6 +23,7 @@ import {ReportsComponent} from "../reports/reports.component";
 import {CharacterizationComponent} from '../characterization/characterization.component';
 import {DiscoveryComponent} from '../discovery/discovery.component';
 import {ThreatClassificationComponent} from '../threat-classification/threat-classification.component';
+import { CustomThreatModalComponent } from '../custom-threat-modal/custom-threat-modal.component';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import {ThreatClassificationComponent} from '../threat-classification/threat-cla
     ReportsComponent,
     CharacterizationComponent,
     DiscoveryComponent,
-    ThreatClassificationComponent
+    ThreatClassificationComponent,
+    CustomThreatModalComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -72,7 +74,8 @@ import {ThreatClassificationComponent} from '../threat-classification/threat-cla
     ReportsComponent,
     CharacterizationComponent,
     DiscoveryComponent,
-    ThreatClassificationComponent
+    ThreatClassificationComponent,
+    CustomThreatModalComponent
   ]
 })
 export class LayoutsModule { }
