@@ -10,6 +10,7 @@ export class Draft {
   actionRelatedThreats: string;
   author: User;
   draftType;
+  customThreats: string;
 
   constructor() {}
 }

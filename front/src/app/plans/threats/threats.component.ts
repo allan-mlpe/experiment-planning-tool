@@ -22,6 +22,8 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   currentObjectIndex: number;
   threatList: Array<any> = [];
   threatObj: any = {};
+  customThreatObj: any = {};
+  customThreatList: Array<any> = [];
 
   loading: boolean = true;
   saving: boolean = false;
@@ -76,6 +78,7 @@ export class ThreatsComponent implements OnInit, OnDestroy {
   savePlanThreats() {
     this.saving = true;
     this.plan.threats = JSON.stringify(this.threatObj);
+    this.plan.customThreats = JSON.stringify(this.customThreatObj);
 
     this.planService.savePlanThreats(this.plan)
       .finally(() => this.saving = false)
@@ -115,8 +118,12 @@ export class ThreatsComponent implements OnInit, OnDestroy {
 
     if(this.plan.threats !== undefined) {
       this.threatObj = Object.assign(this.threatObj, JSON.parse(this.plan.threats));
+    }
 
-      //this.checkClassificationComplete();
+    if(this.plan.customThreats !== undefined) {
+      this.customThreatObj =
+        Object.assign(this.customThreatObj, JSON.parse(this.plan.customThreats));
+        this.customThreatList = Object.values(this.customThreatObj);
     }
 
     this.loading = false;

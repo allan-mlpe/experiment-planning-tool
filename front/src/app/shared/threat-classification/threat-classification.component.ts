@@ -66,7 +66,11 @@ export class ThreatClassificationComponent implements OnInit {
         'YES', 'NO'
       ).subscribe((save: boolean) => {
         if(save) {
-          this.submitThreatObject.emit(this.threatObj);
+          const allThreats: any = {
+            default: this.threatObj,
+            custom: this.customThreatObj
+          }
+          this.submitThreatObject.emit(allThreats);
         } else {
           this.showNotClassifiedItems = true;
         }
@@ -89,12 +93,21 @@ export class ThreatClassificationComponent implements OnInit {
 
   onNewThreatEvent(newThreat: any) {
     this.customThreatList.push(newThreat);
-    this.customThreatObj[newThreat['key']] = {};
+    this.customThreatObj[newThreat['key']] = newThreat;
   }
 
   getItemClass(value) {
     return {
-      'not-checked': this.showNotClassifiedItems && value === undefined
+      'not-checked-threat': this.showNotClassifiedItems && value === undefined
     }
+  }
+
+  deleteCustomThreat(threat: any, index: number) {
+    delete this.customThreatObj[threat['key']];
+    this.customThreatList.splice(index, 1);
+  }
+
+  editCustomThreat(threat: any) {
+    this.newThreatModal.openModal(threat);
   }
 }

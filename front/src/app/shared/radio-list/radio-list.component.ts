@@ -44,7 +44,7 @@ export class RadioListComponent implements OnInit {
 
   getItemClass(value) {
     return {
-      'not-checked': this.showNotClassifiedItems && value === undefined
+      'not-checked-threat': this.showNotClassifiedItems && value === undefined
     }
   }
 }

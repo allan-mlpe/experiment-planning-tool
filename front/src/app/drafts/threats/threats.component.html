@@ -7,5 +7,6 @@
             [label]="'Draft'" [value]="draft.name"></app-chip>
 </div>
 
-<app-threat-classification [threatObj]="threatObj" [threatList]="threatList" (submitThreatObject)="saveDraftThreats()"
+<app-threat-classification [threatObj]="threatObj" [threatList]="threatList"
+             [customThreatObj]="customThreatObj" [customThreatList]="customThreatList" (submitThreatObject)="saveDraftThreats()"
              [loading]="loading" [saving]="saving" [showInfoPanel]="showInfoPanel"></app-threat-classification>

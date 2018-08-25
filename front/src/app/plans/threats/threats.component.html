@@ -7,5 +7,6 @@
             [label]="'Plan'" [value]="plan.name"></app-chip>
 </div>
 
-<app-threat-classification [threatObj]="threatObj" [threatList]="threatList" (submitThreatObject)="savePlanThreats()"
+<app-threat-classification [threatObj]="threatObj" [threatList]="threatList"
+    [customThreatObj]="customThreatObj" [customThreatList]="customThreatList" (submitThreatObject)="savePlanThreats()"
     [loading]="loading" [saving]="saving" [showInfoPanel]="showInfoPanel"></app-threat-classification>

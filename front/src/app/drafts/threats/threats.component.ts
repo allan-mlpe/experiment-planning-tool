@@ -23,6 +23,8 @@ export class ThreatsComponent implements OnInit {
   currentObjectIndex: number;
   threatList: Array<any> = [];
   threatObj: any = {};
+  customThreatObj: any = {};
+  customThreatList: Array<any> = [];
 
   loading: boolean = true;
   saving: boolean = false;
@@ -83,6 +85,7 @@ export class ThreatsComponent implements OnInit {
   saveDraftThreats() {
     this.saving = true;
     this.draft.threats = JSON.stringify(this.threatObj);
+    this.draft.customThreats = JSON.stringify(this.customThreatObj);
 
     this.draftService.saveDraftThreats(this.draft)
       .finally(() => this.saving = false)
@@ -124,6 +127,12 @@ export class ThreatsComponent implements OnInit {
       this.threatObj = Object.assign(this.threatObj, JSON.parse(this.draft.threats));
 
       //this.checkClassificationComplete();
+    }
+
+    if(this.draft.customThreats !== undefined) {
+      this.customThreatObj =
+        Object.assign(this.customThreatObj, JSON.parse(this.draft.customThreats));
+      this.customThreatList = Object.values(this.customThreatObj);
     }
 
     this.loading = false;

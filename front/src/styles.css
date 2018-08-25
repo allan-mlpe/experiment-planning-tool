@@ -117,4 +117,39 @@ span.progress-label {
   }
 }
 
+/* checked/not-checked-threats */
+.not-checked-threat::after {
+  display: inline-block;
+  content: "!";
+  text-align: center;
+  background-color: bisque;
+  color: darkorange;
+  width: 20px;
+  border-radius: 20px;
+  float: left;
+  margin-left: -25px;
+  font-weight: bolder;
+}
+
+
+.checked-threat::after {
+  display: inline-block;
+  content: "\2713";
+  text-align: center;
+  background-color: #9dffb2;
+  color: darkgreen;
+  width: 20px;
+  border-radius: 20px;
+  float: left;
+  margin-left: -25px;
+  font-weight: bolder;
+}
+
+@media only screen and (max-width: 600px) {
+  .checked-threat::after, .not-checked-threat::after {
+    float: unset;
+    margin: auto;
+  }
+}
+
 

@@ -20,6 +20,11 @@ export class CustomThreatModalComponent implements OnInit {
 
   newThreat: any = {};
 
+  editMode: boolean;
+
+  private readonly RELATED_ACTIONS_LABEL = 'relatedControlActions';
+  private oldThreat: string;
+
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -38,35 +43,51 @@ export class CustomThreatModalComponent implements OnInit {
 
   submitNewThreat() {
     if(this.form.valid) {
-
       const actions = this.form.get('relatedControlActions').value;
+
       if(actions !== null) {
-        this.newThreat['key'] = `CUS-${PcvtUtils.randomHashGenerator()}`;
-        this.newThreat['relatedControlActions'] = [];
+        this.newThreat[this.RELATED_ACTIONS_LABEL] = [];
 
         const actionsArr: Array<string> = actions.split(',');
         actionsArr.forEach(act => {
-          const auxAction = { label: act.trim() };
-          this.newThreat['relatedControlActions'].push(auxAction);
+          const auxAction = act.trim();
+          if(auxAction !== '')
+            this.newThreat[this.RELATED_ACTIONS_LABEL].push({ label: act.trim() });
+
         });
       }
 
-      console.log(this.newThreat);
-      this.newThreatEvent.emit(this.newThreat);
+      if(!this.editMode) {
+        this.newThreat['key'] = `CUS-${PcvtUtils.randomHashGenerator()}`;
+        this.newThreatEvent.emit(this.newThreat);
+      }
 
+      this.closeModal();
     } else {
       this.formValidateUtils.checkAllFields(this.form);
     }
   }
 
-  openModal() {
-    this.newThreat = {};
+  openModal(threat?: any) {
     this.form.reset();
+    if(threat) {
+      this.oldThreat = JSON.stringify(threat);
+      this.editMode = true;
+      this.newThreat = threat;
+      this.form.patchValue(
+        { 'relatedControlActions': this.customThreatActionsToString(threat)}
+      );
+    } else {
+      this.editMode = false;
+      this.form.reset();
+    }
+
     $('#new-threat-modal').modal('open');
   }
 
-  closeModal() {
+  closeModal(discardChanges: boolean = false) {
     $('#new-threat-modal').modal('close');
+    this.discardChanges(discardChanges);
   }
 
   showError(field: string): boolean {
@@ -82,5 +103,22 @@ export class CustomThreatModalComponent implements OnInit {
     return {
       invalid: result
     }
+  }
+
+  customThreatActionsToString(threat: any): string {
+    let actionsStr: string = threat[this.RELATED_ACTIONS_LABEL].reduce((actionsStr, action) =>
+      actionsStr + action['label'] + ', ', '');
+
+    return actionsStr.replace(/(, *)*$/, '');
+  }
+
+  discardChanges(discardChanges: boolean) {
+    if(discardChanges && this.editMode) {
+      const oldObject = JSON.parse(this.oldThreat);
+      this.newThreat['label'] = oldObject['label'];
+      this.newThreat['description'] = oldObject['description'];
+    }
+
+    this.newThreat = {};
   }
 }

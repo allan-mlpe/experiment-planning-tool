@@ -33,8 +33,15 @@
 
   <div id="custom-threats" class="col s12">
 
-    <button type="button" (click)="openNewThreatModal()">ADD NEW THREAT</button>
+    <div class="row" *ngIf="customThreatList.length === 0">
+      <p>Your experiment has no any custom threat yet. If ValidEPlan missed any threat and you think that it could be related to your experiment, you may add a new one.</p>
+    </div>
 
+    <div class="row">
+      <a class="waves-effect waves-light btn" (click)="openNewThreatModal()">
+        <i class="material-icons right">add</i>New Threat
+      </a>
+    </div>
 
     <div class="col s12">
       <form #form="ngForm" (ngSubmit)="submitThreatObj()">
@@ -43,19 +50,27 @@
             {{ (i + 1) + '. ' + property.label }}
 
             <app-info-tooltip *ngIf="property.description" [hint]="property.description"></app-info-tooltip>
+
+            <span class="control-custom-threat">
+              <i class="tiny material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Edit" (click)="editCustomThreat(property)">
+                  create
+              </i>
+              <i class="tiny material-icons action-icon" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Delete" (click)="deleteCustomThreat(property, i)">
+                delete
+              </i>
+            </span>
           </label>
 
           <div>
             <div *ngFor="let option of options">
-              <label class="label-title col s12" [ngClass]="getItemClass(customThreatObj[property.key][option.name.toLowerCase()])">
+              <label class="label-title col s12" [ngClass]="getItemClass(property[option.name.toLowerCase()])">
                 {{ option.name }}
-                <!--<app-info-tooltip [hint]="option.hint"></app-info-tooltip>-->
-
               </label>
+
               <span class="col s12 m6 l4" *ngFor="let val of values">
             <input class="with-gap" type="radio" [value]="val"
                    [name]="'prop-'+property.key+'-'+option.name.toLowerCase()" [id]="'prop-'+property.key+'-op-'+option.name.toLowerCase()+'-'+val"
-                   [(ngModel)]="customThreatObj[property.key][option.name.toLowerCase()]" />
+                   [(ngModel)]="property[option.name.toLowerCase()]" />
 
             <label [for]="'prop-'+property.key+'-op-'+option.name.toLowerCase()+'-'+val">{{ val }}</label>
           </span>
@@ -64,7 +79,7 @@
           </div>
         </div>
 
-        <div class="fixed-action-btn horizontal save-icon">
+        <div class="fixed-action-btn horizontal save-icon" style="right: 70px;">
           <button type="submit" id="save-button" class="waves-effect waves-light btn btn-floating tooltipped info-tooltip"
                   materialize="tooltip" data-position="top" data-delay="50" data-tooltip="Save"
                   [disabled]="saving">

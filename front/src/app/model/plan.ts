@@ -19,6 +19,7 @@ export class Plan {
     date: Date;
     custom: boolean;
     fileName: string;
+    customThreats: string;
 
     constructor() {}
 }
