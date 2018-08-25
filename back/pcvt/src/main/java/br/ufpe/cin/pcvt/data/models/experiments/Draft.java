@@ -45,8 +45,8 @@ public class Draft {
     private String actionRelatedThreats;
 
     @Lob
-    @Column(name = "suggested_threats")
-    private String suggestedThreats;
+    @Column(name = "custom_threats")
+    private String customThreats;
 
     public Draft() {}
 
@@ -122,11 +122,11 @@ public class Draft {
         this.actionRelatedThreats = actionRelatedThreats;
     }
 
-    public String getSuggestedThreats() {
-        return suggestedThreats;
+    public String getCustomThreats() {
+        return customThreats;
     }
 
-    public void setSuggestedThreats(String suggestedThreats) {
-        this.suggestedThreats = suggestedThreats;
+    public void setCustomThreats(String customThreats) {
+        this.customThreats = customThreats;
     }
 }

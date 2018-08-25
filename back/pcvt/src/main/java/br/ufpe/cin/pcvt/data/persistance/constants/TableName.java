@@ -24,6 +24,7 @@ public class TableName {
 
 	// Characteristics related
 	public static final String CHARACTERISTIC = "characteristic";
+	public static final String CHARACTERISTIC_ASSESSMENT = "characteristic_assessment";
 
 	// Threats related
 	public static final String THREAT = "threat";
@@ -31,8 +32,7 @@ public class TableName {
 	// Control actions related
 	public static final String CONTROL_ACTION = "control_action";
 
-	
-	@SuppressWarnings("rawtypes")
+    @SuppressWarnings("rawtypes")
 	public static String GetTableName(Class entityClass)
 	{
 		try {

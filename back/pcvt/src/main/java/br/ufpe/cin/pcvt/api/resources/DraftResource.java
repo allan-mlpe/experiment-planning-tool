@@ -15,7 +15,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -229,6 +228,7 @@ public class DraftResource {
             checkPermission(draft, req);
 
             draft.setThreats(draftVO.getThreats());
+            draft.setCustomThreats(draftVO.getCustomThreats());
 
             controller.update(draft);
 
@@ -295,40 +295,6 @@ public class DraftResource {
             draft.setActionRelatedThreats(draftVO.getActionRelatedThreats());
 
             controller.update(draft);
-
-            return Response.ok(draftVO).build();
-        } catch(ApiException e) {
-            throw e;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ApiException(Response.Status.INTERNAL_SERVER_ERROR,
-                    "Internal server error. It was not possible to update the draft");
-        }
-    }
-
-    @POST
-    @Path("/{id}/custom-threat")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(APIConstants.APPLICATION_JSON)
-    public Response saveCustomThreat(@PathParam("id") Integer id, @Context ContainerRequestContext req, @FormParam("customThreats") String customThreats) {
-        try {
-            Draft draft = controller.get(id);
-
-            if(draft == null)
-                throw new ApiException(Response.Status.NOT_FOUND,
-                        "Experimental draft not found");
-
-            if(draft.getDraftType() == EDraftType.SIMPLE)
-                throw new ApiException(Response.Status.BAD_REQUEST,
-                        "It is not possible to create a custom threat for simple drafts");
-
-            checkPermission(draft, req);
-
-            draft.setSuggestedThreats(customThreats);
-
-            controller.update(draft);
-
-            ExperimentalDraftVO draftVO = ExperimentalDraftVOConverter.getInstance().convertToVO(draft);
 
             return Response.ok(draftVO).build();
         } catch(ApiException e) {

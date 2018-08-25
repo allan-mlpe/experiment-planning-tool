@@ -13,7 +13,7 @@ public class ExperimentalDraftVO {
     private String threats;
     private String actions;
     private String actionRelatedThreats;
-    private String suggestedThreats;
+    private String customThreats;
 
     public ExperimentalDraftVO() {}
 
@@ -89,11 +89,11 @@ public class ExperimentalDraftVO {
         this.actionRelatedThreats = actionRelatedThreats;
     }
 
-    public String getSuggestedThreats() {
-        return suggestedThreats;
+    public String getCustomThreats() {
+        return customThreats;
     }
 
-    public void setSuggestedThreats(String suggestedThreats) {
-        this.suggestedThreats = suggestedThreats;
+    public void setCustomThreats(String customThreats) {
+        this.customThreats = customThreats;
     }
 }

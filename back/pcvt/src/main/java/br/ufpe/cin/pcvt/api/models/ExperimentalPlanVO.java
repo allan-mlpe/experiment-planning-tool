@@ -26,7 +26,7 @@ public class ExperimentalPlanVO {
     private String threats;
     private String actions;
     private String actionRelatedThreats;
-    private String suggestedThreats;
+    private String customThreats;
     private Boolean hasChild;
     private Boolean isCustom;
     private String fileName;
@@ -179,11 +179,11 @@ public class ExperimentalPlanVO {
         this.fileName = fileName;
     }
 
-    public String getSuggestedThreats() {
-        return suggestedThreats;
+    public String getCustomThreats() {
+        return customThreats;
     }
 
-    public void setSuggestedThreats(String suggestedThreats) {
-        this.suggestedThreats = suggestedThreats;
+    public void setCustomThreats(String customThreats) {
+        this.customThreats = customThreats;
     }
 }
