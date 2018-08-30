@@ -59,7 +59,7 @@ export class ThreatClassificationComponent implements OnInit {
 
   submitThreatObj() {
 
-    if(!PcvtUtils.isThreatClassificationComplete(this.threatObj)) {
+    if(!PcvtUtils.isThreatClassificationComplete(this.threatObj) || !PcvtUtils.isCustomThreatClassificationComplete(this.customThreatObj)) {
       let subsc: Subscription = this.modalService.showModal(
         'Classification is incomplete',
         'Finishing the threat classification is mandatory to be able to define control actions to your experiment.<br><br>Do you want to save and continue later? ',

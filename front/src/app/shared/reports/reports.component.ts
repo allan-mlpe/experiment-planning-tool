@@ -106,8 +106,11 @@ export class ReportsComponent implements OnInit {
       const threatsObj = this.plan.threats !== undefined ?
         JSON.parse(this.plan.threats) : {};
 
-      this.showSuggestThreatsReport =
-        PcvtUtils.isThreatClassificationComplete(threatsObj);
+      const customThreatsObj = this.plan.customThreats !== undefined ?
+        JSON.parse(this.plan.customThreats) : {};
+
+      this.showSuggestThreatsReport = PcvtUtils.isThreatClassificationComplete(threatsObj)
+          && PcvtUtils.isCustomThreatClassificationComplete(customThreatsObj);
     }
 
     return this.showSuggestThreatsReport;

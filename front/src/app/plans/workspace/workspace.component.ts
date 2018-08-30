@@ -103,7 +103,11 @@ export class WorkspaceComponent implements OnInit {
       const threatsObj = this.plan.threats !== undefined ?
         JSON.parse(this.plan.threats) : undefined;
 
-      this.threatsClassificationComplete = PcvtUtils.isThreatClassificationComplete(threatsObj);
+      const customThreatsObj = this.plan.customThreats !== undefined ?
+        JSON.parse(this.plan.customThreats) : undefined;
+
+      this.threatsClassificationComplete = PcvtUtils.isThreatClassificationComplete(threatsObj)
+        && PcvtUtils.isCustomThreatClassificationComplete(customThreatsObj);
     }
 
     return this.threatsClassificationComplete;

@@ -67,6 +67,25 @@ export class PcvtUtils {
     return true;
   }
 
+  public static isCustomThreatClassificationComplete(customThreatObj: any): boolean {
+    if(customThreatObj !== undefined) {
+      const customValues: Array<any> = Object.values(customThreatObj);
+      if (customValues.length === 0)
+        return false;
+
+      for (let ct of customValues) {
+        if (ct['impact'] === undefined
+          || ct['urgency'] === undefined
+          || ct['trend'] === undefined)
+          return false
+      }
+    } else {
+      return false;
+    }
+
+    return true;
+  }
+
   public static calculateThreatMagnitude(impact: number, urgency: number, trend: number): Magnitude {
     const value: number = impact * 1000 + urgency * 100 + trend * 10;
 

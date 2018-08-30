@@ -86,7 +86,8 @@ export class ThreatsComponent implements OnInit, OnDestroy {
       data => {
         ToastFactory.successToast("Threats have been saved");
 
-        if(PcvtUtils.isThreatClassificationComplete(this.threatObj)) {
+        if(PcvtUtils.isThreatClassificationComplete(this.threatObj)
+          && PcvtUtils.isCustomThreatClassificationComplete(this.customThreatObj)) {
           this.showCompleteModal();
         }
       },

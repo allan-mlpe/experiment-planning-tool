@@ -93,7 +93,8 @@ export class ThreatsComponent implements OnInit {
         data => {
           ToastFactory.successToast("Threats have been saved");
 
-          if(this.draft.draftType === 'FULL' && PcvtUtils.isThreatClassificationComplete(this.threatObj)) {
+          if(this.draft.draftType === 'FULL' && PcvtUtils.isThreatClassificationComplete(this.threatObj)
+              && PcvtUtils.isCustomThreatClassificationComplete(this.customThreatObj)) {
             this.showCompleteModal();
           }
         },
