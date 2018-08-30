@@ -1,0 +1,64 @@
+<div>
+  <label>
+    Filter by threat magnitude
+    <app-info-tooltip
+      [hint]="'Use this filter to show threats with specific magnitudes. E.g. keeping checked only the \'high\' option will only show threats with this magnitude.'"></app-info-tooltip>
+  </label>
+</div>
+<span class="col s4" *ngFor="let filterOption of filterObjList">
+    <input type="checkbox" class="filled-in" checked
+           [id]="filterOption.name" [name]="filterOption.name" [value]="filterOption.value"
+           (change)="selectFilter(filterOption.value)"/>
+
+    <label [for]="filterOption.name">
+      <span>{{ filterOption.value }}</span>
+    </label>
+</span>
+
+<div class="row" >
+  <div class="col s12 m12 l12">
+    <br>
+    <div>
+      <div class="progress">
+        <div class="determinate" [ngStyle]="getProgress()"></div>
+      </div>
+      <span class="progress-label">{{ currentObjectIndex+1 }}/{{ filteredList.length }}</span>
+    </div>
+
+    <h5>Threat</h5>
+    <p>{{currentObject.label }}.</p>
+
+    <label>Description</label>
+    <div>{{ currentObject.description }}</div>
+  </div>
+
+  <div class="col s12 m12 l12">
+    <hr class="section-separator">
+    <h5>Control actions</h5>
+    <div *ngIf="currentObject.relatedControlActions.length > 0">
+      <div *ngFor="let action of currentObject.relatedControlActions">
+        <div>
+          <input type="checkbox" class="filled-in" [checked]="actionObj[currentObject.key][action.key] !== undefined"
+                 [id]="'input-'+action.key" (change)="selectAction(action)" />
+          <label [for]="'input-'+action.key">{{ action.label }}</label>
+        </div>
+
+        <div *ngIf="actionObj[currentObject.key][action.key] !== undefined">
+            <span class="col s6" *ngFor="let option of options">
+              <input class="with-gap" type="radio" [value]="option.value" (change)="classifyAction(action, option.value)"
+                     [name]="'prop-'+currentObject.key+'-'+action.key" [id]="'prop-'+currentObject.key+'-op-'+option.id+'-'+action.key"
+                     [(ngModel)]="actionObj[currentObject.key][action.key]" />
+
+              <label [for]="'prop-'+currentObject.key+'-op-'+option.id+'-'+action.key">{{ option.text }}</label>
+            </span>
+          <div style="height: 100px;"></div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="currentObject.relatedControlActions.length === 0">
+      <div>
+        There is no control action for this threat yet.
+      </div>
+    </div>
+  </div>
+</div>

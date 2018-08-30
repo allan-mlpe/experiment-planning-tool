@@ -23,7 +23,8 @@ import {ReportsComponent} from "../reports/reports.component";
 import {CharacterizationComponent} from '../characterization/characterization.component';
 import {DiscoveryComponent} from '../discovery/discovery.component';
 import {ThreatClassificationComponent} from '../threat-classification/threat-classification.component';
-import { CustomThreatModalComponent } from '../custom-threat-modal/custom-threat-modal.component';
+import {CustomThreatModalComponent} from '../custom-threat-modal/custom-threat-modal.component';
+import {DefineCustomActionsComponent} from "../define-custom-actions/define-custom-actions.component";
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { CustomThreatModalComponent } from '../custom-threat-modal/custom-threat
     CharacterizationComponent,
     DiscoveryComponent,
     ThreatClassificationComponent,
-    CustomThreatModalComponent
+    CustomThreatModalComponent,
+    DefineCustomActionsComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -75,7 +77,8 @@ import { CustomThreatModalComponent } from '../custom-threat-modal/custom-threat
     CharacterizationComponent,
     DiscoveryComponent,
     ThreatClassificationComponent,
-    CustomThreatModalComponent
+    CustomThreatModalComponent,
+    DefineCustomActionsComponent
   ]
 })
 export class LayoutsModule { }
