@@ -71,7 +71,7 @@ export class PcvtUtils {
     if(customThreatObj !== undefined) {
       const customValues: Array<any> = Object.values(customThreatObj);
       if (customValues.length === 0)
-        return false;
+        return true;
 
       for (let ct of customValues) {
         if (ct['impact'] === undefined
@@ -80,7 +80,7 @@ export class PcvtUtils {
           return false
       }
     } else {
-      return false;
+      return true;
     }
 
     return true;
