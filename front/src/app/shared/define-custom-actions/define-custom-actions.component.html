@@ -41,7 +41,7 @@
           <div>
             <input type="checkbox" class="filled-in" [checked]="action['checked']"
                    [id]="'input-'+i" (change)="selectAction(action)" />
-            <label [for]="'input-'+i">{{ action.label }}</label>
+            <label [for]="'input-'+i">{{ action.label | upperFirstLetter }}</label>
           </div>
 
           <div *ngIf="action['checked']">

@@ -75,7 +75,7 @@
       <div *ngSwitchCase="2">
         <hr class="section-separator">
         <h5>Classified threats</h5>
-        <div *ngIf="filteredList.length > 0">
+        <div *ngIf="filteredList.length > 0 || filteredCustomThreatList.length > 0">
 
           <ul class="collapsible" materialize="collapsible" data-collapsible="accordion">
             <li *ngFor="let threat of filteredList; let i = index">
@@ -109,10 +109,43 @@
 
               </div>
             </li>
+
+
+            <li *ngFor="let customThreat of filteredCustomThreatList; let i = index">
+              <div class="collapsible-header">
+                <i class="material-icons section-icon">add_box</i>
+                {{ (i + filteredList.length + 1) + '. ' + customThreat.label }}
+              </div>
+
+              <div class="collapsible-body">
+                <label>Description</label>
+                <div>{{ customThreat.description }}</div>
+
+                <label>Type</label>
+                <div>CUSTOM</div>
+
+                <div class="col s4 inline-info">
+                  <label >Impact</label>
+                  <div>{{ customThreat['impact'] }}</div>
+                </div>
+                <div class="col s4 inline-info">
+                  <label>Urgency</label>
+                  <div>{{ customThreat['urgency'] }}</div>
+                </div>
+                <div class="col s4 inline-info">
+                  <label>Trend</label>
+                  <div>{{ customThreat['trend'] }}</div>
+                </div>
+
+                <label>Magnitude</label>
+                <div>{{ customThreat['magnitude'] }}</div>
+
+              </div>
+            </li>
           </ul>
         </div>
 
-        <div *ngIf="filteredList.length === 0">
+        <div *ngIf="filteredList.length === 0 && filteredCustomThreatList.length === 0">
           <p>There is no threats related to this {{ entity }} yet.</p>
         </div>
       </div>
@@ -122,7 +155,7 @@
         <hr class="section-separator">
         <h5>Defined control actions</h5>
 
-        <div *ngIf="filteredList.length > 0">
+        <div *ngIf="filteredList.length > 0 || filteredCustomThreatList.length > 0">
           <ul class="collapsible" materialize="collapsible" data-collapsible="accordion">
             <li *ngFor="let threat of filteredList; let i = index">
               <div class="collapsible-header">
@@ -164,9 +197,43 @@
 
               </div>
             </li>
+
+            <li *ngFor="let customThreat of filteredCustomThreatList; let i = index">
+              <div class="collapsible-header">
+                <i class="material-icons section-icon">add_box</i>
+                  {{ (i + filteredList.length + 1) + '. ' + customThreat.label }}
+              </div>
+
+              <div class="collapsible-body">
+                <label>Description</label>
+                <div>{{ customThreat.description }}</div>
+
+                <label>Type</label>
+                <div>CUSTOM</div>
+
+                <label>Defined control actions</label>
+                <div *ngIf="customThreat.relatedControlActions.length !== 0">
+                  <div *ngFor="let controlAction of customThreat.relatedControlActions">
+                    <div *ngIf="controlAction.checked">
+                      <span class="label-title">{{ controlAction.label | upperFirstLetter }}.</span>
+                      <div class="control-action-details">
+                        <label>Importance</label>
+                        <div>
+                          {{ controlAction.importance | actionClassification }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="customThreat.relatedControlActions.length === 0">
+                  No control actions defined for this threat.
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
-        <div *ngIf="filteredList.length === 0">
+        <div *ngIf="filteredList.length === 0 && filteredCustomThreatList.length === 0">
           <p>There is no threats related to this {{ entity }} yet.</p>
         </div>
       </div>

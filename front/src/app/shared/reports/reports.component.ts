@@ -27,6 +27,9 @@ export class ReportsComponent implements OnInit {
   threatList: Array<any> = [];
   filteredList: Array<any> = [];
 
+  customThreatList: Array<any> = [];
+  filteredCustomThreatList: Array<any> = [];
+
   threatValuesObj: any = {};
   actionValuesObj: any = {};
   actionRelatedThreatsObj: any = {};
@@ -47,6 +50,8 @@ export class ReportsComponent implements OnInit {
 
     if(this.plan.characteristics !== undefined) {
       const characteristics: any = JSON.parse(this.plan.characteristics);
+      this.customThreatList = Object.values(JSON.parse(this.plan.customThreats));
+      this.filteredCustomThreatList = Object.values(JSON.parse(this.plan.customThreats));
 
       const characteristicsKeys: Array<string> = PcvtUtils.getExperimentCharacteristicsKeys(characteristics);
 
@@ -144,6 +149,7 @@ export class ReportsComponent implements OnInit {
 
   private filterThreatList() {
     this.filteredList = this.threatList.filter(threat => this.filterKeys.indexOf(threat.magnitude) != -1);
+    this.filteredCustomThreatList = this.customThreatList.filter(threat => this.filterKeys.indexOf(threat.magnitude) != -1)
   }
 
   private getControlActionList(threat): Array<any> {
@@ -189,6 +195,16 @@ export class ReportsComponent implements OnInit {
 
         item['magnitude'] = calculatedMagnitude;
         item['actions'] = controlActionList;
+      }
+    });
+
+    this.customThreatList.forEach(item => {
+      if(item !== undefined) {
+
+        const calculatedMagnitude: Magnitude = this.getThreatMagnitude(item);
+        const controlActionList: Array<any> = this.getControlActionList(item);
+
+        item['magnitude'] = calculatedMagnitude;
       }
     });
   }

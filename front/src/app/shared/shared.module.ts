@@ -9,6 +9,7 @@ import {ModalService} from '../services/modal.service';
 import {PlanStatusPipe} from "../pipes/plan-status.pipe";
 import {TruncateTextPipe} from "../pipes/truncate-text.pipe";
 import {ControlActionClassificationPipe} from "../pipes/control-action-classification.pipe";
+import {UpperFirstLetterPipe} from "../pipes/upper-first-letter.pipe";
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {ControlActionClassificationPipe} from "../pipes/control-action-classific
   declarations: [
     PlanStatusPipe,
     ControlActionClassificationPipe,
-    TruncateTextPipe
+    TruncateTextPipe,
+    UpperFirstLetterPipe
   ],
   exports: [
     FormsModule,
@@ -30,7 +32,8 @@ import {ControlActionClassificationPipe} from "../pipes/control-action-classific
     MaterializeModule,
     PlanStatusPipe,
     ControlActionClassificationPipe,
-    TruncateTextPipe
+    TruncateTextPipe,
+    UpperFirstLetterPipe
   ],
   providers: [
     RestService,
