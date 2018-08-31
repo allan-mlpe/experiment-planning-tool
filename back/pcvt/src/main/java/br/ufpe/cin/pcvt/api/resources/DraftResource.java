@@ -261,6 +261,7 @@ public class DraftResource {
             checkPermission(draft, req);
 
             draft.setActions(draftVO.getActions());
+            draft.setCustomThreats(draftVO.getCustomThreats());
 
             controller.update(draft);
 

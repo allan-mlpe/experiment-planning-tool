@@ -509,6 +509,7 @@ public class ExperimentalPlanResource {
 
             plan.setActions(planVO.getActions());
             plan.setActionRelatedThreats(planVO.getActionRelatedThreats());
+            plan.setCustomThreats(planVO.getCustomThreats());
             experimentalPlanController.update(plan);
 
             return Response.ok(planVO).build();
