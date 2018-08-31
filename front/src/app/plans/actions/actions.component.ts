@@ -28,6 +28,8 @@ export class ActionsComponent implements OnInit, OnDestroy {
   actionObj: any = {};
   actionRelatedThreatsObj: any = {};
 
+  customThreatObj: any = {};
+
   private filterKeys: Array<string> = [Magnitude.VERY_HIGH, Magnitude.HIGH, Magnitude.MODERATE, Magnitude.LOW, Magnitude.VERY_LOW];
   filterObjList: Array<any> = [
     { name: 'veryHigh', value: Magnitude.VERY_HIGH },
@@ -62,6 +64,9 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
         if (this.plan.threats !== undefined) {
           const characteristics: any = JSON.parse(this.plan.characteristics);
+
+          if(this.plan.customThreats !== undefined)
+            this.customThreatObj = JSON.parse(this.plan.customThreats);
 
           const characteristicsKeys: Array<string> = PcvtUtils.getExperimentCharacteristicsKeys(characteristics);
 
@@ -226,6 +231,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
     this.saving = true;
     this.plan.actions = JSON.stringify(this.actionObj);
     this.plan.actionRelatedThreats = JSON.stringify(this.actionRelatedThreatsObj);
+    this.plan.customThreats = JSON.stringify(this.customThreatObj);
 
     this.planService.savePlanActions(this.plan)
       .finally(() => this.saving = false)
@@ -294,6 +300,10 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
   private filterThreatList() {
     this.filteredList = this.threatList.filter(threat => this.filterKeys.indexOf(threat.magnitude) != -1);
+  }
+
+  showCustomThreats(): boolean {
+    return this.customThreatObj !== undefined && Object.values(this.customThreatObj).length > 0;
   }
 
   ngOnDestroy() {

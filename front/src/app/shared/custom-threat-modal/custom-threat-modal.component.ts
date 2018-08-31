@@ -45,9 +45,9 @@ export class CustomThreatModalComponent implements OnInit {
     if(this.form.valid) {
       const actions = this.form.get('relatedControlActions').value;
 
-      if(actions !== null) {
-        this.newThreat[this.RELATED_ACTIONS_LABEL] = [];
+      this.newThreat[this.RELATED_ACTIONS_LABEL] = [];
 
+      if(actions !== null) {
         const actionsArr: Array<string> = actions.split(',');
         actionsArr.forEach(act => {
           const auxAction = act.trim();

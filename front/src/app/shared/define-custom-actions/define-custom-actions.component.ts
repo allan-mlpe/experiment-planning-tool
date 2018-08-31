@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Magnitude} from "../../model/magnitude.enum";
 import {ACTION_OPTIONS} from "../../model/action-options";
+import {PcvtUtils} from "../pcvt-utils";
 
 @Component({
   selector: 'app-define-custom-actions',
@@ -9,7 +10,9 @@ import {ACTION_OPTIONS} from "../../model/action-options";
 })
 export class DefineCustomActionsComponent implements OnInit {
 
-  actionObj: any = {};
+  @Input()
+  customThreatsObj: any = {};
+
   currentObject: any;
   currentObjectIndex: number;
 
@@ -29,6 +32,14 @@ export class DefineCustomActionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.threatList = Object.values(this.customThreatsObj);
+    this.filteredList = Object.values(this.customThreatsObj);
+
+    if(this.filteredList.length > 0) {
+      this.initCurrentObject();
+      this.processThreatMagnitude();
+    }
+
   }
 
   selectFilter(filter) {
@@ -53,6 +64,20 @@ export class DefineCustomActionsComponent implements OnInit {
     this.currentObject = this.filteredList[this.currentObjectIndex];
   }
 
+  nextItem() {
+    if(this.currentObjectIndex !== this.filteredList.length-1) {
+      this.currentObjectIndex+=1;
+      this.currentObject = this.filteredList[this.currentObjectIndex];
+    }
+  }
+
+  previousItem() {
+    if(this.currentObjectIndex !== 0) {
+      this.currentObjectIndex-=1;
+      this.currentObject = this.filteredList[this.currentObjectIndex];
+    }
+  }
+
   getProgress() {
     const numerator: number = this.currentObjectIndex+1;
     const denominator: number = this.filteredList.length;
@@ -64,36 +89,23 @@ export class DefineCustomActionsComponent implements OnInit {
   }
 
   selectAction(action) {
-    const threatKey: string = this.currentObject.key;
-    const key: string = action.key;
-
-    if(this.actionObj[threatKey][key] !== undefined) {
-      delete this.actionObj[threatKey][key];
-
-      this.removeActionRelatedThreats(key);
-
-    } else {
-
-    }
+    action['checked'] = !action['checked'];
   }
 
   classifyAction(action, value) {
-    const threatKey: string = this.currentObject.key;
-    const key: string = action.key;
-
-    this.actionObj[threatKey][key] = value;
+    action['importance'] = value;
   }
 
+  private processThreatMagnitude() {
+    this.threatList.forEach(item => {
+      const impact: number = item['impact'];
+      const urgency: number = item['urgency'];
+      const trend: number = item['trend'];
 
-  private removeActionRelatedThreats(actionKey: string) {
+      const calculatedMagnitude: Magnitude = PcvtUtils.calculateThreatMagnitude(impact, urgency, trend);
 
-    // if(this.draft.actionRelatedThreats !== undefined) {
-    //   if(actionKey in this.actionRelatedThreatsObj) {
-    //     delete this.actionRelatedThreatsObj[actionKey];
-    //
-    //     //this.updateActionRelatedThreats(actionRelatedThreats);
-    //   }
-    // }
+      item['magnitude'] = calculatedMagnitude;
+    });
   }
 
 }
