@@ -18,4 +18,4 @@ COPY sql-scripts/insert_control_actions_for_threats.sql /docker-entrypoint-initd
 
 COPY sql-scripts/insert_threats_for_characteristics.sql /docker-entrypoint-initdb.d/5-script.sql
 
-COPY sql-scripts/insert_threats_for_control_actions.sql /docker-entrypoint-initdb.d/6-scrpit.sql
+COPY sql-scripts/insert_threats_for_control_actions.sql /docker-entrypoint-initdb.d/6-script.sql
