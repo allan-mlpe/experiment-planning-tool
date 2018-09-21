@@ -35,6 +35,7 @@ export class CustomThreatModalComponent implements OnInit {
     this.form = this.formBuilder.group({
       label: ['', [Validators.required]],
       description: ['', [Validators.required]],
+      threatType: ['', [Validators.required]],
       relatedControlActions: ['']
     });
 

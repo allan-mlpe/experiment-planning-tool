@@ -15,6 +15,39 @@
         </div>
 
         <div class="row">
+          <label>Type</label>
+          <div style="margin-bottom: 50px;">
+            <div class="col s3">
+              <input id="internalThreat" class="with-gap" type="radio" formControlName="threatType"
+                     [(ngModel)]="newThreat.type" value="INTERNAL">
+              <label for="internalThreat">Internal</label>
+            </div>
+
+            <div class="col s3">
+              <input id="externalThreat" class="with-gap" type="radio" formControlName="threatType"
+                     [(ngModel)]="newThreat.type" value="EXTERNAL">
+              <label for="externalThreat">External</label>
+            </div>
+
+            <div class="col s3">
+              <input id="constructThreat" class="with-gap" type="radio" formControlName="threatType"
+                     [(ngModel)]="newThreat.type" value="CONSTRUCT">
+              <label for="constructThreat">Construct</label>
+            </div>
+
+            <div class="col s3">
+              <input id="conclusionThreat" class="with-gap" type="radio" formControlName="threatType"
+                     [(ngModel)]="newThreat.type" value="CONCLUSION">
+              <label for="conclusionThreat">Conclusion</label>
+            </div>
+            <div style="margin-top: 10px;">
+              <app-input-field-error [showError]="showError('threatType')" [message]="buildErrorMessage('threatType')"></app-input-field-error>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
           <div class="input-field">
             <input id="description" type="text" placeholder="Full description about your threat"
                    formControlName="description" [(ngModel)]="newThreat.description" [ngClass]="addClassError('description')">
