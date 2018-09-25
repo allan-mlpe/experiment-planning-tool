@@ -209,6 +209,16 @@ export class ReportsComponent implements OnInit {
     });
   }
 
+  countCheckedCustomActions(controlActions: Array<any>) {
+    return controlActions.reduce((occurrences, item) => {
+      let i = 0;
+      if(item.checked) {
+        i = 1;
+      }
+      return occurrences + i;
+    }, 0);
+  }
+
   printReport() {
     window.print();
   }
