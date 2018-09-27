@@ -10,7 +10,7 @@ import java.util.Date;
 public class EmailController {
 
 	private AuthMailAgent mailAgent;
-	private static final String SYSTEM_LINK = "https://35.237.38.120";
+	private static final String SYSTEM_LINK = "https://valideplan.cin.ufpe.br";
 	private static final String APPLICATION_NAME = "ValidEPlan";
 
 	protected EmailController() {
