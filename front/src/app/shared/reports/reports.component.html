@@ -226,7 +226,7 @@
                   </div>
                 </div>
 
-                <div *ngIf="customThreat.relatedControlActions.length === 0">
+                <div *ngIf="customThreat.relatedControlActions.length === 0 || countCheckedCustomActions(customThreat.relatedControlActions) === 0">
                   No control actions defined for this threat.
                 </div>
               </div>
