@@ -1,0 +1,158 @@
+cardRatingJustitication  {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+}
+
+.normaldist ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+    margin: 0px;
+    display: block;
+}
+.normaldist ul[dnd-list] li {
+    background-color: rgba(255,255,255,0.7);
+    border: 1px solid #ddd;
+    border-color: #555;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    height: 32px;
+    padding: 0px;
+    margin-bottom: -1px;
+}
+
+.normaldist ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+.normaldist ul[dnd-list] .dndPlaceholder {list-style-type: none;
+    background-color: #ddd;
+    display: block;
+    min-height: 42px;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.simpleDemo ul[dnd-list] {
+    min-height: 40px;
+	width: 300px;
+	padding-top: 10px;
+    padding-left: 10px;
+}
+
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.simpleDemo ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.simpleDemo ul[dnd-list] .dndPlaceholder {
+    background-color: #ddd;
+    display: block;
+    min-height: 40px;
+}
+
+.simpleDemo ul[dnd-list] li {
+    background-color: rgba(255,255,255,0.7);
+    border: 1px solid #ddd;
+    border-color: #555;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+}
+
+.simpleDemo ul[dnd-list] li a {
+    color: white;
+}
+
+/**
+ * Show selected elements in green
+ */
+.simpleDemo ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+/*Styles for -3 to 0 ratings*/
+
+table tr td .panel {
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(0, 0, 0);
+}
+
+.panel-info>.disagree_panel_heading {
+    background-image: linear-gradient(to bottom, #ff4242 0, #e82a2a 100%)!important;
+    border-color: #e82a2a !important;
+}
+
+.panel-info>.neutral_panel_heading {
+    background-image: linear-gradient(to bottom, #BAB6B6 0, #969292 100%) !important;
+    border-color: #969292 !important;
+}
+
+.panel-info>.agree_panel_heading {
+    background-image: linear-gradient(to bottom, #30A835 0, #06960D 100%) !important;
+    border-color: #06A10E !important;
+}
+
+#disagree {
+    background-color: #ff6666;
+    border-color: #e82a2a;
+}
+
+#neutral {
+    background-color: #BAB9B9;
+    border-color: #969292
+}
+
+#agree {
+    background-color: #00A848;
+    border-color: #06960D
+}
+
+.panel-title {
+    color: white !important;
+}
+
+/*Fix tooltip text*/
+tooltip tip {
+    text-align: left !important;
+    min-width: 300px !important;
+}
+
+div.step3lists ul[dnd-list]{
+    max-height: 300px;
+    overflow: auto;
+}
+div.step4lists ul[dnd-list]{
+    max-height: 300px;
+    overflow: auto;
+}
+div.normaldist h3 {
+    transform: rotate(180deg); 
+}
+div.normaldist .ttiptext {
+    transform: rotate(180deg); 
+}
+div.normaldist ul[dnd-list] li {
+    transform: rotate(180deg);
+}

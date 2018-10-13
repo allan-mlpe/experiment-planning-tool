@@ -1,0 +1,145 @@
+<br/>
+<br/>
+
+<center>Caso você precise <b>ler as instruções desta etapa novamente, clique no botão "Ajuda"</b> no fim desta página.
+</center>
+
+<br/>
+
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="helpModalLabel">Avaliar as afirmações</h4>
+      </div>
+      <div class="modal-body">
+        <b>
+          <b>
+            <center>Por favor, leia estas instruções.</center>
+          </b>
+        </b>
+        <br>
+        <br> 1. Pegue os <i>cards</i> da pilha "CONCORDO" e leia-os novamente.
+        <br>
+        <br> 2. A seguir, selecione as duas afirmações que você mais concorda e coloque-as na pilha mais à direta (com
+        score 3) das pilhas de avaliação.
+        <br>
+        <br> 3. Agora, leia os <i>cards</i> da pilha "DISCORDO" novamente.
+        <br>
+        <br> 4. Assim como antes, selecione as duas afirmações que você mais discorda e coloque-as na pilha mais à
+        esquerda (com score -3) das pilhas de avaliação.
+        <br>
+        <br> 5. A seguir, selecione as afirmações que você tem um grau menor de concordância e coloque-os nas posições 2/-2 da pilha de avaliação.
+        <br>
+        <br> 6. Siga esse processo para todos os <i>cards</i> das pilhas "CONCORDO" e "DISCORDO".
+        <br>
+        <br> 7. Finalmente, leia os <i>cards</i> da pilha "NEUTRO" novamente e os arrange nas espaços restantes da pilha de avaliação.
+        <br>
+        <br> OBS: A ordem que você colocar as <i>cards</i> em cada coluna NÃO é importante.
+        <br>
+        <br> Se os <i>cards</i> estiverem muito pequenos para ler: coloque o cursor do mouse sobre o card e um tooltip será exibido com a afirmação completa.
+        <br>
+        <br>
+        <br>Se você quiser ler estas instruções novamente, pressione o botão 'Ajuda'.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div align="center" ng-show="done()">
+  <div class="col-xs-4 col-xs-offset-4 next-button">
+    <a href="" ng-click="next()" class="btn btn-default btn-lg btn-block" style="width:300px">Continuar</a>
+  </div>
+</div>
+
+<br/>
+
+<div class="ratings row" style="margin-top:50px">
+
+  <div class="normaldist" style="transform: rotate(180deg);">
+    <table align="center">
+    </table>
+  </div>
+
+  <div class="simpleDemo row step4lists" style="margin:20px">
+    <div class="row">
+      <table align="center">
+        <tr>
+          <td style="vertical-align:top">
+            <div style="width:320px;padding-right:10px;">
+              <div class="panel panel-info" id="disagree">
+                <div class="panel-heading disagree_panel_heading">
+                  <h3 class="panel-title" align="center">DISCORDO</h3>
+                </div>
+                <ul dnd-list="classifications.DISAGREE" dnd-drop="dropDisagreeCallback(index, item, external, type)">
+                  <li ng-repeat="statement in classifications.DISAGREE" dnd-draggable="statement"
+                      dnd-moved="classifications.DISAGREE.splice($index, 1)"
+                      dnd-effect-allowed="move">
+                    {{ statement.statement }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </td>
+          <td style="vertical-align:top">
+            <div style="width:320px;padding-right:10px;">
+              <div class="panel panel-info" id="neutral">
+                <div class="panel-heading neutral_panel_heading">
+                  <h3 class="panel-title" align="center">NEUTRO</h3>
+                </div>
+                <ul dnd-list="classifications.NEUTRAL" dnd-drop="dropNeutralCallback(index, item, external, type)">
+                  <li ng-repeat="statement in classifications.NEUTRAL" dnd-draggable="statement"
+                      dnd-moved="classifications.NEUTRAL.splice($index, 1)"
+                      dnd-effect-allowed="move">
+                    {{ statement.statement }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </td>
+          <td style="vertical-align:top">
+            <div style="width:320px;padding-right:10px;">
+              <div class="panel panel-info" id="agree">
+                <div class="panel-heading agree_panel_heading">
+                  <h3 class="panel-title" align="center">CONCORDO</h3>
+                </div>
+                <ul dnd-list="classifications.AGREE" dnd-drop="dropAgreeCallback(index, item, external, type)">
+                  <li ng-repeat="statement in classifications.AGREE" dnd-draggable="statement"
+                      dnd-moved="classifications.AGREE.splice($index, 1)"
+                      dnd-effect-allowed="move">
+                    {{ statement.statement }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <form>
+    <table align="center">
+      <tr>
+        <td>
+          <div class="col-xs-4 col-xs-offset-4 next-button" align="center" style="margin-bottom:50px">
+            <a href="" ng-click="back()" class="btn btn-default btn-lg btn-block" style="width:100px">Voltar</a>
+          </div>
+        </td>
+        <td>
+
+        </td>
+        <td>
+          <div class="col-xs-4 col-xs-offset-4 next-button" align="center" style="margin-bottom:50px"
+               data-toggle="modal" data-target="#helpModal">
+            <a href="" class="btn btn-default btn-lg btn-block" style="width:100px">Ajuda</a>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>

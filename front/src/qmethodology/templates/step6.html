@@ -1,0 +1,13 @@
+<div ng-controller="step6Ctrl as vm" style="margin-left:100px; margin-right:100px; margin-bottom:20px; margin-top:50px;">
+	<formly-form model="vm.model" fields="vm.userFields" form="vm.userForm">
+    <button type="button" class="btn btn-default btn-lg" style="width:100px"
+        ng-click="back()" class="btn btn-primary submit-button">Voltar</button>
+
+			<button type="submit" class="btn btn-default btn-lg" style="width:100px"
+        ng-click="submit()" ng-disabled="vm.userForm.$invalid" class="btn btn-primary submit-button">Submeter</button>
+
+	</formly-form>
+	<br/>
+	<br/>
+</div>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<div>
+    <div style="margin-left:100px; margin-right:100px; margin-bottom:20px; margin-top:50px; text-align:justify;">
+      <h3>Sobre a Pesquisa</h3>
+      <p>
+        Esta pesquisa está sendo conduzida por Eudis Oliveira Teixeira.
+      </p>
+
+      <p>
+        A literatura descreve exemplos, guias e listas de verificação que ajudam o pesquisador a
+        construir um plano experimental e identificar e tratar ameaças à validade de experimentos da
+        área de ES. No entanto, estes estudos apoiam este processo de forma geral sem fornecer
+        suporte específico em relação às características particulares dos experimentos.
+      </p>
+
+      <p>
+        O objetivo deste Survey é entender percepções de aprendizagem, facilidade e satisfação com o
+        uso da abordagem proposta pela ferramenta ValidEPlan. O objetivo da abordagem é guiar o
+        pesquisador/experimentador a conduzir um plano experimental orientado à validade de seus
+        resultados.
+      </p>
+
+      <p>O tempo estimado para completar o questionário é 30 minutos.</p>
+
+      <p>
+        Se tiver alguma dúvida, não hesite em contatar-me através do e-mail: eot@cin.ufpe.br
+      </p>
+    </div>
+	</div>
+	<!--<div>
+    <div style="margin-left:100px; margin-right:100px; margin-bottom:20px; margin-top:50px; text-align:justify;">
+      <p>
+        Page 2: Add how many pages you wish
+      </p>
+    </div>
+	</div>
+	<div>
+		<p style="margin-left:100px; margin-right:100px; margin-bottom:20px; margin-top:50px;">
+			Page 3: by editing startingPages.xml file located at settings folder.
+		</p>
+	</div>
+	<div>
+		<h3>Page 4: With whatever formatting you wish, by using html tags.</h3>
+	</div> -->
+</pages>
+
