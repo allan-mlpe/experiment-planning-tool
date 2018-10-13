@@ -33,4 +33,6 @@ public class ControllerFactory {
     public static ControlActionController createControlActionController() { return new ControlActionController(); }
 
     public static DraftController createDraftController() { return new DraftController(); }
+
+    public static QMethodologyAssessmentController createQMethodologyAssessmentController() { return new QMethodologyAssessmentController(); }
 }

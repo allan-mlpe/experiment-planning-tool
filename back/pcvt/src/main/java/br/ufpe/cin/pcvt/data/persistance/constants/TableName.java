@@ -24,7 +24,7 @@ public class TableName {
 
 	// Characteristics related
 	public static final String CHARACTERISTIC = "characteristic";
-	public static final String CHARACTERISTIC_ASSESSMENT = "characteristic_assessment";
+	public static final String Q_METHODOLOGY_ASSESSMENT = "q_methodology_assessment";
 
 	// Threats related
 	public static final String THREAT = "threat";

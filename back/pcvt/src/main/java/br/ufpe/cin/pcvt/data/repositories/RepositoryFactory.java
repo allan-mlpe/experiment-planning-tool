@@ -29,4 +29,6 @@ public class RepositoryFactory {
     public static IControlActionRepository createControlActionRepository() { return new HibernateControlActionRepository(); }
 
     public static IDraftRepository createDraftRepository() { return new HibernateDraftRepository(); }
+
+    public static IQMethodologyAssessmentRepository createQMethodologyRepository() { return new HibernateQMethodologyAssessmentRepository(); }
 }
