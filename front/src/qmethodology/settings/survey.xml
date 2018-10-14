@@ -45,14 +45,14 @@
 
 	<input type="radio" required="true" key="author_epse">
 		<label>Você já havia criado um plano experimental de engenharia de software antes?</label>
-		<option name="Yes">yes</option>
-		<option name="No">no</option>
+		<option name="Sim">yes</option>
+		<option name="Não">no</option>
 	</input>
 
   <input type="radio" required="true" key="run_epse">
     <label>Você já havia executado um plano experimental de engenharia de software antes?</label>
-    <option name="Yes">yes</option>
-    <option name="No">no</option>
+    <option name="Sim">yes</option>
+    <option name="Não">no</option>
   </input>
 
   <input type="textarea" required="true" key="comments_pd">
