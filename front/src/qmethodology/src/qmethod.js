@@ -653,13 +653,13 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', '$http', function 
 			ratings: {},
 			explanations: {agree:[],disagree:[]},
 			questionnaire: {}
-		}
+		};
 		response.questionnaire = angular.copy(vm.model);
 
 		// Send classifications statement only
 		angular.forEach($rootScope.classifications_step3, function(value, key) {
 			for(let stat of $rootScope.classifications_step3[key]) {
-				response.classifications[key].push(stat.id);
+				response.classifications[key].push(stat);
 			}
 		});
 
@@ -686,9 +686,14 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', '$http', function 
 		  content: JSON.stringify(response)
     };
 
+		var vt = localStorage.getItem('pcvt-token');
+
     $http({
-      url: 'http://localhost:7007/api/qMethodologyAssessment',
+      url: '/api/qMethodologyAssessment',
       method: "POST",
+      headers: {
+        'X-AUTH-TOKEN': vt
+      },
       data: qMethodologyAssessment
     })
     .then(function(response) {
