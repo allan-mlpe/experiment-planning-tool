@@ -1,5 +1,6 @@
 package br.ufpe.cin.pcvt.data.models.assessment;
 
+import br.ufpe.cin.pcvt.data.models.user.User;
 import br.ufpe.cin.pcvt.data.persistance.constants.TableName;
 
 import javax.persistence.*;
@@ -17,6 +18,10 @@ public class QMethodologyAssessment {
     @Column(name = "content")
     private String content;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author", unique = true)
+    private User user;
+
     public QMethodologyAssessment() {}
 
     public Integer getId() {
@@ -33,5 +38,13 @@ public class QMethodologyAssessment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
