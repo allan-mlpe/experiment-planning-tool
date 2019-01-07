@@ -4,7 +4,7 @@ import {FormValidateUtils} from "../../shared/form-validate-utils";
 import {ToastFactory} from "../../shared/toast-factory";
 import {PcvtConstants} from "../../shared/pcvt-constants";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs/Rx";
+import {Observable, Subscription} from "rxjs/Rx";
 import {ApiMessage} from "../../model/pcvt-message";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Plan} from "../../model/plan";
@@ -52,6 +52,8 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   saving: boolean = false;
   completing: boolean = false;
 
+  private readonly AUTO_SAVE_TIMEOUT: number = 30 * 1000; // in milliseconds
+
   getCharacterizationQuestionsObject(key: string): any {
     return this.CHARACTERIZATION_QUESTIONS.find(item => item['key'] === key);
   }
@@ -88,11 +90,15 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     this.subsc = this.form.valueChanges.subscribe(
       () => {
         this.hasUnsavedChanges = true;
-
         // if a change already occurred, it's not necessary to keep the subscribe
-        this.subsc.unsubscribe();
+        //this.subsc.unsubscribe();
       }
-    )
+    );
+
+    // enable auto-saving every 30s
+    Observable.interval(this.AUTO_SAVE_TIMEOUT).subscribe(
+      () => this.autoSave()
+    );
   }
 
   onSubmit() {
@@ -122,6 +128,22 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
         );
     } else {
       this.formValidateUtils.checkAllFields(this.form);
+    }
+  }
+
+  autoSave() {
+    if(this.form.valid && this.hasUnsavedChanges) {
+      this.plan.details = JSON.stringify(this.detailsObject);
+      this.plan.characteristics = JSON.stringify(this.characteristicsObject);
+
+      this.planService.updatePlan(this.plan)
+        .subscribe(
+          () => {},
+          (err: ApiMessage) => {
+            ToastFactory.errorToast('Error while saving progress automatically.');
+            console.log(err);
+          }
+        );
     }
   }
 
