@@ -10,6 +10,9 @@ export class DinamicTableFieldComponent implements OnInit {
   @Input()
   objectArray;
 
+  @Input()
+  editable: boolean = true;
+
   constructor() { }
 
   ngOnInit() {

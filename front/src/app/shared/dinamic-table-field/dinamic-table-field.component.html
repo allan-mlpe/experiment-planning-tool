@@ -1,4 +1,4 @@
-<div id="table-controls" class="right">
+<div id="table-controls" class="right" *ngIf="editable">
   <div (click)="addRow()">
     <i class="material-icons">add</i>
     Row
@@ -18,7 +18,7 @@
 <div>
   <table>
     <tr *ngFor="let obj of objectArray">
-      <td contenteditable="true" *ngFor="let key of getObjectKey(obj)" (keyup)="onKeyUp(obj, key, $event.target.innerText)">{{ obj[key] }}</td>
+      <td [attr.contenteditable]="editable" *ngFor="let key of getObjectKey(obj)" (keyup)="onKeyUp(obj, key, $event.target.innerText)">{{ obj[key] }}</td>
     </tr>
   </table>
 </div>
