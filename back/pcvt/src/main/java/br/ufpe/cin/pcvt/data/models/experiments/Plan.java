@@ -51,7 +51,7 @@ public class Plan implements Comparable<Plan> {
 	@CollectionTable(name = TableName.PLAN_ITEM, joinColumns = @JoinColumn(name = "id_plan"))
 	@OrderBy("id ASC")
 	private SortedSet<PlanItem> planItems;
-	@OneToMany(mappedBy = "plan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "plan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviews;
 	@Column(name = "archived")
 	private boolean archived;
