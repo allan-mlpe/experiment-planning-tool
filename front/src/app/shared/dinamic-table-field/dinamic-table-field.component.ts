@@ -13,7 +13,7 @@ export class DinamicTableFieldComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if(!this.objectArray) {
+    if(!this.objectArray || this.objectArray.length ==  0) {
       this.resetTable();
     }
   }
@@ -50,6 +50,13 @@ export class DinamicTableFieldComponent implements OnInit {
   }
 
   resetTable() {
-    this.objectArray = [{p1: ''}];
+    if(this.objectArray === undefined) {
+      this.objectArray = [];
+    }
+    // remove all items if objectArray is populated
+    this.objectArray.length = 0;
+
+    // set default objectArray
+    this.objectArray.push({p1: ''});
   }
 }

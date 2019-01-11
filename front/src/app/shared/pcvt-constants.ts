@@ -1014,6 +1014,7 @@ export class PcvtConstants {
           projectKey: 'ed1',
           title: 'Describe the most appropriate experiment design for your experiment.',
           hint: 'The choice of design should involve consideration of sample size (number of replicates), selection of a suitable run order for the experimental trials, and determination of whether or not blocking or other randomization restrictions are involved [Montgomery 2013]. For the description of the experimental design in the experimental plan, it is important that not only the final design of the experiment is in there, but it should have also an explanation of how the design was arrived at and why experimenters have chosen that design and not a different one.',
+          fieldType: 'table',
           considerations: {
             state: 'Consider:',
             items: [

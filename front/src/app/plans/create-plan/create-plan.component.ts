@@ -116,7 +116,12 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
   buildDetailsObject() {
     this.instrumentQuestions.forEach(section => {
       section.questions.forEach(question => {
-        this.detailsObject[question.projectKey] = '';
+
+        if(question.fieldType === 'table') {
+          this.detailsObject[question.projectKey] = [];
+        } else {
+          this.detailsObject[question.projectKey] = '';
+        }
       })
     });
   }
