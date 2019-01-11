@@ -8,12 +8,12 @@ import {Component, Input, OnInit} from '@angular/core';
 export class DinamicTableFieldComponent implements OnInit {
 
   @Input()
-  objectArray: Array<any>;
+  objectArray;
 
   constructor() { }
 
   ngOnInit() {
-    if(!this.objectArray || this.objectArray.length ==  0) {
+    if(!this.objectArray || !Array.isArray(this.objectArray) || this.objectArray.length ==  0) {
       this.resetTable();
     }
   }
@@ -50,7 +50,7 @@ export class DinamicTableFieldComponent implements OnInit {
   }
 
   resetTable() {
-    if(this.objectArray === undefined) {
+    if(!Array.isArray(this.objectArray)) {
       this.objectArray = [];
     }
     // remove all items if objectArray is populated

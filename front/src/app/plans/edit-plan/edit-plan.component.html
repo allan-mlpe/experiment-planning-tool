@@ -32,7 +32,18 @@
                 <i *ngIf="question.hint !== ''" class="tiny material-icons section-icon" materialize="tooltip" data-position="bottom" data-delay="50"
                    [attr.data-tooltip]="question.hint">help</i>
               </p>
-              <textarea [(ngModel)]="detailsObject[question.projectKey]" [ngModelOptions]="{standalone: true}"></textarea>
+
+              <div [ngSwitch]="question.fieldType">
+                <div *ngSwitchCase="'table'">
+                  <app-dinamic-table-field [objectArray]="detailsObject[question.projectKey]"></app-dinamic-table-field>
+                </div>
+
+                <div *ngSwitchDefault>
+                  <textarea [(ngModel)]="detailsObject[question.projectKey]" [ngModelOptions]="{standalone: true}"></textarea>
+                </div>
+              </div>
+
+
 
               <div>
                 <ul class="collapsible popout">

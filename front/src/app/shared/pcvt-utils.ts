@@ -142,4 +142,19 @@ export class PcvtUtils {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
   }
+
+  public static buildDetailsObject(): any {
+    let obj: any = {};
+    PcvtConstants.INSTRUMENT_QUESTIONS.forEach(item => {
+      item.questions.forEach(question => {
+        if(question.fieldType === 'table') {
+          obj[question.projectKey] = [];
+        } else {
+          obj[question.projectKey] = '';
+        }
+      });
+    });
+
+    return obj;
+  }
 }

@@ -70,7 +70,7 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       $('.tabs').tabs();
     });
 
-    this.buildDetailsObject();
+    this.detailsObject = PcvtUtils.buildDetailsObject();
 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(144)]],
@@ -111,19 +111,6 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
     if(this.selectedCollaborators.length === 0) {
       this.form.get('reviewers').setErrors({required: true});
     }
-  }
-
-  buildDetailsObject() {
-    this.instrumentQuestions.forEach(section => {
-      section.questions.forEach(question => {
-
-        if(question.fieldType === 'table') {
-          this.detailsObject[question.projectKey] = [];
-        } else {
-          this.detailsObject[question.projectKey] = '';
-        }
-      })
-    });
   }
 
   onSubmit() {

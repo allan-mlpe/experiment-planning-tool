@@ -74,7 +74,7 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
       (info: {plan: Plan}) => {
         this.plan = info['plan'];
         this.detailsObject = this.plan.details !== undefined ?
-          JSON.parse(this.plan.details) : this.buildDetailsObject();
+          JSON.parse(this.plan.details) : PcvtUtils.buildDetailsObject();
 
         if(this.plan.characteristics !== undefined)
           this.characteristicsObject = JSON.parse(this.plan.characteristics);
@@ -183,17 +183,6 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     const isPlanningComplete = PcvtUtils.isPlanningInstrumentComplete(this.detailsObject);
 
     return isCharacterizationComplete && isPlanningComplete;
-  }
-
-  private buildDetailsObject(): any {
-    let obj: any = {};
-    this.instrumentQuestions.forEach(item => {
-      item.questions.forEach(question => {
-        obj[question.key] = '';
-      });
-    });
-
-    return obj;
   }
 
   isActiveLabel(value: string): any {
