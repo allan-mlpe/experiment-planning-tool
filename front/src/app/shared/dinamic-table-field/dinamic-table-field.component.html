@@ -1,0 +1,24 @@
+<div id="table-controls" class="right">
+  <div (click)="addRow()">
+    <i class="material-icons">add</i>
+    Row
+  </div>
+
+  <div (click)="addColumn()">
+    <i class="material-icons">add</i>
+    Column
+  </div>
+
+  <div (click)="resetTable()">
+    <i class="material-icons">clear_all</i>
+    Reset
+  </div>
+</div>
+
+<div>
+  <table>
+    <tr *ngFor="let obj of objectArray">
+      <td contenteditable="true" *ngFor="let key of getObjectKey(obj)" (keyup)="onKeyUp(obj, key, $event.target.innerText)"></td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,19 @@
+td {
+  border: 1px darkgray solid;
+  word-break: break-all;
+  min-width: 150px;
+}
+
+div#table-controls div {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+div#table-controls div:hover {
+  color: #26a69a;
+}
+
+div#table-controls div i {
+  vertical-align: bottom;
+}
