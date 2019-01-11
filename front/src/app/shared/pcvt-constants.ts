@@ -1131,6 +1131,7 @@ export class PcvtConstants {
           projectKey: 'pcd5',
           title: 'Describe the schedule in which the experiment will be run.',
           hint: '',
+          fieldType: 'table',
           considerations: {
             state: 'Consider',
             items: [
