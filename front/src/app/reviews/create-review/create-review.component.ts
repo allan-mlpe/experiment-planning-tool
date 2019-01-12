@@ -114,8 +114,6 @@ export class CreateReviewComponent implements OnInit, OnDestroy, IFormCanDeactiv
   onSubmit() {
     if (this.form.valid) {
       this.loadingButton = true;
-      console.log(this.selectedReviewers);
-      console.log(this.form.get('expireDate').value);
       const dateField = new Date(Date.parse(this.form.get('expireDate').value)) ;
 
       const reviewWrapperObj: any = {

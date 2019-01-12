@@ -96,6 +96,10 @@ export class ReviewPlanComponent implements OnInit, OnDestroy {
       );
   }
 
+  isTableAnswer(planValue) {
+    return Array.isArray(planValue);
+  }
+
   ngOnDestroy() {
     this.subsc.unsubscribe();
   }

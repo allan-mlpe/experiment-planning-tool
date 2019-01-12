@@ -47,8 +47,16 @@
 
             <div *ngIf="!plan.custom">
               <div class="plan-detail" *ngIf="planDetails[question.projectKey] !== undefined">
+
+                <div *ngIf="isTableAnswer(planDetails[question.projectKey])">
+                  <app-dinamic-table-field
+                    [editable]="false" [objectArray]="planDetails[question.projectKey]">
+                  </app-dinamic-table-field>
+                </div>
+
                 <textarea class="plan-detail-answer" [value]="planDetails[question.projectKey]" readonly
-                      *ngIf="planDetails[question.projectKey] !== ''"></textarea>
+                      *ngIf="!isTableAnswer(planDetails[question.projectKey])
+                                && planDetails[question.projectKey] !== ''"></textarea>
 
                 <p class="not-defined-detail" *ngIf="planDetails[question.projectKey] === ''">
                   Not informed by the author.
