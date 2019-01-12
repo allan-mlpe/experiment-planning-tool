@@ -18,7 +18,9 @@
 <div>
   <table>
     <tr *ngFor="let obj of objectArray">
-      <td [attr.contenteditable]="editable" *ngFor="let key of getObjectKey(obj)" (keyup)="onKeyUp(obj, key, $event.target.innerText)">{{ obj[key] }}</td>
+      <td [attr.contenteditable]="editable" *ngFor="let key of getObjectKey(obj)" (keyup)="onKeyUp(obj, key, $event.target.innerText)" [textContent]="obj[key]">
+        <input type="text" [(ngModel)]="obj[key]" [ngModelOptions]="{standalone: true}">
+      </td>
     </tr>
   </table>
 </div>
