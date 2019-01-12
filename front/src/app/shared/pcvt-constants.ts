@@ -623,7 +623,7 @@ export class PcvtConstants {
           }
         },
         {
-          projectKey: 'pcd3',
+          projectKey: 'pcd4',
           reviewItemIndex: 23,
           title: 'Is a Pilot described?',
           hint: 'Designing a study with human participants is necessarily an iterative process. Running an experiment for the first time, like testing software for the first time, will reveal a range of problems, which might include confusing study materials, bugs in the tool, confusion about the tasks, and unanticipated choices made by participants. Sandbox pilots and analytical evaluation are good options of pre-pilots because they are easy to schedule and can reveal problems with the experiment without the trouble of recruiting outsiders. Ko (2015) brings interesting tips about pilot and pre-pilots [Ko 2015]. If possible, a pilot of the experiment on a small set of people may be useful, so that you are sure that the plan is complete and the instructions understandable [Pfleeger 1995].',
@@ -633,7 +633,7 @@ export class PcvtConstants {
           }
         },
         {
-          projectKey: 'pcd4',
+          projectKey: 'pcd5',
           reviewItemIndex: 24,
           title: 'Do experimenters describe the schedule in which the experiment will be run?',
           hint: '',
