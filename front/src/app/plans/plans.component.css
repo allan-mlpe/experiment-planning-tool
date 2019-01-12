@@ -1,0 +1,13 @@
+div#redirect-reviews {
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+div#redirect-reviews a {
+  color: #26a69a;
+  vertical-align: text-top;
+}
+
+div#redirect-reviews i {
+  margin-left: 3px;
+}
