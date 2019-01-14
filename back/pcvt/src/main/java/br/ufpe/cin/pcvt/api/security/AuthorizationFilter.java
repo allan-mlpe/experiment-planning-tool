@@ -4,11 +4,9 @@ import br.ufpe.cin.pcvt.api.exceptions.ApiException;
 import br.ufpe.cin.pcvt.api.models.ApiMessage;
 import br.ufpe.cin.pcvt.api.utils.JwtUtils;
 import br.ufpe.cin.pcvt.api.utils.RequestContextUtils;
-import br.ufpe.cin.pcvt.controllers.ControllerFactory;
-import br.ufpe.cin.pcvt.data.models.user.User;
-import br.ufpe.cin.pcvt.exceptions.UserNotFoundException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 
 import javax.annotation.Priority;
@@ -46,7 +44,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
             RequestContextUtils.injectUser(containerRequestContext, claims.getIssuer());
 
-        } catch (ApiException | SignatureException | ExpiredJwtException e) {
+        } catch (ApiException | SignatureException | ExpiredJwtException | MalformedJwtException e) {
             ApiMessage message = new ApiMessage(Response.Status.UNAUTHORIZED,
                             "Invalid or expired token");
 
