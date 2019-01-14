@@ -130,9 +130,8 @@ public class PdfGenerator {
     private static PdfPTable buildAnswerTable(Object obj, Document document) throws DocumentException {
         document.add(Chunk.NEWLINE);
         PdfPTable table = null;
-
         List<LinkedTreeMap<String, String>> answerTable = (ArrayList<LinkedTreeMap<String, String>>) obj;
-        LinkedTreeMap<String, String> stringStringLinkedTreeMap = answerTable.get(0);
+
         if(answerTable.size() > 0) {
             // each item is a table row <tr>
             for (LinkedTreeMap<String, String> item : answerTable) {
