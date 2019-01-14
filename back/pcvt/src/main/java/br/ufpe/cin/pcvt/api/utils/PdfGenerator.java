@@ -5,12 +5,14 @@ import br.ufpe.cin.pcvt.api.models.instrument.InstrumentSection;
 import br.ufpe.cin.pcvt.api.resources.APIConstants;
 import br.ufpe.cin.pcvt.data.models.experiments.Plan;
 import br.ufpe.cin.pcvt.data.models.threats.Threat;
+import com.google.gson.internal.LinkedTreeMap;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -69,7 +71,7 @@ public class PdfGenerator {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
-            Map<String, String> detailsMap = JsonUtils.parseToSimpleMap(experimentalPlan.getDetails());
+            Map<String, Object> detailsMap = JsonUtils.parseToGenericMap(experimentalPlan.getDetails());
 
             List<InstrumentSection> instrumentQuestions = APIConstants.INSTRUMENT_SECTIONS;
             int questionNumber = 1;
@@ -94,7 +96,16 @@ public class PdfGenerator {
                             String.format("%d. %s", questionNumber, question.getTitle());
                     document.add(getItalicParagraph(questionStatement, 12));
 
-                    document.add(getSingleParagraph(detailsMap.get(question.getProjectKey())));
+                    Object auxObject = detailsMap.get(question.getProjectKey());
+
+                    if(!(auxObject instanceof List)) {
+                        String statement = auxObject.toString();
+                        document.add(getSingleParagraph(statement));
+                    } else {
+                        PdfPTable table = buildAnswerTable(auxObject, document);
+                        document.add(table);
+                    }
+
                     document.add(Chunk.NEWLINE);
 
                     if(section.getKey().equals(THREATS_SECTION_KEY)) {
@@ -114,6 +125,38 @@ public class PdfGenerator {
         document.close();
 
         return baos;
+    }
+
+    private static PdfPTable buildAnswerTable(Object obj, Document document) throws DocumentException {
+        document.add(Chunk.NEWLINE);
+        PdfPTable table = null;
+
+        List<LinkedTreeMap<String, String>> answerTable = (ArrayList<LinkedTreeMap<String, String>>) obj;
+        LinkedTreeMap<String, String> stringStringLinkedTreeMap = answerTable.get(0);
+        if(answerTable.size() > 0) {
+            // each item is a table row <tr>
+            for (LinkedTreeMap<String, String> item : answerTable) {
+                Set<Map.Entry<String, String>> entries = item.entrySet();
+
+                if (table == null) {
+                    table = new PdfPTable(entries.size());
+                }
+
+                // each entry is a table data <td>
+                for (Map.Entry<String, String> entry : entries) {
+                    String value = entry.getValue();
+
+                    buildTableCell(table, value);
+                }
+            }
+        }
+
+        return table;
+    }
+
+    private static void buildTableCell(PdfPTable table, String value) {
+        PdfPCell cell = new PdfPCell(new Phrase(value.length() != 0 ? value : " "));
+        table.addCell(cell);
     }
 
     private static void buildSuggestedThreats(Document document, Map<String, List<Threat>> groupedThreats) throws DocumentException {

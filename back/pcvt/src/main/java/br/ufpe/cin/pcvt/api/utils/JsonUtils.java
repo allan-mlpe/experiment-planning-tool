@@ -20,4 +20,12 @@ public class JsonUtils {
 
         return gson.fromJson(object, type);
     }
+
+    public static Map<String, Object> parseToGenericMap(String object) {
+        Type type = new TypeToken<Map<String, Object>>() {
+        }.getType();
+
+        return gson.fromJson(object, type);
+    }
+
 }

@@ -4,6 +4,7 @@ public class InstrumentQuestion {
     private String projectKey;
     private String title;
     private String hint;
+    private String fieldType;
     private InstrumentConsideration considerations;
 
     public InstrumentQuestion() {}
@@ -38,5 +39,13 @@ public class InstrumentQuestion {
 
     public void setConsiderations(InstrumentConsideration considerations) {
         this.considerations = considerations;
+    }
+
+    public String getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(String fieldType) {
+        this.fieldType = fieldType;
     }
 }
