@@ -36,6 +36,8 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
    */
   private subsc2: Subscription;
 
+  private intervalSubsc: Subscription;
+
   /**
    * Flag changes in form
    */
@@ -96,7 +98,7 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     );
 
     // enable auto-saving every 30s
-    Observable.interval(this.AUTO_SAVE_TIMEOUT).subscribe(
+    this.intervalSubsc = Observable.interval(this.AUTO_SAVE_TIMEOUT).subscribe(
       () => this.autoSave()
     );
   }
@@ -213,5 +215,6 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   ngOnDestroy() {
     this.subsc.unsubscribe();
     this.subsc2.unsubscribe();
+    this.intervalSubsc.unsubscribe();
   }
 }
