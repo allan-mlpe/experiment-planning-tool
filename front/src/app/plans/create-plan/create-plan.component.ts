@@ -129,15 +129,17 @@ export class CreatePlanComponent implements OnInit, OnDestroy, IFormCanDeactivat
       this.planService.savePlan(plan)
         .finally(() => this.saving = false)
         .subscribe(
-          data => {
+          (data: Plan) => {
             this.hasUnsavedChanges = false;
             ToastFactory.successToast("Plan created!");
+            this.router.navigate([`/plans/edit/${data.id}`]);
 
-            if(PcvtUtils.isCharacterizationInstrumentComplete(this.characteristicsObject)) {
-              this.showCompleteModal(data.id, data.name);
-            } else {
-              this.router.navigate(['/plans']);
-            }
+
+            // if(PcvtUtils.isCharacterizationInstrumentComplete(this.characteristicsObject)) {
+            //   this.showCompleteModal(data.id, data.name);
+            // } else {
+            //   this.router.navigate(['/plans']);
+            // }
           },
           (err: ApiMessage) => {
             this.hasUnsavedChanges = false;
