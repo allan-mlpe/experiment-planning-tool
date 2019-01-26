@@ -13,14 +13,24 @@
     <i class="material-icons">clear_all</i>
     Reset
   </div>
+
+  <div>
+    <app-info-tooltip [hint]="'Use right-click to delete a specific row or column'"></app-info-tooltip>
+  </div>
 </div>
 
 <div>
   <table>
-    <tr *ngFor="let obj of objectArray">
-      <td [attr.contenteditable]="editable" *ngFor="let key of getObjectKey(obj)" (keyup)="onKeyUp(obj, key, $event.target.innerText)" [textContent]="obj[key]">
-        <input type="text" [(ngModel)]="obj[key]" [ngModelOptions]="{standalone: true}">
+    <tr *ngFor="let obj of objectArray; let rowIndex = index">
+      <td *ngFor="let key of getObjectKey(obj); let columnIndex = index" (contextmenu)="onRightClick($event, obj, rowIndex, columnIndex); false" [attr.contenteditable]="editable" (keyup)="onKeyUp(obj, key, $event.target.innerText)" [textContent]="obj[key]">
       </td>
     </tr>
   </table>
+</div>
+
+<div id="context-menu" #contextMenu [ngClass]="this.menuState? 'context-active':'context-menu'" [ngStyle]="{'left':this.menuPositionX, 'top':this.menuPositionY}">
+  <ul>
+    <li (click)="deleteRow()">Delete row</li>
+    <li (click)="deleteColumn()">Delete column</li>
+  </ul>
 </div>

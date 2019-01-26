@@ -20,3 +20,34 @@ div#table-controls div:hover {
 div#table-controls div i {
   vertical-align: bottom;
 }
+
+/* context menu */
+div#context-menu {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+}
+
+div#context-menu ul {
+  list-style-type: none;
+  margin: 0;
+  background-color: #f1f1f1;
+}
+
+div#context-menu ul li {
+  cursor: pointer;
+  padding: 5px;
+}
+
+div#context-menu ul li:hover {
+  background-color: #26a69a;
+  color: white;
+}
+
+.context-menu {
+  position: absolute;
+  display: none;
+}
+
+.context-active {
+  display: block;
+  position: absolute;
+}
