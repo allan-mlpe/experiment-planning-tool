@@ -56,14 +56,12 @@ export class DinamicTableFieldComponent implements OnInit {
   }
 
   addColumn() {
-    let obj = this.objectArray[0];
-    let columns = Object.keys(obj).length;
+    let propertyHash: string = Math.random().toString(36).substring(7);
 
     this.objectArray.map(item => {
-      item[`p${columns+1}`] = '';
+      item[propertyHash] = '';
       return item;
     });
-
   }
 
   getObjectKey(obj) {
@@ -108,10 +106,8 @@ export class DinamicTableFieldComponent implements OnInit {
   deleteColumn() {
 
     if(Object.keys(this.rightClickedItem).length > 1) {
-      const propertyName = `p${this.rightClickedColumn+1}`;
-
       this.objectArray.forEach(item => {
-        delete item[propertyName];
+        delete item[this.rightClickedColumn];
       });
     } else {
       ToastFactory.warningToast('Your table must have at least one column.');

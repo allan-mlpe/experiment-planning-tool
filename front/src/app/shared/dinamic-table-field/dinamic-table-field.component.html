@@ -22,7 +22,7 @@
 <div>
   <table>
     <tr *ngFor="let obj of objectArray; let rowIndex = index">
-      <td *ngFor="let key of getObjectKey(obj); let columnIndex = index" (contextmenu)="onRightClick($event, obj, rowIndex, columnIndex); false" [attr.contenteditable]="editable" (keyup)="onKeyUp(obj, key, $event.target.innerText)" [textContent]="obj[key]">
+      <td *ngFor="let key of getObjectKey(obj); let columnIndex = index" (contextmenu)="onRightClick($event, obj, rowIndex, key); false" [attr.contenteditable]="editable" (keyup)="onKeyUp(obj, key, $event.target.innerText)" [textContent]="obj[key]">
       </td>
     </tr>
   </table>
