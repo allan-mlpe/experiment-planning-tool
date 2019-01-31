@@ -462,6 +462,7 @@
         "projectKey":"tv1",
         "title":"Identify and discuss threats to validity, study limitations, potential biases or confounders that may influence the experiment results.",
         "hint":"A fundamental question concerning results from an experiment is how valid the results are. It is important to consider the question of validity already in the planning phase in order to plan for adequate validity of the experiment results. Adequate validity refers to that the results should be valid for the population of interest. [Wohlin 2012]. [Anderlin Neto and Conte 2014] presents a tool to assist inexperienced researchers in identifying and addressing threats to validity in the planning stages of controlled experiments in software engineering",
+        "fieldType": "table",
         "considerations":{
           "state":"Consider:",
           "items":[
