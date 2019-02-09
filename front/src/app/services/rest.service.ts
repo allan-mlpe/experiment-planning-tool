@@ -152,9 +152,10 @@ export class RestService {
 
         FileSaver.saveAs(blob, fileName);
       },
-      (err: ApiMessage) => {
+      (err) => {
         console.log(err);
-        ToastFactory.errorToast(err.message);
+        const statusInfo = err.statusText ? `${err.statusText}.` : '';
+        ToastFactory.errorToast(`Could not download "${fileName}". ${statusInfo}`);
       }
     );
   }
