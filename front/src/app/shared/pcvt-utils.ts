@@ -149,6 +149,8 @@ export class PcvtUtils {
       item.questions.forEach(question => {
         if(question.fieldType === 'table') {
           obj[question.projectKey] = [];
+        } else if(question.fieldType === 'mixed') {
+          obj[question.projectKey] = { text: '' }
         } else {
           obj[question.projectKey] = '';
         }

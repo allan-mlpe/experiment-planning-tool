@@ -103,6 +103,14 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     );
   }
 
+  addTable(obj) {
+    obj['table'] = [];
+  }
+
+  deleteTable(obj) {
+    delete obj['table'];
+  }
+
   onSubmit() {
     this.saving = true;
     if(this.form.valid) {

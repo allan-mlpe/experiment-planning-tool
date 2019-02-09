@@ -38,6 +38,30 @@
                   <app-dinamic-table-field [objectArray]="detailsObject[question.projectKey]"></app-dinamic-table-field>
                 </div>
 
+                <div *ngSwitchCase="'mixed'">
+                  <textarea [(ngModel)]="detailsObject[question.projectKey].text" [ngModelOptions]="{standalone: true}"></textarea>
+
+                  <div class="table-button" *ngIf="!detailsObject[question.projectKey].table" type="button"
+                      (click)="addTable(detailsObject[question.projectKey])">
+                    Insert table
+                    <i class="material-icons right">
+                      <span>grid_on</span>
+                    </i>
+                  </div>
+
+                  <div class="table-button" *ngIf="detailsObject[question.projectKey].table" type="button"
+                      (click)="deleteTable(detailsObject[question.projectKey])">
+                    Delete table
+                    <i class="material-icons right">
+                      <span>grid_off</span>
+                    </i>
+                  </div>
+
+                  <div *ngIf="detailsObject[question.projectKey].table">
+                    <app-dinamic-table-field [objectArray]="detailsObject[question.projectKey].table"></app-dinamic-table-field>
+                  </div>
+                </div>
+
                 <div *ngSwitchDefault>
                   <textarea [(ngModel)]="detailsObject[question.projectKey]" [ngModelOptions]="{standalone: true}"></textarea>
                 </div>

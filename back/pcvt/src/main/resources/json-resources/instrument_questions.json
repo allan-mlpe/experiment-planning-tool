@@ -256,7 +256,7 @@
         "projectKey":"ed1",
         "title":"Describe the most appropriate experiment design for your experiment.",
         "hint":"The choice of design should involve consideration of sample size (number of replicates), selection of a suitable run order for the experimental trials, and determination of whether or not blocking or other randomization restrictions are involved [Montgomery 2013]. For the description of the experimental design in the experimental plan, it is important that not only the final design of the experiment is in there, but it should have also an explanation of how the design was arrived at and why experimenters have chosen that design and not a different one.",
-        "fieldType": "table",
+        "fieldType": "mixed",
         "considerations":{
           "state":"Consider:",
           "items":[
@@ -375,7 +375,7 @@
         "projectKey":"pcd5",
         "title":"Describe the schedule in which the experiment will be run.",
         "hint":"",
-        "fieldType": "table",
+        "fieldType": "mixed",
         "considerations":{
           "state":"Consider",
           "items":[
@@ -462,7 +462,7 @@
         "projectKey":"tv1",
         "title":"Identify and discuss threats to validity, study limitations, potential biases or confounders that may influence the experiment results.",
         "hint":"A fundamental question concerning results from an experiment is how valid the results are. It is important to consider the question of validity already in the planning phase in order to plan for adequate validity of the experiment results. Adequate validity refers to that the results should be valid for the population of interest. [Wohlin 2012]. [Anderlin Neto and Conte 2014] presents a tool to assist inexperienced researchers in identifying and addressing threats to validity in the planning stages of controlled experiments in software engineering",
-        "fieldType": "table",
+        "fieldType": "mixed",
         "considerations":{
           "state":"Consider:",
           "items":[

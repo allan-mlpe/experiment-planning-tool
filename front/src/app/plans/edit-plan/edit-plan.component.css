@@ -1,0 +1,16 @@
+div.table-button {
+  display: inline-block;
+  color: #26a69a;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin: 10px 0 10px 0;
+}
+
+div.table-button i {
+  margin-left: 3px;
+}
+
+div.table-button i span {
+  vertical-align: super;
+  font-size: 20px;
+}
