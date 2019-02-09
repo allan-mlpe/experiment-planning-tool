@@ -9,6 +9,7 @@ import { CanDeactivateFormGuard } from './guards/candeactivate-form.guard';
 import { LayoutsModule } from './shared/layouts/layouts.module';
 import { ShowLoginGuard } from "./guards/show-login.guard";
 import { ReferencesComponent } from './references/references.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { ReferencesComponent } from './references/references.component';
     ReferencesComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     LayoutsModule
   ],

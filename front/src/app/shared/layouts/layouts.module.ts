@@ -26,6 +26,7 @@ import {ThreatClassificationComponent} from '../threat-classification/threat-cla
 import {CustomThreatModalComponent} from '../custom-threat-modal/custom-threat-modal.component';
 import {DefineCustomActionsComponent} from "../define-custom-actions/define-custom-actions.component";
 import { DinamicTableFieldComponent } from '../dinamic-table-field/dinamic-table-field.component';
+import { InfoAlertComponent } from '../info-alert/info-alert.component';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { DinamicTableFieldComponent } from '../dinamic-table-field/dinamic-table
     ThreatClassificationComponent,
     CustomThreatModalComponent,
     DefineCustomActionsComponent,
-    DinamicTableFieldComponent
+    DinamicTableFieldComponent,
+    InfoAlertComponent
   ],
   exports: [
     BlankLayoutComponent,
@@ -81,7 +83,8 @@ import { DinamicTableFieldComponent } from '../dinamic-table-field/dinamic-table
     ThreatClassificationComponent,
     CustomThreatModalComponent,
     DefineCustomActionsComponent,
-    DinamicTableFieldComponent
+    DinamicTableFieldComponent,
+    InfoAlertComponent
   ]
 })
 export class LayoutsModule { }
