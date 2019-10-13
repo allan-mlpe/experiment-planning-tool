@@ -54,7 +54,7 @@ export class EditPlanComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   saving: boolean = false;
   completing: boolean = false;
 
-  private readonly AUTO_SAVE_TIMEOUT: number = 30 * 1000; // in milliseconds
+  private readonly AUTO_SAVE_TIMEOUT: number = 60 * 1000; // in milliseconds
 
   getCharacterizationQuestionsObject(key: string): any {
     return this.CHARACTERIZATION_QUESTIONS.find(item => item['key'] === key);
